@@ -10,6 +10,11 @@ import { Clients} from '../clients/clients.component';
 import { Contact} from '../contact/contact.component';
 import { Jobs} from '../jobs/jobs.component';
 import { Jobseekers} from '../jobseekers/jobseekers.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ButtonModule} from 'primeng/button';
+import {InputTextModule} from 'primeng/inputtext';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import {AutoCompleteModule} from 'primeng/autocomplete';
 
 const routes: Routes=[
                       {path:'',component:Home},
@@ -35,6 +40,11 @@ const routes: Routes=[
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    ButtonModule,
+    InputTextModule,
+    InputTextareaModule,
+    AutoCompleteModule,
     RouterModule.forRoot(routes)
   ],
   providers: [],

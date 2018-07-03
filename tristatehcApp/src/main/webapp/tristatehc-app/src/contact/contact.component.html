@@ -1,6 +1,41 @@
 
 
-<div class="container">
-	<div class="container">Resume upload form submission</div>
+<div class="ui-g" >
+	<form action="">
+		<div class="ui-g-12" >
+			
+			
+				<h2>Contact Us</h2>
+		</div>
+		<div class="ui-g-4">
+			<span class="ui-float-label"> <input id="id_firstName"
+				type="text" size="40" pInputText> <label for="id_firstName">First
+					Name</label>
+			</span>
+		</div>
+	
+		<div class="ui-g-4">
+			<span class="ui-float-label"> <input id="id_LastName"
+				type="text" size="40" pInputText> <label for="id_LastName">Middle
+					Name</label>
+			</span>
+		</div>
+		<div class="ui-g-4">
+			<span class="ui-float-label"> <input id="id_firstName"
+				type="text" size="40" pInputText> <label for="id_firstName">Last
+					Name</label>
+			</span>
+		</div>
+		<div class="ui-g-4">
+			<p-autoComplete  [suggestions]="filteredCountriesSingle" (completeMethod)="filterCountrySingle($event)" field="name" [size]="30" placeholder="Countries" [minLength]="1">
+    		</p-autoComplete>
+		</div>
+		
+		
+	
+	</form>
 </div>
+
+
+
 
