@@ -15,6 +15,8 @@ import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {AutoCompleteModule} from 'primeng/autocomplete';
+import {FileUploadModule} from 'primeng/fileupload';
+import {InputMaskModule} from 'primeng/inputmask';
 
 const routes: Routes=[
                       {path:'',component:Home},
@@ -45,6 +47,8 @@ const routes: Routes=[
     InputTextModule,
     InputTextareaModule,
     AutoCompleteModule,
+    FileUploadModule,
+    InputMaskModule,
     RouterModule.forRoot(routes)
   ],
   providers: [],

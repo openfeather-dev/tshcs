@@ -3,6 +3,8 @@ import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {AutoCompleteModule} from 'primeng/autocomplete';
+import {FileUploadModule} from 'primeng/fileupload';
+import {InputMaskModule} from 'primeng/inputmask';
 @Component({
   selector: 'contact',
   templateUrl: '../contact/contact.component.html',
