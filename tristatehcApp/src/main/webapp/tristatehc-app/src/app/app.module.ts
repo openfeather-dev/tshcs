@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import {CommonModule} from '@angular/common';
+import {FormsModule}    from '@angular/forms'
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MedicalStaffing} from '../medical-staffing/staffing.component';
@@ -17,6 +18,10 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {FileUploadModule} from 'primeng/fileupload';
 import {InputMaskModule} from 'primeng/inputmask';
+import { ScheduleComponent } from './schedule/schedule.component';
+import {ScheduleModule} from 'primeng/schedule';
+import {DialogModule} from 'primeng/dialog';
+import {CalendarModule} from 'primeng/calendar';
 
 const routes: Routes=[
                       {path:'',component:Home},
@@ -27,6 +32,7 @@ const routes: Routes=[
                       {path:'contact',component:Contact},
                       {path:'jobs',component:Jobs},
                       {path:'jobseekers',component:Jobseekers},
+                      {path:'schedule',component:ScheduleComponent},
                        ];
 
 @NgModule({
@@ -38,17 +44,24 @@ const routes: Routes=[
     Clients,
     Contact,
     Jobs,
-    Jobseekers
+    Jobseekers,
+    ScheduleComponent
+    
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     ButtonModule,
+    CommonModule,
+    FormsModule,
     InputTextModule,
     InputTextareaModule,
+    DialogModule,
     AutoCompleteModule,
     FileUploadModule,
     InputMaskModule,
+    ScheduleModule,
+    CalendarModule,
     RouterModule.forRoot(routes)
   ],
   providers: [],

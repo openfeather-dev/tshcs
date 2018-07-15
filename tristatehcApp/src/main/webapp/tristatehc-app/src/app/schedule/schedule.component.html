@@ -1,0 +1,21 @@
+<div class="container">
+	<p-dialog [(visible)]="display" [width]="370"  [height]="300">
+    <p-header>
+        Appointment Details
+    </p-header>
+   		<label for="title">Title</label><br/>
+			<input id="title" [(ngModel)]="titleVal" type="text" size="40" pInputText><br/>
+		<label for="from">From</label><br/>	 
+		<p-calendar [(ngModel)]="fromTime" [timeOnly]="true"></p-calendar><br/>
+		<label for="to">To</label><br/>
+		<p-calendar [(ngModel)]="toTime" [timeOnly]="true"></p-calendar>
+    <p-footer>
+			<button pButton type="button"  label="Update"  (click)="handleUpdate($event)" iconPos="left"></button>	
+			<button pButton type="button"  label="Create" (click)="handleSave(fc)" iconPos="left"></button>		
+    </p-footer>
+</p-dialog>
+	<p-schedule [events]="events" [header]="headerConfig" [editable]= "true" (onEventClick)="handleEventClick($event)" (onDayClick) ="handleDayClick($event)" #fc></p-schedule>
+	
+	
+</div>
+
