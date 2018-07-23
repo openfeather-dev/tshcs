@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ButtonModule} from 'primeng/button';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
     private username :string;
     private password :string;
     
-  constructor() {
+  constructor(private router: Router) {
       
   }
 
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
   handleSubmit(event :any){
       console.log("username " + this.username);
       console.log("password " + this.password);
-      sessionStorage.setItem("isAuthenticated","true")
+      sessionStorage.setItem("isAuthenticated","true");
+      this.router.navigate(['schedule']);
   }
 }
