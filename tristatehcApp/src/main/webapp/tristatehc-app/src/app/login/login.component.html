@@ -1,0 +1,31 @@
+
+
+<div class="ui-g" >
+	<form name="passwordForm">
+		<div class="ui-g-12" >
+			
+			
+				<h2>Login</h2>
+		</div>
+		
+		<div class="ui-g-4">
+		<label for="username">User Name / Email-Id</label><br/>
+			<input name="username" id="username" type="text" size="40" [(ngModel)]="username" pInputText> 
+		</div>
+		<div class="ui-g-4">
+		<label for="password">Password</label><br/>
+			<input name="password" id="password" type="text" size="40" [(ngModel)]="password" pInputText> 
+		</div>
+		
+		<div class="ui-g-4">
+		<button pButton type="button" label="Submit" (click)="handleSubmit($event)"></button>
+		</div>
+		
+		
+		
+	</form>
+</div>
+
+
+
+

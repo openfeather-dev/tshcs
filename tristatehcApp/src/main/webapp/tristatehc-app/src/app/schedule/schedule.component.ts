@@ -4,7 +4,8 @@ import {DialogModule} from 'primeng/dialog';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {CalendarModule} from 'primeng/calendar';
-import * as moment from 'moment';
+//import * as Moment from 'moment';
+
 
 
 @Component({
@@ -15,11 +16,11 @@ import * as moment from 'moment';
 })
 export class ScheduleComponent implements OnInit {
 
-  events: any[];
+events: any[];
 headerConfig: any;
 titleVal: string;
 fromTime: Date;
-clickedDate :Moment;
+clickedDate :any;
 toTime: Date;
   
   constructor() { }
@@ -73,12 +74,12 @@ handleUpdate(e){
 
  addNewEvent(title:string,fromDate:Date,toDate:Date)
 {
-    var jsonData = {};
-    
-    jsonData["title"] = title;
-    jsonData["start"] = moment(fromDate);
-    jsonData["end"] = moment(toDate);
-    this.events.push(jsonData);
+    //let jsonData = {title:title,start:moment(fromDate).format(),end:moment(toDate).format()};
+    //JSON.parse(this.jsonData);
+    //jsonData["title"] = title;
+    //jsonData["start"] = moment(fromDate).format();
+    //jsonData["end"] = moment(toDate).format();
+    //this.events.push(jsonData);
  }
 
 

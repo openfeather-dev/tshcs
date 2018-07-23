@@ -22,6 +22,9 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import {ScheduleModule} from 'primeng/schedule';
 import {DialogModule} from 'primeng/dialog';
 import {CalendarModule} from 'primeng/calendar';
+import {AuthGuardService as AuthGuard} from './auth/auth-guard.service';
+import {LoginComponent} from './login/login.component';
+
 
 const routes: Routes=[
                       {path:'',component:Home},
@@ -32,7 +35,8 @@ const routes: Routes=[
                       {path:'contact',component:Contact},
                       {path:'jobs',component:Jobs},
                       {path:'jobseekers',component:Jobseekers},
-                      {path:'schedule',component:ScheduleComponent},
+                      {path:'login',component:LoginComponent},
+                      {path:'schedule',component:ScheduleComponent,canActivate: [AuthGuard]},
                        ];
 
 @NgModule({
@@ -45,7 +49,8 @@ const routes: Routes=[
     Contact,
     Jobs,
     Jobseekers,
-    ScheduleComponent
+    ScheduleComponent,
+    LoginComponent
     
   ],
   imports: [
@@ -64,7 +69,7 @@ const routes: Routes=[
     CalendarModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
