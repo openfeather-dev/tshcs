@@ -75,7 +75,7 @@
                 <installDirectory>${angular.project.nodeinstallation}</installDirectory>
     </configuration>
             <executions>
-                <!-- It will install nodejs and npm 
+              
                 <execution>
                     <id>install node and npm</id>
                     <goals>
@@ -86,7 +86,7 @@
                         <npmVersion>6.1.0</npmVersion>
                     </configuration>
                 </execution>
-				 -->
+				
                 <!-- It will execute command "npm install" inside "/e2e-angular2" directory -->
                 <execution>
                     <id>npm install</id>

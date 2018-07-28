@@ -4,7 +4,8 @@ import {DialogModule} from 'primeng/dialog';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {CalendarModule} from 'primeng/calendar';
-//import * as Moment from 'moment';
+import * as moment_ from 'moment';
+const moment = moment_;
 
 
 
@@ -74,12 +75,12 @@ handleUpdate(e){
 
  addNewEvent(title:string,fromDate:Date,toDate:Date)
 {
-    //let jsonData = {title:title,start:moment(fromDate).format(),end:moment(toDate).format()};
+    let jsonData = {title:title,start:moment(fromDate).format(),end:moment(toDate).format()};
     //JSON.parse(this.jsonData);
-    //jsonData["title"] = title;
-    //jsonData["start"] = moment(fromDate).format();
-    //jsonData["end"] = moment(toDate).format();
-    //this.events.push(jsonData);
+    jsonData["title"] = title;
+    jsonData["start"] = moment(fromDate).format();
+    jsonData["end"] = moment(toDate).format();
+    this.events.push(jsonData);
  }
 
 
