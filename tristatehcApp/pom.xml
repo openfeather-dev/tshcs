@@ -82,7 +82,7 @@
 					<installDirectory>${angular.project.nodeinstallation}</installDirectory>
 				</configuration>
 				<executions>
-		<!--  
+		
 					<execution>
 						<id>install node and npm</id>
 						<goals>
@@ -93,8 +93,8 @@
 							<npmVersion>6.1.0</npmVersion>
 						</configuration>
 					</execution>
-		-->
-					<!-- It will execute command "npm install" inside "/e2e-angular2" directory 
+	<!--  	-->
+					<!-- It will execute command "npm install" inside "/e2e-angular2" directory -->
 					<execution>
 						<id>npm install</id>
 						<goals>
@@ -104,9 +104,9 @@
 							<arguments>install</arguments>
 						</configuration>
 					</execution>
-					-->
+					
 					<!-- It will execute command "npm build" inside "/e2e-angular2" directory 
-						to clean and create "/dist" directory 
+						to clean and create "/dist" directory -->
 					<execution>
 						<id>npm build</id>
 						<goals>
@@ -116,7 +116,7 @@
 							<arguments>run build</arguments>
 						</configuration>
 					</execution>
-					-->
+					
 				</executions>
 			</plugin>
 
