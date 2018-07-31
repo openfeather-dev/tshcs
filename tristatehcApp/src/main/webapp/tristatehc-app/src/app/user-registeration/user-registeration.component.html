@@ -1,0 +1,56 @@
+<div class="ui-g">
+	<form name="userRegisterationForm">
+		<div class="ui-g-12">
+			<h2>User Registeration</h2>
+			
+		</div>
+		
+		<div class="ui-g-4">
+			<span class="ui-float-label"> 
+				<input id="first-name"	type="text" size="30" pInputText> 
+				<label for="first-name">First Name</label>
+					
+			</span>
+		</div>	
+		<div class="ui-g-4">
+			<span class="ui-float-label"> 
+				<input id="middle-name"	type="text" size="30" pInputText> 
+				<label for="middle-name">Middle Name</label>
+					
+			</span>
+		</div>
+		<div class="ui-g-4">
+			<span class="ui-float-label"> 
+				<input id="last-name"	type="text" size="30" pInputText> 
+				<label for="last-name">Last Name</label>
+					
+			</span>
+		</div>	
+		<br>
+		<label for="email">Email</label>
+		<br>
+		<input id="email" type="text" size="50" pInputText>
+		
+		<br><br>
+		<label for="password">Password</label><br>
+		<input pPassword type="password" size="30"/>
+		
+		<br><br>
+		<label for="confirmPassword"> Confirm Password</label><br>
+		<input pPassword type="password" size="30"/>
+		<br><br>
+		
+		<div class="ui-g-1">
+			<button pButton type="button" label="Register"	(click)="handleRegisteration($event)"></button>
+		</div>
+		<div class="ui-g-1">
+			<button pButton type="button" label="Cancel" (click)="handleCancel($event)"></button>
+		</div>
+		
+
+	</form>
+</div>
+
+
+
+

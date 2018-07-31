@@ -1,0 +1,1 @@
+insert into user values('openfeather.admin@hotmail.com','Kurian','Mathew','','admin','admin'); 

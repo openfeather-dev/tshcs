@@ -8,20 +8,23 @@
 				<h2>Login</h2>
 		</div>
 		
-		<div class="ui-g-4">
-		<label for="username">User Name / Email-Id</label><br/>
+		<div class="ui-g-12">
+		<label for="username">Email</label><br>
 			<input name="username" id="username" type="text" size="40" [(ngModel)]="username" pInputText> 
-		</div>
-		<div class="ui-g-4">
+		<br>
+		<br>
 		<label for="password">Password</label><br/>
 			<input name="password" id="password" type="text" size="40" [(ngModel)]="password" pInputText> 
+		<br><br>
+		</div>
+		<div class="ui-g-2">
+			<button pButton type="button" label="Submit" (click)="handleSubmit($event)"></button>
+		</div>
+		<div class="ui-g-2">
+		<a [routerLink] ="['/register']" >Register </a>
 		</div>
 		
-		<div class="ui-g-4">
-		<button pButton type="button" label="Submit" (click)="handleSubmit($event)"></button>
-		</div>
-		
-		
+				
 		
 	</form>
 </div>
