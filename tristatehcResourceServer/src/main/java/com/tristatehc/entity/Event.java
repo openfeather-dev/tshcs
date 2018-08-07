@@ -18,21 +18,31 @@ public class Event implements Serializable{
 	@GeneratedValue
 	private String eventId;
 	private String title;
-	private String userId;
+	private String email;
 	private Date eventDate;
 	private String startTime;
 	private String endTime;
+	
+	//user show or no show flag
+	
+	//shiftid
+	
+	//hospitalid
+	
+	
+	//
+	
 	public String getEventId() {
 		return eventId;
 	}
 	public void setEventId(String eventId) {
 		this.eventId = eventId;
 	}
-	public String getUserId() {
-		return userId;
+	public String getEmail() {
+		return email;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public Date getEventDate() {
 		return eventDate;

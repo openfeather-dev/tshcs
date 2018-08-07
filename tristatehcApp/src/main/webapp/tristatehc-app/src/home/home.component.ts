@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+
 @Component({
   selector: 'home',
   templateUrl: '../home/home.component.html',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class Home {
   title = 'medical staffing';
+ 
 }

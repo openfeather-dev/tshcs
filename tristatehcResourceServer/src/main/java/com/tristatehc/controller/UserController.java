@@ -12,16 +12,23 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tristatehc.dto.UserDTO;
 import com.tristatehc.service.UserService;
 
-@RestController(value="/user")
+//@RestController(value="/user")
 public class UserController {
 	
 	@Autowired  UserService userService;
 	
 	
-	@RequestMapping(consumes={MediaType.APPLICATION_JSON_VALUE} ,method=RequestMethod.POST,produces={MediaType.APPLICATION_JSON_VALUE})
+	//@RequestMapping(consumes={MediaType.APPLICATION_JSON_VALUE} ,method=RequestMethod.POST,produces={MediaType.APPLICATION_JSON_VALUE})
 	public UserDTO getUser(@RequestBody UserDTO user) {
 		Optional<UserDTO> userOptnl = userService.getUser(user.getMaiId());
 		return userOptnl.get();
 	}
+	
+	
+	//@RequestMapping(method=RequestMethod.GET)
+	public String sayHi() {
+		return "welcome !!";
+	}
+
 
 }

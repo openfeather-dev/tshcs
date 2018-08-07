@@ -2,11 +2,11 @@ package com.tristatehc.dto;
 
 import java.sql.Date;
 
-public class EntityDTO {
+public class EventDTO {
 	
 	private String eventId;
 	private String title;
-	private String userId;
+	private String email;
 	private Date eventDate;
 	private String startTime;
 	private String endTime;
@@ -23,11 +23,11 @@ public class EntityDTO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getUserId() {
-		return userId;
+	public String getEmail() {
+		return email;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public Date getEventDate() {
 		return eventDate;

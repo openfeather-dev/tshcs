@@ -25,10 +25,14 @@ import {CalendarModule} from 'primeng/calendar';
 import {AuthGuardService as AuthGuard} from './auth/auth-guard.service';
 import {LoginComponent} from './login/login.component';
 import { UserRegisterationComponent } from './user-registeration/user-registeration.component';
+import { OktaCallbackComponent, OktaAuthModule } from '@okta/okta-angular';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth-interceptor';
+import { HttpClientModule} from "@angular/common/http";
 
 
 const routes: Routes=[
-                      {path:'',component:Home},
+                      {path:'',redirectTo: '/home', pathMatch: 'full'},
                       {path:'home',component:Home},
                       {path:'medicalstaffing',component:MedicalStaffing},
                       {path:'aboutus',component:Aboutus},
@@ -38,8 +42,15 @@ const routes: Routes=[
                       {path:'jobseekers',component:Jobseekers},
                       {path:'login',component:LoginComponent},
                       {path:'schedule',component:ScheduleComponent,canActivate: [AuthGuard]},
-                      {path:'register',component:UserRegisterationComponent}
+                      {path:'register',component:UserRegisterationComponent},
+                      {path: 'implicit/callback',    component: OktaCallbackComponent}
                        ];
+                       
+ const config = {
+  				issuer: 'https://dev-444763.oktapreview.com/oauth2/default',
+ 				redirectUri: 'http://localhost:4200/implicit/callback',
+  				clientId: '0oafuhs95vCjTXe6f0h7'
+				};
 
 @NgModule({
   declarations: [
@@ -70,9 +81,11 @@ const routes: Routes=[
     InputMaskModule,
     ScheduleModule,
     CalendarModule,
-    RouterModule.forRoot(routes)
+    HttpClientModule,
+    RouterModule.forRoot(routes),
+    OktaAuthModule.initAuth(config)
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,12 +5,17 @@ import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {CalendarModule} from 'primeng/calendar';
 import * as moment_ from 'moment';
+import { OktaAuthService } from '@okta/okta-angular';
 const moment = moment_;
+import { ScheduleService } from './schedule.service';
+import { User } from '../model/user';
+import { Event } from '../model/event';
+
 
 
 
 @Component({
-  selector: 'app-schedule',
+  selector: 'app-schedule', 
   templateUrl: './schedule.component.html',
   styleUrls: ['./schedule.component.css']
 
@@ -23,10 +28,15 @@ titleVal: string;
 fromTime: Date;
 clickedDate :any;
 toTime: Date;
+isAuthenticated:boolean;
+userEvents :Event[]   ;
+userEvent :Event;  
+user:User;    
   
-  constructor() { }
+ constructor(private scheduleService :ScheduleService,private oktaAuth: OktaAuthService) { }
   
   display: boolean = false;
+    
 
   showDialog() {
       this.display = true;
@@ -81,10 +91,40 @@ handleUpdate(e){
     jsonData["start"] = moment(fromDate).format();
     jsonData["end"] = moment(toDate).format();
     this.events.push(jsonData);
+   /*
+     this.oktaAuth.getUser().then(user => {
+        this.scheduleService.addEvent(this.userEvent,user.email).subscribe(userEvent => this.events.push(userEvent));
+    },(err) => {
+                console.error(err);
+                  });   
+     
+     */
  }
 
 
-  ngOnInit() {
+  async ngOnInit() {
+        if(this.oktaAuth.isAuthenticated()){
+            const accessToken = this.oktaAuth.getAccessToken();
+            this.oktaAuth.getUser().then(user => {
+                console.log('user '+ user.email);
+            // this.user = user;
+                // console.log('the user object --- >' + JSON.stringify(user));
+                let someObj =  this.scheduleService.getEventByEmail(user.email)
+                .subscribe(userEvent => {
+                 this.userEvent = userEvent;
+                    console.log(this.userEvent);
+             }, (err) => {
+                console.error(err);
+                  });
+            //console.log("event from service " +JSON.stringify(someObj));
+          });
+               
+            }
+           
+              
+      
+      
+   
       this.events = [
                      {
                          "title": "All Day Event",
@@ -110,6 +150,7 @@ handleUpdate(e){
                      }
                  ];
       
+    
       
       this.headerConfig = {
               left: 'prev,next today',
@@ -118,6 +159,7 @@ handleUpdate(e){
           };
       
          }
+         
              
       
       

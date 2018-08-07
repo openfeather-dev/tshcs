@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from './auth/auth.service';
+import { OktaAuthService } from '@okta/okta-angular';
+
 
 @Component({
   selector: 'app-root',
@@ -8,4 +11,24 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AppComponent {
   title = 'app';
+  isAuthenticated: boolean;
+
+  constructor(private oktaAuth: OktaAuthService) {
+  
+  // Subscribe to authentication state changes
+  this.oktaAuth.$authenticationState.subscribe(
+      (isAuthenticated: boolean)  => this.isAuthenticated = isAuthenticated
+    );
+  
+  }
+
+  async ngOnInit() {
+  console.log("AuthService");
+   // Get the authentication state for immediate use
+    this.isAuthenticated = await this.oktaAuth.isAuthenticated();
+    console.log(this.isAuthenticated);
+  }
+  
+     
+  
 }
