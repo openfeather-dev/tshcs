@@ -21,6 +21,7 @@ import {InputMaskModule} from 'primeng/inputmask';
 import { ScheduleComponent } from './schedule/schedule.component';
 import {ScheduleModule} from 'primeng/schedule';
 import {DialogModule} from 'primeng/dialog';
+import {DropdownModule} from 'primeng/dropdown';
 import {CalendarModule} from 'primeng/calendar';
 import {AuthGuardService as AuthGuard} from './auth/auth-guard.service';
 import {LoginComponent} from './login/login.component';
@@ -76,6 +77,7 @@ const routes: Routes=[
     InputTextModule,
     InputTextareaModule,
     DialogModule,
+    DropdownModule,
     AutoCompleteModule,
     FileUploadModule,
     InputMaskModule,

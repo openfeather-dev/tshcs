@@ -15,8 +15,17 @@
 			<button pButton type="button"  label="Create" (click)="handleSave(fc)" iconPos="left"></button>		
     </p-footer>
 </p-dialog>
-	<p-schedule [events]="events" [header]="headerConfig" [editable]= "true" (onEventClick)="handleEventClick($event)" (onDayClick) ="handleDayClick($event)" #fc></p-schedule>
+	<p-schedule *ngIf="userType === 'Admin'" [events]="events" [header]="headerConfig" [editable]= "true" (onEventClick)="handleEventClick($event)" (onDayClick) ="handleDayClick($event)" #fc></p-schedule>
 	
-	
+	<!--  Schedule for Nurses -->
+	<p-dialog  [(visible)]="displayAvailability" header="Select Availability" [width]="370"  [height]="300" blockScroll="false">
+		<p-dropdown  appendTo="body" [options]="shifts" [(ngModel)]="selectedShift" placeholder="Select a Shift" [style]="{width:'100%'}"></p-dropdown>
+    <p-footer>
+    		<button pButton type="button"  label="Save" (click)="saveAvailability()" iconPos="left"></button>
+			<button pButton type="button" [(disabled)]="!isDeleteBtnVisible" label="Delete" (click)="deleteAvailability()" iconPos="left"></button>		
+    </p-footer>
+	</p-dialog>
+	<p-schedule *ngIf="userType === 'Nurse'"  [events]="userEvents" (onEventClick)="handleEventClick($event)" (onDayClick) ="handleDayClick($event)"></p-schedule>
+	<!-- Schedule for Nurses -->
 </div>
 

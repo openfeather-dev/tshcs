@@ -84,7 +84,7 @@
 					
 					<!-- It will execute command "npm build" inside "/e2e-angular2" directory 
 						to clean and create "/dist" directory -->
-					<execution>
+					<execution> 
 						<id>npm build</id>
 						<goals>
 							<goal>npm</goal>
