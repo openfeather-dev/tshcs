@@ -1,6 +1,5 @@
-
 <div class="container">
-	<p-dialog [(visible)]="display" [width]="370"  [height]="300">
+	<!--<p-dialog [(visible)]="display" [width]="370"  [height]="300">
     <p-header>
         Appointment Details
     </p-header>
@@ -10,22 +9,46 @@
 		<p-calendar [(ngModel)]="fromTime" [timeOnly]="true"></p-calendar><br/>
 		<label for="to">To</label><br/>
 		<p-calendar [(ngModel)]="toTime" [timeOnly]="true"></p-calendar>
-    <p-footer>
-			<button pButton type="button"  label="Update"  (click)="handleUpdate($event)" iconPos="left"></button>	
-			<button pButton type="button"  label="Create" (click)="handleSave(fc)" iconPos="left"></button>		
+		<div>
+		<p-dropdown  appendTo="body" [options]="shifts" [(ngModel)]="selectedShift" (onChange)="onChange($event)" [style]="{width:'100%'}"></p-dropdown>
+		</div>
+		<div>
+		<p-dropdown  appendTo="body" [disabled]="!isDropDwnVisible" [options]="users" [(ngModel)]="selectedUser" [style]="{width:'100%'}"></p-dropdown>
+    </div>
+    <p-footer>	
+			<button pButton type="button"  label="Create" (click)="saveEvent()" iconPos="left"></button>	
+			<button pButton type="button"  [disabled]="!isDeleteBtnVisible" label="Delete"  (click)="handleUpdate()" iconPos="left"></button>
+			<	
     </p-footer>
-</p-dialog>
-	<p-schedule *ngIf="userType === 'Admin'" [events]="events" [header]="headerConfig" [editable]= "true" (onEventClick)="handleEventClick($event)" (onDayClick) ="handleDayClick($event)" #fc></p-schedule>
+</p-dialog>-->
+	<div class="ui-g-8 ui-md-2">
+        <h3>7-3</h3>
+        <p-calendar [(ngModel)]="datesMorning" selectionMode="multiple" [readonlyInput]="true"></p-calendar>
+    </div>
+    <div class="ui-g-8 ui-md-2">
+        <h3>3-11</h3>
+        <p-calendar [(ngModel)]="datesAfternoon" selectionMode="multiple" [readonlyInput]="true"></p-calendar>
+    </div>
+    <div class="ui-g-8 ui-md-2">
+        <h3>11-7</h3>
+        <p-calendar [(ngModel)]="datesNight" selectionMode="multiple" [readonlyInput]="true"></p-calendar>
+    </div>
+    <br><br>
+    <div class="ui-g-24 ui-md-6">
+    	<button pButton type="button"  label="Save" (click)="saveDates()" iconPos="left"></button>
+    </div>
+    
+	<p-schedule *ngIf="email === 'openfeather@hotmail.com'" [events]="userEvents" [header]="headerConfig" [editable]= "true" (onEventClick)="handleEventClick($event)" (onDayClick) ="handleDayClick($event)" #fc></p-schedule>
 	
 	<!--  Schedule for Nurses -->
 	<p-dialog  [(visible)]="displayAvailability" header="Select Availability" [width]="370"  [height]="300" blockScroll="false">
-		<p-dropdown  appendTo="body" [options]="shifts" [(ngModel)]="selectedShift" placeholder="Select a Shift" [style]="{width:'100%'}"></p-dropdown>
+		<p-dropdown  appendTo="body" [options]="shifts" [(ngModel)]="selectedShift" [style]="{width:'100%'}"></p-dropdown>
     <p-footer>
     		<button pButton type="button"  label="Save" (click)="saveAvailability()" iconPos="left"></button>
-			<button pButton type="button" [(disabled)]="!isDeleteBtnVisible" label="Delete" (click)="deleteAvailability()" iconPos="left"></button>		
+			<button pButton type="button" [disabled]="!isDeleteBtnVisible" label="Delete" (click)="deleteAvailability()" iconPos="left"></button>		
     </p-footer>
 	</p-dialog>
-	<p-schedule *ngIf="userType === 'Nurse'"  [events]="userEvents" (onEventClick)="handleEventClick($event)" (onDayClick) ="handleDayClick($event)"></p-schedule>
+	<p-schedule *ngIf="email === 'snehazacharia@gmail.com'"  [events]="userEvents" (onEventClick)="handleEventClick($event)" (onDayClick) ="handleDayClick($event)"></p-schedule>
 	<!-- Schedule for Nurses -->
 </div>
 

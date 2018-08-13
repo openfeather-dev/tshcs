@@ -48,12 +48,13 @@
 				<li routerLinkActive="active"><a routerLink="/jobs">JOBS</a></li>
 				<li routerLinkActive="active"><a routerLink="/schedule">SCHEDULE</a></li>
 				<li routerLinkActive="active"><a routerLink="/login">LOGIN</a></li>
+				<li routerLinkActive="active"><a routerLink="/myAvailability">MY AVAILABILITY</a></li>
 			</ul>
 
 		</div>
 	</nav>
 </div>
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
+<div id="myCarousel" *ngIf="isCarousal" class="carousel slide" data-ride="carousel">
 	<!-- Indicators -->
 	<ol class="carousel-indicators">
 		<li data-target="#myCarousel" data-slide-to="0" class="active"></li>

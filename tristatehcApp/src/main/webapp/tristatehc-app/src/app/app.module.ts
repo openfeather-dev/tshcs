@@ -21,8 +21,9 @@ import {InputMaskModule} from 'primeng/inputmask';
 import { ScheduleComponent } from './schedule/schedule.component';
 import {ScheduleModule} from 'primeng/schedule';
 import {DialogModule} from 'primeng/dialog';
-import {DropdownModule} from 'primeng/dropdown';
 import {CalendarModule} from 'primeng/calendar';
+import {DropdownModule} from 'primeng/dropdown';
+import {CheckboxModule} from 'primeng/checkbox';
 import {AuthGuardService as AuthGuard} from './auth/auth-guard.service';
 import {LoginComponent} from './login/login.component';
 import { UserRegisterationComponent } from './user-registeration/user-registeration.component';
@@ -30,6 +31,8 @@ import { OktaCallbackComponent, OktaAuthModule } from '@okta/okta-angular';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth-interceptor';
 import { HttpClientModule} from "@angular/common/http";
+import { AvailabilityComponent } from './availability/availability.component';
+import { CalendarModule as AngularCalendar } from 'angular-calendar';
 
 
 const routes: Routes=[
@@ -44,7 +47,8 @@ const routes: Routes=[
                       {path:'login',component:LoginComponent},
                       {path:'schedule',component:ScheduleComponent,canActivate: [AuthGuard]},
                       {path:'register',component:UserRegisterationComponent},
-                      {path: 'implicit/callback',    component: OktaCallbackComponent}
+                      {path: 'implicit/callback',    component: OktaCallbackComponent},
+                      {path: 'myAvailability',    component: AvailabilityComponent}
                        ];
                        
  const config = {
@@ -65,7 +69,8 @@ const routes: Routes=[
     Jobseekers,
     ScheduleComponent,
     LoginComponent,
-    UserRegisterationComponent
+    UserRegisterationComponent,
+    AvailabilityComponent
     
   ],
   imports: [
@@ -78,6 +83,7 @@ const routes: Routes=[
     InputTextareaModule,
     DialogModule,
     DropdownModule,
+    CheckboxModule,
     AutoCompleteModule,
     FileUploadModule,
     InputMaskModule,
@@ -85,7 +91,8 @@ const routes: Routes=[
     CalendarModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    OktaAuthModule.initAuth(config)
+    OktaAuthModule.initAuth(config),
+    AngularCalendar.forRoot()
   ],
   providers: [AuthGuard,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]

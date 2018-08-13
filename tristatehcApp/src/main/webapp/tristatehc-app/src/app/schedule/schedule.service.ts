@@ -1,48 +1,51 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import {Observable} from 'rxjs/Observable';
 import { Event } from '../model/event';
 
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ScheduleService {
+    //TODO remove hard coded base url value
     baseUrl = 'http://localhost:8090/event/';
- // restItemsUrl = 'https://reqres.in/api/users/';
-    constructor(private http :HttpClient ) { }
-    
-    getEventByEmail(email :string ){
-        console.log(this.baseUrl+email);
-      return this.http
-      .get<Event>(this.baseUrl+email);
-    
+
+    constructor(private http: HttpClient) { }
+
+    /**
+     * Method to get all user events from rest api
+     */
+    getUserEvents(email: string) {
+        return this.http.get<Event[]>(this.baseUrl + email);
     }
-    
-    addEvent(event:Event, email: string): Observable<Event>{
-        
-        return this.http.post<Event>(this.baseUrl+email,event);
-    }
-    
-    
-    //Start: Event operations for nurses
-    getUserEvents(email:string) {
-      return this.http.get<Event[]>(this.baseUrl+email);   
-    }
-          
+
+    /**
+     * Method to save a user event
+     */
     saveUserEvent(event: Event) {
-        console.log(event.email);
-        return this.http.post(this.baseUrl+event.email, event);
+        return this.http.post(this.baseUrl + event.email, event);
+
+    }
     
-    }      
-          
+    /**
+     * Method to update a user event
+     */
+    updateUserEvent(event: Event){
+        console.log(this.baseUrl + event.email);
+        return this.http.put(this.baseUrl + event.email,event);
+    }
+
+    /**
+     * Method to delete a user event
+     */
+    deleteUserEvent(eventId: number) {
+        return this.http.delete<Event>(this.baseUrl + eventId);
+    }
     
-    deleteUserEvent(eventId:number){
-         return this.http.delete<Event>(this.baseUrl+eventId);   
-        }
-    //End: Event operations for nurses
+    getUsers(selectedDate : string){
     
-        
     
+    }
+    
+
 }

@@ -12,6 +12,7 @@ import { OktaAuthService } from '@okta/okta-angular';
 export class AppComponent {
   title = 'app';
   isAuthenticated: boolean;
+  isCarousal:boolean=true;
 
   constructor(private oktaAuth: OktaAuthService) {
   

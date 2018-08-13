@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,ChangeDetectionStrategy, OnInit } from '@angular/core';
 import {ScheduleModule} from 'primeng/schedule';
 import {DialogModule} from 'primeng/dialog';
 import {DropdownModule} from 'primeng/dropdown';
@@ -25,140 +25,216 @@ const moment = moment_;
 })
 export class ScheduleComponent implements OnInit {
 
-events: any[];
-headerConfig: any;
-titleVal: string;
-fromTime: Date;
-clickedDate :any;
-toTime: Date;
-isAuthenticated:boolean;
-userEvents :Event[] =[]   ;
-userEvent :Event;  
-user:User;
-display: boolean = false; 
-isDeleteBtnVisible:boolean =false;   
+    events: any[];
+    headerConfig: any;
+    titleVal: string;
+    fromTime: Date;
+    clickedDate :any;
+    toTime: Date;
+    isAuthenticated:boolean;
+    userEvents :Event[] =[]   ;
+    userEvent :Event;  
+    user:User;
+    display: boolean = false;
+     
+    isDeleteBtnVisible:boolean = false;
+    displayAvailability: boolean = false;
+    shifts:SelectItem[];
+    selectedShift:string;
+    email:string;
+    isDropDwnVisible:boolean = false;
+    users:SelectItem[];
+    usersList:Array<any>;
+    selectedUser:string;
+    datesMorning:string[];
+    datesAfternoon:string[];
+    datesNight:string[];   
   
- constructor(private scheduleService :ScheduleService,private oktaAuth: OktaAuthService) { 
- //Start-Dialog box for nurses
- //Todo start remove hardcoded value
-    this.shifts = [{label:'1st Shift', value:'1st Shift'},{label:'2nd Shift', value:'2nd Shift'},{label:'3rd Shift', value:'3rd Shift'}];
-    this.userType = "Nurse";
- //Todo end remove hardcoded value
- }
-  
+    constructor(private scheduleService :ScheduleService,private oktaAuth: OktaAuthService) { 
     
- displayAvailability: boolean = false;
- shifts:SelectItem[];
- selectedShift:string;
- userType : string;
- email:string;
-  
+    //TODO start remove hard coded value
+        this.shifts = [{label:'1st Shift', value:'1st Shift'},{label:'2nd Shift', value:'2nd Shift'},{label:'3rd Shift', value:'3rd Shift'}];
+        this.users = [{label:'snehazacharia@gmail.com', value:'Sneha'}];
+             
+        
+    //Todo end remove hardcoded value
+    }
+    
+    //TODO remove
+    saveDates(){
+        console.log("****Dates selected*****"+this.datesMorning.length);
+       if(this.datesMorning.length > 0){
+           for(let index = 0; index< this.datesMorning.length;index++){
+            this.userEvent = new Event();
+            this.userEvent.title = "7-3";
+            this.userEvent.start = this.datesMorning[index];
+            this.userEvents.push(this.userEvent);
+           }
+       }
+        if(this.datesAfternoon.length > 0){
+            for(let index = 0; index< this.datesAfternoon.length;index++){
+            this.userEvent = new Event();
+            this.userEvent.title = "3-11";
+            this.userEvent.start = this.datesAfternoon[index];
+            this.userEvents.push(this.userEvent);
+           }
+        }
+        
+        if(this.datesNight.length > 0){
+            for(let index = 0; index< this.datesNight.length;index++){
+            this.userEvent = new Event();
+            this.userEvent.title = "11-7    ";
+            this.userEvent.start = this.datesNight[index];
+            this.userEvents.push(this.userEvent);
+           }
+        }
+       else{
+           console.log(this.datesNight); 
+        
+        }
+        
+    }
+    
     getEvents(){
         this.scheduleService.getUserEvents(this.email)
         .subscribe(userEvents => {
             this.userEvents = userEvents;
-        //this.userEvents.push(userEvent);       
-        },err => {console.log("Error occured.")
+         },err => {console.log("Error occured.")
       });
     }
     
+    /**
+     * Method called when user saves/updates an event
+     */
     
     saveAvailability(){
-        if(this.userEvent.title){            
-            for(let index = 0; index < this.userEvents.length;index++){
-                console.log(this.userEvents[index].start +" "+this.userEvent.start);
-                //TODO add this ccondition also
-                if(this.userEvents[index].start == this.userEvent.start){
-                    console.log("*********************")    
-                }
-                if(this.userEvents[index].title === this.userEvent.title){
-                    this.userEvent.title = this.selectedShift;
-                    this.userEvents[index] = this.userEvent;
-                }
-             } 
+        //Update an event
+        if(this.userEvent.eventId){            
+                this.userEvent.title = this.selectedShift;
+                //Update database
+            let updatedObj = this.getNewEventObject(this.userEvent);
+            
+            console.log("json --->" +JSON.stringify(updatedObj));
+                this.scheduleService.updateUserEvent(updatedObj).subscribe(data =>{
+                    
+                    this.getEvents();
+                    
+                    },error => {
+                        console.error("Error updating event!!!!!"+error);
+                    });
         }else {
+            //Save an event
             //let date : string = formatDate(this.userEvent.start,'yyyy-MM-dd','en-US','+0000');
             this.userEvent.title = this.selectedShift;
             this.userEvent.email = this.email;
+            //Save to database
             this.scheduleService.saveUserEvent(this.userEvent).subscribe(data => {
-                console.log("reponse "+data);
-                 // refresh the list
-                 this.getEvents();
-                 return true;
-                },
+               //Save to local list
+                this.userEvents.push(<Event>data);
+               },
                  error => {
                     console.error("Error saving event!!!!!");
-                }
-                );
-            //this.userEvents.push(this.userEvent);
+                });
         }
         this.userEvent = null;
         this.displayAvailability = false;
     }
     
+    /**
+     * Method  called when user wants to delete an event
+     */
     deleteAvailability(){
-        /*for(this.userEvents.eventId){
-                if(this.userEvents[index].title === this.userEvent.title){
-                    this.userEvents.splice(index,1);
-                }
-             }
-        */
        let eventId:number =  this.userEvent.eventId;
          this.scheduleService.deleteUserEvent(eventId)
         .subscribe(userEvent => {
-            console.log(userEvent);
-             this.getEvents();
-        //this.userEvents.push(userEvent);       
-        },err => {console.log("Error occured.")
+            this.getEvents();
+         },err => {
+             console.log("Error occured.")
       });
        
-        this.displayAvailability = false;
+       this.displayAvailability = false;
         
-    }
+     }
     
- //End - Dialog box for nurses
-    
-  showDialog() {
-      this.display = true;
-  }
-      
-  
-  handleEventClick(e: any){
+         
+   /**
+    * Method called when the user clicks the event
+    */
+    handleEventClick(event: any){
       this.isDeleteBtnVisible = true;
-      if(this.userType == "Nurse"){
-          console.log("HaandleEvent"+e.calEvent.eventId);
-          this.userEvent = e.calEvent;
-         // this.userEvent.title = e.calEvent.title;
-         this.selectedShift = e.calEvent.title;
-         // this.userEvent.start = e.calEvent.start;
-          this.displayAvailability = true;
+       
+      //If the user is a nurse
+      if(this.email == "snehazacharia@gmail.com"){
+         
+         this.userEvent = event.calEvent;
+         console.log("event ==>" +this.userEvent.eventId);
+        this.selectedShift = event.calEvent.title;
+        this.displayAvailability = true;
       }else{
-       console.log("handleeventclick " +e.calEvent.start.format());
-      this.titleVal = e.calEvent.title;
-      this.fromTime = e.calEvent.start.toDate();
-      this.toTime = e.calEvent.end.toDate();
-        this.showDialog();
+         console.log("handleeventclick " +event.calEvent.start.format());
+         this.titleVal = event.calEvent.title;
+         this.fromTime = event.calEvent.start.toDate();
+         this.toTime = event.calEvent.end.toDate();
+         this.display = true; 
       }
-  }
+    }
   
-  handleDayClick(e: any){
-      //Handles event for Nurses
+    /**
+     * Method called when the user clicks on a day on the schedule calendar 
+     */
+    
+      handleDayClick(event: any){
       this.isDeleteBtnVisible = false;
-      if(this.userType == "Nurse"){
-          this.userEvent = new Event();
-          this.userEvent.start = e.date;
+      this.userEvent = new Event();
+      this.userEvent.start = event.date;
+      
+        //If the user is a admin
+      if(this.email == "openfeather@hotmail.com"){
+         this.display = true; 
+         this.isDropDwnVisible = false;          
+          
+      }else if(this.email == "snehazacharia@gmail.com"){
+          
           this.displayAvailability = true;
           delete this.selectedShift;
-      }else{
-      this.clickedDate = e.date;
-      
-      console.log("e.view.name " +e);
-      console.log("clickedDate " +this.clickedDate);
-      this.showDialog();
+
       }
-  }
+    }
+    
+    onChange(event:any){
+        this.isDropDwnVisible = true;
+        /*this.scheduleService.getUsers(this.userEvent.start, ).subscribe(data => {
+            this.usersList = data.users;
+            this.users = [];
+            for(var i = 0; i < this.usersList.length; i++) {
+                   this.users.push({label: this.usersList[i], value: this.usersList[i]});
+               }
+            });*/
+    }
+    
+    /**
+     * Method to save/update an event created by admin
+     */
+    saveEvent(){
+        //save an event
+        this.userEvent.title = this.titleVal;
+        this.userEvent.email = this.email;
+        /*//Save to database
+         this.scheduleService.saveUserEvent(this.userEvent).subscribe(data => {
+             //Save to local list
+             this.userEvents.push(<Event>data);
+             },
+             error => {
+                    console.error("Error saving event!!!!!");
+             });*/
+        this.userEvents.push(this.userEvent);
+        this.userEvent = null;
+        this.display = false;
+    }  
+    
+    
   
-  handleSave(fc: any){
+  /*handleSave(fc: any){
       console.log("titleVal "+this.titleVal);
       let fromDate :Date =  new Date();
       let toDate :Date =  new Date();
@@ -173,14 +249,10 @@ isDeleteBtnVisible:boolean =false;
       this.addNewEvent(this.titleVal, fromDate, toDate);
       //fc.updateEvent(event);
       this.display = false;
-  }
+  }*/
   
-handleUpdate(e){
-      
-  }
 
-
- addNewEvent(title:string,fromDate:Date,toDate:Date)
+ /*addNewEvent(title:string,fromDate:Date,toDate:Date)
 {    /*
     let jsonData = {title:title,start:moment(fromDate).format(),end:moment(toDate).format()};
     //JSON.parse(this.jsonData);
@@ -189,65 +261,44 @@ handleUpdate(e){
     jsonData["end"] = moment(toDate).format();
     this.events.push(jsonData);
   
-     */
+    
      this.oktaAuth.getUser().then(user => {
         this.scheduleService.addEvent(this.userEvent,user.email).subscribe(userEvent => this.events.push(userEvent));
     },(err) => {
                 console.error(err);
                   });   
      
- }
+ }*/
 
+    getNewEventObject(event:Event){
+        let updatedObj:Event = new Event(); 
+            updatedObj.title = event.title;
+             updatedObj.email = event.email;
+             updatedObj.eventId =event.eventId;
+            updatedObj.start = event.start;
+            return updatedObj;
+    }
 
-  async ngOnInit() {
-        if(this.oktaAuth.isAuthenticated()){
-            const accessToken = this.oktaAuth.getAccessToken();
-            this.oktaAuth.getUser().then(user => {
-                this.email = user.email;
-                this.getEvents();
+    async ngOnInit() {
+      //Allow only authenticated users to access schedule
+      if(this.oktaAuth.isAuthenticated()){
+          //const accessToken = this.oktaAuth.getAccessToken();
+          this.oktaAuth.getUser().then(user => {
+              this.email = user.email;
+              //call existing events for logged in user
+              this.getEvents();
           });
                
-            }
-      
-   
-      /*this.events = [
-                     {
-                         "title": "All Day Event",
-                         "start": "2018-07-15"
-                     },
-                     {
-                         "title": "Long Event",
-                         "start": "2018-07-11",
-                         "end": "2018-07-15"
-                     },
-                     {
-                         "title": "Repeating Event",
-                         "start": "2018-01-09T16:00:00"
-                     },
-                     {
-                         "title": "Repeating Event",
-                         "start": "2018-01-16T16:00:00"
-                     },
-                     {
-                         "title": "Conference",
-                         "start": "2018-07-11",
-                         "end": "2018-07-13"
-                     }
-                     
-                 ];*/
-      
-    
-      
+      }
+           
       this.headerConfig = {
-              left: 'prev,next today',
-              center: 'title',
-              right: 'month,agendaWeek,agendaDay'
-          };
+         left: 'prev,next today',
+         center: 'title',
+         right: 'month,agendaWeek,agendaDay'
+      };
       
-         }
-         
-             
-      
+    }
+        
       
   }
 
