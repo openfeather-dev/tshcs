@@ -10,6 +10,16 @@ public class EventDTO {
 	private Date eventDate;
 	private String startTime;
 	private String endTime;
+	private String start;
+	
+	
+	public String getStart() {
+		return start;
+	}
+	public void setStart(String start) {
+		this.start = start;
+	
+	}
 	
 	public String getEventId() {
 		return eventId;

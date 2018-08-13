@@ -1,5 +1,7 @@
 package com.tristatehc.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,16 +23,25 @@ public class EventController {
 	
 	//@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(path="/{emailId}",method=RequestMethod.GET,produces={MediaType.APPLICATION_JSON_VALUE})
-	public EventDTO getEvent(@PathVariable("emailId") String emailId) {
-		EventDTO dto = new EventDTO();
-		dto.setEmail("email@fromrealDB.com");
-		return eventService.getEvent(emailId);
-		//return dto;
+	public List<EventDTO> getEvent(@PathVariable("emailId") String emailId) {
+		return eventService.getEvents(emailId);
 	}
 	
 	@RequestMapping(path="/{emailId}",method=RequestMethod.POST,produces={MediaType.APPLICATION_JSON_VALUE})
-	public EventDTO addEvent(@RequestBody Event event){
+	public EventDTO addEvent(@RequestBody Event event,@PathVariable("emailId") String emailId){
 		return eventService.addEvent(event);
+	}
+	
+	
+	@RequestMapping(path="/{eventId}",method=RequestMethod.DELETE)
+	public void deleteEvent(@PathVariable("eventId") int eventId){
+		eventService.deleteEvent(eventId);
+	}
+	
+	@RequestMapping(path="/{emailId}",method=RequestMethod.PUT)
+	public EventDTO updateEvent(@RequestBody Event event){
+		System.out.println("***EventController***");
+		return eventService.updateEvent(event);
 	}
 	
 

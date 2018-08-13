@@ -16,12 +16,13 @@ public class Event implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
-	private String eventId;
+	private Integer eventId;
 	private String title;
 	private String email;
 	private Date eventDate;
 	private String startTime;
 	private String endTime;
+	private String start;
 	
 	//user show or no show flag
 	
@@ -31,11 +32,18 @@ public class Event implements Serializable{
 	
 	
 	//
+	public String getStart() {
+		return start;
+	}
+	public void setStart(String start) {
+		this.start = start;
 	
-	public String getEventId() {
+	}
+	
+	public Integer getEventId() {
 		return eventId;
 	}
-	public void setEventId(String eventId) {
+	public void setEventId(Integer eventId) {
 		this.eventId = eventId;
 	}
 	public String getEmail() {
