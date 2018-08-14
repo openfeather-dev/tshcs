@@ -24,6 +24,7 @@ import {DialogModule} from 'primeng/dialog';
 import {CalendarModule} from 'primeng/calendar';
 import {DropdownModule} from 'primeng/dropdown';
 import {CheckboxModule} from 'primeng/checkbox';
+import {TableModule} from 'primeng/table';
 import {AuthGuardService as AuthGuard} from './auth/auth-guard.service';
 import {LoginComponent} from './login/login.component';
 import { UserRegisterationComponent } from './user-registeration/user-registeration.component';
@@ -33,6 +34,7 @@ import { AuthInterceptor } from './auth-interceptor';
 import { HttpClientModule} from "@angular/common/http";
 import { AvailabilityComponent } from './availability/availability.component';
 import { CalendarModule as AngularCalendar } from 'angular-calendar';
+import { EnterAvailabilityComponent } from './enter-availability/enter-availability.component';
 
 
 const routes: Routes=[
@@ -48,7 +50,8 @@ const routes: Routes=[
                       {path:'schedule',component:ScheduleComponent,canActivate: [AuthGuard]},
                       {path:'register',component:UserRegisterationComponent},
                       {path: 'implicit/callback',    component: OktaCallbackComponent},
-                      {path: 'myAvailability',    component: AvailabilityComponent}
+                      {path: 'myAvailability',    component: AvailabilityComponent},
+                      {path: 'enterAvailability', component: EnterAvailabilityComponent}
                        ];
                        
  const config = {
@@ -70,7 +73,8 @@ const routes: Routes=[
     ScheduleComponent,
     LoginComponent,
     UserRegisterationComponent,
-    AvailabilityComponent
+    AvailabilityComponent,
+    EnterAvailabilityComponent
     
   ],
   imports: [
@@ -92,7 +96,8 @@ const routes: Routes=[
     HttpClientModule,
     RouterModule.forRoot(routes),
     OktaAuthModule.initAuth(config),
-    AngularCalendar.forRoot()
+    AngularCalendar.forRoot(),
+    TableModule
   ],
   providers: [AuthGuard,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]

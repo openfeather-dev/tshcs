@@ -48,7 +48,8 @@ export class ScheduleComponent implements OnInit {
     selectedUser:string;
     datesMorning:string[];
     datesAfternoon:string[];
-    datesNight:string[];   
+    datesNight:string[];  
+     
   
     constructor(private scheduleService :ScheduleService,private oktaAuth: OktaAuthService) { 
     

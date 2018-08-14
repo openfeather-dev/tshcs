@@ -12,6 +12,7 @@ import { OktaAuthService } from '@okta/okta-angular';
 export class AppComponent {
   title = 'app';
   isAuthenticated: boolean;
+  loggedInUser:string;  
   isCarousal:boolean=true;
 
   constructor(private oktaAuth: OktaAuthService) {
@@ -27,7 +28,13 @@ export class AppComponent {
   console.log("AuthService");
    // Get the authentication state for immediate use
     this.isAuthenticated = await this.oktaAuth.isAuthenticated();
-    console.log(this.isAuthenticated);
+    this.oktaAuth.getUser().then(user => {
+              this.loggedInUser = user.email;
+          });  
+      
+    /*let userObj = await this.oktaAuth.getUser(); 
+      this.loggedInUser= await userObj.email;
+    console.log(this.isAuthenticated);*/
   }
   
      

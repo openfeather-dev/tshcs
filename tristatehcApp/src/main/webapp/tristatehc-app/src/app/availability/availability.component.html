@@ -2,7 +2,7 @@
   [(view)]="view"
   [(viewDate)]="viewDate">
 </mwl-demo-utils-calendar-header> -->
-
+<div class="container">
 <ng-template #customCellTemplate let-day="day" let-locale="locale">
   <div class="cal-cell-top">
   <div class="ui-g-12">
@@ -23,7 +23,7 @@
   </div>
   <div class="ui-g-12">
 		<label for="comments">Comments</label><br/>
-			<textarea #textComments id="{{ day.date | date: 'dd/MM/yyyy'}}" [(ngModel)]="comments[textComments.id]" pInputTextarea></textarea>
+			<textarea [rows]="5" [cols]="12" #textComments id="{{ day.date | date: 'dd/MM/yyyy'}}" [(ngModel)]="comments[textComments.id]" pInputTextarea></textarea>
 		</div>
 </ng-template>
 
@@ -45,4 +45,5 @@
     [viewDate]="viewDate"
     [events]="events">
   </mwl-calendar-day-view>
+</div>
 </div>
