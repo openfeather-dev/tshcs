@@ -43,7 +43,7 @@ export class ScheduleService {
     }
     
     getUsers(selectedDate : string){
-    
+    return this.http.get("http://localhost:8090/userinfo");
     
     }
     

@@ -291,6 +291,7 @@ export class ScheduleComponent implements OnInit {
           });
                
       }
+       
            
       this.headerConfig = {
          left: 'prev,next today',
