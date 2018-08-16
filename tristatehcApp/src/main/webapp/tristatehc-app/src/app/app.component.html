@@ -28,10 +28,10 @@
 				</ul>
 			</div>
 			<div class="col-xs-6">
-				<span *ngIf="isAuthenticated">{{loggedInUser}}</span>
 				<a style="list-style-type: none; color: white; font-size: 15px;" *ngIf="!isAuthenticated" (click)="oktaAuth.loginRedirect()"> Login </a>
-	    		<a style="list-style-type: none; color: white; font-size: 15px;" *ngIf="isAuthenticated" (click)="oktaAuth.logout()" [routerLink]="['/home']"> Logout </a>
-    		     
+	    		<br><span style="list-style-type: none; color: white; font-size: 15px;" *ngIf="isAuthenticated">Welcome {{loggedInUser}} !!</span>
+	    		<br><a style="list-style-type: none; color: white; font-size: 15px;" *ngIf="isAuthenticated" (click)="logout()" [routerLink]="['/home']"> Logout </a>
+    		    
     		</div>
 			
 		</div>

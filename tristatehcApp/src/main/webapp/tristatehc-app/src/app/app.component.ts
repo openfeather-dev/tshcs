@@ -22,7 +22,10 @@ export class AppComponent {
       (isAuthenticated: boolean)  => {this.isAuthenticated = isAuthenticated;
         this.oktaAuth.getUser().then(user => {
             console.log(user);
-              this.loggedInUser = user.email;
+            if(user){
+              this.loggedInUser = user.given_name;
+             }
+            console.log(this.loggedInUser);
           });  
     })
   
@@ -48,6 +51,10 @@ export class AppComponent {
     console.log(this.isAuthenticated);*/
   }
   
+    logout(){
+        this.loggedInUser = '';
+        this.oktaAuth.logout();
+     }
          
   
 }
