@@ -29,7 +29,8 @@
 			</div>
 			<div class="col-xs-6">
 				<a style="list-style-type: none; color: white; font-size: 15px;" *ngIf="!isAuthenticated" (click)="oktaAuth.loginRedirect()"> Login </a>
-	    		<br><span style="list-style-type: none; color: white; font-size: 15px;" *ngIf="isAuthenticated">Welcome {{loggedInUser}} !!</span>
+	    		<br>
+	    		<span style="list-style-type: none; color: white; font-size: 15px;" *ngIf="isAuthenticated">Welcome {{loggedInUser}} !!</span>
 	    		<br><a style="list-style-type: none; color: white; font-size: 15px;" *ngIf="isAuthenticated" (click)="logout()" [routerLink]="['/home']"> Logout </a>
     		    
     		</div>

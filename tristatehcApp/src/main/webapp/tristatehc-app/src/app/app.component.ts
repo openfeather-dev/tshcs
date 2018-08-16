@@ -35,15 +35,7 @@ export class AppComponent {
   console.log("AuthService");
    // Get the authentication state for immediate use
     this.isAuthenticated = await this.oktaAuth.isAuthenticated(); 
-   /* if (this.oktaAuth.isAuthenticated()) {
-    const accessToken = this.oktaAuth.getAccessToken().accessToken
-    
-    // Get user information
-    const userInfo = this.oktaAuth.getOktaAuth().token.getUserInfo(accessToken) : undefined
-    
-    // Update the UI with userInfo.email
-         console.log(userInfo); 
-  }*/
+  
           
       
     /*let userObj = await this.oktaAuth.getUser(); 

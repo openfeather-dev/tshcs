@@ -52,7 +52,7 @@ const routes: Routes=[
                       {path: 'implicit/callback',    component: OktaCallbackComponent},
                       {path: 'myAvailability',    component: AvailabilityComponent},
                       {path: 'enterAvailability', component: EnterAvailabilityComponent}
-                       ];
+                     ];
                        
  const config = {
   				issuer: 'https://dev-444763.oktapreview.com/oauth2/default',
