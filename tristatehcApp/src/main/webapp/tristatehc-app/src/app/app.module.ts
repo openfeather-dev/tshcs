@@ -35,6 +35,7 @@ import { HttpClientModule} from "@angular/common/http";
 import { AvailabilityComponent } from './availability/availability.component';
 import { CalendarModule as AngularCalendar } from 'angular-calendar';
 import { EnterAvailabilityComponent } from './enter-availability/enter-availability.component';
+import { ShiftDetailsComponent } from './shift-details/shift-details.component';
 
 
 const routes: Routes=[
@@ -51,7 +52,8 @@ const routes: Routes=[
                       {path:'register',component:UserRegisterationComponent},
                       {path: 'implicit/callback',    component: OktaCallbackComponent},
                       {path: 'myAvailability',    component: AvailabilityComponent},
-                      {path: 'enterAvailability', component: EnterAvailabilityComponent}
+                      {path: 'enterAvailability', component: EnterAvailabilityComponent},
+                      {path: 'shiftDetails', component: ShiftDetailsComponent}
                      ];
                        
  const config = {
@@ -75,7 +77,8 @@ const routes: Routes=[
     LoginComponent,
     UserRegisterationComponent,
     AvailabilityComponent,
-    EnterAvailabilityComponent
+    EnterAvailabilityComponent,
+    ShiftDetailsComponent
     
   ],
   imports: [
