@@ -1,5 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy ,Input, Output, EventEmitter} from '@angular/core';
 import {CalendarEvent} from 'angular-calendar';
+import { EnterAvailabilityService } from './enter-availability.service';
+import { UserProfile} from '../model/user-profile';
 
 @Component({
   selector: 'app-enter-availability',
@@ -12,7 +14,7 @@ export class EnterAvailabilityComponent implements OnInit {
     users:any[];
     cols:any[];
    
-    constructor() { 
+    constructor(private availablility:EnterAvailabilityService) { 
 
     }
         ngOnInit() {
@@ -57,6 +59,11 @@ export class EnterAvailabilityComponent implements OnInit {
         
         console.log(this.selectedAllShifts);
         console.log(this.selectedShifts);
+      this.availablility.getUserProfile("hsingh3").subscribe((userProfile) => {
+      console.log("userProfile "+JSON.stringify(userProfile));
+    });
+;
+       
         }
 
 }

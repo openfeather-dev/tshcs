@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ShiftDetailsService } from '../shift-details/shift-details.service';
 import { Shift } from '../model/shift';
+import {SelectItem} from 'primeng/api';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-shift-details',
@@ -10,11 +12,13 @@ import { Shift } from '../model/shift';
 export class ShiftDetailsComponent implements OnInit {
 
 
-	shifts: Shift[];
-	 
+	shifts: Shift[];	 
 	 
     shiftDetailcols: any[];
-  constructor(private detailService:ShiftDetailsService) { }
+    actions : SelectItem[];
+    selectedAction : string;
+    
+  constructor(private detailService:ShiftDetailsService, private router : Router) { }
 
   ngOnInit() {
   
@@ -28,7 +32,14 @@ export class ShiftDetailsComponent implements OnInit {
         
         this.shifts =  [
         {"shiftId":"1234","shift":"3-11","customerName":"Inova","comments":"sample comment","action":[]}];	
+      
+        this.actions = [{label:'Confirmed', value:'Confirmed'},{label:'Pending', value:'Pending'},{label:'Requested', value:'Requested'}];
   }
+    
+   cancel(){
+       console.log("in cancel");
+       this.router.navigate(['/myShifts']);
+   }
   
  
 

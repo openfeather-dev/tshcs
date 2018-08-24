@@ -25,17 +25,18 @@ import {CalendarModule} from 'primeng/calendar';
 import {DropdownModule} from 'primeng/dropdown';
 import {CheckboxModule} from 'primeng/checkbox';
 import {TableModule} from 'primeng/table';
-import {AuthGuardService as AuthGuard} from './auth/auth-guard.service';
 import {LoginComponent} from './login/login.component';
 import { UserRegisterationComponent } from './user-registeration/user-registeration.component';
-import { OktaCallbackComponent, OktaAuthModule } from '@okta/okta-angular';
+import { OktaCallbackComponent, OktaAuthModule,OktaAuthGuard } from '@okta/okta-angular';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth-interceptor';
 import { HttpClientModule} from "@angular/common/http";
 import { AvailabilityComponent } from './availability/availability.component';
 import { CalendarModule as AngularCalendar } from 'angular-calendar';
 import { EnterAvailabilityComponent } from './enter-availability/enter-availability.component';
+import { ShiftsComponent } from './shifts/shifts.component';
 import { ShiftDetailsComponent } from './shift-details/shift-details.component';
+import { HideIfUnauthorizedDirective } from './authorization/hide-if-unauthorized.directive';
 
 
 const routes: Routes=[
@@ -48,12 +49,13 @@ const routes: Routes=[
                       {path:'jobs',component:Jobs},
                       {path:'jobseekers',component:Jobseekers},
                       {path:'login',component:LoginComponent},
-                      {path:'schedule',component:ScheduleComponent,canActivate: [AuthGuard]},
+                      {path:'schedule',component:ScheduleComponent,canActivate: [ OktaAuthGuard ]},
                       {path:'register',component:UserRegisterationComponent},
                       {path: 'implicit/callback',    component: OktaCallbackComponent},
-                      {path: 'myAvailability',    component: AvailabilityComponent},
-                      {path: 'enterAvailability', component: EnterAvailabilityComponent},
-                      {path: 'shiftDetails', component: ShiftDetailsComponent}
+                      {path: 'myAvailability',    component: AvailabilityComponent, canActivate: [ OktaAuthGuard]},
+                      {path: 'myShifts',    component: ShiftsComponent, canActivate: [ OktaAuthGuard]},
+                      {path: 'myShifts/shiftDetails', component: ShiftDetailsComponent},                      
+                      {path: 'enterAvailability', component: EnterAvailabilityComponent,canActivate: [OktaAuthGuard]}
                      ];
                        
  const config = {
@@ -78,7 +80,9 @@ const routes: Routes=[
     UserRegisterationComponent,
     AvailabilityComponent,
     EnterAvailabilityComponent,
-    ShiftDetailsComponent
+    ShiftsComponent,
+    ShiftDetailsComponent,
+    HideIfUnauthorizedDirective,
     
   ],
   imports: [
@@ -103,7 +107,7 @@ const routes: Routes=[
     AngularCalendar.forRoot(),
     TableModule
   ],
-  providers: [AuthGuard,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

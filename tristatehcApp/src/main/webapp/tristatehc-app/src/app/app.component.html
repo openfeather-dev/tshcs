@@ -28,7 +28,7 @@
 				</ul>
 			</div>
 			<div class="col-xs-6">
-				<a style="list-style-type: none; color: white; font-size: 15px;" *ngIf="!isAuthenticated" (click)="oktaAuth.loginRedirect()"> Login </a>
+				<a style="list-style-type: none; color: white; font-size: 15px;" *ngIf="!isAuthenticated" (click)="login()"> Login </a>
 	    		<br>
 	    		<span style="list-style-type: none; color: white; font-size: 15px;" *ngIf="isAuthenticated">Welcome {{loggedInUser}} !!</span>
 	    		<br><a style="list-style-type: none; color: white; font-size: 15px;" *ngIf="isAuthenticated" (click)="logout()" [routerLink]="['/home']"> Logout </a>
@@ -42,7 +42,7 @@
 
 
 	<nav class="navbar navbar-default">
-		<div class="container-fluid">
+		<div class="container-fluid" >
 
 			<ul class="nav navbar-nav">
 				<li routerLinkActive="active"><a routerLink="/home" >HOME</a></li>
@@ -54,9 +54,9 @@
 				<li routerLinkActive="active"><a routerLink="/jobs">JOBS</a></li>
 				<li routerLinkActive="active"><a routerLink="/schedule">SCHEDULE</a></li>
 				<li routerLinkActive="active"><a routerLink="/login">LOGIN</a></li>
-				<li routerLinkActive="active"><a routerLink="/myAvailability">MY AVAILABILITY</a></li>
-				<li routerLinkActive="active"><a routerLink="/enterAvailability">ENTER AVAILABILITY</a></li>
-				<li routerLinkActive="active"><a routerLink="/shiftDetails">SHIFT DETAILS</a></li>
+				<li  [appHideIfUnauthorized]="['Admin','TristatehcAppUsers']" routerLinkActive="active" ><a routerLink="/myAvailability">MY AVAILABILITY</a></li>
+				<li  [appHideIfUnauthorized]="['Admin','TristatehcAppUsers']" routerLinkActive="active"><a routerLink="/myShifts">MY SHIFTS</a></li>
+				<li  [appHideIfUnauthorized]="['Admin']" routerLinkActive="active"><a routerLink="/enterAvailability">ENTER AVAILABILITY</a></li>
 			</ul>
 
 		</div>

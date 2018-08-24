@@ -12,10 +12,15 @@
         <tr>
             <td *ngFor="let col of columns">
                     {{car[col.field]}}
+                   	<p-dropdown *ngIf="col.field === 'action'" [options]="actions" [(ngModel)] = "selectedAction" ></p-dropdown>
             </td>
             
         </tr>
     </ng-template>
+    
 </p-table>
 </div>
+	<button pButton type="button" label="Save" (click)="saveDetails()"></button>
+ 	<button pButton type="button" label="Cancel" (click)="cancel()"></button>
+ 	
 </div>

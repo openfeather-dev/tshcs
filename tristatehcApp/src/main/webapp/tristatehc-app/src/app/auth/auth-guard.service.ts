@@ -7,9 +7,13 @@ import { OktaAuthService } from '@okta/okta-angular';
   providedIn: 'root'
 })
 export class AuthGuardService implements CanActivate{
+        
+      
+    
+    
 
-    isAuthenticated:boolean;
-    constructor(public auth: AuthService, public router: Router,private oktaAuth:OktaAuthService) {
+   isAuthenticated:boolean;
+    constructor(public router: Router,private oktaAuth:OktaAuthService) {
         // Subscribe to authentication state changes
           this.oktaAuth.$authenticationState.subscribe(
               (isAuthenticated: boolean)  => this.isAuthenticated = isAuthenticated
@@ -19,6 +23,7 @@ export class AuthGuardService implements CanActivate{
   
     
     canActivate(): boolean {  
+    console.log("****AuthGuardService*****");
     this.getAuthentication();
     return this.isAuthenticated;
       
@@ -30,9 +35,11 @@ export class AuthGuardService implements CanActivate{
           this.oktaAuth.loginRedirect();
         return false;
       }
-      this.router.navigate(['/schedule']);
+      //this.router.navigate(['/schedule']);
           
       return true;    
     }
+    
+    
     
 }
