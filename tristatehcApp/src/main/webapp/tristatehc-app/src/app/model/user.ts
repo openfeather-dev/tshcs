@@ -6,4 +6,6 @@ export class User {
     secondEmail:string;
     login:string;
     email:string ;
+    userGroups:Array<string>;
+    
 }

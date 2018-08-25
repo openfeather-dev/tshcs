@@ -37,6 +37,7 @@ import { EnterAvailabilityComponent } from './enter-availability/enter-availabil
 import { ShiftsComponent } from './shifts/shifts.component';
 import { ShiftDetailsComponent } from './shift-details/shift-details.component';
 import { HideIfUnauthorizedDirective } from './authorization/hide-if-unauthorized.directive';
+import { AuthService } from './auth/auth.service';
 
 
 const routes: Routes=[
@@ -107,7 +108,7 @@ const routes: Routes=[
     AngularCalendar.forRoot(),
     TableModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  providers: [AuthService,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

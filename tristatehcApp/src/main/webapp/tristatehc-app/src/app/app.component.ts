@@ -1,13 +1,14 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,ChangeDetectorRef,ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OktaAuthService } from '@okta/okta-angular';
 import { AuthorizationService } from './authorization/authorization.service';
+import { AuthService } from './auth/auth.service';
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
   title = 'app';
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit{
   loggedInUser:string;  
   groups: Array<string>;
     
-  constructor(private oktaAuth: OktaAuthService, private authorizeService : AuthorizationService) {
+  constructor(private oktaAuth: OktaAuthService, private authorizeService : AuthorizationService, private authService : AuthService) {
+      
        this.getAuthenticationStateChanges();
   }
     
@@ -27,12 +29,11 @@ export class AppComponent implements OnInit{
                
               this.oktaAuth.getUser().then(user => {
                 console.log(user);
-                if(user && user.groups){
+                if(this.isAuthenticated && user && user.groups){
                   this.loggedInUser = user.given_name;
-                   this.groups = Array.from(user.groups);
-                    this.authorizeService.initializeUserGroups(this.groups);
-                    localStorage.setItem('currentUser',user.given_name);
-                    localStorage.setItem('currentUserGroups',Array.from(user.groups).toString());
+                   this.groups = user.groups;
+                    this.authService.setAuth(this.loggedInUser,this.groups);
+                    
                     
                  }
                 console.log(this.loggedInUser);
@@ -41,18 +42,33 @@ export class AppComponent implements OnInit{
   }
 
   async ngOnInit() {
-  console.log("AuthService");
-   // Get the authentication state for immediate use
-    this.isAuthenticated = await this.oktaAuth.isAuthenticated(); 
-  
-          
+  console.log("appcomponent");
       
-    /*let userObj = await this.oktaAuth.getUser(); 
-      this.loggedInUser= await userObj.email;
-    console.log(this.isAuthenticated);*/
+     // this.login();
+   // Get the authentication state for immediate use
+       
+    this.isAuthenticated = await this.oktaAuth.isAuthenticated();
+      if(this.isAuthenticated){
+          
+          this.oktaAuth.getUser().then(user => {
+            this.loggedInUser  = user.given_name  ;
+      
+      });
+      
+      }else{
+          this.oktaAuth.loginRedirect();
+      }
+       
+     
   }
+
+    login(){
+        this.oktaAuth.loginRedirect();
+    }
   
     logout(){
+       // this.authService.clearAuth();
+        this.isAuthenticated=false;
         this.loggedInUser = '';
         this.oktaAuth.logout();
      }
