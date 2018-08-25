@@ -9,7 +9,7 @@ export class AuthorizationService {
     
     isAuthorizedUser(authGroups : Array<string>, userGroups : Array<string>){
         //console.log("in AuthorizationService isAuthorizedUser() "+ authGroups +" user grops  "+userGroups);
-        console.log(userGroups.some(group=> authGroups.indexOf(group) >= 0));
+       // console.log(userGroups.some(group=> authGroups.indexOf(group) >= 0));
         
         //let userGroupsArray = userGroups[0].split(',');
 

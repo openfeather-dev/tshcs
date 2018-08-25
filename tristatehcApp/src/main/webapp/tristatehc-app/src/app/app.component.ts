@@ -1,4 +1,4 @@
-import { Component,OnInit,ChangeDetectorRef,ChangeDetectionStrategy } from '@angular/core';
+import { Component,OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OktaAuthService } from '@okta/okta-angular';
 import { AuthorizationService } from './authorization/authorization.service';
@@ -15,13 +15,13 @@ export class AppComponent implements OnInit{
   isAuthenticated: boolean;
   loggedInUser:string;  
   groups: Array<string>;
+  clickedLogOut:boolean;  
     
   constructor(private oktaAuth: OktaAuthService, private authorizeService : AuthorizationService, private authService : AuthService) {
       
        this.getAuthenticationStateChanges();
   }
-    
-      
+ 
   getAuthenticationStateChanges(){
     // Subscribe to authentication state changes
       this.oktaAuth.$authenticationState.subscribe(
@@ -56,7 +56,7 @@ export class AppComponent implements OnInit{
       });
       
       }else{
-          this.oktaAuth.loginRedirect();
+          ///this.oktaAuth.loginRedirect();
       }
        
      
@@ -67,6 +67,7 @@ export class AppComponent implements OnInit{
     }
   
     logout(){
+        
        // this.authService.clearAuth();
         this.isAuthenticated=false;
         this.loggedInUser = '';
