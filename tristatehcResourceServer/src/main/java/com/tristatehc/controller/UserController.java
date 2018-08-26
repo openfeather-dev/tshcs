@@ -4,15 +4,18 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tristatehc.dto.UserDTO;
+import com.tristatehc.entity.UserProfile;
 import com.tristatehc.service.UserService;
 
-//@RestController(value="/user")
+@RestController()
+@RequestMapping("user")
 public class UserController {
 	
 	@Autowired  UserService userService;
@@ -25,9 +28,10 @@ public class UserController {
 	}
 	
 	
-	//@RequestMapping(method=RequestMethod.GET)
-	public String sayHi() {
-		return "welcome !!";
+	@RequestMapping(path="/{emailId}",method=RequestMethod.GET,produces={MediaType.APPLICATION_JSON_VALUE})
+	public UserProfile getUserProfile(@PathVariable("emailId") String emailId) {
+		Optional<UserProfile> userOptnl = userService.getUserProfile(emailId);
+		return userOptnl.get();
 	}
 
 
