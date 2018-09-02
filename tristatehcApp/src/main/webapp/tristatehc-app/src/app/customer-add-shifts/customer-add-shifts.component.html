@@ -1,0 +1,63 @@
+<div class="btn-group">
+	<div class="btn btn-primary" mwlCalendarPreviousView [view]="view"
+		[(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
+		Previous</div>
+	<div class="btn btn-outline-secondary" mwlCalendarToday
+		[(viewDate)]="viewDate">Today</div>
+	<div class="btn btn-primary" mwlCalendarNextView [view]="view"
+		[(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
+		Next</div>
+
+</div>
+<div align="center">
+	<h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+</div>
+<ng-template #customCellTemplate let-day="day" let-locale="locale">
+<div class="cal-cell-top">
+	<div class="ui-g-12">
+		<span class="cal-day-number">{{ day.date |
+			calendarDate:'monthViewDayNumber':locale }}</span>
+	</div>
+	<!-- <div class="ui-g-12" *ngFor="let shift of configuredShifts">
+		<input type="text" pInputText size="1" maxlength="2" style="margin-right: 5%" /> 
+		<label><small>{{shift.shiftTime}}</small></label>
+		
+	</div> -->
+	
+	
+				<div *ngFor="let confShift of configuredShifts">
+			
+				
+				<label><small>{{confShift.shiftTime}}</small></label>
+				<input type="text" id="{{confShift.shiftTime}}" pInputText size="1" maxlength="2" style="margin-right: 5%" [(ngModel)]="employeeCount"/>
+				
+				
+					<div class="ui-g-12" *ngFor="let shift of shifts">
+						<input *ngIf="shift[(day.date | date: 'dd/MM/yyyy').toString()]; else elseBlock" type="text" size="3" [ngModel]="shift[(day.date | date: 'dd/MM/yyyy').toString()][confShift.shiftTime]"  pInputText>
+				</div>
+				
+		</div>
+	 
+</div>
+
+</ng-template>
+
+
+<div [ngSwitch]="view">
+	<mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate"
+		[events]="events" [cellTemplate]="customCellTemplate">
+	</mwl-calendar-month-view>
+	<mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate"
+		[events]="events"> </mwl-calendar-week-view>
+	<mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate"
+		[events]="events"> </mwl-calendar-day-view>
+</div>
+<div class="ui-g-12">
+	<div class="ui-g-1">
+		<button pButton type="button" label="Save" [routerLink]="['../']"></button>
+	</div>
+	<div class="ui-g-1" style="margin-left: 2%">
+		<button pButton type="button" label="Cancel" [routerLink]="['../']"
+			(click)="cancel()"></button>
+	</div>
+</div>

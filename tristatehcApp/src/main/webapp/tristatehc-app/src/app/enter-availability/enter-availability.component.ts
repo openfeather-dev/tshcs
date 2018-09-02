@@ -1,69 +1,67 @@
-import { Component, OnInit, ChangeDetectionStrategy ,Input, Output, EventEmitter} from '@angular/core';
-import {CalendarEvent} from 'angular-calendar';
-import { EnterAvailabilityService } from './enter-availability.service';
-import { UserProfile} from '../model/user-profile';
+import { Component, OnInit} from '@angular/core';
+import { Router} from '@angular/router';
+import {EnterAvailabilityService} from './enter-availability.service';
+
+const CUSTOMER = "customer";
 
 @Component({
   selector: 'app-enter-availability',
   templateUrl: './enter-availability.component.html',
-  styleUrls: ['./enter-availability.component.css']
-  //changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./enter-availability.component.css'],
+  providers:[EnterAvailabilityService]
 })
 export class EnterAvailabilityComponent implements OnInit {
-        
-    users:any[];
-    cols:any[];
+    
+    employees : any[];
+    customers : any[];
+    cols : any[];
+    isEmployeeSelected : boolean = false;
+    isCustomerSelected : boolean = false;
+    isRadioButtonDisabled : boolean = false;
+    selectedValue : string;
+    namesList : any[];
+    employeeEmail : string;
+    isDisabled : boolean = false;
    
-    constructor(private availablility:EnterAvailabilityService) { 
-
+    constructor(private router : Router, private service : EnterAvailabilityService) {
+        this.service.isDisabled.subscribe(isDisabled =>{
+            this.isDisabled = isDisabled;
+        });
+    
     }
         ngOnInit() {
-        this.users = [{username:'Sneha'},{username:'Kurian'}];
+        this.employees = [{name:'Sneha',email:'snehazacharia'},{name:'Kurian', email:'kurianmathew'}];
          this.cols = [
-            { field: 'username', header: 'User Name' }
-        ];
+            { field: 'name', header: 'Search' } ,
+            ];
         
+        this.customers = [{name : 'Customer A', id: 123},{name : 'Customer B', id: 890}];
         
+            console.log(this.selectedValue);
         
     }
-    clickedDate: Date;
     
-    selectedShifts : string[] = [];
-    selectedAllShifts : string[] = [];
-    comments : Map<any,any> = new Map<any,any>();
-    view: string = 'month';
 
-    viewDate: Date = new Date();
-
-    events: CalendarEvent[] = [
-    {
-      title: 'Has custom class',
-      start: new Date(),
-      meta: {
-        id: 1,
-         selectedShifts : [],   
-      }
-    }
-  ];
-    
-    
-    selectAll(shift1:string,shift2:string,shift3:string,all:string){
-        if(this.selectedAllShifts.includes(all)){
-             this.selectedShifts.push(shift1,shift2,shift3);
-        }
+    /**
+     * Method to get either list of cutomers or employees
+     */
+        getList(){
+            if(this.selectedValue  === CUSTOMER){
+                this.namesList = this.customers;
+                this.isCustomerSelected = true;
+                this.isEmployeeSelected = false;
+                console.log("this.isCustomerSelected"+this.isCustomerSelected);
+            }else{
+               
+                this.namesList = this.employees;
+                console.log(this.namesList);
+                this.isEmployeeSelected = true;
+                this.isCustomerSelected = false;
+                
+            }
         
-       
-    }
-    
-    dayClicked(event:Event){
-        
-        console.log(this.selectedAllShifts);
-        console.log(this.selectedShifts);
-      this.availablility.getUserProfile("hsingh3").subscribe((userProfile) => {
-      console.log("userProfile "+JSON.stringify(userProfile));
-    });
-;
-       
         }
+    
+   
 
 }

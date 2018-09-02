@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule}    from '@angular/forms'
+import {FormsModule}    from '@angular/forms';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MedicalStaffing} from '../medical-staffing/staffing.component';
@@ -24,6 +24,7 @@ import {DialogModule} from 'primeng/dialog';
 import {CalendarModule} from 'primeng/calendar';
 import {DropdownModule} from 'primeng/dropdown';
 import {CheckboxModule} from 'primeng/checkbox';
+import {RadioButtonModule} from 'primeng/radiobutton';
 import {TableModule} from 'primeng/table';
 import {LoginComponent} from './login/login.component';
 import { UserRegisterationComponent } from './user-registeration/user-registeration.component';
@@ -33,11 +34,12 @@ import { AuthInterceptor } from './auth-interceptor';
 import { HttpClientModule} from "@angular/common/http";
 import { AvailabilityComponent } from './availability/availability.component';
 import { CalendarModule as AngularCalendar } from 'angular-calendar';
-import { EnterAvailabilityComponent } from './enter-availability/enter-availability.component';
 import { ShiftsComponent } from './shifts/shifts.component';
 import { ShiftDetailsComponent } from './shift-details/shift-details.component';
 import { HideIfUnauthorizedDirective } from './authorization/hide-if-unauthorized.directive';
 import { AuthService } from './auth/auth.service';
+import { EnterAvailabilityRoutingModule } from './enter-availability/enter-availability-routing.module';
+
 
 
 const routes: Routes=[
@@ -56,7 +58,6 @@ const routes: Routes=[
                       {path: 'myAvailability',    component: AvailabilityComponent, canActivate: [ OktaAuthGuard]},
                       {path: 'myShifts',    component: ShiftsComponent, canActivate: [ OktaAuthGuard]},
                       {path: 'myShifts/shiftDetails', component: ShiftDetailsComponent},                      
-                      {path: 'enterAvailability', component: EnterAvailabilityComponent,canActivate: [OktaAuthGuard]}
                      ];
                        
  const config = {
@@ -80,22 +81,24 @@ const routes: Routes=[
     LoginComponent,
     UserRegisterationComponent,
     AvailabilityComponent,
-    EnterAvailabilityComponent,
     ShiftsComponent,
     ShiftDetailsComponent,
     HideIfUnauthorizedDirective,
-    
+        
   ],
   imports: [
+  
     BrowserModule,
     BrowserAnimationsModule,
     ButtonModule,
     CommonModule,
     FormsModule,
+    TableModule,
     InputTextModule,
     InputTextareaModule,
     DialogModule,
     DropdownModule,
+    RadioButtonModule,
     CheckboxModule,
     AutoCompleteModule,
     FileUploadModule,
@@ -103,10 +106,12 @@ const routes: Routes=[
     ScheduleModule,
     CalendarModule,
     HttpClientModule,
+    EnterAvailabilityRoutingModule,
     RouterModule.forRoot(routes),
     OktaAuthModule.initAuth(config),
     AngularCalendar.forRoot(),
-    TableModule
+    
+    
   ],
   providers: [AuthService,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]

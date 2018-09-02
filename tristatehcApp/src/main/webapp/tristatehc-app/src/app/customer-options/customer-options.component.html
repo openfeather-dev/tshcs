@@ -1,0 +1,21 @@
+<div class="ui-g-12" align="center">
+	<button pButton type="button" label="Add Shifts" [routerLink]="['addShifts']"
+		[disabled]="(buttonSelected !== '' && buttonSelected !== 'addShifts')"
+		(click)="setSelectedButton('addShifts')"></button>
+
+	<button pButton type="button" label="Assign Shifts"
+		[routerLink]="['../']" style="margin-left: 10%; margin-right: 10%"
+		[disabled]="(buttonSelected !== '' && buttonSelected !== 'assignShifts')"
+		(click)="setSelectedButton('assignShifts')"></button>
+	
+	<button pButton type="button" label="Shifts Configuration"
+		[routerLink]="['config']"
+		[disabled]="(buttonSelected !== '' && buttonSelected !== 'shiftConfig')"
+		(click)="setSelectedButton('shiftConfig')"></button>
+</div>
+<br>
+<br>
+<br>
+<div class="ui-g-12">
+	<router-outlet> </router-outlet>
+</div>
