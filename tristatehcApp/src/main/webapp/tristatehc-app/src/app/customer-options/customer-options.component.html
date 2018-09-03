@@ -1,17 +1,18 @@
 <div class="ui-g-12" align="center">
+<!-- <p-tabMenu [model]="items" [activeItem]="items[0]" ></p-tabMenu> -->
 	<button pButton type="button" label="Add Shifts" [routerLink]="['addShifts']"
 		[disabled]="(buttonSelected !== '' && buttonSelected !== 'addShifts')"
-		(click)="setSelectedButton('addShifts')"></button>
+		(click)="setSelectedButton('addShifts')" class="ui-button-raised ui-button-rounded" ></button>
 
 	<button pButton type="button" label="Assign Shifts"
 		[routerLink]="['../']" style="margin-left: 10%; margin-right: 10%"
 		[disabled]="(buttonSelected !== '' && buttonSelected !== 'assignShifts')"
-		(click)="setSelectedButton('assignShifts')"></button>
+		(click)="setSelectedButton('assignShifts')" class="ui-button-raised ui-button-rounded"></button>
 	
 	<button pButton type="button" label="Shifts Configuration"
 		[routerLink]="['config']"
 		[disabled]="(buttonSelected !== '' && buttonSelected !== 'shiftConfig')"
-		(click)="setSelectedButton('shiftConfig')"></button>
+		(click)="setSelectedButton('shiftConfig')" class="ui-tabmenu-nav"></button>
 </div>
 <br>
 <br>

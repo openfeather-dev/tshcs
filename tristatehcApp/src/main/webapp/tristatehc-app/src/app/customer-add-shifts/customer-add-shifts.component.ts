@@ -7,7 +7,7 @@ import { CustomerOptionsService } from '../customer-options/customer-options.ser
   styleUrls: ['./customer-add-shifts.component.css']
 })
 export class CustomerAddShiftsComponent implements OnInit {
-  shifts : any[];
+  shifts : any;
   configuredShifts : any;
   view: string = 'month';
 
@@ -20,16 +20,15 @@ export class CustomerAddShiftsComponent implements OnInit {
                                 {shift : "Second Shift", shiftTime:"03:00-11:00"},
                                 {shift : "Third Shift", shiftTime:"11:00-03:00"}];
       
-      this.shifts = [{"28/08/2018":{
-                                  "07:00-03:00":"7", "03:00-11:00":"2"
-                    } 
-                      }        
+      this.shifts = [
+                                  {date:"28/08/2018" ,shiftTime:"07:00-03:00" , employeeCount:3}, {date:"29/08/2018" ,shiftTime:"07:00-03:00" , employeeCount:7}
+                      ]        ;
          
-          ];
+
       
       
                                     
-      console.log(typeof this.shifts[0].date);
+     // console.log(typeof this.shifts[0].date);
   }
     /**
      * Method to inform parent component to enable its buttons
@@ -37,5 +36,15 @@ export class CustomerAddShiftsComponent implements OnInit {
     cancel(){
         this.parentService.enableButton(true);
     }
+    
+    getShift(date: string,shiftTime :string): number {
+        let shift = this.shifts.find(s => s.date == date);
+        
+        if(shift){
+             return shift.employeeCount;
+        }else{
+         return 0;    
+        }
+}
 
 }

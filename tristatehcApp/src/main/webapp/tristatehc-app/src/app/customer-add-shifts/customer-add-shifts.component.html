@@ -29,12 +29,9 @@
 			
 				
 				<label><small>{{confShift.shiftTime}}</small></label>
-				<input type="text" id="{{confShift.shiftTime}}" pInputText size="1" maxlength="2" style="margin-right: 5%" [(ngModel)]="employeeCount"/>
+				<input type="text"  pInputText size="1" maxlength="2" style="margin-right: 5%" [ngModel]="getShift((day.date | date: 'dd/MM/yyyy').toString(),confShift.shiftTime)"/>
 				
 				
-					<div class="ui-g-12" *ngFor="let shift of shifts">
-						<input *ngIf="shift[(day.date | date: 'dd/MM/yyyy').toString()]; else elseBlock" type="text" size="3" [ngModel]="shift[(day.date | date: 'dd/MM/yyyy').toString()][confShift.shiftTime]"  pInputText>
-				</div>
 				
 		</div>
 	 

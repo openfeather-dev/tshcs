@@ -45,18 +45,16 @@
 		<div class="container-fluid" >
 
 			<ul class="nav navbar-nav">
-				<li routerLinkActive="active"><a routerLink="/home" >HOME</a></li>
-				<li routerLinkActive="active"><a routerLink="/medicalstaffing" >MEDICAL STAFFING</a></li>
-				<li routerLinkActive="active"><a routerLink="/clients">CLIENTS</a></li>
-				<li routerLinkActive="active"><a routerLink="/jobseekers">JOB SEEKERS</a></li>
-				<li routerLinkActive="active"><a routerLink="/aboutus" >ABOUT US</a></li>
-				<li routerLinkActive="active"><a routerLink="/contact">CONTACT</a></li>
-				<li routerLinkActive="active"><a routerLink="/jobs">JOBS</a></li>
-				<li routerLinkActive="active"><a routerLink="/schedule">SCHEDULE</a></li>
-				<li routerLinkActive="active"><a routerLink="/login">LOGIN</a></li>
+				<li *ngIf="!isAuthenticated" routerLinkActive="active"><a routerLink="/home" >HOME</a></li>
+				<li *ngIf="!isAuthenticated" routerLinkActive="active"><a routerLink="/medicalstaffing" >MEDICAL STAFFING</a></li>
+				<li *ngIf="!isAuthenticated" routerLinkActive="active"><a routerLink="/clients">CLIENTS</a></li>
+				<li *ngIf="!isAuthenticated" routerLinkActive="active"><a routerLink="/jobseekers">JOB SEEKERS</a></li>
+				<li *ngIf="!isAuthenticated" routerLinkActive="active"><a routerLink="/aboutus" >ABOUT US</a></li>
+				<li *ngIf="!isAuthenticated" routerLinkActive="active"><a routerLink="/contact">CONTACT</a></li>
+				<li *ngIf="!isAuthenticated" routerLinkActive="active"><a routerLink="/jobs">JOBS</a></li>
 				<li  [appHideIfUnauthorized]="['Admin','TristatehcAppUsers']" routerLinkActive="active" ><a routerLink="/myAvailability">MY AVAILABILITY</a></li>
 				<li  [appHideIfUnauthorized]="['Admin','TristatehcAppUsers']" routerLinkActive="active"><a routerLink="/myShifts">MY SHIFTS</a></li>
-				<li  [appHideIfUnauthorized]="['Admin']" routerLinkActive="active"><a routerLink="/enterAvailability">ENTER AVAILABILITY</a></li>
+				<li  [appHideIfUnauthorized]="['Admin']" routerLinkActive="active"><a routerLink="/enterAvailability">MANAGE</a></li>
 			</ul>
 
 		</div>
