@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UserProfile} from '../model/user-profile';
+import { Availability } from '../model/availability';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -11,19 +11,19 @@ export class EnterAvailabilityService {
       isDisabledSource = new Subject<boolean>();
       isDisabled = this.isDisabledSource.asObservable();
   
-      baseUrl = 'http://localhost:8090/user/';
+      baseUrl = 'http://localhost:8090/availability/';
 
     constructor(private http: HttpClient) { }
 
-    /**
-     * Method to get all user events from rest api
-     */
-    getUserProfile(email: string) {
-        return this.http.get<UserProfile[]>(this.baseUrl + email);
-    }
-    
+       
     disableElement(isDisabled : boolean){
         this.isDisabledSource.next(isDisabled);        
     }
-  
+    
+    /**
+     * Get all employee availabilities from rest api
+     */
+    getAvailabilities(){
+        return this.http.get<Availability[]>(this.baseUrl+"getAll");
+    }
 }

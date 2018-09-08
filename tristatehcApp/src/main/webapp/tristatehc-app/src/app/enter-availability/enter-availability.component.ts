@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { Router} from '@angular/router';
 import {EnterAvailabilityService} from './enter-availability.service';
+import { Availability } from '../model/availability';
 
 const CUSTOMER = "customer";
 
@@ -22,6 +23,9 @@ export class EnterAvailabilityComponent implements OnInit {
     namesList : any[];
     employeeEmail : string;
     isDisabled : boolean = false;
+    availabilities : Availability[];
+    availCols : any[];
+    showTable : boolean = false;
    
     constructor(private router : Router, private service : EnterAvailabilityService) {
         this.service.isDisabled.subscribe(isDisabled =>{
@@ -29,21 +33,31 @@ export class EnterAvailabilityComponent implements OnInit {
         });
     
     }
-        ngOnInit() {
-        this.employees = [{name:'Sneha',email:'snehazacharia'},{name:'Kurian', email:'kurianmathew'}];
-         this.cols = [
-            { field: 'name', header: 'Search' } ,
-            ];
+    ngOnInit() {
+        this.employees = [{ name: 'Sneha', email: 'snehazacharia' }, { name: 'Kurian', email: 'kurianmathew' }];
+        this.cols = [
+            { field: 'name', header: 'Search' },
+        ];
+
+        this.customers = [{ name: 'Customer A', id: 123 }, { name: 'Customer B', id: 890 }];
+
+        this.availCols = [
+            { field: 'empId', header: 'Emplopyee Id' },
+            { field: 'availDate', header: 'Available Date' },
+            { field: 'availTime', header: 'Available Time' },
+            { field: 'availShift', header: 'Available Shift' },
+            { field: 'availComments', header: 'Comments' },
+            { field: 'enterBySource', header: 'Source' },
+            { field: 'enterTime', header: 'Date Entered' },
+        ];
         
-        this.customers = [{name : 'Customer A', id: 123},{name : 'Customer B', id: 890}];
-        
-            console.log(this.selectedValue);
-        
+
     }
     
 
     /**
-     * Method to get either list of cutomers or employees
+     * Get either list of customers or employees
+     *
      */
         getList(){
             if(this.selectedValue  === CUSTOMER){
@@ -61,6 +75,35 @@ export class EnterAvailabilityComponent implements OnInit {
             }
         
         }
+    
+    /**
+     * List all employee availabilities
+     * 
+     */
+    getAvailabilities(){
+        this.showTable = true;
+        this.isDisabled = true;
+        this.availabilities = [];
+        this.service.getAvailabilities().subscribe(availabilities => {
+            availabilities.forEach( availability => {
+                let avail = new Availability();
+                avail.empId = availability.empId;
+                avail.availDate = availability.availDate;
+                avail.availTime = availability.availTime;
+                avail.availShift = availability.availShift;
+                avail.availComments = availability.availComments;
+                avail.enterBySource = availability.enterBySource;
+                avail.enterTime = availability.enterTime;
+                this.availabilities.push(avail);
+            })
+        });
+        console.log(this.availabilities);
+    }
+    
+    closeTable(){
+        this.showTable = false;
+        this.isDisabled = false;
+    }
     
    
 

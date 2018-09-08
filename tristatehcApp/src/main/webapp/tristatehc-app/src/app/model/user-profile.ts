@@ -1,10 +1,12 @@
 export class UserProfile {
     userId: string;
+    empId: string;
+    employeementStatus : string;
     fname: string;
     lname: string;
-    phone1: string;
-    phone2: string;
+    mname : string;
+    phoneCell: string;
+    phoneCell2: string;
     emailIdMain: string;
     emailIdOther: string;
-    empId: string;
 }

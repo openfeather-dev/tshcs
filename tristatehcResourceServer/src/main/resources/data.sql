@@ -1,1 +1,1 @@
-insert into user values('openfeather@hotmail.com','openfeather@hotmail.com','openfeather@hotmail.com','openfeather@hotmail.com','openfeather@hotmail.com','openfeather@hotmail.com'); 
+--insert into user values('openfeather@hotmail.com','openfeather@hotmail.com','openfeather@hotmail.com','openfeather@hotmail.com','openfeather@hotmail.com','openfeather@hotmail.com'); 

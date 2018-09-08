@@ -55,9 +55,9 @@ const routes: Routes=[
                       {path:'schedule',component:ScheduleComponent,canActivate: [ OktaAuthGuard ]},
                       {path:'register',component:UserRegisterationComponent},
                       {path: 'implicit/callback',    component: OktaCallbackComponent},
-                      {path: 'myAvailability',    component: AvailabilityComponent, canActivate: [ OktaAuthGuard]},
-                      {path: 'myShifts',    component: ShiftsComponent, canActivate: [ OktaAuthGuard]},
-                      {path: 'myShifts/shiftDetails', component: ShiftDetailsComponent},                      
+                      {path: 'myavailability',    component: AvailabilityComponent, canActivate: [ OktaAuthGuard]},
+                      {path: 'myshifts',    component: ShiftsComponent, canActivate: [ OktaAuthGuard]},
+                      {path: 'myshifts/shiftdetails', component: ShiftDetailsComponent}, 
                      ];
                        
  const config = {

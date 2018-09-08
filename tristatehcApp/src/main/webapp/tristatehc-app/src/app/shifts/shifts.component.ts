@@ -42,7 +42,7 @@ export class ShiftsComponent implements OnInit {
     }*/
     
     getShiftDetails(){
-        this.router.navigate(['/myShifts/shiftDetails']);
+        this.router.navigate(['/myshifts/shiftdetails']);
     }
     
 

@@ -3,13 +3,14 @@
   [(viewDate)]="viewDate">
 </mwl-demo-utils-calendar-header> -->
 <div class="container">
+<p-messages [(value)]="msgs"></p-messages>
 <ng-template #customCellTemplate let-day="day" let-locale="locale">
   <div class="cal-cell-top">
   <div class="ui-g-12">
     <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
  </div>
   <div class="ui-g-12">
-	<p-checkbox #shift7to3 name="shift" name="shift" value="{{ day.date | date: 'dd/MM/yyyy'}}:7-3" label="7-3" [(ngModel)]="selectedShifts"></p-checkbox>
+	<p-checkbox #shift7to3 name="shift" name="shift" value="{{ day.date | date: 'dd/MM/yyyy'}}:7-3" label="7-3" [(ngModel)]="selectedShifts" ></p-checkbox>
 </div>	
 	 <div class="ui-g-12">
 	<p-checkbox #shift3to11 name="shift" name="shift" value="{{ day.date | date: 'dd/MM/yyyy'}}:3-11" label="3-11"  [(ngModel)]="selectedShifts" ></p-checkbox>
@@ -23,7 +24,7 @@
   </div>
   <div class="ui-g-12">
 		<label for="comments">Comments</label><br/>
-			<textarea [rows]="5" [cols]="12" #textComments id="{{ day.date | date: 'dd/MM/yyyy'}}" [(ngModel)]="comments[textComments.id]" pInputTextarea></textarea>
+			<textarea [rows]="5" [cols]="12" maxlength="200" #textComments id="{{ day.date | date: 'dd/MM/yyyy'}}" [ngModel]="comments.get(textComments.id)" (ngModelChange)="comments.set(textComments.id,$event)" pInputTextarea></textarea>
 		</div>
 </ng-template>
 
@@ -33,7 +34,7 @@
     [viewDate]="viewDate"
     [events]="events"
     [cellTemplate]="customCellTemplate"
-    (dayClicked)="dayClicked($event)">
+    (dayClicked) = "dayClicked($event)">
   </mwl-calendar-month-view>
   <mwl-calendar-week-view
     *ngSwitchCase="'week'"
@@ -45,5 +46,9 @@
     [viewDate]="viewDate"
     [events]="events">
   </mwl-calendar-day-view>
+</div>
+
+<div class="ui-g-12"  align="center">
+		<button pButton type="button" label="Save" (click)="save()"></button>
 </div>
 </div>
