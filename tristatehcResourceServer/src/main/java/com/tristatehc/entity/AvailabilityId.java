@@ -45,5 +45,10 @@ public class AvailabilityId implements Serializable{
 	public void setAvailTime(String availTime) {
 		this.availTime = availTime;
 	}
+
+	@Override
+	public String toString() {
+		return "AvailabilityId [empId=" + empId + ", availDate=" + availDate + ", availTime=" + availTime + "]";
+	}
 	
 }

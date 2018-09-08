@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { Router} from '@angular/router';
 import {EnterAvailabilityService} from './enter-availability.service';
 import { Availability } from '../model/availability';
+import { UserAvailability } from '../model/user-availability';
 
 const CUSTOMER = "customer";
 
@@ -23,7 +24,7 @@ export class EnterAvailabilityComponent implements OnInit {
     namesList : any[];
     employeeEmail : string;
     isDisabled : boolean = false;
-    availabilities : Availability[];
+    userAvailabilities : UserAvailability[];
     availCols : any[];
     showTable : boolean = false;
    
@@ -43,6 +44,8 @@ export class EnterAvailabilityComponent implements OnInit {
 
         this.availCols = [
             { field: 'empId', header: 'Emplopyee Id' },
+            { field: 'fname', header: 'Name' },
+            { field: 'phoneCell', header: 'Contact' },
             { field: 'availDate', header: 'Available Date' },
             { field: 'availTime', header: 'Available Time' },
             { field: 'availShift', header: 'Available Shift' },
@@ -83,21 +86,23 @@ export class EnterAvailabilityComponent implements OnInit {
     getAvailabilities(){
         this.showTable = true;
         this.isDisabled = true;
-        this.availabilities = [];
-        this.service.getAvailabilities().subscribe(availabilities => {
-            availabilities.forEach( availability => {
-                let avail = new Availability();
-                avail.empId = availability.empId;
-                avail.availDate = availability.availDate;
-                avail.availTime = availability.availTime;
-                avail.availShift = availability.availShift;
-                avail.availComments = availability.availComments;
-                avail.enterBySource = availability.enterBySource;
-                avail.enterTime = availability.enterTime;
-                this.availabilities.push(avail);
+        this.userAvailabilities = [];
+        this.service.getAvailabilities().subscribe(userAvailabilities => {
+            userAvailabilities.forEach( userAvailability => {
+                let avail = new UserAvailability();
+                avail.empId = userAvailability.empId;
+                avail.fname = userAvailability.fname+" "+userAvailability.lname;
+                avail.phoneCell = userAvailability.phoneCell;
+                avail.availDate = userAvailability.availDate;
+                avail.availTime = userAvailability.availTime;
+                avail.availShift = userAvailability.availShift;
+                avail.availComments = userAvailability.availComments;
+                avail.enterBySource = userAvailability.enterBySource;
+                avail.enterTime = userAvailability.enterTime;
+                this.userAvailabilities.push(avail);
             })
         });
-        console.log(this.availabilities);
+        
     }
     
     closeTable(){

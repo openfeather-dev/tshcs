@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.tristatehc.dao.UserProfileRepository;
 import com.tristatehc.dao.UserRepository;
 import com.tristatehc.dto.UserDTO;
+import com.tristatehc.dto.UserProfileDTO;
 import com.tristatehc.entity.User;
 import com.tristatehc.entity.UserProfile;
 import com.tristatehc.mapper.UserMapper;
@@ -29,11 +30,11 @@ public class UserServiceImpl implements UserService{
 	} 
 	
 	
-	public Optional<UserProfile> getUserProfile(String emailId){
+	public Optional<UserProfileDTO> getUserProfile(String emailId){
 		Optional<UserProfile> userOptnl =  profileRepository.findById(emailId);
 		if(userOptnl.isPresent()){
 			UserProfile userProfile = userOptnl.get();
-			return Optional.of(userProfile);
+			return Optional.of(UserMapper.INSTANCE.userProfileToUserProfileDto(userProfile));
 		}
 		return Optional.empty();
 		

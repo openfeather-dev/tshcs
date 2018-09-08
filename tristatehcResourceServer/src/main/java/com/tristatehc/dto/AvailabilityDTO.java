@@ -116,6 +116,12 @@ public class AvailabilityDTO {
 			return false;
 		return true;
 	}
+	@Override
+	public String toString() {
+		return "AvailabilityDTO [empId=" + empId + ", availDate=" + availDate + ", availTime=" + availTime
+				+ ", availShift=" + availShift + ", availComments=" + availComments + ", enterBySource=" + enterBySource
+				+ ", enterTime=" + enterTime + "]";
+	}
 	
 	
 

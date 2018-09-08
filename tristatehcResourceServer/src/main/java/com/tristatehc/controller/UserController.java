@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tristatehc.dto.UserDTO;
-import com.tristatehc.entity.UserProfile;
+import com.tristatehc.dto.UserProfileDTO;
 import com.tristatehc.service.UserService;
 
 @RestController()
@@ -29,8 +29,8 @@ public class UserController {
 	
 	
 	@RequestMapping(path="/{emailId}",method=RequestMethod.GET,produces={MediaType.APPLICATION_JSON_VALUE})
-	public UserProfile getUserProfile(@PathVariable("emailId") String emailId) {
-		Optional<UserProfile> userOptnl = userService.getUserProfile(emailId);
+	public UserProfileDTO getUserProfile(@PathVariable("emailId") String emailId) {
+		Optional<UserProfileDTO> userOptnl = userService.getUserProfile(emailId);
 		return userOptnl.get();
 	}
 

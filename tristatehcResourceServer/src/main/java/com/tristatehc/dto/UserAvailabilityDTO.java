@@ -1,160 +1,145 @@
-package com.tristatehc.entity;
+package com.tristatehc.dto;
 
-import java.io.Serializable;
+import java.sql.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="thc_user_profile")
-public class UserProfile implements Serializable{
-
-	private static final long serialVersionUID = 1L;
+public class UserAvailabilityDTO {
 	
-	@Id
-	@Column(name="email_primary")
-	private String emailPrimary;
-	
-	@Column(name="userid")
-	private String userId;
-	
-	@Column(name="empid")
 	private String empId;
-	
-	@Column(name="employment_status")
+	private String availDate;
+	private String availTime;
+	private String availShift;
+	private String availComments;
+	private String enterBySource;
+	private Date enterTime;
+	private String emailPrimary;
+	private String userId;
 	private String employmentStatus;
-	
-	@Column(name="fname")
 	private String fname;
-	
-	@Column(name="lname")
 	private String lname;
-	
-	@Column(name="mname")
 	private String mname;
-	
-	@Column(name="phone_cell")
 	private String phoneCell;
-	
-	@Column(name="phone_cell2")
 	private String phoneCell2;
-	
-	@Column(name="phone_home")
 	private String phoneHome;
-	
-	@Column(name="phone_backup")
 	private String phoneBackup;
-	
-	
-	
-	@Column(name="email_secondary")
 	private String emailSecondary;
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
+	
 	public String getEmpId() {
 		return empId;
 	}
-
 	public void setEmpId(String empId) {
 		this.empId = empId;
 	}
-
-	public String getEmploymentStatus() {
-		return employmentStatus;
+	public String getAvailDate() {
+		return availDate;
 	}
-
-	public void setEmploymentStatus(String employmentStatus) {
-		this.employmentStatus = employmentStatus;
+	public void setAvailDate(String availDate) {
+		this.availDate = availDate;
 	}
-
-	public String getFname() {
-		return fname;
+	public String getAvailTime() {
+		return availTime;
 	}
-
-	public void setFname(String fname) {
-		this.fname = fname;
+	public void setAvailTime(String availTime) {
+		this.availTime = availTime;
 	}
-
-	public String getLname() {
-		return lname;
+	public String getAvailShift() {
+		return availShift;
 	}
-
-	public void setLname(String lname) {
-		this.lname = lname;
+	public void setAvailShift(String availShift) {
+		this.availShift = availShift;
 	}
-
-	public String getMname() {
-		return mname;
+	public String getAvailComments() {
+		return availComments;
 	}
-
-	public void setMname(String mname) {
-		this.mname = mname;
+	public void setAvailComments(String availComments) {
+		this.availComments = availComments;
 	}
-
-	public String getPhoneCell() {
-		return phoneCell;
+	public String getEnterBySource() {
+		return enterBySource;
 	}
-
-	public void setPhoneCell(String phoneCell) {
-		this.phoneCell = phoneCell;
+	public void setEnterBySource(String enterBySource) {
+		this.enterBySource = enterBySource;
 	}
-
-	public String getPhoneCell2() {
-		return phoneCell2;
+	public Date getEnterTime() {
+		return enterTime;
 	}
-
-	public void setPhoneCell2(String phoneCell2) {
-		this.phoneCell2 = phoneCell2;
+	public void setEnterTime(Date enterTime) {
+		this.enterTime = enterTime;
 	}
-
-	public String getPhoneHome() {
-		return phoneHome;
-	}
-
-	public void setPhoneHome(String phoneHome) {
-		this.phoneHome = phoneHome;
-	}
-
-	public String getPhoneBackup() {
-		return phoneBackup;
-	}
-
-	public void setPhoneBackup(String phoneBackup) {
-		this.phoneBackup = phoneBackup;
-	}
-
 	public String getEmailPrimary() {
 		return emailPrimary;
 	}
-
 	public void setEmailPrimary(String emailPrimary) {
 		this.emailPrimary = emailPrimary;
 	}
-
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getEmploymentStatus() {
+		return employmentStatus;
+	}
+	public void setEmploymentStatus(String employmentStatus) {
+		this.employmentStatus = employmentStatus;
+	}
+	public String getFname() {
+		return fname;
+	}
+	public void setFname(String fname) {
+		this.fname = fname;
+	}
+	public String getLname() {
+		return lname;
+	}
+	public void setLname(String lname) {
+		this.lname = lname;
+	}
+	public String getMname() {
+		return mname;
+	}
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
+	public String getPhoneCell() {
+		return phoneCell;
+	}
+	public void setPhoneCell(String phoneCell) {
+		this.phoneCell = phoneCell;
+	}
+	public String getPhoneCell2() {
+		return phoneCell2;
+	}
+	public void setPhoneCell2(String phoneCell2) {
+		this.phoneCell2 = phoneCell2;
+	}
+	public String getPhoneHome() {
+		return phoneHome;
+	}
+	public void setPhoneHome(String phoneHome) {
+		this.phoneHome = phoneHome;
+	}
+	public String getPhoneBackup() {
+		return phoneBackup;
+	}
+	public void setPhoneBackup(String phoneBackup) {
+		this.phoneBackup = phoneBackup;
+	}
 	public String getEmailSecondary() {
 		return emailSecondary;
 	}
-
 	public void setEmailSecondary(String emailSecondary) {
 		this.emailSecondary = emailSecondary;
 	}
-
 	@Override
 	public String toString() {
-		return "UserProfile [emailPrimary=" + emailPrimary + ", userId=" + userId + ", empId=" + empId
+		return "UserAvailabilityDTO [empId=" + empId + ", availDate=" + availDate + ", availTime=" + availTime
+				+ ", availShift=" + availShift + ", availComments=" + availComments + ", enterBySource=" + enterBySource
+				+ ", enterTime=" + enterTime + ", emailPrimary=" + emailPrimary + ", userId=" + userId
 				+ ", employmentStatus=" + employmentStatus + ", fname=" + fname + ", lname=" + lname + ", mname="
 				+ mname + ", phoneCell=" + phoneCell + ", phoneCell2=" + phoneCell2 + ", phoneHome=" + phoneHome
 				+ ", phoneBackup=" + phoneBackup + ", emailSecondary=" + emailSecondary + "]";
 	}
-	
+
 	
 }

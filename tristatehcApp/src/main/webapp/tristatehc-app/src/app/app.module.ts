@@ -40,8 +40,6 @@ import { HideIfUnauthorizedDirective } from './authorization/hide-if-unauthorize
 import { AuthService } from './auth/auth.service';
 import { EnterAvailabilityRoutingModule } from './enter-availability/enter-availability-routing.module';
 
-
-
 const routes: Routes=[
                       {path:'',redirectTo: '/home', pathMatch: 'full'},
                       {path:'home',component:Home},

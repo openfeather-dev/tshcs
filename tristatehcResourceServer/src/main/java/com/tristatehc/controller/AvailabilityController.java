@@ -33,7 +33,6 @@ public class AvailabilityController {
 	
 	@RequestMapping(path="/getAll", method=RequestMethod.GET,produces={MediaType.APPLICATION_JSON_VALUE})
 	public List<AvailabilityDTO> getAllAvailabilities(){
-		System.out.println("**AdminController***");
 		return availabilityService.getAllAvailabilities();
 	}
 	

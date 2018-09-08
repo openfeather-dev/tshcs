@@ -1,7 +1,5 @@
 package com.tristatehc.service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,18 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tristatehc.dao.AvailabilityRepository;
+import com.tristatehc.dao.UserAvailabilityRepository;
 import com.tristatehc.dto.AvailabilityDTO;
 import com.tristatehc.entity.Availability;
+import com.tristatehc.entity.UserAvailabilityProjection;
 import com.tristatehc.mapper.UserMapper;
-
-import ch.qos.logback.core.net.SyslogOutputStream;
 
 @Service
 public class AvailabilityServiceImpl implements AvailabilityService {
 
 	@Autowired
 	AvailabilityRepository repository;
-
+	
 	@Override
 	public List<AvailabilityDTO> addAvailability(List<AvailabilityDTO> availabilityDto) {
 

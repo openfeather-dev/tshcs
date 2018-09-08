@@ -72,6 +72,12 @@ public class Availability implements Serializable{
 	public void setEnterTime(Date enterTime) {
 		this.enterTime = enterTime;
 	}
+
+	@Override
+	public String toString() {
+		return "Availability [availabilityId=" + availabilityId + ", availShift=" + availShift + ", availComments="
+				+ availComments + ", enterBySource=" + enterBySource + ", enterTime=" + enterTime + "]";
+	}
 	
 
 }
