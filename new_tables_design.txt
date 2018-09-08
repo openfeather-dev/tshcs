@@ -1,0 +1,31 @@
+DROP TABLE thc_user_profile;
+
+CREATE TABLE thc_user_profile (
+    userid VARCHAR(10),
+    empid VARCHAR(10),
+    employment_status VARCHAR(20),
+    fname VARCHAR(20),
+    lname VARCHAR(20),
+    mname VARCHAR(20),
+    phone_cell VARCHAR(15),
+    phone_cell2 VARCHAR(15),
+    phone_home VARCHAR(15),
+    phone_backup VARCHAR(15),
+    email_primary VARCHAR(35) PRIMARY KEY,
+    email_secondary VARCHAR(35)
+)
+;
+
+
+DROP TABLE thc_user_avail;
+
+CREATE TABLE thc_user_avail (
+    empid VARCHAR(10),
+    avail_dt VARCHAR(10),
+    avail_tm VARCHAR(10),
+    avail_shift VARCHAR(10),
+    avail_comments VARCHAR(200),
+    enter_by_source VARCHAR(20),
+    enter_time DATE
+);
+
