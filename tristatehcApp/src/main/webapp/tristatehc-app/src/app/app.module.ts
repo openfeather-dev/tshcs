@@ -39,6 +39,9 @@ import { ShiftDetailsComponent } from './shift-details/shift-details.component';
 import { HideIfUnauthorizedDirective } from './authorization/hide-if-unauthorized.directive';
 import { AuthService } from './auth/auth.service';
 import { EnterAvailabilityRoutingModule } from './enter-availability/enter-availability-routing.module';
+import {ProgressBarModule} from 'primeng/progressbar';
+import {BlockUIModule} from 'primeng/blockui';
+
 
 const routes: Routes=[
                       {path:'',redirectTo: '/home', pathMatch: 'full'},
@@ -55,7 +58,7 @@ const routes: Routes=[
                       {path: 'implicit/callback',    component: OktaCallbackComponent},
                       {path: 'myavailability',    component: AvailabilityComponent, canActivate: [ OktaAuthGuard]},
                       {path: 'myshifts',    component: ShiftsComponent, canActivate: [ OktaAuthGuard]},
-                      {path: 'myshifts/shiftdetails', component: ShiftDetailsComponent}, 
+                      {path: 'myshifts/shiftdetails', component: ShiftDetailsComponent},                      
                      ];
                        
  const config = {
@@ -104,6 +107,8 @@ const routes: Routes=[
     ScheduleModule,
     CalendarModule,
     HttpClientModule,
+    ProgressBarModule,
+    BlockUIModule,
     EnterAvailabilityRoutingModule,
     RouterModule.forRoot(routes),
     OktaAuthModule.initAuth(config),

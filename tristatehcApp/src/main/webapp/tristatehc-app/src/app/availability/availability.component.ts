@@ -28,6 +28,7 @@ export class AvailabilityComponent implements OnInit {
     checked : boolean = false;
     msgs : Message[];
     employeeId : string;
+    blocked: boolean = true;
     
     
     constructor(private serviceAvailabilty : AvailabilityService, private oktaAuth: OktaAuthService) {
@@ -46,6 +47,7 @@ export class AvailabilityComponent implements OnInit {
           this.oktaAuth.getUser().then(user => {
             this.email = user.preferred_username;
             this.getEmployeeId(this.email);
+               this.blocked = false;
       });
       
       }

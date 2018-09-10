@@ -2,8 +2,10 @@
   [(view)]="view"
   [(viewDate)]="viewDate">
 </mwl-demo-utils-calendar-header> -->
+<p-progressBar *ngIf="blocked" mode="indeterminate"></p-progressBar>
 <div class="container">
 <p-messages [(value)]="msgs"></p-messages>
+<p-blockUI [blocked]="blocked" [target]="container" ></p-blockUI>
 <ng-template #customCellTemplate let-day="day" let-locale="locale">
   <div class="cal-cell-top">
   <div class="ui-g-12">
