@@ -27,7 +27,7 @@ export class AvailabilityComponent implements OnInit {
     isAuthenticated : boolean;
     checked : boolean = false;
     msgs : Message[];
-    employeeId : string;
+    //employeeId : string;
     blocked: boolean = true;
     
     
@@ -46,8 +46,10 @@ export class AvailabilityComponent implements OnInit {
           
           this.oktaAuth.getUser().then(user => {
             this.email = user.preferred_username;
-            this.getEmployeeId(this.email);
-               this.blocked = false;
+            //this.getEmployeeId(this.email);
+               
+            this.getAvailabilities(this.email);
+              this.blocked = false;
       });
       
       }
@@ -67,7 +69,7 @@ export class AvailabilityComponent implements OnInit {
        this.selectedShifts.forEach(shift => {
            let avail : Availability;
            avail = new Availability();
-           avail.empId = this.employeeId;
+           //avail.empId = this.employeeId;
            avail.enterBySource = "Employee";
            avail.enterTime = new Date();
            let tempVal = shift.split(":");
@@ -94,10 +96,10 @@ export class AvailabilityComponent implements OnInit {
      * @return : void
      */
     
-    getAvailabilities(empId : string){
+    getAvailabilities(email : string){
         let shifts : string[] = [];
         let comnts : Map<string,string> = new Map<string,string>();
-        this.serviceAvailabilty.getEmployeeAvailabilities(empId).subscribe(
+        this.serviceAvailabilty.getEmployeeAvailabilities(email).subscribe(
             data => {
                 data.forEach(shift => {
                  shifts.push(shift.availDate+":"+shift.availTime);
@@ -116,13 +118,13 @@ export class AvailabilityComponent implements OnInit {
      * @param : email
      * @return : employeeId
      */
-    getEmployeeId(email : string) {
+    /*getEmployeeId(email : string) {
         
         this.serviceAvailabilty.getEmployeeId(email).subscribe( employee => {
             this.employeeId = employee.empId;
             this.getAvailabilities(this.employeeId);
         });
-    }
+    }*/
     
     selectAll(shift1:string,shift2:string,shift3:string,all:string){
         if(this.selectedAllShifts.includes(all)){

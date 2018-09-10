@@ -29,9 +29,9 @@ export class AvailabilityService {
      * @param : empid
      * @return : Availability[]
      */
-    getEmployeeAvailabilities(empid : string){
-        console.log(this.baseUrl + empid);
-        return this.http.get<Availability[]>(this.baseUrl + empid);
+    getEmployeeAvailabilities(email : string){
+        console.log(this.baseUrl + email);
+        return this.http.get<Availability[]>(this.baseUrl + email);
         
     }
     

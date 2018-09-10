@@ -21,13 +21,13 @@ public class AvailabilityController {
 	
 	@RequestMapping(path="/{emailId}",method=RequestMethod.POST,produces={MediaType.APPLICATION_JSON_VALUE})
 	public List<AvailabilityDTO> addAvailabilities(@RequestBody List<AvailabilityDTO> availabilityDto,@PathVariable("emailId") String emailId){
-		return availabilityService.addAvailability(availabilityDto);
+		return availabilityService.addAvailability(availabilityDto, emailId);
 		
 	}
 	
-	@RequestMapping(path="/{empid}",method=RequestMethod.GET,produces={MediaType.APPLICATION_JSON_VALUE})
-	public List<AvailabilityDTO> getAvailabilities(@PathVariable("empid") String empid){
-		return availabilityService.getAvailabilities(empid);
+	@RequestMapping(path="/{emailId}",method=RequestMethod.GET,produces={MediaType.APPLICATION_JSON_VALUE})
+	public List<AvailabilityDTO> getAvailabilities(@PathVariable("emailId") String emailId){
+		return availabilityService.getAvailabilities(emailId);
 		
 	}
 	
