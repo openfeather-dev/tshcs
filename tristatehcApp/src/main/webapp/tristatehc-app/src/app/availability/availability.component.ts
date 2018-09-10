@@ -64,7 +64,8 @@ export class AvailabilityComponent implements OnInit {
      * @return : void
      */
     save(){
-       
+       this.blocked = true;
+
        let availabilities : Availability[]=[];
        this.selectedShifts.forEach(shift => {
            let avail : Availability;
@@ -84,9 +85,13 @@ export class AvailabilityComponent implements OnInit {
        data => {
            this.msgs = [];
            this.msgs.push({severity:'success', summary:'Saved : ', detail:'Availability was successfully saved'});
+           this.blocked = false;
+
        },error =>{
           this.msgs = [];
            this.msgs.push({severity:'error', summary:'Error : ', detail:'Availability could not be saved'}); 
+           this.blocked = false;
+
        }); 
     }
     
