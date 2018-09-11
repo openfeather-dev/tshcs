@@ -49,7 +49,6 @@ export class AvailabilityComponent implements OnInit {
             //this.getEmployeeId(this.email);
                
             this.getAvailabilities(this.email);
-              this.blocked = false;
       });
       
       }
@@ -112,8 +111,10 @@ export class AvailabilityComponent implements OnInit {
                 });
                 this.selectedShifts = shifts;
                 this.comments = comnts;
+                this.blocked = false;
             },error =>{
-          console.error("Error saving availability!!!!!"); 
+         this.msgs.push({severity:'error', summary:'Error : ', detail:'Availability could not be retrieved please try later!!'}); 
+         this.blocked = false;       
        });
     
     }
