@@ -82,12 +82,14 @@ export class AvailabilityComponent implements OnInit {
        })
        this.serviceAvailabilty.saveEmployeeAvailabilities(availabilities, this.email).subscribe(
        data => {
+           console.log(data);
            this.msgs = [];
            this.msgs.push({severity:'success', summary:'Saved : ', detail:'Availability was successfully saved'});
            this.blocked = false;
 
        },error =>{
-          this.msgs = [];
+           console.log(error);
+           this.msgs = [];
            this.msgs.push({severity:'error', summary:'Error : ', detail:'Availability could not be saved'}); 
            this.blocked = false;
 
@@ -105,6 +107,7 @@ export class AvailabilityComponent implements OnInit {
         let comnts : Map<string,string> = new Map<string,string>();
         this.serviceAvailabilty.getEmployeeAvailabilities(email).subscribe(
             data => {
+                console.log(data);
                 data.forEach(shift => {
                  shifts.push(shift.availDate+":"+shift.availTime);
                  comnts.set(shift.availDate, shift.availComments);
@@ -113,8 +116,9 @@ export class AvailabilityComponent implements OnInit {
                 this.comments = comnts;
                 this.blocked = false;
             },error =>{
-         this.msgs.push({severity:'error', summary:'Error : ', detail:'Availability could not be retrieved please try later!!'}); 
-         this.blocked = false;       
+               console.log(error);
+                this.msgs.push({severity:'error', summary:'Error : ', detail:'Availability could not be retrieved please try later!!'}); 
+                this.blocked = false;       
        });
     
     }
