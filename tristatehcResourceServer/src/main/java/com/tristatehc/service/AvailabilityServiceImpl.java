@@ -1,5 +1,8 @@
 package com.tristatehc.service;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,36 +24,45 @@ public class AvailabilityServiceImpl implements AvailabilityService {
 	
 	@Override
 	public List<AvailabilityDTO> addAvailability(List<AvailabilityDTO> availabilityDto, String emailId) {
-		
+		List<AvailabilityDTO> availDto = new ArrayList<>();
 		/*Find employee id from email id */
 		UserProfileDTO user = userService.getUserProfile(emailId).get();
-		availabilityDto.forEach(availability -> availability.setEmpId(user.getEmpId()));
-		
+		availabilityDto.forEach(availability -> {
+			availability.setEmpId(user.getEmpId());
+			});
 		/*
 		 * Get list of availabilities already stored in database to compare with the new
 		 * list in order to find deleted availabilities
 		 */
 		List<AvailabilityDTO> existingAvailabilities = getAvailabilities(emailId);
+		List<AvailabilityDTO> newAvailabilities = availabilityDto.stream().filter(dto -> !existingAvailabilities.contains(dto)).collect(Collectors.toList());
 		existingAvailabilities.removeAll(availabilityDto);
 
 		// Remove deleted availabilities
 		List<Availability> toBedeleted = existingAvailabilities.stream()
 										.map(dto -> UserMapper.INSTANCE.availabilityDtoToAvailability(dto)).collect(Collectors.toList());
 		repository.deleteAll(toBedeleted);
-
-		// Save availabilities
-		List<Availability> availabilities = availabilityDto.stream()
-											.map(dto -> UserMapper.INSTANCE.availabilityDtoToAvailability(dto)).collect(Collectors.toList());
-		List<Availability> savedAvailabilities = repository.saveAll(availabilities);
-		List<AvailabilityDTO> availDto = savedAvailabilities.stream()
-											.map(avail -> UserMapper.INSTANCE.availabilityToAvailabilityDto(avail)).collect(Collectors.toList());
+		
+		if(!availabilityDto.isEmpty() && !emailId.isEmpty()) {
+			// Save availabilities
+			UserProfileDTO loggedInUser = userService.getUserProfile(availabilityDto.get(0).getEnterBySource()).get();
+			LocalDate today = LocalDate.now();
+			newAvailabilities.forEach(availability -> {
+				availability.setEnterBySource(loggedInUser.getFname()+" "+ loggedInUser.getLname());
+				availability.setEnterTime(Date.valueOf(today));
+			});
+			List<Availability> availabilities = newAvailabilities.stream()
+												.map(dto -> UserMapper.INSTANCE.availabilityDtoToAvailability(dto)).collect(Collectors.toList());
+			List<Availability> savedAvailabilities = repository.saveAll(availabilities);
+			availDto = savedAvailabilities.stream()
+												.map(avail -> UserMapper.INSTANCE.availabilityToAvailabilityDto(avail)).collect(Collectors.toList());
+		}
 		return availDto;
 	}
 
 	public List<AvailabilityDTO> getAvailabilities(String emailId) {
 		
 		/*Find employee id from email id */
-		System.out.println("****EmailId****"+emailId);
 		UserProfileDTO user = userService.getUserProfile(emailId).get();
 		
 		List<Availability> savedAvailabilities = repository.findAllByAvailabilityId_empId(user.getEmpId());

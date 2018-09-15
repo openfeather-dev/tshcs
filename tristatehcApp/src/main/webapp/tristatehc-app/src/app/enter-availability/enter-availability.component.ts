@@ -3,6 +3,7 @@ import { Router} from '@angular/router';
 import {EnterAvailabilityService} from './enter-availability.service';
 import { Availability } from '../model/availability';
 import { UserAvailability } from '../model/user-availability';
+import { DatePipe } from '@angular/common';
 
 const CUSTOMER = "customer";
 
@@ -10,7 +11,7 @@ const CUSTOMER = "customer";
   selector: 'app-enter-availability',
   templateUrl: './enter-availability.component.html',
   styleUrls: ['./enter-availability.component.css'],
-  providers:[EnterAvailabilityService]
+  providers:[EnterAvailabilityService,DatePipe]
 })
 export class EnterAvailabilityComponent implements OnInit {
     
@@ -27,20 +28,21 @@ export class EnterAvailabilityComponent implements OnInit {
     userAvailabilities : UserAvailability[];
     availCols : any[];
     showTable : boolean = false;
+    blocked : boolean;
    
-    constructor(private router : Router, private service : EnterAvailabilityService) {
+    constructor(private router : Router, private service : EnterAvailabilityService, private datePipe: DatePipe) {
         this.service.isDisabled.subscribe(isDisabled =>{
             this.isDisabled = isDisabled;
         });
     
     }
     ngOnInit() {
-        this.employees = [{ name: 'Sneha', email: 'snehazacharia' }, { name: 'Kurian', email: 'kurianmathew' }];
+        //this.employees = [{ name: 'Sneha', email: 'snehazacharia' }, { name: 'Kurian', email: 'kurianmathew' }];
         this.cols = [
-            { field: 'name', header: 'Search' },
+            { field: 'fname', field2: 'lname', header: 'Search' },
         ];
 
-        this.customers = [{ name: 'Customer A', id: 123 }, { name: 'Customer B', id: 890 }];
+        this.customers = [{ fname: 'Customer A', field2:'', id: 123 }, { fname: 'Customer B', field2:'', id: 890 }];
 
         this.availCols = [
             { field: 'empId', header: 'Emplopyee Id' },
@@ -51,7 +53,7 @@ export class EnterAvailabilityComponent implements OnInit {
             { field: 'availShift', header: 'Available Shift' },
             { field: 'availComments', header: 'Comments' },
             { field: 'enterBySource', header: 'Source' },
-            { field: 'enterTime', header: 'Date Entered' },
+            { field: 'fmtDateTime', header: 'Date Entered' },
         ];
         
 
@@ -63,15 +65,21 @@ export class EnterAvailabilityComponent implements OnInit {
      *
      */
         getList(){
+            this.blocked = true;
+            this.namesList = [];
             if(this.selectedValue  === CUSTOMER){
                 this.namesList = this.customers;
+                this.blocked = false;
                 this.isCustomerSelected = true;
                 this.isEmployeeSelected = false;
                 console.log("this.isCustomerSelected"+this.isCustomerSelected);
             }else{
-               
-                this.namesList = this.employees;
-                console.log(this.namesList);
+                this.service.getAllEmployees().subscribe(users => {
+                    users.forEach(user => this.namesList.push(user));
+                    this.blocked = false;
+                },error =>{
+                    this.blocked = false;
+                });
                 this.isEmployeeSelected = true;
                 this.isCustomerSelected = false;
                 
@@ -83,11 +91,13 @@ export class EnterAvailabilityComponent implements OnInit {
      * List all employee availabilities
      * 
      */
-    getAvailabilities(){
+    getAllAvailabilities(){
+        this.blocked = true;
         this.showTable = true;
         this.isDisabled = true;
         this.userAvailabilities = [];
-        this.service.getAvailabilities().subscribe(userAvailabilities => {
+        this.datePipe = new DatePipe("en-US"); 
+        this.service.getAllAvailabilities().subscribe(userAvailabilities => {
             userAvailabilities.forEach( userAvailability => {
                 let avail = new UserAvailability();
                 avail.empId = userAvailability.empId;
@@ -99,8 +109,10 @@ export class EnterAvailabilityComponent implements OnInit {
                 avail.availComments = userAvailability.availComments;
                 avail.enterBySource = userAvailability.enterBySource;
                 avail.enterTime = userAvailability.enterTime;
+                avail.fmtDateTime = this.datePipe.transform(avail.enterTime,'MM/dd/yyyy');
                 this.userAvailabilities.push(avail);
             })
+            this.blocked = false;
         });
         
     }

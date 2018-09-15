@@ -15,6 +15,9 @@ import {EmployeeAvailabilityComponent } from '../employee-availability/employee-
 import { CustomerShiftConfigurationComponent } from '../customer-shift-configuration/customer-shift-configuration.component';
 import { CustomerOptionsComponent } from '../customer-options/customer-options.component';
 import { CustomerAddShiftsComponent } from '../customer-add-shifts/customer-add-shifts.component';
+import {ProgressBarModule} from 'primeng/progressbar';
+import {BlockUIModule} from 'primeng/blockui';
+import {MessagesModule} from 'primeng/messages';
 
 
 const enterAvailabilityRoutes: Routes = [{path: 'enteravailability', component: EnterAvailabilityComponent, canActivate: [OktaAuthGuard] , 
@@ -35,7 +38,10 @@ const enterAvailabilityRoutes: Routes = [{path: 'enteravailability', component: 
     RadioButtonModule,
     CheckboxModule,
     CalendarModule,
+    ProgressBarModule,
     AngularCalendar,
+    BlockUIModule,
+    MessagesModule,
     RouterModule.forChild(enterAvailabilityRoutes)
   ],
   exports: [RouterModule ],

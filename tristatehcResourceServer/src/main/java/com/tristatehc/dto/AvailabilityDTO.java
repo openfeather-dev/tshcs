@@ -104,16 +104,7 @@ public class AvailabilityDTO {
 				return false;
 		} else if (!empId.equals(other.empId))
 			return false;
-		if (enterBySource == null) {
-			if (other.enterBySource != null)
-				return false;
-		} else if (!enterBySource.equals(other.enterBySource))
-			return false;
-		if (enterTime == null) {
-			if (other.enterTime != null)
-				return false;
-		} else if (!enterTime.toString().equals(other.enterTime.toString()))
-			return false;
+		
 		return true;
 	}
 	@Override

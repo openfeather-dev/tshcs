@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Availability } from '../model/availability';
 import { Subject } from 'rxjs';
 import { UserAvailability } from '../model/user-availability';
+import { UserProfile } from '../model/user-profile';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,7 @@ export class EnterAvailabilityService {
       isDisabled = this.isDisabledSource.asObservable();
   
       baseUrl = 'http://localhost:8090/useravailability/';
+      userUrl = 'http://localhost:8090/user/';
 
     constructor(private http: HttpClient) { }
 
@@ -22,9 +23,18 @@ export class EnterAvailabilityService {
     }
     
     /**
-     * Get all employee availabilities from rest api
+     * Get all employee availabilities
      */
-    getAvailabilities(){
+    getAllAvailabilities(){
         return this.http.get<UserAvailability[]>(this.baseUrl);
     }
+    
+    /**
+     * Get all employees
+     */
+    getAllEmployees(){
+        return this.http.get<UserProfile[]>(this.userUrl);
+    }
+    
+    
 }

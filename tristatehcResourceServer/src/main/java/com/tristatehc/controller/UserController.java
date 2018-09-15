@@ -1,5 +1,6 @@
 package com.tristatehc.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,12 @@ public class UserController {
 	public UserProfileDTO getUserProfile(@PathVariable("emailId") String emailId) {
 		Optional<UserProfileDTO> userOptnl = userService.getUserProfile(emailId);
 		return userOptnl.get();
+	}
+	
+	@RequestMapping(path="/", method=RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
+	public List<UserProfileDTO> getAllUserProfiles(){
+		List<UserProfileDTO> users = userService.getAllUserProfiles();
+		return users;
 	}
 
 

@@ -1,45 +1,54 @@
+<p-progressBar *ngIf="blocked" mode="indeterminate"></p-progressBar>
+<br>
+<div class="btn-group">
+	<div class="btn btn-primary" mwlCalendarPreviousView [view]="view"
+		[(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
+		Previous</div>
+	<div class="btn btn-outline-secondary" mwlCalendarToday
+		[(viewDate)]="viewDate">Today</div>
+	<div class="btn btn-primary" mwlCalendarNextView [view]="view"
+		[(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
+		Next</div>
 
-<div class="ui-g-12" >
-	<div class="ui-g-1" >
-		<button pButton type="button" label="Save"
-			[routerLink]="['../../']" ></button>
-	</div>
-	<div class="ui-g-1" style="margin-left: 2%">
-		<button pButton type="button" label="Cancel"
-			[routerLink]="['../../']" (click)="cancel()"></button>
-	</div>
 </div>
+<br>
+<div align="center">
+	<h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+</div>
+<br>
+<p-messages [(value)]="msgs"></p-messages>
 <ng-template #customCellTemplate let-day="day" let-locale="locale">
+
 <div class="cal-cell-top">
 	<div class="ui-g-12">
-		<span class="cal-day-number">{{ day.date
+		<span class="cal-day-number" style="font-weight: bold;color: black;">{{ day.date
 			|calendarDate:'monthViewDayNumber':locale }}</span>
 	</div>
-	<div class="ui-g-12">
+	<div class="ui-g-12" >
 		<p-checkbox #shift7to3 name="shift" name="shift"
-			value="{{ day.date | date: 'dd/MM/yyyy'}}:7-3" label="7-3"
-			[(ngModel)]="selectedShifts"></p-checkbox>
+			value="{{ day.date | date: 'MM/dd/yyyy'}}:7-3" label="7-3"
+			[(ngModel)]="selectedShifts" [disabled]="today>day.date"></p-checkbox>
 	</div>
 	<div class="ui-g-12">
 		<p-checkbox #shift3to11 name="shift" name="shift"
-			value="{{ day.date | date: 'dd/MM/yyyy'}}:3-11" label="3-11"
-			[(ngModel)]="selectedShifts"></p-checkbox>
+			value="{{ day.date | date: 'MM/dd/yyyy'}}:3-11" label="3-11"
+			[(ngModel)]="selectedShifts" [disabled]="today>day.date"></p-checkbox>
 	</div>
 	<div class="ui-g-12">
 		<p-checkbox #shift11to7 name="shift" name="shift"
-			value="{{ day.date | date: 'dd/MM/yyyy'}}:11-7" label="11-7"
-			[(ngModel)]="selectedShifts"></p-checkbox>
+			value="{{ day.date | date: 'MM/dd/yyyy'}}:11-7" label="11-7"
+			[(ngModel)]="selectedShifts" [disabled]="today>day.date"></p-checkbox>
 	</div>
 	<div class="ui-g-12">
 		<p-checkbox #allShifts name="shift" name="shift"
-			value="{{ day.date | date: 'dd/MM/yyyy'}}:All" label="All"
-			[(ngModel)]="selectedAllShifts"></p-checkbox>
+			value="{{ day.date | date: 'MM/dd/yyyy'}}:All" label="All"
+			[(ngModel)]="selectedAllShifts" [disabled]="today>day.date"></p-checkbox>
 	</div>
-	<div class="ui-g-12">
+	<div class="ui-g-12" >
 		<label for="comments">Comments</label><br />
 		<textarea [rows]="5" [cols]="12" #textComments
-			id="{{ day.date | date: 'dd/MM/yyyy'}}"
-			[(ngModel)]="comments[textComments.id]" pInputTextarea></textarea>
+			id="{{ day.date | date: 'MM/dd/yyyy'}}"
+			[ngModel]="comments.get(textComments.id)" (ngModelChange)="comments.set(textComments.id,$event)" pInputTextarea [disabled]="today>day.date"></textarea>
 	</div>
 </div>
 </ng-template>
@@ -57,7 +66,7 @@
 <div class="ui-g-12" >
 	<div class="ui-g-1" >
 		<button pButton type="button" label="Save"
-			[routerLink]="['../../']" ></button>
+			(click)="save()" ></button>
 	</div>
 	<div class="ui-g-1" style="margin-left: 2%">
 		<button pButton type="button" label="Cancel"

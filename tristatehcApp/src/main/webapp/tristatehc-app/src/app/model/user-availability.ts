@@ -6,7 +6,9 @@ export class UserAvailability {
     availComments : string;
     enterBySource : string;
     enterTime : Date;
-     userId: string;
+    //formatted string version of enterTime
+    fmtDateTime : string;
+    userId: string;
     employeementStatus : string;
     fname: string;
     lname: string;

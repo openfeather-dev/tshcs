@@ -7,7 +7,7 @@
 	<ng-template #customCellTemplate let-day="day" let-locale="locale" shift7to3 shift3to11 shift11to7>
   		<div class="cal-cell-top" class="ui-g-12">
   			<div class="ui-g-12">
-    			<span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+    			<span class="cal-day-number" style="font-weight: bold;color: black;">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
  			</div>
   			<div [ngClass] ="{'ui-g-5' : messages.get(shift7to3.value),'ui-g-12' : !messages.get(shift7to3.value)}" >
 				<p-checkbox #shift7to3 name="shift" name="shift" value="{{ day.date | date: 'dd/MM/yyyy'}}:7-3" label="7-3" [(ngModel)]="selectedShifts" disabled="true">

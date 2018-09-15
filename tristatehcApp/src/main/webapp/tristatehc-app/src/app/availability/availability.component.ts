@@ -20,7 +20,7 @@ export class AvailabilityComponent implements OnInit {
     comments : Map<string,string> = new Map<string,string>();
     //comments : any[] = [];
     view: string = 'month';
-
+    today : Date = new Date();
     viewDate: Date = new Date();
     availability : Availability;
     email : string;
@@ -31,14 +31,9 @@ export class AvailabilityComponent implements OnInit {
     blocked: boolean = true;
     
     
-    constructor(private serviceAvailabilty : AvailabilityService, private oktaAuth: OktaAuthService) {
-           
-    }
+    constructor(private serviceAvailabilty : AvailabilityService, private oktaAuth: OktaAuthService) { }
     
     async ngOnInit() {
-        
-      //this.comments = [{"10/03/2018" : "sneha"},{"10/04/2018" : "mary"}];  
-        
         
       this.msgs = [];
       this.isAuthenticated = await this.oktaAuth.isAuthenticated();
@@ -46,8 +41,6 @@ export class AvailabilityComponent implements OnInit {
           
           this.oktaAuth.getUser().then(user => {
             this.email = user.preferred_username;
-            //this.getEmployeeId(this.email);
-               
             this.getAvailabilities(this.email);
       });
       
@@ -69,9 +62,7 @@ export class AvailabilityComponent implements OnInit {
        this.selectedShifts.forEach(shift => {
            let avail : Availability;
            avail = new Availability();
-           //avail.empId = this.employeeId;
-           avail.enterBySource = "Employee";
-           avail.enterTime = new Date();
+           avail.enterBySource = this.email;
            let tempVal = shift.split(":");
            avail.availDate = tempVal[0];
            avail.availTime = tempVal[1];
@@ -101,7 +92,6 @@ export class AvailabilityComponent implements OnInit {
      * @param : empId
      * @return : void
      */
-    
     getAvailabilities(email : string){
         let shifts : string[] = [];
         let comnts : Map<string,string> = new Map<string,string>();
@@ -117,26 +107,14 @@ export class AvailabilityComponent implements OnInit {
                 this.blocked = false;
             },error =>{
                console.log(error);
+                this.msgs = [];
                 this.msgs.push({severity:'error', summary:'Error : ', detail:'Availability could not be retrieved please try later!!'}); 
                 this.blocked = false;       
        });
     
     }
     
-    /**
-     * Get employee id corresponding to the email id that is obtained from okta
-     * @param : email
-     * @return : employeeId
-     */
-    /*getEmployeeId(email : string) {
-        
-        this.serviceAvailabilty.getEmployeeId(email).subscribe( employee => {
-            this.employeeId = employee.empId;
-            this.getAvailabilities(this.employeeId);
-        });
-    }*/
-    
-    selectAll(shift1:string,shift2:string,shift3:string,all:string){
+     selectAll(shift1:string,shift2:string,shift3:string,all:string){
         if(this.selectedAllShifts.includes(all)){
              this.selectedShifts.push(shift1,shift2,shift3);
         }
@@ -149,12 +127,5 @@ export class AvailabilityComponent implements OnInit {
         //this.comments.forEach((v,k) => console.log(`key:${k} value:${v}`));
        //this.comments.forEach(comment => console.log(`m[${comment.key}] = ${comment.value}`));
     }
-        
     
-    /*setComments(commentKey:string){
-        this.comments.set(commentKey,commentKey);
-    
-    }*/
-
-
 }
