@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Availability } from '../model/availability';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeAvailabilityService {
     
-    availabilityUrl = 'http://localhost:8090/availability/';
-
 
   constructor(private http: HttpClient) { }
     
@@ -17,9 +17,7 @@ export class EmployeeAvailabilityService {
      * @param : email
      */
     getEmployeeAvailability(email : string){
-        console.log("EmployeeAvailabilityService");
-        console.log(this.availabilityUrl + email);
-        return this.http.get<Availability[]>(this.availabilityUrl + email);
+        return this.http.get<Availability[]>(environment.resourceServerUrl+environment.availabilityUrl + email);
     }
     
     /**
@@ -29,7 +27,7 @@ export class EmployeeAvailabilityService {
      */
     
     saveEmployeeAvailabilities(avail : Availability[], email : string) {
-        return this.http.post(this.availabilityUrl + email, avail);
+        return this.http.post(environment.resourceServerUrl+environment.availabilityUrl + email, avail);
 
     }
 }

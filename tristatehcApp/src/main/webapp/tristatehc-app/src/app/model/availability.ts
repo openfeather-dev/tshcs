@@ -7,4 +7,5 @@ export class Availability {
     availComments : string;
     enterBySource : string;
     enterTime : Date;
+    employeeName : string;
 }

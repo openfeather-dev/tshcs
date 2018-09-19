@@ -17,7 +17,7 @@ import { CustomerOptionsComponent } from '../customer-options/customer-options.c
 import { CustomerAddShiftsComponent } from '../customer-add-shifts/customer-add-shifts.component';
 import {ProgressBarModule} from 'primeng/progressbar';
 import {BlockUIModule} from 'primeng/blockui';
-import {MessagesModule} from 'primeng/messages';
+import {ToastModule} from 'primeng/toast';
 
 
 const enterAvailabilityRoutes: Routes = [{path: 'enteravailability', component: EnterAvailabilityComponent, canActivate: [OktaAuthGuard] , 
@@ -41,7 +41,7 @@ const enterAvailabilityRoutes: Routes = [{path: 'enteravailability', component: 
     ProgressBarModule,
     AngularCalendar,
     BlockUIModule,
-    MessagesModule,
+    ToastModule,
     RouterModule.forChild(enterAvailabilityRoutes)
   ],
   exports: [RouterModule ],

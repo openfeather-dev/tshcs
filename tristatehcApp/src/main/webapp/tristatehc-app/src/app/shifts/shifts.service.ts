@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Message} from '../model/message';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShiftsService {
         
-    //TODO remove hard coded base url value
-    baseUrl = 'http://localhost:8090/shifts/';
     //messages:Map<string,string> = new Map<string,string>();
     selectedShifts: string[];
     comments : Map<string,string> = new Map<string,string>();
@@ -18,7 +17,7 @@ export class ShiftsService {
     constructor(private http: HttpClient) {  }
     
     getMessages(email:string){
-       //return this.http.get<Message[]>(this.baseUrl + email);
+       //return this.http.get<Message[]>(environment.resourceServerUrl+environment.myshiftUrl + email);
         //TODO remove hardcoded values
         this.messages.set("11/08/2018:7-3","No messages to perform action");
         this.messages.set("11/08/2018:3-11","No messages to perform action");

@@ -69,6 +69,14 @@ public class AvailabilityServiceImpl implements AvailabilityService {
 
 		List<AvailabilityDTO> availDto = savedAvailabilities.stream()
 				.map(avail -> UserMapper.INSTANCE.availabilityToAvailabilityDto(avail)).collect(Collectors.toList());
+		if(!availDto.isEmpty()) {
+			availDto.get(0).setEmployeeName(user.getFname()+" "+user.getLname());
+		} else {
+			AvailabilityDTO dto = new AvailabilityDTO();
+			dto.setEmployeeName(user.getFname()+" "+user.getLname());
+			availDto.add(dto);
+		}
+		
 		return availDto;
 	}
 

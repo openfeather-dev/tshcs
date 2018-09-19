@@ -1,11 +1,13 @@
 <p-progressBar *ngIf="blocked" mode="indeterminate"></p-progressBar>
 <br>
+<h4 style="color:gray;">{{employeeName}}</h4>
+<br>
 <div class="btn-group">
 	<div class="btn btn-primary" mwlCalendarPreviousView [view]="view"
 		[(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
 		Previous</div>
 	<div class="btn btn-outline-secondary" mwlCalendarToday
-		[(viewDate)]="viewDate">Today</div>
+		[(viewDate)]="viewDate">{{ viewDate | date:'LLL'}}</div>
 	<div class="btn btn-primary" mwlCalendarNextView [view]="view"
 		[(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
 		Next</div>
@@ -16,7 +18,7 @@
 	<h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
 </div>
 <br>
-<p-messages [(value)]="msgs"></p-messages>
+<p-toast [style]="{marginTop: '80px'}" position="top-center" ></p-toast>
 <ng-template #customCellTemplate let-day="day" let-locale="locale">
 
 <div class="cal-cell-top">
@@ -27,22 +29,22 @@
 	<div class="ui-g-12" >
 		<p-checkbox #shift7to3 name="shift" name="shift"
 			value="{{ day.date | date: 'MM/dd/yyyy'}}:7-3" label="7-3"
-			[(ngModel)]="selectedShifts" [disabled]="today>day.date"></p-checkbox>
+			[(ngModel)]="selectedShifts" [disabled]="today>day.date" (onChange)="checkIfAllSelected(shift7to3.value,shift3to11.value,shift11to7.value,allShifts.value)"></p-checkbox>
 	</div>
 	<div class="ui-g-12">
 		<p-checkbox #shift3to11 name="shift" name="shift"
 			value="{{ day.date | date: 'MM/dd/yyyy'}}:3-11" label="3-11"
-			[(ngModel)]="selectedShifts" [disabled]="today>day.date"></p-checkbox>
+			[(ngModel)]="selectedShifts" [disabled]="today>day.date" (onChange)="checkIfAllSelected(shift7to3.value,shift3to11.value,shift11to7.value,allShifts.value)"></p-checkbox>
 	</div>
 	<div class="ui-g-12">
 		<p-checkbox #shift11to7 name="shift" name="shift"
 			value="{{ day.date | date: 'MM/dd/yyyy'}}:11-7" label="11-7"
-			[(ngModel)]="selectedShifts" [disabled]="today>day.date"></p-checkbox>
+			[(ngModel)]="selectedShifts" [disabled]="today>day.date" (onChange)="checkIfAllSelected(shift7to3.value,shift3to11.value,shift11to7.value,allShifts.value)"></p-checkbox>
 	</div>
 	<div class="ui-g-12">
 		<p-checkbox #allShifts name="shift" name="shift"
 			value="{{ day.date | date: 'MM/dd/yyyy'}}:All" label="All"
-			[(ngModel)]="selectedAllShifts" [disabled]="today>day.date"></p-checkbox>
+			[(ngModel)]="selectedAllShifts" [disabled]="today>day.date" (onChange)="selectAll(shift7to3.value,shift3to11.value,shift11to7.value,allShifts.value)"></p-checkbox>
 	</div>
 	<div class="ui-g-12" >
 		<label for="comments">Comments</label><br />
@@ -73,3 +75,4 @@
 			[routerLink]="['../../']" (click)="cancel()"></button>
 	</div>
 </div>
+

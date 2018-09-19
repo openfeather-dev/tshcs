@@ -5,20 +5,20 @@ import {CheckboxModule} from 'primeng/checkbox';
 import { AvailabilityService } from '../common-services/availability.service';
 import { Availability } from '../model/availability';
 import { OktaAuthService } from '@okta/okta-angular';
-import {Message} from 'primeng/components/common/api';
+import {MessageService} from 'primeng/api';
 
 @Component({
     selector: 'app-availability',
     templateUrl: './availability.component.html',
     styleUrls: ['./availability.component.css'],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    providers:[MessageService]
 })
 export class AvailabilityComponent implements OnInit {
     
     selectedShifts : string[] = [];
     selectedAllShifts : string[] = [];
     comments : Map<string,string> = new Map<string,string>();
-    //comments : any[] = [];
     view: string = 'month';
     today : Date = new Date();
     viewDate: Date = new Date();
@@ -26,16 +26,13 @@ export class AvailabilityComponent implements OnInit {
     email : string;
     isAuthenticated : boolean;
     checked : boolean = false;
-    msgs : Message[];
-    //employeeId : string;
     blocked: boolean = true;
     
     
-    constructor(private serviceAvailabilty : AvailabilityService, private oktaAuth: OktaAuthService) { }
+    constructor(private serviceAvailabilty : AvailabilityService, private oktaAuth: OktaAuthService, private messageService: MessageService) { }
     
     async ngOnInit() {
         
-      this.msgs = [];
       this.isAuthenticated = await this.oktaAuth.isAuthenticated();
       if(this.isAuthenticated){
           
@@ -45,8 +42,6 @@ export class AvailabilityComponent implements OnInit {
       });
       
       }
-       
-       
     }
 
         
@@ -57,7 +52,7 @@ export class AvailabilityComponent implements OnInit {
      */
     save(){
        this.blocked = true;
-
+       console.log(this.selectedShifts);
        let availabilities : Availability[]=[];
        this.selectedShifts.forEach(shift => {
            let avail : Availability;
@@ -74,14 +69,12 @@ export class AvailabilityComponent implements OnInit {
        this.serviceAvailabilty.saveEmployeeAvailabilities(availabilities, this.email).subscribe(
        data => {
            console.log(data);
-           this.msgs = [];
-           this.msgs.push({severity:'success', summary:'Saved : ', detail:'Availability was successfully saved'});
+           this.messageService.add({severity:'success', summary: 'Saved', detail:'Availability was successfully saved'});
            this.blocked = false;
 
        },error =>{
            console.log(error);
-           this.msgs = [];
-           this.msgs.push({severity:'error', summary:'Error : ', detail:'Availability could not be saved'}); 
+           this.messageService.add({severity:'error', summary: 'Error', detail:'Availability could not be saved.'}); 
            this.blocked = false;
 
        }); 
@@ -107,25 +100,48 @@ export class AvailabilityComponent implements OnInit {
                 this.blocked = false;
             },error =>{
                console.log(error);
-                this.msgs = [];
-                this.msgs.push({severity:'error', summary:'Error : ', detail:'Availability could not be retrieved please try later!!'}); 
+                this.messageService.add({severity:'error', summary: 'Error', detail:'Availability could not be retrieved please try later!!'});
                 this.blocked = false;       
        });
     
     }
     
-     selectAll(shift1:string,shift2:string,shift3:string,all:string){
-        if(this.selectedAllShifts.includes(all)){
-             this.selectedShifts.push(shift1,shift2,shift3);
+    /**
+     * Action to take when the All checkbox is clicked
+     */
+     selectAll(shift1 : string, shift2 : string, shift3 : string, all : string){
+        let shifts : string[] = [];
+        shifts.push(shift1,shift2,shift3);
+        if(this.selectedAllShifts.some(allShift => allShift === all)){
+            shifts.forEach(shift => {  
+                if(this.selectedShifts.indexOf(shift) < 0){
+                     this.selectedShifts.push(shift);   
+                }
+            });
+            this.selectedShifts = this.selectedShifts.slice();
+        } else {
+            let removeShifts: string[] = []; 
+            removeShifts.push(shift1,shift2,shift3);
+            let filteredShifts : string[] = this.selectedShifts.filter( shift => removeShifts.indexOf(shift) < 0);
+            this.selectedShifts = filteredShifts;
         }
        
     }
     
-    dayClicked(event : Event){
-        //console.log("dayClicked "+this.comments("10/03/2018"));
-        //console.log("comments "+this.comments);
-        //this.comments.forEach((v,k) => console.log(`key:${k} value:${v}`));
-       //this.comments.forEach(comment => console.log(`m[${comment.key}] = ${comment.value}`));
+    /**
+     * Checking if the All checkbox should be checked/unchecked
+     */
+    checkIfAllSelected(shift1 : string, shift2 : string, shift3 : string, all : string){
+        let shifts : string[] = [];
+        shifts.push(shift1,shift2,shift3);
+        if(shifts.every(shift => this.selectedShifts.indexOf(shift) > 0)){
+            this.selectedAllShifts.push(all);
+            this.selectedAllShifts = this.selectedAllShifts.slice();
+        } else {
+           let filteredShifts : string[]  = this.selectedAllShifts.filter(shift => shift !== all);
+           this.selectedAllShifts = filteredShifts;
+        }
     }
+    
     
 }

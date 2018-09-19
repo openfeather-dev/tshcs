@@ -41,6 +41,8 @@ import { AuthService } from './auth/auth.service';
 import { EnterAvailabilityRoutingModule } from './enter-availability/enter-availability-routing.module';
 import {ProgressBarModule} from 'primeng/progressbar';
 import {BlockUIModule} from 'primeng/blockui';
+import {environment} from './../environments/environment';
+import {ToastModule} from 'primeng/toast';
 
 
 const routes: Routes=[
@@ -63,7 +65,7 @@ const routes: Routes=[
                        
  const config = {
   				issuer: 'https://dev-444763.oktapreview.com/oauth2/default',
- 				redirectUri: 'http://localhost:42000/implicit/callback',
+ 				redirectUri: 'http://localhost:'+environment.port+'/implicit/callback',
   				clientId: '0oafuhs95vCjTXe6f0h7',
                 scope:'openid profile'
 				};
@@ -98,6 +100,7 @@ const routes: Routes=[
     InputTextModule,
     InputTextareaModule,
     DialogModule,
+    ToastModule,
     DropdownModule,
     RadioButtonModule,
     CheckboxModule,

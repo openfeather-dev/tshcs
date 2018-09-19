@@ -13,6 +13,7 @@ public class AvailabilityDTO {
 	private String availComments;
 	private String enterBySource;
 	private Date enterTime;
+	private String employeeName;
 	
 	public String getEmpId() {
 		return empId;
@@ -56,7 +57,12 @@ public class AvailabilityDTO {
 	public void setEnterTime(Date enterTime) {
 		this.enterTime = enterTime;
 	}
-	
+	public String getEmployeeName() {
+		return employeeName;
+	}
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -66,8 +72,6 @@ public class AvailabilityDTO {
 		result = prime * result + ((availShift == null) ? 0 : availShift.hashCode());
 		result = prime * result + ((availTime == null) ? 0 : availTime.hashCode());
 		result = prime * result + ((empId == null) ? 0 : empId.hashCode());
-		result = prime * result + ((enterBySource == null) ? 0 : enterBySource.hashCode());
-		result = prime * result + ((enterTime == null) ? 0 : enterTime.hashCode());
 		return result;
 	}
 	@Override
@@ -91,7 +95,7 @@ public class AvailabilityDTO {
 			return false;
 		if (availShift == null) {
 			if (other.availShift != null)
-				return false;	
+				return false;
 		} else if (!availShift.equals(other.availShift))
 			return false;
 		if (availTime == null) {
@@ -104,17 +108,13 @@ public class AvailabilityDTO {
 				return false;
 		} else if (!empId.equals(other.empId))
 			return false;
-		
 		return true;
 	}
 	@Override
 	public String toString() {
 		return "AvailabilityDTO [empId=" + empId + ", availDate=" + availDate + ", availTime=" + availTime
 				+ ", availShift=" + availShift + ", availComments=" + availComments + ", enterBySource=" + enterBySource
-				+ ", enterTime=" + enterTime + "]";
+				+ ", enterTime=" + enterTime + ", employeeName=" + employeeName + "]";
 	}
 	
-	
-
-
 }

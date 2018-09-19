@@ -2,14 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Availability } from '../model/availability';
 import { UserProfile } from '../model/user-profile';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AvailabilityService {
-    //TODO remove hard coded base url value
-    baseUrl = 'http://localhost:8090/availability/';
-    userBaseUrl = 'http://localhost:8090/user/';
     
   constructor(private http: HttpClient) { }
     
@@ -20,7 +18,7 @@ export class AvailabilityService {
      */
     
     saveEmployeeAvailabilities(avail : Availability[], email : string) {
-        return this.http.post(this.baseUrl + email, avail);
+        return this.http.post(environment.resourceServerUrl+environment.availabilityUrl + email, avail);
 
     }
     
@@ -30,8 +28,7 @@ export class AvailabilityService {
      * @return : Availability[]
      */
     getEmployeeAvailabilities(email : string){
-        console.log(this.baseUrl + email);
-        return this.http.get<Availability[]>(this.baseUrl + email);
+        return this.http.get<Availability[]>(environment.resourceServerUrl+environment.availabilityUrl + email);
         
     }
     
@@ -41,6 +38,6 @@ export class AvailabilityService {
      * @return : employeeId
      */
     getEmployeeId(email : string){
-        return this.http.get<UserProfile>(this.userBaseUrl + email);
+        return this.http.get<UserProfile>(environment.resourceServerUrl+environment.userUrl + email);
     }
 }
