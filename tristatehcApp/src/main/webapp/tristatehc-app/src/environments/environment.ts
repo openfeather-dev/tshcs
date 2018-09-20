@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   port:42000,
-  ipAddress:'localhost',
+  host:'localhost',
   resourceServerUrl: 'http://localhost:8090/',
   availabilityUrl: 'availability/',
   userUrl: 'user/',

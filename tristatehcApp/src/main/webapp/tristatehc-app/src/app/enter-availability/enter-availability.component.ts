@@ -113,6 +113,8 @@ export class EnterAvailabilityComponent implements OnInit {
                 this.userAvailabilities.push(avail);
             })
             this.blocked = false;
+        }, error =>{
+            this.blocked = false;
         });
         
     }
