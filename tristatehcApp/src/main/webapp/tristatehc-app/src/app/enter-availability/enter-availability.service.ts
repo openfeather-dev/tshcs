@@ -12,12 +12,19 @@ export class EnterAvailabilityService {
     
       isDisabledSource = new Subject<boolean>();
       isDisabled = this.isDisabledSource.asObservable();
+    
+      isBlockedSource = new Subject<boolean>();
+      isBlocked = this.isBlockedSource.asObservable();
   
     constructor(private http: HttpClient) { }
 
        
     disableElement(isDisabled : boolean){
         this.isDisabledSource.next(isDisabled);        
+    }
+    
+    blockUI(isBlocked :boolean){
+        this.isBlockedSource.next(isBlocked);
     }
     
     /**

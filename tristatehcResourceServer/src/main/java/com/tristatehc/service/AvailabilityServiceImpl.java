@@ -39,7 +39,7 @@ public class AvailabilityServiceImpl implements AvailabilityService {
 		existingAvailabilities.removeAll(availabilityDto);
 
 		// Remove deleted availabilities
-		List<Availability> toBedeleted = existingAvailabilities.stream()
+		List<Availability> toBedeleted = existingAvailabilities.stream().filter(dto-> dto.getAvailDate() != null && dto.getAvailTime() != null)
 										.map(dto -> UserMapper.INSTANCE.availabilityDtoToAvailability(dto)).collect(Collectors.toList());
 		repository.deleteAll(toBedeleted);
 		

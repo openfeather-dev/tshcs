@@ -52,7 +52,6 @@ export class AvailabilityComponent implements OnInit {
      */
     save(){
        this.blocked = true;
-       console.log(this.selectedShifts);
        let availabilities : Availability[]=[];
        this.selectedShifts.forEach(shift => {
            let avail : Availability;
@@ -68,12 +67,10 @@ export class AvailabilityComponent implements OnInit {
        })
        this.serviceAvailabilty.saveEmployeeAvailabilities(availabilities, this.email).subscribe(
        data => {
-           console.log(data);
            this.messageService.add({severity:'success', summary: 'Saved', detail:'Availability was successfully saved'});
            this.blocked = false;
 
        },error =>{
-           console.log(error);
            this.messageService.add({severity:'error', summary: 'Error', detail:'Availability could not be saved.'}); 
            this.blocked = false;
 
@@ -90,20 +87,51 @@ export class AvailabilityComponent implements OnInit {
         let comnts : Map<string,string> = new Map<string,string>();
         this.serviceAvailabilty.getEmployeeAvailabilities(email).subscribe(
             data => {
-                console.log(data);
-                data.forEach(shift => {
-                 shifts.push(shift.availDate+":"+shift.availTime);
-                 comnts.set(shift.availDate, shift.availComments);
+                data.forEach(shift => { if(shift && shift.availDate !== null && shift.availTime !== null){
+                    shifts.push(shift.availDate+":"+shift.availTime);
+                    comnts.set(shift.availDate, shift.availComments);
+                    }
                 });
                 this.selectedShifts = shifts;
+                this.checkAll(this.selectedShifts);
                 this.comments = comnts;
                 this.blocked = false;
             },error =>{
-               console.log(error);
                 this.messageService.add({severity:'error', summary: 'Error', detail:'Availability could not be retrieved please try later!!'});
                 this.blocked = false;       
        });
     
+    }
+    
+    /**
+     * On page load check if the All checkbox should be checked
+     */
+    checkAll(shifts : string[]) {
+        shifts.sort();
+        let date = "";
+        let count = 0;
+        let tempValue = [];
+        shifts.forEach(shift => {
+            tempValue = [];
+            tempValue = shift.split(":");
+            if (date === "") {
+                date = tempValue[0];
+                count++;
+            } else if (date === tempValue[0]) {
+                count++;
+                if (count === 3) {
+                    this.selectedAllShifts.push(tempValue[0] + ":All");
+                    this.selectedAllShifts = this.selectedAllShifts.slice();
+                    count = 0;
+                    date = "";
+                }
+            } else {
+               count = 1;
+               date = tempValue[0]; 
+            }
+        }, error =>{
+            this.messageService.add({severity:'error', summary: 'Error', detail:'Availability could not be retrieved please try later!!'});
+        })
     }
     
     /**
@@ -132,9 +160,10 @@ export class AvailabilityComponent implements OnInit {
      * Checking if the All checkbox should be checked/unchecked
      */
     checkIfAllSelected(shift1 : string, shift2 : string, shift3 : string, all : string){
+        
         let shifts : string[] = [];
         shifts.push(shift1,shift2,shift3);
-        if(shifts.every(shift => this.selectedShifts.indexOf(shift) > 0)){
+        if(shifts.every(shift => this.selectedShifts.indexOf(shift) >= 0)){
             this.selectedAllShifts.push(all);
             this.selectedAllShifts = this.selectedAllShifts.slice();
         } else {

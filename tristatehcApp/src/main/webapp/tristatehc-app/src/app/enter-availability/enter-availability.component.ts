@@ -34,6 +34,9 @@ export class EnterAvailabilityComponent implements OnInit {
         this.service.isDisabled.subscribe(isDisabled =>{
             this.isDisabled = isDisabled;
         });
+        this.service.isBlocked.subscribe(isBlocked => {
+            this.blocked = isBlocked;
+        })
     
     }
     ngOnInit() {

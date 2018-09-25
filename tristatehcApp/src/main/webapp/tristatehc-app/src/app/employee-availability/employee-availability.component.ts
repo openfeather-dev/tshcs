@@ -44,6 +44,7 @@ export class EmployeeAvailabilityComponent implements OnInit {
       });
       }
       this.availablility.disableElement(true);
+      this.availablility.blockUI(true);
       this.email = this.route.snapshot.paramMap.get('email');
       this.getEmployeeAvailability();
       
@@ -70,19 +71,52 @@ export class EmployeeAvailabilityComponent implements OnInit {
          let comnts : Map<string,string> = new Map<string,string>();
         this.empAvailService.getEmployeeAvailability(this.email).subscribe(availabilities =>{
           this.employeeName = availabilities[0].employeeName;
-          availabilities.forEach(availability => {
-              shifts.push(availability.availDate+":"+availability.availTime);
-              comnts.set(availability.availDate, availability.availComments);
+          availabilities.forEach(availability => {if(availability && availability.availDate !== null && availability.availTime !== null){
+                 shifts.push(availability.availDate+":"+availability.availTime);
+                 comnts.set(availability.availDate, availability.availComments);
+              }
           });
            this.selectedShifts = shifts;
+           this.checkAll(this.selectedShifts);
            this.comments = comnts;
-           this.blocked = false;
+           this.availablility.blockUI(false);
       }, error => {
-          console.log(error);
           this.messageService.add({severity:'error', summary: 'Error', detail:'Availability could not be retrieved please try later!!'});
-          this.blocked = false;  
+          this.availablility.blockUI(false);
       });
     }
+    
+    /**
+     * On page load check if the All checkbox should be checked
+     */
+    checkAll(shifts : string[]) {
+        shifts.sort();
+        let date = "";
+        let count = 0;
+        let tempValue = [];
+        shifts.forEach(shift => {
+            tempValue = [];
+            tempValue = shift.split(":");
+            if (date === "") {
+                date = tempValue[0];
+                count++;
+            } else if (date === tempValue[0]) {
+                count++;
+                if (count === 3) {
+                    this.selectedAllShifts.push(tempValue[0] + ":All");
+                    this.selectedAllShifts = this.selectedAllShifts.slice();
+                    count = 0;
+                    date = "";
+                }
+            } else {
+               count = 1;
+               date = tempValue[0]; 
+            }
+        }, error =>{
+            this.messageService.add({severity:'error', summary: 'Error', detail:'Availability could not be retrieved please try later!!'});
+        })
+    }
+    
     
     
     /**
@@ -91,8 +125,7 @@ export class EmployeeAvailabilityComponent implements OnInit {
      * @return : void
      */
     save(){
-       this.blocked = true;
-
+        this.availablility.blockUI(true);
        let availabilities : Availability[]=[];
        this.selectedShifts.forEach(shift => {
            let avail : Availability;
@@ -108,14 +141,12 @@ export class EmployeeAvailabilityComponent implements OnInit {
        })
        this.empAvailService.saveEmployeeAvailabilities(availabilities, this.email).subscribe(
        data => {
-           console.log(data);
            this.messageService.add({severity:'success', summary: 'Saved', detail:'Availability was successfully saved'});
-           this.blocked = false;
+           this.availablility.blockUI(false);
 
        },error =>{
-           console.log(error);
            this.messageService.add({severity:'error', summary: 'Error', detail:'Availability could not be saved'}); 
-           this.blocked = false;
+           this.availablility.blockUI(false);
 
        }); 
     }
