@@ -22,7 +22,6 @@ export class CustomerOptionsComponent implements OnInit {
     }
 
   ngOnInit() {
-      console.log(this.buttonSelected);
   }
 
    setSelectedButton(buttonName : string){

@@ -1,7 +1,4 @@
-<!-- <mwl-demo-utils-calendar-header
-  [(view)]="view"
-  [(viewDate)]="viewDate">
-</mwl-demo-utils-calendar-header> -->
+
 <p-progressBar *ngIf="blocked" mode="indeterminate"></p-progressBar>
 <br>
 <div class="container">
@@ -26,8 +23,10 @@
 	<ng-template #customCellTemplate let-day="day" let-locale="locale">
 	<div class="cal-cell-top">
 		<div class="ui-g-12">
-			<span class="cal-day-number" style="font-weight: bold;color: black;">{{ day.date |
+		
+			<span class="cal-day-number" style="font-weight: bolder;">{{day.date | date : 'E'}}<br>{{ day.date |
 				calendarDate:'monthViewDayNumber':locale }}</span>
+
 		</div>
 		<div class="ui-g-12">
 			<p-checkbox #shift7to3 name="shift" name="shift"

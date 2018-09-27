@@ -25,8 +25,8 @@ export class EnterAvailabilityComponent implements OnInit {
     namesList : any[];
     employeeEmail : string;
     isDisabled : boolean = false;
-    userAvailabilities : UserAvailability[];
-    availCols : any[];
+    userAvailabilities : UserAvailability[] = [];
+    availCols : any[] = [];
     showTable : boolean = false;
     blocked : boolean;
    
@@ -40,25 +40,11 @@ export class EnterAvailabilityComponent implements OnInit {
     
     }
     ngOnInit() {
-        //this.employees = [{ name: 'Sneha', email: 'snehazacharia' }, { name: 'Kurian', email: 'kurianmathew' }];
         this.cols = [
             { field: 'fname', field2: 'lname', header: 'Search' },
         ];
 
         this.customers = [{ fname: 'Customer A', field2:'', id: 123 }, { fname: 'Customer B', field2:'', id: 890 }];
-
-        this.availCols = [
-            { field: 'empId', header: 'Emplopyee Id' },
-            { field: 'fname', header: 'Name' },
-            { field: 'phoneCell', header: 'Contact' },
-            { field: 'availDate', header: 'Available Date' },
-            { field: 'availTime', header: 'Available Time' },
-            { field: 'availShift', header: 'Available Shift' },
-            { field: 'availComments', header: 'Comments' },
-            { field: 'enterBySource', header: 'Source' },
-            { field: 'fmtDateTime', header: 'Date Entered' },
-        ];
-        
 
     }
     
@@ -94,27 +80,49 @@ export class EnterAvailabilityComponent implements OnInit {
      * List all employee availabilities
      * 
      */
+    
     getAllAvailabilities(){
         this.blocked = true;
         this.showTable = true;
         this.isDisabled = true;
-        this.userAvailabilities = [];
-        this.datePipe = new DatePipe("en-US"); 
+        let availabilities :UserAvailability[] = [];
         this.service.getAllAvailabilities().subscribe(userAvailabilities => {
-            userAvailabilities.forEach( userAvailability => {
-                let avail = new UserAvailability();
-                avail.empId = userAvailability.empId;
-                avail.fname = userAvailability.fname+" "+userAvailability.lname;
-                avail.phoneCell = userAvailability.phoneCell;
-                avail.availDate = userAvailability.availDate;
-                avail.availTime = userAvailability.availTime;
-                avail.availShift = userAvailability.availShift;
-                avail.availComments = userAvailability.availComments;
-                avail.enterBySource = userAvailability.enterBySource;
-                avail.enterTime = userAvailability.enterTime;
-                avail.fmtDateTime = this.datePipe.transform(avail.enterTime,'MM/dd/yyyy');
-                this.userAvailabilities.push(avail);
-            })
+            if(userAvailabilities){
+                let header = userAvailabilities.shift();
+                
+                this.availCols = [ { field: 'empId', header: header.empId },
+                                    { field: 'title', header: header.title },
+                                    { field: 'fname', header: header.fname },
+                                    { field: 'lname', header: header.lname },
+                                    { field: 'cell', header: header.cell },
+                                    { field: 'c0', header: header.c0 },
+                                    { field: 'c1', header: header.c1 },
+                                    { field: 'c2', header: header.c2 },
+                                    { field: 'c3', header: header.c3 },
+                                    { field: 'c4', header: header.c4 },
+                                    { field: 'c5', header: header.c5 },
+                                    { field: 'c6', header: header.c6 },
+                                    { field: 'c7', header: header.c7 },];
+                
+                userAvailabilities.forEach( userAvailability => {
+                    let avail = new UserAvailability();
+                    avail.empId = userAvailability.empId;
+                    avail.title = userAvailability.title;
+                    avail.fname = userAvailability.fname;
+                    avail.lname = userAvailability.lname;
+                    avail.cell = userAvailability.cell;
+                    avail.c0 = userAvailability.c0;
+                    avail.c1 = userAvailability.c1;
+                    avail.c2 = userAvailability.c2;
+                    avail.c3 = userAvailability.c3;
+                    avail.c4 = userAvailability.c4;
+                    avail.c5 = userAvailability.c5;
+                    avail.c6 = userAvailability.c6;
+                    avail.c7 = userAvailability.c7;
+                    availabilities.push(avail);
+                })
+            }
+            this.userAvailabilities = availabilities;
             this.blocked = false;
         }, error =>{
             this.blocked = false;
@@ -126,7 +134,5 @@ export class EnterAvailabilityComponent implements OnInit {
         this.showTable = false;
         this.isDisabled = false;
     }
-    
-   
 
 }
