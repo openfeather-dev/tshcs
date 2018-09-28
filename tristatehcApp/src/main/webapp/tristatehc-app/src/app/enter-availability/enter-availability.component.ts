@@ -91,6 +91,8 @@ export class EnterAvailabilityComponent implements OnInit {
                 let header = userAvailabilities.shift();
                 
                 this.availCols = [ { field: 'empId', header: header.empId },
+                                    { field: 'future1', header: header.future1 },
+                                    { field: 'future2', header: header.future2 },
                                     { field: 'title', header: header.title },
                                     { field: 'fname', header: header.fname },
                                     { field: 'lname', header: header.lname },
@@ -107,6 +109,8 @@ export class EnterAvailabilityComponent implements OnInit {
                 userAvailabilities.forEach( userAvailability => {
                     let avail = new UserAvailability();
                     avail.empId = userAvailability.empId;
+                    avail.future1 = userAvailability.future1;
+                    avail.future2 = userAvailability.future2;
                     avail.title = userAvailability.title;
                     avail.fname = userAvailability.fname;
                     avail.lname = userAvailability.lname;

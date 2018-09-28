@@ -16,6 +16,12 @@ public class AvailabilityData {
 	@Column(name="Emp ID")
 	private String empId;
 	
+	@Column(name="Future 1")
+	private String future1;
+	
+	@Column(name="Future 2")
+	private String future2;
+	
 	@Column(name="TItle")
 	private String title;
 	

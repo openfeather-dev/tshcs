@@ -65,7 +65,7 @@ const routes: Routes=[
                        
  const config = {
   				issuer: 'https://dev-444763.oktapreview.com/oauth2/default',
- 				redirectUri: 'http://localhost:'+environment.port+'/implicit/callback',
+ 				redirectUri: 'http://'+environment.host+':'+environment.port+'/implicit/callback',
   				clientId: '0oafuhs95vCjTXe6f0h7',
                 scope:'openid profile'
 				};
