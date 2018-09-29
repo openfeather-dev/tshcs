@@ -1,9 +1,9 @@
-export class UserAvailability {
+export class UserAvailability  {
     empId : string;
-    future1 : string;
-    future2 : string;
+    fut1 : string;
+    fut2 : string;
     title : string;
-    fname : string
+    fname : string;
     lname : string;
     cell: string;
     c0 : string;

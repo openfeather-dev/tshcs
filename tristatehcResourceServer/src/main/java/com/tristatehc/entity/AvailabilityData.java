@@ -4,23 +4,24 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 import org.hibernate.annotations.Immutable;
 
 @Entity
 @Immutable
 @Table(name="avail_data_vw")
+
 public class AvailabilityData {
 	
 	@Id
 	@Column(name="Emp ID")
+
 	private String empId;
 	
 	@Column(name="Future 1")
-	private String future1;
+	private String fut1;
 	
 	@Column(name="Future 2")
-	private String future2;
+	private String fut2;
 	
 	@Column(name="TItle")
 	private String title;
@@ -42,9 +43,14 @@ public class AvailabilityData {
 	private String c5;
 	private String c6;
 	private String c7;
-	
 	public String getEmpId() {
 		return empId;
+	}
+	public String getFut1() {
+		return fut1;
+	}
+	public String getFut2() {
+		return fut2;
 	}
 	public String getTitle() {
 		return title;
@@ -82,5 +88,6 @@ public class AvailabilityData {
 	public String getC7() {
 		return c7;
 	}
-	
+		
+		
 }

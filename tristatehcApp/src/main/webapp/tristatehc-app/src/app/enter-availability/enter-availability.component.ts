@@ -3,7 +3,7 @@ import { Router} from '@angular/router';
 import {EnterAvailabilityService} from './enter-availability.service';
 import { Availability } from '../model/availability';
 import { UserAvailability } from '../model/user-availability';
-import { DatePipe } from '@angular/common';
+import {MessageService} from 'primeng/api';
 
 const CUSTOMER = "customer";
 
@@ -11,7 +11,7 @@ const CUSTOMER = "customer";
   selector: 'app-enter-availability',
   templateUrl: './enter-availability.component.html',
   styleUrls: ['./enter-availability.component.css'],
-  providers:[EnterAvailabilityService,DatePipe]
+  providers:[EnterAvailabilityService,MessageService]
 })
 export class EnterAvailabilityComponent implements OnInit {
     
@@ -30,7 +30,7 @@ export class EnterAvailabilityComponent implements OnInit {
     showTable : boolean = false;
     blocked : boolean;
    
-    constructor(private router : Router, private service : EnterAvailabilityService, private datePipe: DatePipe) {
+    constructor(private router : Router, private service : EnterAvailabilityService, private messageService: MessageService) {
         this.service.isDisabled.subscribe(isDisabled =>{
             this.isDisabled = isDisabled;
         });
@@ -61,12 +61,12 @@ export class EnterAvailabilityComponent implements OnInit {
                 this.blocked = false;
                 this.isCustomerSelected = true;
                 this.isEmployeeSelected = false;
-                console.log("this.isCustomerSelected"+this.isCustomerSelected);
             }else{
                 this.service.getAllEmployees().subscribe(users => {
                     users.forEach(user => this.namesList.push(user));
                     this.blocked = false;
                 },error =>{
+                    this.messageService.add({severity:'error', summary: 'Error', detail:'Employees could not be retrieved please try later!!'});
                     this.blocked = false;
                 });
                 this.isEmployeeSelected = true;
@@ -91,8 +91,8 @@ export class EnterAvailabilityComponent implements OnInit {
                 let header = userAvailabilities.shift();
                 
                 this.availCols = [ { field: 'empId', header: header.empId },
-                                    { field: 'future1', header: header.future1 },
-                                    { field: 'future2', header: header.future2 },
+                                    { field: 'fut1', header: header.fut1 },
+                                    { field: 'fut2', header: header.fut2 },
                                     { field: 'title', header: header.title },
                                     { field: 'fname', header: header.fname },
                                     { field: 'lname', header: header.lname },
@@ -109,8 +109,8 @@ export class EnterAvailabilityComponent implements OnInit {
                 userAvailabilities.forEach( userAvailability => {
                     let avail = new UserAvailability();
                     avail.empId = userAvailability.empId;
-                    avail.future1 = userAvailability.future1;
-                    avail.future2 = userAvailability.future2;
+                    avail.fut1 = userAvailability.fut1;
+                    avail.fut2 = userAvailability.fut2;
                     avail.title = userAvailability.title;
                     avail.fname = userAvailability.fname;
                     avail.lname = userAvailability.lname;
@@ -129,7 +129,10 @@ export class EnterAvailabilityComponent implements OnInit {
             this.userAvailabilities = availabilities;
             this.blocked = false;
         }, error =>{
+            this.messageService.add({severity:'error', summary: 'Error', detail:'Availability data could not be retrieved please try later!!'});
             this.blocked = false;
+            this.showTable = false;
+            this.isDisabled = false;
         });
         
     }

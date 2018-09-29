@@ -21,8 +21,7 @@ public class UserAvailabilityServiceImpl implements UserAvailabilityService {
 	}*/
 	
 	public List<AvailabilityData> getAllUserAvailability(){
-		List<AvailabilityData> availabilities = repository.getViewResult();
-		return availabilities;
+		return repository.getViewResult();
 	}
 
 }

@@ -51,6 +51,7 @@
 			<button pButton type="button" label="Show Availabilities" (click)="getAllAvailabilities()" [disabled]="isDisabled"></button>
 		</div>
 	<br>
+	<p-toast [style]="{marginTop: '80px'}" position="top-center" ></p-toast>
 	<div class="ui-g-12" *ngIf="showTable">
 		<p-table #availDt [columns]="availCols" [value]="userAvailabilities" [paginator]="true" [rows]="10" [autoLayout]="true">
 			<ng-template pTemplate="caption">
