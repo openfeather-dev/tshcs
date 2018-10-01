@@ -43,6 +43,7 @@ import {ProgressBarModule} from 'primeng/progressbar';
 import {BlockUIModule} from 'primeng/blockui';
 import {environment} from './../environments/environment';
 import {ToastModule} from 'primeng/toast';
+import { UserAvailabilityComponent } from './user-availability/user-availability.component';
 
 
 const routes: Routes=[
@@ -60,7 +61,8 @@ const routes: Routes=[
                       {path: 'implicit/callback',    component: OktaCallbackComponent},
                       {path: 'myavailability',    component: AvailabilityComponent, canActivate: [ OktaAuthGuard]},
                       {path: 'myshifts',    component: ShiftsComponent, canActivate: [ OktaAuthGuard]},
-                      {path: 'myshifts/shiftdetails', component: ShiftDetailsComponent},                      
+                      {path: 'myshifts/shiftdetails', component: ShiftDetailsComponent},
+                      {path: 'useravailability', component: UserAvailabilityComponent}                      
                      ];
                        
  const config = {
@@ -87,6 +89,7 @@ const routes: Routes=[
     ShiftsComponent,
     ShiftDetailsComponent,
     HideIfUnauthorizedDirective,
+    UserAvailabilityComponent,
         
   ],
   imports: [

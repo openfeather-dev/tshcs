@@ -56,6 +56,7 @@ export class EnterAvailabilityComponent implements OnInit {
         getList(){
             this.blocked = true;
             this.namesList = [];
+            let userList : any[] = [];
             if(this.selectedValue  === CUSTOMER){
                 this.namesList = this.customers;
                 this.blocked = false;
@@ -63,7 +64,8 @@ export class EnterAvailabilityComponent implements OnInit {
                 this.isEmployeeSelected = false;
             }else{
                 this.service.getAllEmployees().subscribe(users => {
-                    users.forEach(user => this.namesList.push(user));
+                    users.forEach(user => userList.push(user));
+                    this.namesList = userList;
                     this.blocked = false;
                 },error =>{
                     this.messageService.add({severity:'error', summary: 'Error', detail:'Employees could not be retrieved please try later!!'});
