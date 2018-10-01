@@ -14,9 +14,12 @@ export class UserAvailabilityComponent implements OnInit {
 
     availCols : any[] = [];
     userAvailabilities : UserAvailability[] = [];
+    blocked : boolean;
+    showTable : boolean;
   constructor(private messageService: MessageService,private service : UserAvailabilityService) { }
 
   ngOnInit() {
+      this.getAllAvailabilities();
   }
     
     /**
@@ -25,9 +28,7 @@ export class UserAvailabilityComponent implements OnInit {
      */
     
     getAllAvailabilities(){
-       // this.blocked = true;
-        //this.showTable = true;
-        //this.isDisabled = true;
+        this.blocked = true;
         let availabilities :UserAvailability[] = [];
         this.service.getAllAvailabilities().subscribe(userAvailabilities => {
             if(userAvailabilities){
@@ -70,12 +71,12 @@ export class UserAvailabilityComponent implements OnInit {
                 })
             }
             this.userAvailabilities = availabilities;
-            //this.blocked = false;
+            this.showTable = true;
+            this.blocked = false;
         }, error =>{
+            this.showTable = false;
             this.messageService.add({severity:'error', summary: 'Error', detail:'Availability data could not be retrieved please try later!!'});
-            //this.blocked = false;
-            //this.showTable = false;
-            //this.isDisabled = false;
+            this.blocked = false;
         });
         
     }

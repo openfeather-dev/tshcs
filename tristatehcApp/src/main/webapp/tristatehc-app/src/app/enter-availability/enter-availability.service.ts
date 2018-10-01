@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
-import { UserAvailability } from '../model/user-availability';
 import { UserProfile } from '../model/user-profile';
 import { environment } from '../../environments/environment';
 
@@ -26,14 +25,7 @@ export class EnterAvailabilityService {
     blockUI(isBlocked :boolean){
         this.isBlockedSource.next(isBlocked);
     }
-    
-    /**
-     * Get all employee availabilities
-     */
-    getAllAvailabilities(){
-        return this.http.get<UserAvailability[]>(environment.resourceServerUrl+environment.userAvailabilities);
-    }
-    
+       
     /**
      * Get all employees
      */

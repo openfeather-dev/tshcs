@@ -5,83 +5,53 @@
 <p-progressBar *ngIf="blocked" mode="indeterminate"></p-progressBar>
 <div class="container">
 	<p-blockUI [blocked]="blocked" [target]="container" ></p-blockUI>
-	<div class="ui-g-2" style="float: left; margin-top: 10px;"
+	<p-toast [style]="{marginTop: '80px'}" position="top-center" ></p-toast>
+	<div class="ui-g-2 ui-sm-12" style="float: left; margin-top: 10px;"
 		disabled="true">
 		<p-table #dt [columns]="cols" [value]="namesList" [paginator]="true"
-			[rows]="10"> <ng-template pTemplate="header" let-columns>
-		<tr>
-			<th>Search </th>
-		</tr>
-		<tr>
-			<th><p-radioButton name="searchName" value="customer"
-					label="Customer" [(ngModel)]="selectedValue" (click)="getList()"
-					[disabled]="isDisabled">
-					
-				</p-radioButton><br> 
-				<p-radioButton #employee
-					name="searchName" value="employee" label="Employee"
-					[(ngModel)]="selectedValue" (click)="getList()"
-					[disabled]="isDisabled"></p-radioButton>
-			</th>
-		</tr>
-		<tr>
-			<th *ngFor="let col of columns"><input pInputText type="text"
-				(input)="dt.filter($event.target.value,col.field,col.filterMatchMode)"
-				style="width: 100%" [disabled]="isDisabled"></th>
-			
-		</tr>
-		
-		</ng-template> 
+			[rows]="10" > 
+			<ng-template pTemplate="header" let-columns>
+				<tr>
+					<th>Search </th>
+				</tr>
+				<tr>
+					<th>
+						<p-radioButton name="searchName" value="customer"
+							label="Customer" [(ngModel)]="selectedValue" (click)="getList()"
+							[disabled]="isDisabled">
+							
+						</p-radioButton><br> 
+						<p-radioButton #employee
+							name="searchName" value="employee" label="Employee"
+							[(ngModel)]="selectedValue" (click)="getList()"
+							[disabled]="isDisabled">
+						</p-radioButton>
+					</th>
+				</tr>
+				<tr>
+					<th *ngFor="let col of columns">
+						<input pInputText type="text"
+						(input)="dt.filter($event.target.value,col.field,col.filterMatchMode)"
+						style="width: 100%" [disabled]="isDisabled">
+					</th>
+				</tr>
+		</ng-template>
+		 
 		<ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
 			<tr [pSelectableRow]="rowData" *ngIf="!isDisabled" >
-			<td *ngFor="let col of columns">
-				<a *ngIf="isEmployeeSelected"
-				[routerLink]="['employee', namesList[i].emailPrimary]">
+				<td *ngFor="let col of columns">
+					<a *ngIf="isEmployeeSelected"
+					[routerLink]="['employee', namesList[i].emailPrimary]">
 					{{rowData[col.field]}} {{ rowData[col.field2]}} </a> 
-				<a *ngIf="isCustomerSelected" [routerLink]="['customer',namesList[i].id]"> {{rowData[col.field]}} </a> 
-			</td>
+					<a *ngIf="isCustomerSelected" [routerLink]="['customer',namesList[i].id]"> {{rowData[col.field]}} </a> 
+				</td>
 					
-		</tr>
+			</tr>
 		</ng-template> 
 		
 		</p-table>
 	</div>
-	<div class="ui-g-10" style="float: right; margin-top: 10px">
-		<div class="ui-g-12" align="right">
-			<button pButton type="button" label="Show Availabilities" (click)="getAllAvailabilities()" [disabled]="isDisabled"></button>
-		</div>
-	<br>
-	<p-toast [style]="{marginTop: '80px'}" position="top-center" ></p-toast>
-	<div class="ui-g-12" *ngIf="showTable">
-		<p-table #availDt [columns]="availCols" [value]="userAvailabilities" [paginator]="true" [rows]="10" [autoLayout]="true">
-			<ng-template pTemplate="caption">
-	        	 <div style="text-align: right">        
-            		<input type="text" pInputText size="20" placeholder="Search" (input)="availDt.filterGlobal($event.target.value, 'contains')" style="width:auto">
-       			 </div>
-       		 </ng-template>
-		    <ng-template pTemplate="header" let-columns>
-		        <tr>
-		            <th *ngFor="let col of columns" style="text-align: center;">
-		                {{col.header}}
-		            </th>
-		        </tr>
-		         
-		    </ng-template>
-		    <ng-template pTemplate="body" let-rowData let-columns="columns" >
-		        <tr [pSelectableRow]="rowData">
-		            <td *ngFor="let col of columns" style="text-align: center;">
-		                {{rowData[col.field]}}
-		            </td>
-		        </tr>
-    		</ng-template>
-	    
-		</p-table>
-		<br>
-		<div ui-g-12 align="right">
-			<button pButton type="button" label="cancel" (click)="closeTable()"></button>
-		</div>
-	</div>
-	
+	<div class="ui-g-10 ui-sm-12" style="float: right; margin-top: 10px">
 		<router-outlet></router-outlet>
 	</div>
 </div>
