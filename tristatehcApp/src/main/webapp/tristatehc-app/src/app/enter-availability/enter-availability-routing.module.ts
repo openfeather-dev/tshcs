@@ -9,6 +9,8 @@ import {DropdownModule} from 'primeng/dropdown';
 import {CheckboxModule} from 'primeng/checkbox';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import { CalendarModule as AngularCalendar} from 'angular-calendar';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import {InputTextModule} from 'primeng/inputtext';
 import {CalendarModule } from 'primeng/calendar';
 import { EnterAvailabilityComponent } from './enter-availability.component';
 import {EmployeeAvailabilityComponent } from '../employee-availability/employee-availability.component';
@@ -37,6 +39,8 @@ const enterAvailabilityRoutes: Routes = [{path: 'enteravailability', component: 
     TableModule,
     RadioButtonModule,
     CheckboxModule,
+    InputTextareaModule,
+    InputTextModule,
     CalendarModule,
     ProgressBarModule,
     AngularCalendar,

@@ -1,0 +1,31 @@
+.jumbotron-header-style{
+	background-color: #31A3DD;
+}
+
+.header-style{
+	height: 135px; 
+	width: 220px;
+}
+
+.header-info-style{
+	list-style-type: none; 
+	color: white;
+	font-size: 15px;
+}
+
+.toolbar-content-style{
+	color: black; 
+	font-size: medium;
+}
+
+.toolbar-style.ui-toolbar{
+	background: white;
+	border: none;
+}
+
+.footer-info-style{
+	background-color:#31A3DD; 
+	text-align:center;
+	height:60px;
+	color:white;
+}

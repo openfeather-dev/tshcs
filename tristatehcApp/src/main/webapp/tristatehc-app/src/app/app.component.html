@@ -1,46 +1,48 @@
-<div class="jumbotron text-center" style="background-color: #31A3DD">
+	<div *ngIf="!isAuthenticated" class="jumbotron text-center jumbotron-header-style">
 	<div class="row">
-		<div class="container">
 			<div class="col-xs-6">
-				<a href="http://www.tristatehc.com/"
+				<a href="http://www.tristatesoft.com/"
 					title="Tri State Healthcare Services" rel="home"> <img
-					class="img-responsive"
-					src="/assets/images/logo.png"
-					style="height: 135px; width: 220px;" />
+					class="img-responsive header-style"
+					src="/assets/images/logo.png"/>
 				</a>
 			</div>
-			<div class="col-xs-6">
-				<ul class="float-right" style="list-style-type: none; color: white">
-					<li style="list-style-type: none; color: white"><a
+			<div class="col-xs-6" >
+				<ul class="float-right header-info-style">
+					<li><a
 						href="mailto:info@tristatehc.com"
-						style="list-style-type: none; color: white; font-size: 15px;">info@tristatehc.com
+						class="header-info-style">info@tristatehc.com
 							<span class="glyphicon glyphicon-envelope"></span>
 					</a></li>
 					<li><a href="tel:(732) 654-2220"
-						style="list-style-type: none; color: white; font-size: 15px;">(732)
+						class="header-info-style">(732)
 							654-2220 <span class="glyphicon glyphicon-phone-alt"></span>
 					</a></li>
 					<li><a href="tel:(732) 654-2220"
-						style="list-style-type: none; color: white; font-size: 15px;">(866)
+						class="header-info-style">(866)
 							382-1647 <span class="glyphicon glyphicon-earphone"></span>
 					</a>
 					</li>
 				</ul>
 			</div>
-			<div class="col-xs-6">
-				<a style="list-style-type: none; color: white; font-size: 15px;" *ngIf="!isAuthenticated" (click)="login()"> Login </a>
-	    		<br>
-	    		<span style="list-style-type: none; color: white; font-size: 15px;" *ngIf="isAuthenticated">Welcome {{loggedInUser}} !!</span>
-	    		<br><a style="list-style-type: none; color: white; font-size: 15px;" *ngIf="isAuthenticated" (click)="logout()" [routerLink]="['/home']"> Logout </a>
-    		    
-    		</div>
-			
-		</div>
+			<div> 
+				<a class="header-info-style" *ngIf="!isAuthenticated" (click)="login()"> Login </a>
+			</div>
 	</div>
 
 </div>
 
-
+	<p-toolbar *ngIf="isAuthenticated" styleClass="toolbar-style">
+		<div>
+			<div class="ui-toolbar-group-left">
+				<span class="toolbar-content-style" *ngIf="isAuthenticated">Welcome {{loggedInUser}} !!</span>
+			</div>
+			<div class="ui-toolbar-group-right">
+		   		<a class="toolbar-content-style" *ngIf="isAuthenticated" (click)="logout()" [routerLink]="['/home']"> Logout </a>
+		    </div>
+		 </div>
+	 </p-toolbar>
+	 <br>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid" >
 
@@ -57,10 +59,14 @@
 				<li  [appHideIfUnauthorized]="['Admin']" routerLinkActive="active"><a routerLink="/enteravailability">ENTER AVAILABILITY</a></li>
 				<li  [appHideIfUnauthorized]="['Admin']" routerLinkActive="active"><a routerLink="/useravailability">USER AVAILABILITY</a></li>
 			</ul>
-
 		</div>
+		
 	</nav>
-
 
 	<router-outlet></router-outlet>
 
+<footer *ngIf="!isAuthenticated" class="footer-info-style">
+&nbsp;
+  <p>© 2017 TriState Healthcare Services&nbsp;|&nbsp;Developed By &nbsp;<a href="#">OpenFeather</a></p>
+
+</footer>

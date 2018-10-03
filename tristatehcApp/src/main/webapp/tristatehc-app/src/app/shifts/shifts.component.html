@@ -1,9 +1,21 @@
-<!-- <mwl-demo-utils-calendar-header
-  [(view)]="view"
-  [(viewDate)]="viewDate">
-</mwl-demo-utils-calendar-header> -->
 
 <div class="container" *ngIf="!loadComponent">
+
+<div class="btn-group">
+		<div class="btn btn-primary" mwlCalendarPreviousView [view]="view"
+			[(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
+			Previous</div>
+		<div class="btn btn-outline-secondary" mwlCalendarToday
+			[(viewDate)]="viewDate">{{ viewDate | date:'LLL'}}</div>
+		<div class="btn btn-primary" mwlCalendarNextView [view]="view"
+			[(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
+			Next</div>
+
+	</div>
+	<br>
+	<div align="center">
+		<h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+	</div>
 	<ng-template #customCellTemplate let-day="day" let-locale="locale" shift7to3 shift3to11 shift11to7>
   		<div class="cal-cell-top" class="ui-g-12">
   			<div class="ui-g-12">

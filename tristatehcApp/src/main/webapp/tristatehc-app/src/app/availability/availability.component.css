@@ -1,0 +1,15 @@
+div.cal-header {
+    visibility: hidden;
+}
+
+div.cal-days {
+	overflow:auto;
+}
+
+.toast-style {
+	marginTop: 80px;
+}
+
+.cal-day-style{
+	font-weight: bolder;
+}

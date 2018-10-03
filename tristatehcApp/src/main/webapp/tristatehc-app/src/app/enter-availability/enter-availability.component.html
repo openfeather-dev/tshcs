@@ -1,13 +1,8 @@
-<!-- <mwl-demo-utils-calendar-header
-  [(view)]="view"
-  [(viewDate)]="viewDate">
-</mwl-demo-utils-calendar-header> -->
 <p-progressBar *ngIf="blocked" mode="indeterminate"></p-progressBar>
 <div class="container">
 	<p-blockUI [blocked]="blocked" [target]="container" ></p-blockUI>
-	<p-toast [style]="{marginTop: '80px'}" position="top-center" ></p-toast>
-	<div class="ui-g-2 ui-sm-12" style="float: left; margin-top: 10px;"
-		disabled="true">
+	<p-toast class="toast-style" position="top-center"></p-toast>
+	<div class="ui-g-2 ui-sm-12 name-list">
 		<p-table #dt [columns]="cols" [value]="namesList" [paginator]="true"
 			[rows]="10" > 
 			<ng-template pTemplate="header" let-columns>
@@ -32,7 +27,7 @@
 					<th *ngFor="let col of columns">
 						<input pInputText type="text"
 						(input)="dt.filter($event.target.value,col.field,col.filterMatchMode)"
-						style="width: 100%" [disabled]="isDisabled">
+						class="input-search" [disabled]="isDisabled">
 					</th>
 				</tr>
 		</ng-template>
@@ -51,7 +46,7 @@
 		
 		</p-table>
 	</div>
-	<div class="ui-g-10 ui-sm-12" style="float: right; margin-top: 10px">
+	<div class="ui-g-10 ui-sm-12 side-table">
 		<router-outlet></router-outlet>
 	</div>
 </div>

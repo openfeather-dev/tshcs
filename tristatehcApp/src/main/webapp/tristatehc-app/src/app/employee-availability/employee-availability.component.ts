@@ -1,4 +1,4 @@
-import { Component, OnInit,Input,EventEmitter,Output,ChangeDetectionStrategy  } from '@angular/core';
+import { Component, OnInit,Input,EventEmitter,Output,ChangeDetectionStrategy,ViewEncapsulation  } from '@angular/core';
 import {CalendarEvent} from 'angular-calendar';
 import { EnterAvailabilityService } from '../enter-availability/enter-availability.service';
 import { UserProfile} from '../model/user-profile';
@@ -13,6 +13,7 @@ import {MessageService} from 'primeng/api';
   templateUrl: './employee-availability.component.html',
   styleUrls: ['./employee-availability.component.css'],
   changeDetection: ChangeDetectionStrategy.Default,
+  encapsulation: ViewEncapsulation.None,
   providers:[MessageService]
 })
 export class EmployeeAvailabilityComponent implements OnInit {

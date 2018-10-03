@@ -44,6 +44,7 @@ import {BlockUIModule} from 'primeng/blockui';
 import {environment} from './../environments/environment';
 import {ToastModule} from 'primeng/toast';
 import { UserAvailabilityComponent } from './user-availability/user-availability.component';
+import {ToolbarModule} from 'primeng/toolbar';
 
 
 const routes: Routes=[
@@ -115,6 +116,7 @@ const routes: Routes=[
     HttpClientModule,
     ProgressBarModule,
     BlockUIModule,
+    ToolbarModule,
     EnterAvailabilityRoutingModule,
     RouterModule.forRoot(routes),
     OktaAuthModule.initAuth(config),

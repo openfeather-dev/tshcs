@@ -1,7 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy,ViewEncapsulation } from '@angular/core';
 import { CalendarEvent } from 'angular-calendar';
-import {InputTextareaModule} from 'primeng/inputtextarea';
-import {CheckboxModule} from 'primeng/checkbox';
 import { AvailabilityService } from '../common-services/availability.service';
 import { Availability } from '../model/availability';
 import { OktaAuthService } from '@okta/okta-angular';
@@ -11,6 +9,7 @@ import {MessageService} from 'primeng/api';
     selector: 'app-availability',
     templateUrl: './availability.component.html',
     styleUrls: ['./availability.component.css'],
+    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.Default,
     providers:[MessageService]
 })
