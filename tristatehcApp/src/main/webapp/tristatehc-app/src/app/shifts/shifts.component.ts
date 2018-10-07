@@ -31,15 +31,6 @@ export class ShiftsComponent implements OnInit {
         
     }
     
-   /* dayClicked(event:Event){        
-        console.log(this.selectedShifts);
-        console.log(this.messages);
-        console.log(this.comments);
-    }*/
-    
-    /*getShiftDetails(){
-        this.loadComponent = true;
-    }*/
     
     getShiftDetails(){
         this.router.navigate(['/myshifts/shiftdetails']);

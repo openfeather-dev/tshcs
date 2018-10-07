@@ -23,7 +23,6 @@ export class AuthGuardService implements CanActivate{
   
     
     canActivate(): boolean {  
-    console.log("****AuthGuardService*****");
     this.getAuthentication();
     return this.isAuthenticated;
       

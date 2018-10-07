@@ -37,7 +37,6 @@ export class ShiftDetailsComponent implements OnInit {
   }
     
    cancel(){
-       console.log("in cancel");
        this.router.navigate(['/myshifts']);
    }
   

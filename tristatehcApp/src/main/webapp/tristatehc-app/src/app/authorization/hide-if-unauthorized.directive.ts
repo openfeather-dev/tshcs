@@ -19,18 +19,15 @@ export class HideIfUnauthorizedDirective implements OnInit {
     }
 
     async ngOnInit() {
-        console.log("******HideIfUnauthorizedDirective******");
         this.isAuthenticated = await this.oktaAuth.isAuthenticated();
         if(this.isAuthenticated){
             
         this.user = await this.oktaAuth.getUser(); 
         this.userGroups = this.user.groups;
-            console.log(this.userGroups);
         
             
                 if (this.isAuthenticated && this.userGroups.length > 0) {
                     if (this.authService.isAuthorizedUser(this.groups, this.userGroups)) {
-                        //console.log("HideIfUnauthorizedDirective inside subscribe"+this.groups);
                         this.el.nativeElement.style.display = 'block';
                     } else {
                         this.el.nativeElement.style.display = 'none';
@@ -53,21 +50,17 @@ export class HideIfUnauthorizedDirective implements OnInit {
     // Subscribe to authentication state changes
       this.oktaAuth.$authenticationState.subscribe(
           (isAuthenticated: boolean)  => {
-              console.log("state changed-----");
                if(isAuthenticated){
                    
                    this.oktaAuth.getUser().then(user => {
                    this.userGroups = user.groups;
                    if (this.authService.isAuthorizedUser(this.groups, this.userGroups)) {
-                        //console.log("HideIfUnauthorizedDirective inside subscribe"+this.groups);
                         this.el.nativeElement.style.display = 'block';
                     } else {
                         this.el.nativeElement.style.display = 'none';
                     }    
-                  console.log("authentication state change in directive "+this.userGroups);
               }); 
                }else{
-               console.log("logged out");   
                    this.el.nativeElement.style.display = 'none'; 
                
                }

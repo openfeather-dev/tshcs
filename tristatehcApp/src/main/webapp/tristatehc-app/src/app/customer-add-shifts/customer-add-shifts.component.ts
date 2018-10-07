@@ -29,7 +29,6 @@ export class CustomerAddShiftsComponent implements OnInit {
       
       
                                     
-      console.log(typeof this.shifts[0].date);
   }
     /**
      * Method to inform parent component to enable its buttons

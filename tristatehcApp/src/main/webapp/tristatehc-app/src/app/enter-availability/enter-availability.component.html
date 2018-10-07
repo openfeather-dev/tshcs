@@ -32,13 +32,13 @@
 				</tr>
 		</ng-template>
 		 
-		<ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+		<ng-template pTemplate="body" let-rowData let-columns="columns">
 			<tr [pSelectableRow]="rowData" *ngIf="!isDisabled" >
 				<td *ngFor="let col of columns">
 					<a *ngIf="isEmployeeSelected"
-					[routerLink]="['employee', namesList[i].emailPrimary]">
+					[routerLink]="['employee', rowData.emailPrimary]">
 					{{rowData[col.field]}} {{ rowData[col.field2]}} </a> 
-					<a *ngIf="isCustomerSelected" [routerLink]="['customer',namesList[i].id]"> {{rowData[col.field]}} </a> 
+					<a *ngIf="isCustomerSelected" [routerLink]="['customer',rowData.id]"> {{rowData[col.field]}} </a> 
 				</td>
 					
 			</tr>

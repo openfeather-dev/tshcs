@@ -26,6 +26,8 @@ import {DropdownModule} from 'primeng/dropdown';
 import {CheckboxModule} from 'primeng/checkbox';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {TableModule} from 'primeng/table';
+import {MessageModule} from 'primeng/message';
+import {KeyFilterModule} from 'primeng/keyfilter';
 import {LoginComponent} from './login/login.component';
 import { UserRegisterationComponent } from './user-registeration/user-registeration.component';
 import { OktaCallbackComponent, OktaAuthModule,OktaAuthGuard } from '@okta/okta-angular';
@@ -45,6 +47,7 @@ import {environment} from './../environments/environment';
 import {ToastModule} from 'primeng/toast';
 import { UserAvailabilityComponent } from './user-availability/user-availability.component';
 import {ToolbarModule} from 'primeng/toolbar';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 const routes: Routes=[
@@ -117,6 +120,9 @@ const routes: Routes=[
     ProgressBarModule,
     BlockUIModule,
     ToolbarModule,
+    ReactiveFormsModule,
+    MessageModule,
+    KeyFilterModule,
     EnterAvailabilityRoutingModule,
     RouterModule.forRoot(routes),
     OktaAuthModule.initAuth(config),

@@ -7,11 +7,13 @@ import org.mapstruct.factory.Mappers;
 
 import com.tristatehc.dto.AvailabilityDTO;
 import com.tristatehc.dto.EventDTO;
+import com.tristatehc.dto.JobseekerDTO;
 import com.tristatehc.dto.UserAvailabilityDTO;
 import com.tristatehc.dto.UserDTO;
 import com.tristatehc.dto.UserProfileDTO;
 import com.tristatehc.entity.Availability;
 import com.tristatehc.entity.Event;
+import com.tristatehc.entity.Jobseeker;
 import com.tristatehc.entity.User;
 import com.tristatehc.entity.UserAvailabilityProjection;
 import com.tristatehc.entity.UserProfile;
@@ -59,6 +61,10 @@ public interface UserMapper {
     	@Mapping(target="emailSecondary", source="projection.userProfile.emailSecondary"),
     })
     UserAvailabilityDTO userAvailabilityProjectionToUserAvailabilityDto(UserAvailabilityProjection projection);
+    
+    JobseekerDTO jobseekersToJobseekersDto(Jobseeker jobseeker);
+    
+    Jobseeker jobseekerDtoToJobseeker(JobseekerDTO jobseekerDto);
     
     
      

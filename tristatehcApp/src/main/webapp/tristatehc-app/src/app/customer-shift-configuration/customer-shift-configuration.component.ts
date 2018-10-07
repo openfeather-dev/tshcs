@@ -40,7 +40,6 @@ export class CustomerShiftConfigurationComponent implements OnInit {
             }
 
 
-        console.log(this.shifts.firstShift.from);
     }
     
     /**

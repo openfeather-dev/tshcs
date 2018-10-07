@@ -29,7 +29,6 @@ export class AppComponent implements OnInit{
           (isAuthenticated: boolean)  => {this.isAuthenticated = isAuthenticated;
                
               this.oktaAuth.getUser().then(user => {
-                console.log(user);
                 if(this.isAuthenticated && user && user.groups){
                   this.loggedInUser = user.given_name;
                    this.groups = user.groups;
@@ -37,13 +36,11 @@ export class AppComponent implements OnInit{
                     
                     
                  }
-                console.log(this.loggedInUser);
               }); 
         })    
   }
 
   async ngOnInit() {
-  console.log("appcomponent");
       
      // this.login();
    // Get the authentication state for immediate use

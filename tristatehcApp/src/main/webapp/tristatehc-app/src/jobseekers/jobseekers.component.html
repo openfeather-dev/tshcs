@@ -1,87 +1,481 @@
-<div id="myCarousel"  class="carousel slide" data-ride="carousel">
-	<!-- Indicators -->
-	<ol class="carousel-indicators">
-		<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-		<li data-target="#myCarousel" data-slide-to="1"></li>
-		<li data-target="#myCarousel" data-slide-to="2"></li>
-	</ol>
-
-	<!-- Wrapper for slides -->
-	<div class="carousel-inner">
-		<div class="item active">
-			<img
-				src="/assets/images/logo-modified.jpg"
-				alt="Los Angeles" style="width: 100%;">
-		</div>
-
-		<div class="item">
-			<img
-				src="/assets/images/slide22.png"
-				alt="Chicago" style="width: 100%;">
-		</div>
-
-		<div class="item">
-			<img
-				src="/assets/images/slider11.png"
-				alt="New york" style="width: 100%;">
-		</div>
-	</div>
-
-	<!-- Left and right controls -->
-	<a class="left carousel-control" href="#myCarousel" data-slide="prev">
-		<span class="glyphicon glyphicon-chevron-left"></span> <span
-		class="sr-only">Previous</span>
-	</a> <a class="right carousel-control" href="#myCarousel" data-slide="next">
-		<span class="glyphicon glyphicon-chevron-right"></span> <span
-		class="sr-only">Next</span>
-	</a>
-</div>
-
-
-<div class="container">
-<div class="container">
-
-	<div class="row">
-		<div class="col-md-12">
-			<div class="enigma_blog_full">
-				<div class="enigma_blog_post_content">
-					<p>
-						<img style="float: left; width: 400px; height: 400px; margin: 2%;"
-							src="/assets/images/img3.png"
-							alt="" width="500" height="300" />
-					</p>
-					<p>
-						<strong>Tri-State Healthcare Services</strong> specializes in
-						placing candidates for contract, temp-to-perm, and direct hire
-						opportunities, matching qualified professionals to your needs.
-					</p>
-					<p>Through our local presence in Tri-State area, we can provide
-						a personal approach to staffing your locations.</p>
-					<p>Demand for healthcare staffing will continue to escalate and
-						you need a reliable partner to deliver the most qualified
-						physicians, nurses, and allied health professionals.</p>
-					<p>We are a quality-focused healthcare workforce solutions
-						provider with deep experience in a wide variety of healthcare
-						disciplines. We deliver the expertise you need to thrive as a
-						healthcare professional or business today.</p>
-					<p>We can provide both unique short term and long term staffing
-						solutions to meet your unique staffing needs.</p>
-					<p>Our mission is to ensure that healthcare professionals and
-						healthcare organizations find their perfect match.</p>
-					<p>Our medical staffing agency believes that people should
-						always be cared for. Think of us as a modern organization but with
-						old fashioned values, morals, and business ethics.</p>
-					<p>We attribute our success to our focus on “Taking care of
-						People”, and that concept holds true as we continue to expand to
-						meet the increasing demands of the healthcare staffing industry.</p>
-					<p>&nbsp;</p>
+<p-toast class="toast-style" position="top-center"></p-toast>
+<p-progressBar *ngIf="blocked" mode="indeterminate"></p-progressBar>
+<div class="container form-table-style"> 
+	<p-blockUI [blocked]="blocked" [target]="container"></p-blockUI>
+	<p-toast class="toast-style" position="top-center"></p-toast>
+			<div class="ui-g-12 ui-sm-12">
+					<h2 class="header">TRISTATE EMPLOYMENT APPLICATION</h2><br>
+			</div>
+			<div class="ui-g-12 ui-sm-12">
+				<label class="form-info">Fields marked * are madatory</label>
+			</div>
+		    <h3 class="sub-heading">PERSONAL INFORMATION</h3> 
+		<form [formGroup]="jobForm" (ngSubmit)="onSubmit()" >   
+		   <div class="form-group">
+		    <div class="ui-g-12">
+				<div class="ui-g-5 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Last Name<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-6 ui-sm-7">
+						<input id="input" type="text" maxlength="20" size="30" pInputText formControlName="lastName" pKeyFilter="alpha">
+						<div class="ui-g-12">
+								<p-message severity="error" text="Last Name is required" *ngIf="!jobform.lastName.valid && jobform.lastName.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+				<div class="ui-g-4 ui-sm-12 form-group">
+					<div class="ui-g-4 ui-sm-5">
+						<label>First Name<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-8 ui-sm-7">
+						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="firstName" pKeyFilter="alpha">
+						<div class="ui-g-12">
+							<p-message severity="error" text="First Name is required" *ngIf="!jobform.firstName.valid && jobform.firstName.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+				<div class="ui-g-3 ui-sm-12">
+					<div class="ui-g-5 ui-sm-5">
+						<label>Middle Initial:</label>
+					</div>
+					<div class="ui-g-7 ui-sm-7">
+						<input id="input" type="text" maxlength="2" size="35" pInputText formControlName="middleInitial" pKeyFilter="alpha">
+					</div>
+				</div>
+			</div>	
+		
+			<div class="ui-g-12">	
+				<div class="ui-g-5 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Street Address<span class="form-info">*</span>:</label>
+					</div>
+					<div class="ui-g-6 ui-sm-7">
+						<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="address">
+						<div class="ui-g-12">
+							<p-message severity="error" text="Street Address is required" *ngIf="!jobform.address.valid && jobform.address.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+				
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>City<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-8 ui-sm-7">
+						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="city" pKeyFilter="alpha">
+						<div class="ui-g-12">
+							<p-message severity="error" text="City is required" *ngIf="!jobform.city.valid && jobform.city.dirty"></p-message>
+						</div>
+					</div>
 				</div>
 			</div>
-
-
+			<div class="ui-g-12">
+				<div class="ui-g-5 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>State<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-6 ui-sm-7">
+						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="state" pKeyFilter="alpha">
+						<div class="ui-g-12">
+							<p-message severity="error" text="State is required" *ngIf="!jobform.state.valid && jobform.state.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Zip<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-8 ui-sm-7">
+						<input id="input" type="text" maxlength="5" size="10"  pInputText formControlName="zip" pKeyFilter="num">
+						<div class="ui-g-12">
+							<p-message severity="error" [text]="jobform.zip.errors.required?'Zip is required' : jobform.zip.errors.pattern?'Invalid zip' : ''" *ngIf="!jobform.zip.valid && jobform.zip.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+			
+			</div>
+				
+			<div class="ui-g-12">
+				<div class="ui-g-5 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Home Phone<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-6 ui-sm-7">
+						<input type="tel" formControlName="homePhone" size="30" maxlength="10" pInputText pKeyFilter="num">
+						<div class="ui-g-12">
+							<p-message severity="error" [text]="jobform.homePhone.errors.required?'Home Phone is required':jobform.homePhone.errors.pattern?'Invalid home phone':''" *ngIf="!jobform.homePhone.valid && jobform.homePhone.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Cell Phone<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-8 ui-sm-7">
+						<input type="tel" formControlName="cellPhone" size="30" maxlength="10" pInputText pKeyFilter="num">
+						<div class="ui-g-12">
+							<p-message severity="error" [text]="jobform.cellPhone.errors.required?'Cell Phone is required':jobform.cellPhone.errors.pattern?'Invalid cell phone':''" *ngIf="!jobform.cellPhone.valid && jobform.cellPhone.dirty "></p-message>
+						</div>
+					</div>
+				</div>
+				<div class="ui-g-3 ui-sm-12">
+					<div class="ui-g-5 ui-sm-5">
+						<label>Email<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-7 ui-sm-7">
+						<input id="input" type="email" maxlength="35" size="35" pInputText formControlName="email" pKeyFilter="email">
+						<div class="ui-g-12">
+							<p-message severity="error" [text]="jobform.email.errors.required?'Email is required' : jobform.email.errors.email?'Invalid email' : ''" *ngIf="!jobform.email.valid && jobform.email.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ui-g-12">
+				<div class="ui-g-5 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Emergency Contact<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-6 ui-sm-7">
+						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="emergencyContact" pKeyFilter="alpha">
+						<div class="ui-g-12">
+							<p-message severity="error" text="Emergency Contact is required" *ngIf="!jobform.emergencyContact.valid && jobform.emergencyContact.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Phone<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-8 ui-sm-7">
+						<input type="tel" formControlName="emergencyPhone" size="30" maxlength="10" pInputText pKeyFilter="num">
+						<div class="ui-g-12">
+							<p-message severity="error" [text]="jobform.emergencyPhone.errors.required?'Emergency Phone is required':jobform.emergencyPhone.errors.pattern?'Invalid emergency phone':''" *ngIf="!jobform.emergencyPhone.valid && jobform.emergencyPhone.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="ui-g-12">
+				<div class="ui-g-5 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Social Security Number<span class="form-info">*</span>:</label>
+					</div>
+					<div class="ui-g-6 ui-sm-7">
+						<input type="text" formControlName="ssn" size="30" maxlength="9" pInputText pKeyFilter="num">
+						<div class="ui-g-12">
+							<p-message severity="error" [text]="jobform.ssn.errors.required?'SSN is required':jobform.ssn.errors.pattern?'Invalid ssn':''" *ngIf="!jobform.ssn.valid && jobform.ssn.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+				<div class="ui-g-6 ui-sm-12">
+					<div class="ui-g-5 ui-sm-5">
+						<label>Are you over the age of 18?<span class="form-info">*</span></label>
+					</div>
+					<div class="ui-g-6 ui-sm-7" style="float: left">
+						<div class="ui-g-6">
+							<p-radioButton   name="age" value="Yes" label="Yes" formControlName="selectedOption" inputId="yes"></p-radioButton>
+						</div>
+						<div class="ui-g-6">
+							<p-radioButton   name="age" value="No" label="No" formControlName="selectedOption" inputId="no"></p-radioButton>
+						</div>
+						<div class="ui-g-12">
+							<p-message severity="error" text="Field is required" *ngIf="!jobform.selectedOption.valid && jobform.selectedOption.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+				<div class="ui-g-12 ui-sm-12">
+					<div class="ui-g-12 ui-sm-12">
+						<label>Position(s) Applying For<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-6 ui-sm-12">
+						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="positions">
+						<div class="ui-g-12">
+								<p-message severity="error" text="Position(s) Applying For is required" *ngIf="!jobform.positions.valid && jobform.positions.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+			
+				<div class="ui-g-5 ui-sm-12">
+					<div class="ui-g-12 ui-sm-12">
+						<label>Are there any specific hours that you are not available for work? If so, please list below:</label>
+					</div>
+				</div>
+				<div class="ui-g-12">
+					<div class="ui-g-12 ui-sm-12">
+						<input id="input" type="text" maxlength="50" size="50" pInputText formControlName="unavailable">
+					</div>
+				</div>
+			</div>
+			
+			<br>
+			<br>
+			<h3 class="sub-heading">EDUCATION</h3>
+			<div class="ui-g-12">
+				<div class="ui-g-6 ui-sm-12 form-table-style">
+					<div class="ui-g-12 ui-sm-12">
+						<label>HIGH SCHOOL</label>
+					</div>
+					<div class="ui-g-12 ui-sm-12">
+						<div class="ui-g-3 ui-sm-5">
+							<label>Name : </label>
+						</div>
+						<div class="ui-g-8 ui-sm-7">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="highSchoolName" pKeyFilter="alpha">
+						</div>
+					</div>
+					<div class="ui-g-12 ui-sm-12">
+						<div class="ui-g-3 ui-sm-5">
+							<label>Address : </label>
+						</div>
+						<div class="ui-g-8 ui-sm-7">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="highSchoolAddress">
+						</div>
+					</div>
+					<div class="ui-g-12 ui-sm-12">
+						<div class="ui-g-3 ui-sm-5">
+							<label>Number of Years Completed? </label>
+						</div>
+						<div class="ui-g-8 ui-sm-7">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="highSchoolYears" pKeyFilter="num">
+						</div>
+					</div>
+					<div class="ui-g-12 ui-sm-12">
+						<div class="ui-g-3 ui-sm-5">
+							<label>Major/Degree :</label>
+						</div>
+						<div class="ui-g-8 ui-sm-7">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="highSchoolDegree">
+						</div>
+					</div>
+				</div>
+				<div class="ui-g-6 ui-sm-12 form-table-style">
+					<div class="ui-g-12 ui-sm-12">
+						<label>COLLEGE</label>
+					</div>
+					<div class="ui-g-12 ui-sm-12">
+						<div class="ui-g-3 ui-sm-5">
+							<label>Name : </label>
+						</div>
+						<div class="ui-g-8 ui-sm-7">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="collegeName" pKeyFilter="alpha">
+						</div>
+					</div>
+					<div class="ui-g-12 ui-sm-12">
+						<div class="ui-g-3 ui-sm-5">
+							<label>Address : </label>
+						</div>
+						<div class="ui-g-8 ui-sm-7">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="collegeAddress">
+						</div>
+					</div>
+					<div class="ui-g-12 ui-sm-12">
+						<div class="ui-g-3 ui-sm-5">
+							<label>Number of Years Completed? </label>
+						</div>
+						<div class="ui-g-8 ui-sm-7">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="collegeYears" pKeyFilter="num">
+						</div>
+					</div>
+					<div class="ui-g-12 ui-sm-12">
+						<div class="ui-g-3 ui-sm-5">
+							<label>Major/Degree :</label>
+						</div>
+						<div class="ui-g-8 ui-sm-7">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="collegeDegree" >
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="ui-g-12">
+				<div class="ui-g-6 ui-sm-12 form-table-style">
+					<div class="ui-g-12 ui-sm-12">
+						<label>TRADE SCHOOL</label>
+					</div>
+					<div class="ui-g-12 ui-sm-12">
+						<div class="ui-g-3 ui-sm-5">
+							<label>Name : </label>
+						</div>
+						<div class="ui-g-8 ui-sm-7">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="tradeName" pKeyFilter="alpha">
+						</div>
+					</div>
+					<div class="ui-g-12 ui-sm-12">
+						<div class="ui-g-3 ui-sm-5">
+							<label>Address : </label>
+						</div>
+						<div class="ui-g-8 ui-sm-7">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="tradeAddress">
+						</div>
+					</div>
+					<div class="ui-g-12 ui-sm-12">
+						<div class="ui-g-3 ui-sm-5">
+							<label>Number of Years Completed? </label>
+						</div>
+						<div class="ui-g-8 ui-sm-7">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="tradeYears" pKeyFilter="num">
+						</div>
+					</div>
+					<div class="ui-g-12 ui-sm-12">
+						<div class="ui-g-3 ui-sm-5">
+							<label>Major/Degree :</label>
+						</div>
+						<div class="ui-g-8 ui-sm-7">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="tradeDegree" >
+						</div>
+					</div>
+				</div>
+				<div class="ui-g-6 ui-sm-12 form-table-style">
+					<div class="ui-g-12 ui-sm-12">
+						<label>GRADUATE SCHOOL</label>
+					</div>
+					<div class="ui-g-12 ui-sm-12">
+						<div class="ui-g-3 ui-sm-5">
+							<label>Name : </label>
+						</div>
+						<div class="ui-g-8 ui-sm-7">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="graduateName" pKeyFilter="alpha">
+						</div>
+					</div>
+					<div class="ui-g-12 ui-sm-12">
+						<div class="ui-g-3 ui-sm-5">
+							<label>Address : </label>
+						</div>
+						<div class="ui-g-8 ui-sm-7">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="graduateAddress">
+						</div>
+					</div>
+					<div class="ui-g-12 ui-sm-12">
+						<div class="ui-g-3 ui-sm-5">
+							<label>Number of Years Completed? </label>
+						</div>
+						<div class="ui-g-8 ui-sm-7">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="graduateYears" pKeyFilter="num">
+						</div>
+					</div>
+					<div class="ui-g-12 ui-sm-12">
+						<div class="ui-g-3 ui-sm-5">
+							<label>Major/Degree :</label>
+						</div>
+						<div class="ui-g-8 ui-sm-7">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="graduateDegree">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ui-g-12">
+				<div class="ui-g-12">
+					<div class="ui-g-12 ui-sm-12">
+						<label>Please list any two references personal/professional references</label>
+					</div>
+				</div>
+				<div class="ui-g-12">
+					<div class="ui-g-6 ui-sm-12">
+						<div clas="ui-g-6 ui-sm-12">
+							<label>Reference 1</label>
+						</div>
+						<div class="ui-g-12 ui-sm-12">
+							<div class="ui-g-3 ui-sm-5">
+								<label>Name<span class="form-info">*</span>:</label>
+							</div>
+							<div class="ui-g-6 ui-sm-7">
+								<input id="input" type="text" maxlength="20" size="30" pInputText formControlName="refName1" pKeyFilter="alpha">
+								<div class="ui-g-12">
+									<p-message severity="error" text="Name is required" *ngIf="!jobform.refName1.valid && jobform.refName1.dirty"></p-message>
+								</div>
+							</div>
+						</div>
+						<div class="ui-g-12 ui-sm-12">
+							<div class="ui-g-3 ui-sm-5">
+								<label>Position<span class="form-info">*</span>:</label>
+							</div>
+							<div class="ui-g-6 ui-sm-7">
+								<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="refPosition1">
+								<div class="ui-g-12">
+									<p-message severity="error" text="Position is required" *ngIf="!jobform.refPosition1.valid && jobform.refPosition1.dirty"></p-message>
+								</div>
+							</div>
+						</div>
+						<div class="ui-g-12 ui-sm-12">
+							<div class="ui-g-3 ui-sm-5">
+								<label>Address<span class="form-info">*</span>:</label>
+							</div>
+							<div class="ui-g-6 ui-sm-7">
+								<input id="input" type="text" maxlength="50" size="30" pInputText formControlName="refAddress1">
+								<div class="ui-g-12">
+									<p-message severity="error" text="Address is required" *ngIf="!jobform.refAddress1.valid && jobform.refAddress1.dirty"></p-message>
+								</div>
+							</div>
+						</div>
+						<div class="ui-g-12 ui-sm-12">
+							<div class="ui-g-3 ui-sm-5">
+								<label>Phone<span class="form-info">*</span>:</label>
+							</div>
+							<div class="ui-g-6 ui-sm-7">
+								<input type="tel" formControlName="refPhone1" size="30" maxlength="10" pInputText pKeyFilter="num">
+								<div class="ui-g-12">
+									<p-message severity="error" [text]="jobform.refPhone1.errors.required?'Phone is required' : jobform.refPhone1.errors.pattern?'Invalid phone':''" *ngIf="!jobform.refPhone1.valid && jobform.refPhone1.dirty"></p-message>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="ui-g-6 ui-sm-12">
+						<div clas="ui-g-6 ui-sm-12">
+							<label>Reference 2</label>
+						</div>
+						<div class="ui-g-12 ui-sm-12">
+							<div class="ui-g-3 ui-sm-5">
+								<label>Name<span class="form-info">*</span>:</label>
+							</div>
+							<div class="ui-g-6 ui-sm-7">
+								<input id="input" type="text" maxlength="20" size="30" pInputText formControlName="refName2" pKeyFilter="alpha">
+								<div class="ui-g-12">
+									<p-message severity="error" text="Name is required" *ngIf="!jobform.refName2.valid && jobform.refName2.dirty"></p-message>
+								</div>
+							</div>
+						</div>
+						<div class="ui-g-12 ui-sm-12">
+							<div class="ui-g-3 ui-sm-5">
+								<label>Position<span class="form-info">*</span>:</label>
+							</div>
+							<div class="ui-g-6 ui-sm-7">
+								<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="refPosition2">
+								<div class="ui-g-12">
+									<p-message severity="error" text="Position is required" *ngIf="!jobform.refPosition2.valid && jobform.refPosition2.dirty"></p-message>
+								</div>
+							</div>
+						</div>
+						<div class="ui-g-12 ui-sm-12">
+							<div class="ui-g-3 ui-sm-5">
+								<label>Address<span class="form-info">*</span>:</label>
+							</div>
+							<div class="ui-g-6 ui-sm-7">
+								<input id="input" type="text" maxlength="50" size="30" pInputText formControlName="refAddress2">
+								<div class="ui-g-12">
+									<p-message severity="error" text="Address is required" *ngIf="!jobform.refAddress2.valid && jobform.refAddress2.dirty"></p-message>
+								</div>
+							</div>
+						</div>
+						<div class="ui-g-12 ui-sm-12">
+							<div class="ui-g-3 ui-sm-5">
+								<label>Phone<span class="form-info">*</span>:</label>
+							</div>
+							<div class="ui-g-6 ui-sm-7">
+								<input type="tel" formControlName="refPhone2" size="30" maxlength="10" pInputText pKeyFilter="num">
+								<div class="ui-g-12">
+									<p-message severity="error" [text]="jobform.refPhone2.errors.required?'Phone is required':jobform.refPhone2.errors.pattern?'Invalid phone':''" *ngIf="!jobform.refPhone2.valid && jobform.refPhone2.dirty"></p-message>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="ui-g-12" align="center">
+				<button pButton type="submit " label="Apply" [disabled]="jobForm.invalid"></button>
+			</div>
 		</div>
-
-	</div>
-</div>
+	</form>
 </div>
 

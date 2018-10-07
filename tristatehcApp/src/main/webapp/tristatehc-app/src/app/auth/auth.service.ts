@@ -37,14 +37,12 @@ export class AuthService {
           (isAuthenticated: boolean)  => {this.isAuthenticatedSubject.next(isAuthenticated);
                
               this.oktaAuth.getUser().then(user => {
-                console.log(user);
                 if(this.isAuthenticated && user && user.groups){
                   let loggedInUser = user.given_name;
                    let groups = user.groups;
                     //set current user data into observable
                      this.currentUserSubject.next(loggedInUser);
                     this.userGroupsSubject.next(groups);
-                    //TODO set to database
                      localStorage.setItem('currentUser',loggedInUser);
                     localStorage.setItem('currentUserGroups', groups.toString());       
                     
@@ -54,16 +52,12 @@ export class AuthService {
   }
     
     setAuth(user : string, groups : Array<string>){
-        console.log("in AuthService");
         //set current user data into observable
         this.currentUserSubject.next(user);
         
-        //TODO set to database
         localStorage.setItem('currentUser',user);
         localStorage.setItem('currentUserGroups', groups.toString());
         
-        //set isAuthenticated as true
-        //this.isAuthenticatedSubject.next(true);
     }
     
     

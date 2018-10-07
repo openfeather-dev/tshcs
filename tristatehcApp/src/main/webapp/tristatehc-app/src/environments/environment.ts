@@ -10,7 +10,8 @@ export const environment = {
   availabilityUrl: 'availability/',
   userUrl: 'user/',
   userAvailabilities: 'useravailability/',
-  myshiftUrl: 'shifts/'
+  myshiftUrl: 'shifts/',
+  jobseekerUrl: 'job/apply'
 };
 
 /*
