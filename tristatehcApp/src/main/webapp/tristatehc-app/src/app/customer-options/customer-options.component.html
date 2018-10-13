@@ -1,11 +1,13 @@
 <div class="ui-g-12" align="center">
+	<div class="ui-g-3">
 	<button pButton type="button" label="Add Shifts" [routerLink]="['addShifts']"
 		[disabled]="(buttonSelected !== '' && buttonSelected !== 'addShifts')"
 		(click)="setSelectedButton('addShifts')"></button>
-
-	<button pButton type="button" label="Assign Shifts"
-		 style="margin-left: 10%; margin-right: 10%"></button>
-	
+	</div>
+	<div class="ui-g-4">
+		<button pButton type="button" label="Assign Shifts"></button>
+	</div>
+	<div class="ui-g-5">
 	<button pButton type="button" label="Shifts Configuration"
 		[routerLink]="['config']"
 		[disabled]="(buttonSelected !== '' && buttonSelected !== 'shiftConfig')"
@@ -16,4 +18,5 @@
 <br>
 <div class="ui-g-12">
 	<router-outlet> </router-outlet>
+</div>
 </div>

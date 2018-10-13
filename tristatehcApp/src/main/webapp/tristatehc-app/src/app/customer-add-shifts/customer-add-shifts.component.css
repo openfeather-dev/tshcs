@@ -1,0 +1,12 @@
+button.ui-button{
+	margin-left: 2%;
+}
+div.cal-header {
+    visibility: hidden;
+}
+.cal-day-style {
+font-weight: bolder;
+}
+div.cal-days {
+	overflow:auto;
+}

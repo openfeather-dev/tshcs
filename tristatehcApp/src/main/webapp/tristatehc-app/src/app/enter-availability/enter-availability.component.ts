@@ -34,10 +34,11 @@ export class EnterAvailabilityComponent implements OnInit {
     }
     ngOnInit() {
         this.cols = [
-            { field: 'fname', field2: 'lname', header: 'Search' },
+            { field: 'fname',  header: 'Search' },
+            { field: 'lname',  header: 'Search' }
         ];
 
-        this.customers = [{ fname: 'Customer A', field2:'', id: 123 }, { fname: 'Customer B', field2:'', id: 890 }];
+        this.customers = [{ fname: 'Customer A', id: 123 }, { fname: 'Customer B', id: 890 }];
 
     }
     

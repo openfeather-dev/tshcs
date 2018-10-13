@@ -18,6 +18,6 @@ font-weight: bolder;
 	marginTop: 80px;
 	
 }
-.button-style{
-	margin-left: 2%
+button.ui-button{
+	margin-left: 2%;
 }

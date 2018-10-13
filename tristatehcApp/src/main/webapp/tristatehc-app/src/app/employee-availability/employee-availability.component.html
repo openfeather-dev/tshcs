@@ -21,35 +21,35 @@
 
 <div class="cal-cell-top">
 	<div class="ui-g-12">
-		<span class="cal-day-number cal-day-style">{{day.date | date : 'E'}}<br>{{ day.date
+		<span class="cal-day-number" style="font-weight: bolder;">{{day.date | date : 'E'}}<br>{{ day.date
 			|calendarDate:'monthViewDayNumber':locale }}</span>
 	</div>
 	<div class="ui-g-12" >
 		<p-checkbox #shift7to3 name="shift" name="shift"
 			value="{{ day.date | date: 'MM/dd/yyyy'}}:7-3" label="7-3"
-			[(ngModel)]="selectedShifts" [disabled]="today>day.date" (onChange)="checkIfAllSelected(shift7to3.value,shift3to11.value,shift11to7.value,allShifts.value)"></p-checkbox>
+			[(ngModel)]="selectedShifts" [disabled]="isDisabled(day.date)" (onChange)="checkIfAllSelected(shift7to3.value,shift3to11.value,shift11to7.value,allShifts.value)"></p-checkbox>
 	</div>
 	<div class="ui-g-12">
 		<p-checkbox #shift3to11 name="shift" name="shift"
 			value="{{ day.date | date: 'MM/dd/yyyy'}}:3-11" label="3-11"
-			[(ngModel)]="selectedShifts" [disabled]="today>day.date" (onChange)="checkIfAllSelected(shift7to3.value,shift3to11.value,shift11to7.value,allShifts.value)"></p-checkbox>
+			[(ngModel)]="selectedShifts" [disabled]="isDisabled(day.date)" (onChange)="checkIfAllSelected(shift7to3.value,shift3to11.value,shift11to7.value,allShifts.value)"></p-checkbox>
 	</div>
 	<div class="ui-g-12">
 		<p-checkbox #shift11to7 name="shift" name="shift"
 			value="{{ day.date | date: 'MM/dd/yyyy'}}:11-7" label="11-7"
-			[(ngModel)]="selectedShifts" [disabled]="today>day.date" (onChange)="checkIfAllSelected(shift7to3.value,shift3to11.value,shift11to7.value,allShifts.value)"></p-checkbox>
+			[(ngModel)]="selectedShifts" [disabled]="isDisabled(day.date)" (onChange)="checkIfAllSelected(shift7to3.value,shift3to11.value,shift11to7.value,allShifts.value)"></p-checkbox>
 	</div>
 	<div class="ui-g-12">
 		<p-checkbox #allShifts name="shift" name="shift"
 			value="{{ day.date | date: 'MM/dd/yyyy'}}:All" label="All"
-			[(ngModel)]="selectedAllShifts" [disabled]="today>day.date" (onChange)="selectAll(shift7to3.value,shift3to11.value,shift11to7.value,allShifts.value)"></p-checkbox>
+			[(ngModel)]="selectedAllShifts" [disabled]="isDisabled(day.date)" (onChange)="selectAll(shift7to3.value,shift3to11.value,shift11to7.value,allShifts.value)"></p-checkbox>
 	</div>
 </div>
 <div class="ui-g-12">
 		<label for="comments">Comments</label><br />
 		<textarea [rows]="5" [cols]="12" maxlength="200" #textComments
 			id="{{ day.date | date: 'MM/dd/yyyy'}}"
-			[ngModel]="comments.get(textComments.id)" (ngModelChange)="comments.set(textComments.id,$event)" pInputTextarea [disabled]="today>day.date" ></textarea>
+			[ngModel]="comments.get(textComments.id)" (ngModelChange)="comments.set(textComments.id,$event)" pInputTextarea [disabled]="isDisabled(day.date)" ></textarea>
 	</div>
 </ng-template>
 
@@ -62,13 +62,11 @@
 	<mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate"
 		[events]="events"> </mwl-calendar-day-view>
 </div>
-
-<div class="ui-g-12 ui-sm-12 ui-md-12" >
-	<div class="ui-g-1 ui-sm-2 ui-md-1" >
+<br>
+<div class="ui-g-12 ui-sm-12 ui-md-12" align="center">
+	<div>
 		<button pButton type="button" label="Save"
 			(click)="save()" ></button>
-	</div>
-	<div class="ui-g-1 ui-sm-2 ui-md-1 button-style">
 		<button pButton type="button" label="Cancel"
 			[routerLink]="['../../']" (click)="cancel()"></button>
 	</div>

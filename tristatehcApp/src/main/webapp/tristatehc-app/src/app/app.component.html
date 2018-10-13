@@ -52,11 +52,11 @@
 				<li *ngIf="!isAuthenticated" routerLinkActive="active"><a routerLink="/clients">CLIENTS</a></li>
 				<li *ngIf="!isAuthenticated" routerLinkActive="active"><a routerLink="/jobseekers">JOB SEEKERS</a></li>
 				<li *ngIf="!isAuthenticated" routerLinkActive="active"><a routerLink="/aboutus" >ABOUT US</a></li>
-				<li *ngIf="!isAuthenticated" routerLinkActive="active"><a routerLink="/contact">CONTACT</a></li>
+				<li *ngIf="!isAuthenticated" routerLinkActive="active"><a routerLink="/contact">CONTACT US</a></li>
 				<li *ngIf="!isAuthenticated" routerLinkActive="active"><a routerLink="/jobs">JOBS</a></li>
 				<li  [appHideIfUnauthorized]="['Admin','TristatehcAppUsers']" routerLinkActive="active" ><a routerLink="/myavailability">MY AVAILABILITY</a></li>
 				<li  [appHideIfUnauthorized]="['Admin','TristatehcAppUsers']" routerLinkActive="active"><a routerLink="/myshifts">MY SHIFTS</a></li>
-				<li  [appHideIfUnauthorized]="['Admin']" routerLinkActive="active"><a routerLink="/enteravailability">ENTER AVAILABILITY</a></li>
+				<li  [appHideIfUnauthorized]="['Admin']" routerLinkActive="active"><a routerLink="/enteravailability">ADMIN</a></li>
 				<li  [appHideIfUnauthorized]="['Admin']" routerLinkActive="active"><a routerLink="/useravailability">USER AVAILABILITY</a></li>
 			</ul>
 		</div>

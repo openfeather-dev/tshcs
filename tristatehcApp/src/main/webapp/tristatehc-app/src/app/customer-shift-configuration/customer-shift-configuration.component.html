@@ -1,70 +1,97 @@
-<div class="ui-g-6">
-	<div class="ui-g-3">
-		<label>First Shift</label>
+<div class="ui-g-12 shift-conf-div">
+	<div class="ui-g-12">
+		<div class="ui-g-6 ui-sm-12">
+			<div class="ui-g-4 ui-sm-12" align="left">
+				<label>First Shift</label>
+			</div>
+			<div class="ui-g-6 ui-sm-12">
+				<div class="ui-g-12">
+					<p-calendar [(ngModel)]="shifts.firstShift.from" [timeOnly]="true"
+					hourFormat="24" placeholder="From" ></p-calendar>
+				</div>
+				<div class="ui-g-12">
+					<p-calendar [(ngModel)]="shifts.firstShift.to" [timeOnly]="true"
+					hourFormat="24" placeholder="To"></p-calendar>
+				</div>
+			</div>
+		</div>
+		<div class="ui-g-6  ui-sm-12">
+			<div class="ui-g-4 ui-sm-12" align="left">
+				<label>Second Shift</label>
+			</div>
+			<div class="ui-g-6 ui-sm-12">
+				<div class="ui-g-12 ">
+					<p-calendar [(ngModel)]="shifts.secondShift.from" [timeOnly]="true"
+					hourFormat="24" placeholder="From"></p-calendar>
+				</div>
+				<div class="ui-g-12">
+					<p-calendar [(ngModel)]="shifts.secondShift.to" [timeOnly]="true"
+					hourFormat="24" placeholder="To"></p-calendar>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="ui-g-1">
-		<p-calendar [(ngModel)]="shifts.firstShift.from" [timeOnly]="true"
-			hourFormat="24" placeholder="From"></p-calendar>
-
-		<p-calendar [(ngModel)]="shifts.firstShift.to" [timeOnly]="true"
-			hourFormat="24" placeholder="To"></p-calendar>
+	<div class="ui-g-12">
+		<div class="ui-g-6 ui-sm-12">
+			<div class="ui-g-4 ui-sm-12" align="left">
+				<label>Third Shift</label>
+			</div>
+			<div class="ui-g-6 ui-sm-12">
+				<div class="ui-g-12">
+					<p-calendar [(ngModel)]="shifts.thirdShift.from" [timeOnly]="true"
+					hourFormat="24" placeholder="From"></p-calendar>
+				</div>
+				<div class="ui-g-12">
+					<p-calendar [(ngModel)]="shifts.thirdShift.to" [timeOnly]="true"
+					hourFormat="24" placeholder="To"></p-calendar>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
-<div class="ui-g-6">
-	<div class="ui-g-3">
-		<label>Second Shift</label>
+	
+	<div class="ui-g-12">
+		<div class="ui-g-6 ui-sm-12">
+			<div class="ui-g-4 ui-sm-12" align="left">
+				<label>Custom Shift 1</label>
+			</div>
+			<div class="ui-g-6 ui-sm-12">
+				<div class="ui-g-12">
+					<p-calendar [(ngModel)]="value" [timeOnly]="true" hourFormat="24"
+					placeholder="From"></p-calendar>
+				</div>
+				<div class="ui-g-12">
+					<p-calendar [(ngModel)]="value" [timeOnly]="true" hourFormat="24"
+					placeholder="To"></p-calendar>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="ui-g-1">
-		<p-calendar [(ngModel)]="shifts.secondShift.from" [timeOnly]="true"
-			hourFormat="24" placeholder="From"></p-calendar>
-		<p-calendar [(ngModel)]="shifts.secondShift.to" [timeOnly]="true"
-			hourFormat="24" placeholder="To"></p-calendar>
+	
+	<div class="ui-g-12">
+		<div class="ui-g-6 ui-sm-12">
+			<div class="ui-g-4 ui-sm-12" align="left">
+				<label>Custom Shift 2</label>
+			</div>
+			<div class="ui-g-6 ui-sm-12">
+				<div class="ui-g-12">
+					<p-calendar [(ngModel)]="value" [timeOnly]="true" hourFormat="24"
+					placeholder="From"></p-calendar>
+				</div>
+				<div class="ui-g-12">
+					<p-calendar [(ngModel)]="value" [timeOnly]="true" hourFormat="24"
+					placeholder="To"></p-calendar>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
-<div class="ui-g-6">
-	<div class="ui-g-3">
-		<label>Third Shift</label>
-	</div>
-	<div class="ui-g-1">
-		<p-calendar [(ngModel)]="shifts.thirdShift.from" [timeOnly]="true"
-			hourFormat="24" placeholder="From"></p-calendar>
-		<p-calendar [(ngModel)]="shifts.thirdShift.to" [timeOnly]="true"
-			hourFormat="24" placeholder="To"></p-calendar>
-	</div>
-</div>
-
-<div class="ui-g-10">
-	<div class="ui-g-2">
-		<label>Custom Shift 1</label>
-	</div>
-	<div class="ui-g-1">
-		<p-calendar [(ngModel)]="value" [timeOnly]="true" hourFormat="24"
-			placeholder="From"></p-calendar>
-		<p-calendar [(ngModel)]="value" [timeOnly]="true" hourFormat="24"
-			placeholder="To"></p-calendar>
-	</div>
-</div>
-
-<div class="ui-g-10">
-	<div class="ui-g-2">
-		<label>Custome Shift 2</label>
-	</div>
-	<div class="ui-g-1">
-		<p-calendar [(ngModel)]="value" [timeOnly]="true" hourFormat="24"
-			placeholder="From"></p-calendar>
-		<p-calendar [(ngModel)]="value" [timeOnly]="true" hourFormat="24"
-			placeholder="To"></p-calendar>
-	</div>
-</div>
-<br>
-
-<div class="ui-g-12" >
-	<div class="ui-g-1" >
-		<button pButton type="button" label="Save"
-			[routerLink]="['../']" ></button>
-	</div>
-	<div class="ui-g-1" style="margin-left: 2%">
-		<button pButton type="button" label="Cancel"
-			[routerLink]="['../']" (click)="cancel()"></button>
+	<br>
+	
+	<div class="ui-g-12 ui-sm-12 ui-md-12" align="center">
+		<div>
+			<button pButton type="button" label="Save"
+				[routerLink]="['../']" ></button>
+			<button pButton type="button" label="Cancel"
+				[routerLink]="['../']" (click)="cancel()"></button>
+		</div>
 	</div>
 </div>

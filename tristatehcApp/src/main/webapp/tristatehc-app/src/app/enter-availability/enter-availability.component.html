@@ -24,21 +24,18 @@
 					</th>
 				</tr>
 				<tr>
-					<th *ngFor="let col of columns">
-						<input pInputText type="text"
-						(input)="dt.filter($event.target.value,col.field,col.filterMatchMode)"
-						class="input-search" [disabled]="isDisabled">
-					</th>
+            		<input type="text" pInputText size="20" placeholder="Search" (input)="dt.filterGlobal($event.target.value,'contains')" class="input-search" [disabled]="isDisabled"/>
+					
 				</tr>
 		</ng-template>
 		 
 		<ng-template pTemplate="body" let-rowData let-columns="columns">
 			<tr [pSelectableRow]="rowData" *ngIf="!isDisabled" >
-				<td *ngFor="let col of columns">
+				<td>
 					<a *ngIf="isEmployeeSelected"
 					[routerLink]="['employee', rowData.emailPrimary]">
-					{{rowData[col.field]}} {{ rowData[col.field2]}} </a> 
-					<a *ngIf="isCustomerSelected" [routerLink]="['customer',rowData.id]"> {{rowData[col.field]}} </a> 
+					{{rowData[columns[0].field]+' '+rowData[columns[1].field]}}</a> 
+					<a *ngIf="isCustomerSelected" [routerLink]="['customer',rowData.id]"> {{rowData[columns[0].field]}} </a> 
 				</td>
 					
 			</tr>

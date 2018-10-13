@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 import { CustomerOptionsService } from '../customer-options/customer-options.service';
 
 @Component({
   selector: 'app-customer-add-shifts',
   templateUrl: './customer-add-shifts.component.html',
-  styleUrls: ['./customer-add-shifts.component.css']
+  styleUrls: ['./customer-add-shifts.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CustomerAddShiftsComponent implements OnInit {
   shifts : any[];

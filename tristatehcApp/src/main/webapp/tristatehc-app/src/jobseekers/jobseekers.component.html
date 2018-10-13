@@ -18,7 +18,7 @@
 						<label>Last Name<span class="form-info">*</span>: </label>
 					</div>
 					<div class="ui-g-6 ui-sm-7">
-						<input id="input" type="text" maxlength="20" size="30" pInputText formControlName="lastName" pKeyFilter="alpha">
+						<input id="input" type="text" maxlength="20" size="30" pInputText formControlName="lastName">
 						<div class="ui-g-12">
 								<p-message severity="error" text="Last Name is required" *ngIf="!jobform.lastName.valid && jobform.lastName.dirty"></p-message>
 						</div>
@@ -29,7 +29,7 @@
 						<label>First Name<span class="form-info">*</span>: </label>
 					</div>
 					<div class="ui-g-8 ui-sm-7">
-						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="firstName" pKeyFilter="alpha">
+						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="firstName">
 						<div class="ui-g-12">
 							<p-message severity="error" text="First Name is required" *ngIf="!jobform.firstName.valid && jobform.firstName.dirty"></p-message>
 						</div>
@@ -40,7 +40,7 @@
 						<label>Middle Initial:</label>
 					</div>
 					<div class="ui-g-7 ui-sm-7">
-						<input id="input" type="text" maxlength="2" size="35" pInputText formControlName="middleInitial" pKeyFilter="alpha">
+						<input id="input" type="text" maxlength="2" size="35" pInputText formControlName="middleInitial">
 					</div>
 				</div>
 			</div>	
@@ -63,7 +63,7 @@
 						<label>City<span class="form-info">*</span>: </label>
 					</div>
 					<div class="ui-g-8 ui-sm-7">
-						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="city" pKeyFilter="alpha">
+						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="city" >
 						<div class="ui-g-12">
 							<p-message severity="error" text="City is required" *ngIf="!jobform.city.valid && jobform.city.dirty"></p-message>
 						</div>
@@ -76,7 +76,7 @@
 						<label>State<span class="form-info">*</span>: </label>
 					</div>
 					<div class="ui-g-6 ui-sm-7">
-						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="state" pKeyFilter="alpha">
+						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="state">
 						<div class="ui-g-12">
 							<p-message severity="error" text="State is required" *ngIf="!jobform.state.valid && jobform.state.dirty"></p-message>
 						</div>
@@ -137,7 +137,7 @@
 						<label>Emergency Contact<span class="form-info">*</span>: </label>
 					</div>
 					<div class="ui-g-6 ui-sm-7">
-						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="emergencyContact" pKeyFilter="alpha">
+						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="emergencyContact">
 						<div class="ui-g-12">
 							<p-message severity="error" text="Emergency Contact is required" *ngIf="!jobform.emergencyContact.valid && jobform.emergencyContact.dirty"></p-message>
 						</div>
@@ -221,7 +221,7 @@
 							<label>Name : </label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="highSchoolName" pKeyFilter="alpha">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="highSchoolName">
 						</div>
 					</div>
 					<div class="ui-g-12 ui-sm-12">
@@ -258,7 +258,7 @@
 							<label>Name : </label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="collegeName" pKeyFilter="alpha">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="collegeName">
 						</div>
 					</div>
 					<div class="ui-g-12 ui-sm-12">
@@ -298,7 +298,7 @@
 							<label>Name : </label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="tradeName" pKeyFilter="alpha">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="tradeName">
 						</div>
 					</div>
 					<div class="ui-g-12 ui-sm-12">
@@ -335,7 +335,7 @@
 							<label>Name : </label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="graduateName" pKeyFilter="alpha">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="graduateName">
 						</div>
 					</div>
 					<div class="ui-g-12 ui-sm-12">
@@ -380,7 +380,7 @@
 								<label>Name<span class="form-info">*</span>:</label>
 							</div>
 							<div class="ui-g-6 ui-sm-7">
-								<input id="input" type="text" maxlength="20" size="30" pInputText formControlName="refName1" pKeyFilter="alpha">
+								<input id="input" type="text" maxlength="20" size="30" pInputText formControlName="refName1">
 								<div class="ui-g-12">
 									<p-message severity="error" text="Name is required" *ngIf="!jobform.refName1.valid && jobform.refName1.dirty"></p-message>
 								</div>
@@ -429,7 +429,7 @@
 								<label>Name<span class="form-info">*</span>:</label>
 							</div>
 							<div class="ui-g-6 ui-sm-7">
-								<input id="input" type="text" maxlength="20" size="30" pInputText formControlName="refName2" pKeyFilter="alpha">
+								<input id="input" type="text" maxlength="20" size="30" pInputText formControlName="refName2">
 								<div class="ui-g-12">
 									<p-message severity="error" text="Name is required" *ngIf="!jobform.refName2.valid && jobform.refName2.dirty"></p-message>
 								</div>
