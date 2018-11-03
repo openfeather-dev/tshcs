@@ -1,0 +1,21 @@
+.ui-dropdown {
+	min-width:100%;
+	width:max-content;
+}
+
+.red{
+	background-color:#f44265 !important;
+	
+}
+
+.green{
+	background-color:#28fcae !important;
+}
+
+.blue{
+	background-color:#28dcfc !important;
+}
+
+.yellow{
+	background-color:#fce628 !important;
+}
