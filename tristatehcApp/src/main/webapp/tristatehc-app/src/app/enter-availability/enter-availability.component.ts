@@ -13,7 +13,6 @@ const CUSTOMER = "customer";
 export class EnterAvailabilityComponent implements OnInit {
     
     employees : any[];
-    customers : any[];
     cols : any[];
     isEmployeeSelected : boolean = false;
     isCustomerSelected : boolean = false;
@@ -35,10 +34,11 @@ export class EnterAvailabilityComponent implements OnInit {
     ngOnInit() {
         this.cols = [
             { field: 'fname',  header: 'Search' },
-            { field: 'lname',  header: 'Search' }
+            { field: 'lname',  header: 'Search' },
+            { field: 'lastName'},
+            { field: 'facCity'},
+            { field: 'facState'},
         ];
-
-        this.customers = [{ fname: 'Customer A', id: 123 }, { fname: 'Customer B', id: 890 }];
 
     }
     
@@ -52,8 +52,14 @@ export class EnterAvailabilityComponent implements OnInit {
             this.namesList = [];
             let userList : any[] = [];
             if(this.selectedValue  === CUSTOMER){
-                this.namesList = this.customers;
-                this.blocked = false;
+                this.service.getAllCustomers().subscribe(customers => {
+                    customers.forEach(customer => userList.push(customer));
+                    this.namesList = userList;
+                    this.blocked = false;
+                },error =>{
+                    this.messageService.add({severity:'error', summary: 'Error', detail:'Customers could not be retrieved please try later!!'});
+                    this.blocked = false;
+                });
                 this.isCustomerSelected = true;
                 this.isEmployeeSelected = false;
             }else{
@@ -72,4 +78,5 @@ export class EnterAvailabilityComponent implements OnInit {
         
         }
     
+        
 }

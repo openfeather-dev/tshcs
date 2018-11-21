@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { UserProfile } from '../model/user-profile';
 import { environment } from '../../environments/environment';
+import { Customer } from '../model/customer';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,9 @@ import { environment } from '../../environments/environment';
 export class EnterAvailabilityService {
     
       isDisabledSource = new Subject<boolean>();
-      isDisabled = this.isDisabledSource.asObservable();
-    
       isBlockedSource = new Subject<boolean>();
+    
+      isDisabled = this.isDisabledSource.asObservable();
       isBlocked = this.isBlockedSource.asObservable();
   
     constructor(private http: HttpClient) { }
@@ -25,7 +26,8 @@ export class EnterAvailabilityService {
     blockUI(isBlocked :boolean){
         this.isBlockedSource.next(isBlocked);
     }
-       
+    
+    
     /**
      * Get all employees
      */
@@ -33,5 +35,11 @@ export class EnterAvailabilityService {
         return this.http.get<UserProfile[]>(environment.resourceServerUrl+environment.userUrl);
     }
     
+    /**
+     * Get all customers
+     */
+    getAllCustomers(){
+        return this.http.get<Customer[]>(environment.resourceServerUrl+environment.customerUrl);
+    }
     
 }

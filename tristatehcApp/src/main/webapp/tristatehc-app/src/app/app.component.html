@@ -56,7 +56,7 @@
 				<li *ngIf="!isAuthenticated" routerLinkActive="active"><a routerLink="/jobs">JOBS</a></li>
 				<li  [appHideIfUnauthorized]="['Admin','TristatehcAppUsers']" routerLinkActive="active" ><a routerLink="/myavailability">MY AVAILABILITY</a></li>
 				<li  [appHideIfUnauthorized]="['Admin','TristatehcAppUsers']" routerLinkActive="active"><a routerLink="/myshifts">MY SHIFTS</a></li>
-				<li  [appHideIfUnauthorized]="['Admin']" routerLinkActive="active"><a routerLink="/enteravailability">ADMIN</a></li>
+				<li  [appHideIfUnauthorized]="['Admin']" routerLinkActive="active"><a routerLink="/admin">ADMIN</a></li>
 				<li  [appHideIfUnauthorized]="['Admin']" routerLinkActive="active"><a routerLink="/useravailability">USER AVAILABILITY</a></li>
 			</ul>
 		</div>
@@ -67,6 +67,6 @@
 
 <footer *ngIf="!isAuthenticated" class="footer-info-style">
 &nbsp;
-  <p>© 2017 TriState Healthcare Services&nbsp;|&nbsp;Developed By &nbsp;<a href="#">OpenFeather</a></p>
+  <p>&#169; 2017 TriState Healthcare Services&nbsp;|&nbsp;Developed By&nbsp;OpenFeather</p>
 
 </footer>

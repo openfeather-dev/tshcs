@@ -1,3 +1,30 @@
+
 button{
 	width:100%;
+}
+
+.customer-info {
+	color:gray;
+	float:left;
+}
+
+.back{
+	float:right;
+}
+
+.ui-button.grey-button:hover {
+   background-color: #d3d3d3;
+   border-color: #d3d3d3;
+   color: #777;
+   border:#d3d3d3;
+   background: #d3d3d3;
+   
+}
+
+.ui-button.grey-button{
+	background-color: #e4e4e4;
+    border-color: #e4e4e4;
+    color: #777;
+    border:#e4e4e4;
+    background: #e4e4e4;
 }

@@ -35,7 +35,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth-interceptor';
 import { HttpClientModule} from "@angular/common/http";
 import { AvailabilityComponent } from './availability/availability.component';
-import { CalendarModule as AngularCalendar } from 'angular-calendar';
+import { CalendarModule as AngularCalendar  } from 'angular-calendar';
 import { ShiftsComponent } from './shifts/shifts.component';
 import { ShiftDetailsComponent } from './shift-details/shift-details.component';
 import { HideIfUnauthorizedDirective } from './authorization/hide-if-unauthorized.directive';
@@ -48,7 +48,6 @@ import {ToastModule} from 'primeng/toast';
 import { UserAvailabilityComponent } from './user-availability/user-availability.component';
 import {ToolbarModule} from 'primeng/toolbar';
 import { ReactiveFormsModule } from '@angular/forms';
-
 
 const routes: Routes=[
                       {path:'',redirectTo: '/home', pathMatch: 'full'},
@@ -66,7 +65,7 @@ const routes: Routes=[
                       {path: 'myavailability',    component: AvailabilityComponent, canActivate: [ OktaAuthGuard]},
                       {path: 'myshifts',    component: ShiftsComponent, canActivate: [ OktaAuthGuard]},
                       {path: 'myshifts/shiftdetails', component: ShiftDetailsComponent},
-                      {path: 'useravailability', component: UserAvailabilityComponent}                      
+                      {path: 'useravailability', component: UserAvailabilityComponent, canActivate: [ OktaAuthGuard]}                      
                      ];
                        
  const config = {
@@ -127,8 +126,6 @@ const routes: Routes=[
     RouterModule.forRoot(routes),
     OktaAuthModule.initAuth(config),
     AngularCalendar.forRoot(),
-    
-    
   ],
   providers: [AuthService,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]

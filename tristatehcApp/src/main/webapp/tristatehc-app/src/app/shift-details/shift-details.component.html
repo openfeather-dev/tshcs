@@ -11,13 +11,15 @@
         <tr>
             <td *ngFor="let col of columns" 	> 
                    
-                   	<p-dropdown *ngIf="col.field === 'myRequest'" [options]="myRequest" appendTo="body" [(ngModel)] = "selectedAction" ></p-dropdown>
-             		<button *ngIf="col.field === 'timeSheet'" pButton type="button" label="upload" (click)="saveDetails()" ></button>
-                   	<span *ngIf="!(col.field === 'timeSheet')" [ngClass]="{'label':true,'label-default': myshifts[col.field + '_color'] ==='gray' || !myshifts[col.field + '_color'],
+                   	<button   pButton type="button" *ngIf="col.field === 'myRequest'"  class="ui-button-raised ui-button-rounded" label="Accept" ></button>
+                   	<span *ngIf="(myshifts[col.field + '_color'])" [ngClass]="{'label':true,'label-default': myshifts[col.field + '_color'] ==='gray' ,
                    	' label-success': myshifts[col.field + '_color'] ==='green',
                    	' label-info': myshifts[col.field + '_color'] ==='blue',
                    	' label-warning': myshifts[col.field + '_color'] ==='orange',
                    	' label-danger': myshifts[col.field + '_color'] ==='red'}"  >{{myshifts[col.field]}}</span>
+                   	
+                   	<span *ngIf="!(myshifts[col.field + '_color'])" >{{myshifts[col.field]}}</span>
+                   	
                             	 
             </td>
             
@@ -29,9 +31,17 @@
 
 </div>
 <div class="ui-g-12 ui-sm-12 ui-md-12" align="center" >
+	<p-fileUpload mode="basic" name="myfile[]" url="./upload.php" multiple="multiple" accept="image/*" chooseLabel="Submit Timesheet"></p-fileUpload>
+</div>
+<div class="ui-g-12 ui-sm-12 ui-md-12" align="center" >
 	<div>
+		
+			
+		
+
 		<button pButton type="button" label="Save"
-			(click)="saveDetails()" ></button>
+			(click)="saveDetails()" style="margin: 2%" ></button>
+			
 		<button pButton type="button" label="Cancel"
 			[routerLink]="['../../']" (click)="cancel()"style="margin: 2%" ></button>
 	</div>

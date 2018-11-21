@@ -20,13 +20,16 @@ import { CustomerAddShiftsComponent } from '../customer-add-shifts/customer-add-
 import {ProgressBarModule} from 'primeng/progressbar';
 import {BlockUIModule} from 'primeng/blockui';
 import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
+import { CalendarUtilsModule } from '../../calendar-utils/calendar-utils.module';
+import {KeyFilterModule} from 'primeng/keyfilter';
 
 
-const enterAvailabilityRoutes: Routes = [{path: 'enteravailability', component: EnterAvailabilityComponent, canActivate: [OktaAuthGuard] , 
-                                            children: [{path:'employee/:email', component: EmployeeAvailabilityComponent},
-                                                       {path:'customer/:id', component: CustomerOptionsComponent,
-                                                            children:[{path:'config', component: CustomerShiftConfigurationComponent },
-                                                                       {path:'addShifts', component:CustomerAddShiftsComponent}]
+const enterAvailabilityRoutes: Routes = [{path: 'admin', component: EnterAvailabilityComponent, canActivate: [OktaAuthGuard] , 
+                                            children: [{path:'employee/:email', component: EmployeeAvailabilityComponent, canActivate: [ OktaAuthGuard]},
+                                                       {path:'customer/:facname/:name/:city/:state', component: CustomerOptionsComponent,canActivate: [ OktaAuthGuard],
+                                                            children:[{path:'config/:clientid', component: CustomerShiftConfigurationComponent, canActivate: [ OktaAuthGuard] },
+                                                                       {path:'addShifts/:state/:clientid', component:CustomerAddShiftsComponent, canActivate: [ OktaAuthGuard]}]
                                                       }]
                                           
                                           }];
@@ -39,13 +42,16 @@ const enterAvailabilityRoutes: Routes = [{path: 'enteravailability', component: 
     TableModule,
     RadioButtonModule,
     CheckboxModule,
+    DropdownModule,
     InputTextareaModule,
     InputTextModule,
+    CalendarUtilsModule,
     CalendarModule,
     ProgressBarModule,
     AngularCalendar,
     BlockUIModule,
     ToastModule,
+    KeyFilterModule,
     RouterModule.forChild(enterAvailabilityRoutes)
   ],
   exports: [RouterModule ],
@@ -55,7 +61,8 @@ const enterAvailabilityRoutes: Routes = [{path: 'enteravailability', component: 
     CustomerShiftConfigurationComponent,
     CustomerOptionsComponent,
     CustomerAddShiftsComponent
-      ]
+      ],
+  providers:[MessageService]
 })
     
 export class EnterAvailabilityRoutingModule { }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject }    from 'rxjs';
+import { Subject, BehaviorSubject}    from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +7,7 @@ import { Subject }    from 'rxjs';
 export class CustomerOptionsService {
         
     private isEnabledSource = new Subject<boolean>();
-    
+   
     public isEnabled = this.isEnabledSource.asObservable();
 
     constructor() { }
@@ -15,6 +15,5 @@ export class CustomerOptionsService {
     enableButton (value: boolean){
        this.isEnabledSource.next(value);
    }
-    
     
 }

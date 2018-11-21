@@ -1,12 +1,35 @@
 button.ui-button{
 	margin-left: 2%;
 }
-div.cal-header {
+
+div.cal-month-view .cal-header{
     visibility: hidden;
 }
 .cal-day-style {
 font-weight: bolder;
 }
+
 div.cal-days {
 	overflow:auto;
+}
+
+div.dropdown {
+	margin-bottom: 5%;
+}
+
+.cal-week-view .cal-day-headers{
+	display :table-column;
+	background: #fbfbfb;
+}
+
+.cal-week-view .cal-day-headers .cal-header {
+    border: 1px solid #e1e1e1;
+    
+}
+
+.cal-content-header{
+	margin-right: 5%; 
+	border: none; 
+	background: transparent; 
+	font-weight: bolder;
 }

@@ -4,14 +4,17 @@
 
 export const environment = {
   production: false,
-  port:42000,
+  port:4200,
   host:'localhost',
   resourceServerUrl: 'http://localhost:8090/',
   availabilityUrl: 'availability/',
   userUrl: 'user/',
+  customerUrl:'customer/',
   userAvailabilities: 'useravailability/',
   myshiftUrl: 'shifts/',
-  jobseekerUrl: 'job/apply'
+  jobseekerUrl: 'job/apply',
+  shiftConfigurationUrl: 'shiftconfiguration/',
+  custaddShift:'addshift/'
 };
 
 /*

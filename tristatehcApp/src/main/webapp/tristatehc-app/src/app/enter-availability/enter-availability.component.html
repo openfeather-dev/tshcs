@@ -2,9 +2,9 @@
 <div class="container">
 	<p-blockUI [blocked]="blocked" [target]="container" ></p-blockUI>
 	<p-toast class="toast-style" position="top-center"></p-toast>
-	<div class="ui-g-2 ui-sm-12 name-list">
+	<div class="ui-g-12 ui-sm-12 name-list">
 		<p-table #dt [columns]="cols" [value]="namesList" [paginator]="true"
-			[rows]="10" > 
+			[rows]="10"> 
 			<ng-template pTemplate="header" let-columns>
 				<tr>
 					<th>Search </th>
@@ -35,7 +35,7 @@
 					<a *ngIf="isEmployeeSelected"
 					[routerLink]="['employee', rowData.emailPrimary]">
 					{{rowData[columns[0].field]+' '+rowData[columns[1].field]}}</a> 
-					<a *ngIf="isCustomerSelected" [routerLink]="['customer',rowData.id]"> {{rowData[columns[0].field]}} </a> 
+					<a *ngIf="isCustomerSelected" [routerLink]="['customer',rowData.facilityName,rowData[columns[2].field],rowData[columns[3].field],rowData[columns[4].field]]" > {{rowData[columns[2].field]+' , '+rowData[columns[3].field]+' , '+rowData[columns[4].field]}} </a> 
 				</td>
 					
 			</tr>
@@ -43,7 +43,7 @@
 		
 		</p-table>
 	</div>
-	<div class="ui-g-10 ui-sm-12 side-table">
+	<div class="ui-g-12 ui-sm-12 side-table">
 		<router-outlet></router-outlet>
 	</div>
 </div>

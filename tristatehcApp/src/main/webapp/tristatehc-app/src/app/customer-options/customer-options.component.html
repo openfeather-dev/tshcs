@@ -1,6 +1,15 @@
 <div class="ui-g-12" align="center">
+	<div class="ui-g-12">
+		<div class="ui-sm-12 customer-info" style="float: left">
+			<h4>{{facilityName+' , '+facilityCity+' , '+facilityState}}</h4>
+		</div>
+		<div class="back">
+			<button class="grey-button ui-button-raised" pButton  icon="pi pi-times" type="button" label="Close" [routerLink]="['../../../../../']" (click)="cancel()" ></button>
+		</div>
+	</div>
+	
 	<div class="ui-g-3">
-	<button pButton type="button" label="Add Shifts" [routerLink]="['addShifts']"
+		<button pButton type="button" label="Add Shifts" [routerLink]="['addShifts',facilityState,clientId]"
 		[disabled]="(buttonSelected !== '' && buttonSelected !== 'addShifts')"
 		(click)="setSelectedButton('addShifts')"></button>
 	</div>
@@ -8,15 +17,15 @@
 		<button pButton type="button" label="Assign Shifts"></button>
 	</div>
 	<div class="ui-g-5">
-	<button pButton type="button" label="Shifts Configuration"
-		[routerLink]="['config']"
+		<button pButton type="button" label="Shifts Configuration"
+		[routerLink]="['config',clientId]"
 		[disabled]="(buttonSelected !== '' && buttonSelected !== 'shiftConfig')"
 		(click)="setSelectedButton('shiftConfig')"></button>
-</div>
-<br>
-<br>
-<br>
-<div class="ui-g-12">
-	<router-outlet> </router-outlet>
-</div>
+	</div>
+	<br>
+	<br>
+	<br>
+	<div class="ui-g-12">
+		<router-outlet> </router-outlet>
+	</div>
 </div>
