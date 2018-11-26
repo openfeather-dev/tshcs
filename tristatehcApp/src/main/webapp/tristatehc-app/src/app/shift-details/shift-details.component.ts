@@ -34,7 +34,7 @@ export class ShiftDetailsComponent implements OnInit {
             { field: 'timeIn', header: 'TIME IN' },
             { field: 'timeOut', header: 'TIME OUT' },
             { field: 'breakTime', header: 'BREAK TIME' },
-            { field: 'customerName', header: 'CUSTOMER NAME' },
+            { field: 'totalWorkHours', header: 'TOTAL WORK HOURS' },
             { field: 'supervisorName', header: 'SUPERVISOR NAME' },
             { field: 'timeSheet', header: 'TIMESHEET' },
             { field: 'shiftStatus', header: 'SHIFT STATUS' },
@@ -42,7 +42,7 @@ export class ShiftDetailsComponent implements OnInit {
         ];
             
      
-        this.shifts =  [{"shiftId":"1234","shiftId_color":"gray","client":"1health tc","client_color":"orange","shiftDate":"10/21/1987","shiftDate_color":"blue","shiftTime":"7-3","shiftTime_color":"red","agencyStatus":"available","agencyStatus_color":"orange","finalStatus":"going","finalStatus_color":"blue","timeIn":"3-11","timeIn_color":"green","timeOut":"3-11","timeOut_color":"","breakTime":"3-11","breakTime_color":"green", "customerName":"Inova","customerName_color":"","supervisorName":"3-11","supervisorName_color":"","timeSheet":"3-11","timeSheet_color":"","shiftStatus":"3-11","shiftStatus_color":"red","myRequest":[]}];	
+        this.shifts =  [{"shiftId":"1234","shiftId_color":"gray","client":"1health tc","client_color":"orange","shiftDate":"10/21/1987","shiftDate_color":"blue","shiftTime":"7-3","shiftTime_color":"red","agencyStatus":"available","agencyStatus_color":"orange","finalStatus":"going","finalStatus_color":"blue","timeIn":"","timeIn_color":"red","timeOut":"","timeOut_color":"","breakTime":"","breakTime_color":"green", "totalWorkHours":"6.00","totalWorkHours_color":"","supervisorName":"3-11","supervisorName_color":"","timeSheet":"3-11","timeSheet_color":"","shiftStatus":"3-11","shiftStatus_color":"red","myRequest":[]}];	
        this.myRequest = [{label:'Book Me', value:'BookMe'},{label:'Cancelling', value:'Cancelling'},{label:'Reject Shift', value:'RejectShift'}];
       
         

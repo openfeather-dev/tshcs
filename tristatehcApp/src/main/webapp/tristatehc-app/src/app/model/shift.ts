@@ -23,8 +23,8 @@ export interface Shift {
     breakTime:string;
     breakTime_color:string;
     
-    customerName:string;
-    customerName_color:string;
+    totalWorkHours:string;
+    totalWorkHours_color:string;
     
     supervisorName:string;
     supervisorName_color:string;

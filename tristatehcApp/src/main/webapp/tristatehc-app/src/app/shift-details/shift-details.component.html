@@ -12,14 +12,16 @@
             <td *ngFor="let col of columns" 	> 
                    
                    	<button   pButton type="button" *ngIf="col.field === 'myRequest'"  class="ui-button-raised ui-button-rounded" label="Accept" ></button>
-                   	<span *ngIf="(myshifts[col.field + '_color'])" [ngClass]="{'label':true,'label-default': myshifts[col.field + '_color'] ==='gray' ,
+                   	
+                   	<span *ngIf="(myshifts[col.field + '_color']) && !(col.field === 'timeIn' || col.field === 'timeOut' || col.field === 'breakTime' || col.field === 'supervisorName')" [ngClass]="{'label':true,'label-default': myshifts[col.field + '_color'] ==='gray' ,
                    	' label-success': myshifts[col.field + '_color'] ==='green',
                    	' label-info': myshifts[col.field + '_color'] ==='blue',
                    	' label-warning': myshifts[col.field + '_color'] ==='orange',
                    	' label-danger': myshifts[col.field + '_color'] ==='red'}"  >{{myshifts[col.field]}}</span>
                    	
-                   	<span *ngIf="!(myshifts[col.field + '_color'])" >{{myshifts[col.field]}}</span>
-                   	
+                   	<span *ngIf="!(myshifts[col.field + '_color']) && !(col.field === 'timeIn' || col.field === 'timeOut' || col.field === 'breaktTime' || col.field === 'supervisorName')" >{{myshifts[col.field]}}</span>
+                   	<input  #time *ngIf="col.field === 'supervisorName'" [style.color]="time.id" value="{{myshifts[col.field]}}" id="{{myshifts[col.field + '_color']}}" type="text"  size="20" pInputText >
+                   	<p-inputMask #time mask="99:99" *ngIf="col.field === 'timeIn' || col.field === 'timeOut' || col.field === 'breakTime'" [style.color]="time.id" id="{{myshifts[col.field + '_color']}}"   size="5" ></p-inputMask>
                             	 
             </td>
             
