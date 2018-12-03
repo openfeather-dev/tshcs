@@ -48,6 +48,8 @@ import {ToastModule} from 'primeng/toast';
 import { UserAvailabilityComponent } from './user-availability/user-availability.component';
 import {ToolbarModule} from 'primeng/toolbar';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import {CardModule} from 'primeng/card';
 
 const routes: Routes=[
                       {path:'',redirectTo: '/home', pathMatch: 'full'},
@@ -57,7 +59,7 @@ const routes: Routes=[
                       {path:'clients',component:Clients},
                       {path:'contact',component:Contact},
                       {path:'jobs',component:Jobs},
-                      {path:'jobseekers',component:Jobseekers},
+                      {path:'jobseekers',component:SignUpComponent},
                       {path:'login',component:LoginComponent},
                       {path:'schedule',component:ScheduleComponent,canActivate: [ OktaAuthGuard ]},
                       {path:'register',component:UserRegisterationComponent},
@@ -93,6 +95,7 @@ const routes: Routes=[
     ShiftDetailsComponent,
     HideIfUnauthorizedDirective,
     UserAvailabilityComponent,
+    SignUpComponent,
         
   ],
   imports: [
@@ -122,6 +125,7 @@ const routes: Routes=[
     ReactiveFormsModule,
     MessageModule,
     KeyFilterModule,
+    CardModule,
     EnterAvailabilityRoutingModule,
     RouterModule.forRoot(routes),
     OktaAuthModule.initAuth(config),

@@ -1,0 +1,84 @@
+<div class="container" >
+
+<p-card header="Advanced Card" subheader="Subheader"  styleClass="ui-card-shadow">
+	<p-header>
+		<div class="ui-g-12">
+		
+		      Already Applied ?<a class="header-info-style" (click)="login()"> Login here</a>
+	 
+		</div>
+	
+    </p-header>
+   	<div class="ui-g-12">
+	<form [formGroup]="jobForm">  
+		
+		<div class="ui-g-12 ui-sm-12">
+					<div class="ui-g-2 ui-sm-12">
+						<label>Email<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-8 ui-sm-12">
+						<input id="input" type="email" maxlength="35" size="35" pInputText formControlName="email" pKeyFilter="email">
+						<div class="ui-g-12">
+							<p-message severity="error" [text]="jobform.email.errors.required?'Email is required' : jobform.email.errors.email?'Invalid email' : ''" *ngIf="!jobform.email.valid && jobform.email.dirty"></p-message>
+						</div>
+					</div>
+		</div>
+		<div class="ui-g-12 ui-sm-12">
+					<div class="ui-g-2 ui-sm-12">
+						<label>Phone<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-8 ui-sm-12">
+						<input type="tel" formControlName="phone" size="30" maxlength="10" pInputText pKeyFilter="num">
+						<div class="ui-g-12">
+							<p-message severity="error" [text]="jobform.phone.errors.required?'Phone is required':jobform.phone.errors.pattern?'Invalid phone':''" *ngIf="!jobform.phone.valid && jobform.phone.dirty"></p-message>
+						</div>
+					</div>
+		</div>
+		<div class="ui-g-12 ui-sm-12">
+					<div class="ui-g-2 ui-sm-12">
+						<label>First Name<span class="form-info">*</span>:</label>
+					</div>
+					<div class="ui-g-8 ui-sm-12">
+						<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="firstName">
+						<div class="ui-g-12">
+							<p-message severity="error" text="First Name is required" *ngIf="!jobform.firstName.valid && jobform.firstName.dirty"></p-message>
+						</div>
+					</div>
+		</div>
+		<div class="ui-g-12 ui-sm-12">
+					<div class="ui-g-2 ui-sm-12">
+						<label>Middle Name<span class="form-info"></span>:</label>
+					</div>
+					<div class="ui-g-6 ui-sm-12">
+						<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="middleName">
+					</div>
+					
+		</div>
+		<div class="ui-g-12 ui-sm-12">
+					<div class="ui-g-2 ui-sm-12">
+						<label>Last Name<span class="form-info">*</span>:</label>
+					</div>
+					<div class="ui-g-6 ui-sm-12">
+						<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="lastName">
+						<div class="ui-g-12">
+							<p-message severity="error" text="Street Address is required" *ngIf="!jobform.lastName.valid && jobform.lastName.dirty"></p-message>
+						</div>
+					</div>
+		</div>
+		
+		<div class="ui-g-12" align="center">
+				
+		</div>
+		
+	</form>
+</div>
+    <p-footer>
+       	<button pButton type="submit " label="Apply" [disabled]="jobForm.invalid"></button>
+    </p-footer>
+</p-card> 
+
+<div class="ui-g-12" ></div>
+</div>
+
+
+
