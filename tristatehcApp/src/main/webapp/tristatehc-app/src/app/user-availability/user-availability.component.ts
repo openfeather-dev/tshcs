@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 import {MessageService} from 'primeng/api';
 import { UserAvailability } from '../model/user-availability';
 import {UserAvailabilityService} from './user-availability.service';
+import { environment } from '../../environments/environment';
+import {SelectItem} from 'primeng/api';
 
 
 @Component({
   selector: 'app-user-availability',
   templateUrl: './user-availability.component.html',
   styleUrls: ['./user-availability.component.css'],
-  providers:[MessageService,UserAvailabilityService]
+  providers:[MessageService,UserAvailabilityService],
+  encapsulation: ViewEncapsulation.None
 })
 export class UserAvailabilityComponent implements OnInit {
 
@@ -16,9 +19,40 @@ export class UserAvailabilityComponent implements OnInit {
     userAvailabilities : UserAvailability[] = [];
     blocked : boolean;
     showTable : boolean;
-  constructor(private messageService: MessageService,private service : UserAvailabilityService) { }
+    maxRadius : number;
+    radius : number;
+    zipcode : string;
+    facilities: SelectItem[];
+    selectedFacility: string;
+    selectedShifts: string[] = [];
+    selectedTitles: string[] = [];
+    selectedEliminate: string[] = [];
+    defaultDate: Date;
+    shiftDateFrom : Date;
+    shiftDateTo : Date;
+    msgs: string = ""; //city message
+ 
+    
+  constructor(private messageService: MessageService,private service : UserAvailabilityService) { 
+     this.facilities = [
+            {label: 'Merwick Care and Rehabilitation Center', value: 'Merwick Care and Rehabilitation Center'},
+            {label: 'Heather Glen Senior Living', value: 'Heather Glen Senior Living'},
+            {label: 'Regency Health Care and Rehab Center', value: 'Regency Health Care and Rehab Center'},
+        ];
+      
+  }
 
   ngOnInit() {
+      this.selectedFacility = this.facilities[0].value;
+      this.maxRadius = environment.radiusInMiles;
+      this.radius = this.maxRadius;
+      this.defaultDate = new Date();
+      if (this.shiftDateFrom == undefined){
+          this.shiftDateFrom = this.defaultDate;
+      }
+      if (this.shiftDateTo == undefined){
+          this.shiftDateTo = this.defaultDate;
+      }
       this.getAllAvailabilities();
   }
     
@@ -81,5 +115,18 @@ export class UserAvailabilityComponent implements OnInit {
         
     }
     
+   
+    
+    search(){
+        console.log(this.zipcode);
+        console.log(this.radius);
+        console.log(this.selectedFacility);
+        console.log(this.shiftDateFrom);
+        console.log(this.shiftDateTo);
+        console.log(this.selectedShifts);
+        console.log(this.selectedTitles);
+        console.log(this.selectedEliminate);
+        
+    }
 
 }

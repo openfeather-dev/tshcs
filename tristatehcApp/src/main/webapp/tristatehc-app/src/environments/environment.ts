@@ -14,7 +14,8 @@ export const environment = {
   myshiftUrl: 'shifts/',
   jobseekerUrl: 'job/apply',
   shiftConfigurationUrl: 'shiftconfiguration/',
-  custaddShift:'addshift/'
+  custaddShift:'addshift/',
+  radiusInMiles:100
 };
 
 /*

@@ -1,5 +1,128 @@
 <p-progressBar *ngIf="blocked" mode="indeterminate"></p-progressBar>
-<div class="ui-g">
+<div class=" ui-g-12">
+	<div class="ui-g-12">
+		<div class="ui-g-12 filter-block">
+			<div class="ui-g-12 ">
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-2 ui-sm-12">
+						<label>Zip Code:</label>
+					</div>
+					<div class="ui-g-6 ui-sm-12">
+						<input type="text" pInputText [(ngModel)]="zipcode" size="23" >
+						<div class="msg">
+							{{msgs}}
+						</div>
+					</div>
+				</div>
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-2 ui-sm-12">
+						<label>Facility:</label>
+					</div>
+					<div class="ui-g-6 ui-sm-12">
+						<p-dropdown [options]="facilities" [(ngModel)]="selectedFacility" name="selectedFacility" filter="true" [style]="{'width':'21em'}">
+						    <ng-template let-item pTemplate="selectedItem">
+						        <span>{{item.label}}</span>
+						    </ng-template>
+						    <ng-template let-facility pTemplate="item">
+						        <div>
+						            <div>{{facility.label}}</div>
+						        </div>
+						    </ng-template>
+						</p-dropdown>
+					</div>
+				</div>
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-3 ui-sm-12">
+						<label>Radius (Miles):</label>
+					</div>
+					<div class="ui-g-6 ui-sm-12">
+						<input type="type" pInputText [(ngModel)]="radius" style="width:14em" disabled="true"/>
+						<p-slider [(ngModel)]="radius" [style]="{'width':'14em'}"></p-slider>
+					</div>
+				</div>
+			</div>
+			<div class="ui-g-12 ">
+				<div class="ui-g-6 ui-sm-12">
+					<div class="ui-g-2 ui-sm-12">
+						<label>Shift From Date:</label>
+					</div>
+					<div class="ui-g-4 ui-sm-12">
+						<p-calendar [(ngModel)]="shiftDateFrom" [showIcon]="true" dateFormat="mm/dd/yy"  [defaultDate]="defaultDate"></p-calendar>
+					</div>
+					<div class="ui-g-2 ui-sm-12">
+						<label>Shift To Date:</label>
+					</div>
+					<div class="ui-g-4 ui-sm-12">
+						<p-calendar [(ngModel)]="shiftDateTo" [showIcon]="true" dateFormat="mm/dd/yy" [defaultDate]="defaultDate"></p-calendar>
+					</div>
+				</div>
+				<div class="ui-g-6 ui-sm-12">
+					<div class="ui-g-1 ui-sm-12">
+						<label>Shifts:</label>
+					</div>
+					<div class="ui-g-2 ui-sm-4">
+							<p-checkbox name="shifts" value="7-3" label="7-3" [(ngModel)]="selectedShifts" ></p-checkbox>
+					</div>
+					<div class="ui-g-2 ui-sm-4">
+						<p-checkbox name="shifts" value="3-11" label="3-11" [(ngModel)]="selectedShifts" ></p-checkbox>
+					</div>
+					<div class="ui-g-2 ui-sm-4">
+						<p-checkbox name="shifts" value="11-7" label="11-7" [(ngModel)]="selectedShifts" ></p-checkbox>
+					</div>
+					<div class="ui-g-2 ui-sm-4">
+						<p-checkbox name="shifts" value="Other" label="Other" [(ngModel)]="selectedShifts" ></p-checkbox>
+					</div>
+				</div>
+			</div>
+			<div class="ui-g-12 ">
+				<div class="ui-g-6 ui-sm-12">
+					<div class="ui-g-1 ui-sm-12">
+						<label>Titles:</label>
+					</div>
+					<div class="ui-g-2 ui-sm-4">
+						<p-checkbox name="titles" value="LPN" label="LPN" [(ngModel)]="selectedTitles" ></p-checkbox>
+					</div>
+					<div class="ui-g-2 ui-sm-4">
+						<p-checkbox name="titles" value="RN" label="RN" [(ngModel)]="selectedTitles" ></p-checkbox>
+					</div>
+					<div class="ui-g-2 ui-sm-4">
+						<p-checkbox name="titles" value="CNA" label="CNA" [(ngModel)]="selectedTitles" ></p-checkbox>
+					</div>
+					<div class="ui-g-2 ui-sm-4">
+						<p-checkbox name="titles" value="STNA" label="STNA" [(ngModel)]="selectedTitles" ></p-checkbox>
+					</div>
+					<div class="ui-g-2 ui-sm-4">
+						<p-checkbox name="titles" value="GNA" label="GNA" [(ngModel)]="selectedTitles" ></p-checkbox>
+					</div>
+					<div class="ui-g-2 ui-sm-4">
+						<p-checkbox name="titles" value="Others" label="Others" [(ngModel)]="selectedTitles" ></p-checkbox>
+					</div>
+				</div>
+				<div class="ui-g-6 ui-sm-12">
+					<div class="ui-g-2 ui-sm-12">
+						<label>Eliminate:</label>
+					</div>
+					<div class="ui-g-3 ui-sm-6">
+						<p-checkbox name="titles" value="Already booked" label="Already booked" [(ngModel)]="selectedEliminate" ></p-checkbox>
+					</div>
+					<div class="ui-g-2 ui-sm-6">
+						<p-checkbox name="titles" value="Blacklisted" label="Blacklisted" [(ngModel)]="selectedEliminate" ></p-checkbox>
+					</div>
+					<div class="ui-g-3 ui-sm-6">
+						<p-checkbox name="titles" value="New application" label="New application" [(ngModel)]="selectedEliminate" ></p-checkbox>
+					</div>
+					<div class="ui-g-3 ui-sm-7">
+						<p-checkbox name="titles" value="Has not been there" label="Has not been there" [(ngModel)]="selectedEliminate" ></p-checkbox>
+					</div>
+				</div>
+			</div>
+			<div class="ui-g-12" align="center">
+				<button pButton type="submit " label="Search" (click)="search()"></button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ui-g-12">
 	<p-blockUI [blocked]="blocked" [target]="ui-g"></p-blockUI>
 	<p-toast position="top-center"></p-toast>
 	<div class="ui-g-12" *ngIf="showTable">
@@ -20,8 +143,9 @@
 			</ng-template> 
 			<ng-template pTemplate="body" let-rowData let-columns="columns">
 				<tr [pSelectableRow]="rowData">
-					<td *ngFor="let col of columns" class="center">
-						{{rowData[col.field]}}</td>
+					<td *ngFor="let col of columns"  class="center">
+					<div [innerHTML]="rowData[col.field]"></div>
+					</td>
 				</tr>
 			</ng-template> 
 		</p-table>

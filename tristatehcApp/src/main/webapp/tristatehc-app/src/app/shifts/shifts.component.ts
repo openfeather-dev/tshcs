@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 import {ShiftsService} from './shifts.service';
 import { OktaAuthService } from '@okta/okta-angular';
 import { Router} from '@angular/router';
@@ -6,7 +6,8 @@ import { Router} from '@angular/router';
 @Component({
   selector: 'app-shifts',
   templateUrl: './shifts.component.html',
-  styleUrls: ['./shifts.component.css']
+  styleUrls: ['./shifts.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ShiftsComponent implements OnInit {
         

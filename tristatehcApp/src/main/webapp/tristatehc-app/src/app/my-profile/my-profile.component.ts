@@ -6,25 +6,21 @@ import { TableModule } from 'primeng/table';
 import { Data } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpParams } from '@angular/common/http';
-import { JobseekersService } from './jobseekers.service';
-import { JobseekersData } from'../app/model/jobseekers-data';
+import { MyProfileService } from './my-profile.service';
+import { JobseekersData } from '../model/jobseekers-data';
 import {MessageService} from 'primeng/api';
 
 @Component({
-  selector: 'jobseekers',
-  templateUrl: '../jobseekers/jobseekers.component.html',
-  styleUrls: ['../jobseekers/jobseekers.component.css'],
-  providers: [MessageService],
-  encapsulation: ViewEncapsulation.None
-  
+  selector: 'app-my-profile',
+  templateUrl: './my-profile.component.html',
+  styleUrls: ['./my-profile.component.css']
 })
-export class Jobseekers implements OnInit{
-        
-    jobForm : FormGroup;
+export class MyProfileComponent implements OnInit {
+jobForm : FormGroup;
     blocked : boolean = false;
     isSubmitted : boolean = false;
           
-    constructor(private formBuilder: FormBuilder, private jobService : JobseekersService, private messageService: MessageService) { }
+    constructor(private formBuilder: FormBuilder, private jobService : MyProfileService, private messageService: MessageService) { }
     
     ngOnInit() {
        this.jobForm =  this.formBuilder.group({
@@ -70,6 +66,8 @@ export class Jobseekers implements OnInit{
             refPhone2: new FormControl('',Validators.compose([Validators.required, Validators.pattern('[0-9]{10}')])),
            
        });
+        
+         //this.jobForm.controls['lastName'].setValue("Zacharia");
     }
    
     
@@ -136,8 +134,5 @@ export class Jobseekers implements OnInit{
     get jobform() { 
         return this.jobForm.controls;
     }
-    
-       
+
 }
-
-

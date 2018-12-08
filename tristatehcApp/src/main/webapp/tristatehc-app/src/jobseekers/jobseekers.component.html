@@ -1,6 +1,15 @@
 <p-toast class="toast-style" position="top-center"></p-toast>
 <p-progressBar *ngIf="blocked" mode="indeterminate"></p-progressBar>
-<div class="container form-table-style"> 
+
+<div class="container" *ngIf="isSubmitted">
+	<div class="ui-g-12 ui-sm-12 card" >
+		<p-card >
+		   <div><h1 class="card-header">Thank You!</h1></div>
+			<div><h4 class="card-text">Your application was submitted successfully and we will contact you soon.</h4></div>
+		</p-card>
+	</div>
+</div>
+<div class="container form-table-style" *ngIf="!isSubmitted"> 
 	<p-blockUI [blocked]="blocked" [target]="container"></p-blockUI>
 	<p-toast class="toast-style" position="top-center"></p-toast>
 			<div class="ui-g-12 ui-sm-12">
@@ -159,12 +168,12 @@
 			<div class="ui-g-12">
 				<div class="ui-g-5 ui-sm-12">
 					<div class="ui-g-4 ui-sm-5">
-						<label>Social Security Number<span class="form-info">*</span>:</label>
+						<label>Social Security Number:</label>
 					</div>
 					<div class="ui-g-6 ui-sm-7">
 						<input type="text" formControlName="ssn" size="30" maxlength="9" pInputText pKeyFilter="num">
 						<div class="ui-g-12">
-							<p-message severity="error" [text]="jobform.ssn.errors.required?'SSN is required':jobform.ssn.errors.pattern?'Invalid ssn':''" *ngIf="!jobform.ssn.valid && jobform.ssn.dirty"></p-message>
+							<p-message severity="error" [text]="jobform.ssn.errors.pattern?'Invalid ssn':''" *ngIf="!jobform.ssn.valid && jobform.ssn.dirty"></p-message>
 						</div>
 					</div>
 				</div>

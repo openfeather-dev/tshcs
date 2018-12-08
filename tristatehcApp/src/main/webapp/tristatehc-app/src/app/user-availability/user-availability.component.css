@@ -9,4 +9,15 @@
 p-toast{
 	margin-top: 80px;
 }
+.filter-block{
+	border: 1px solid #fbfbfb;
+	background-color: #fbfbfb;
+}
  
+.msg{
+	color: green;
+	font-size: medium;
+}
+.red-color{
+	color:red;
+}

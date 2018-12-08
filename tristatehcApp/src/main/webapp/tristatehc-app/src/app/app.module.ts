@@ -25,6 +25,7 @@ import {CalendarModule} from 'primeng/calendar';
 import {DropdownModule} from 'primeng/dropdown';
 import {CheckboxModule} from 'primeng/checkbox';
 import {RadioButtonModule} from 'primeng/radiobutton';
+import {SliderModule} from 'primeng/slider';
 import {TableModule} from 'primeng/table';
 import {MessageModule} from 'primeng/message';
 import {KeyFilterModule} from 'primeng/keyfilter';
@@ -50,6 +51,7 @@ import {ToolbarModule} from 'primeng/toolbar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import {CardModule} from 'primeng/card';
+import { MyProfileComponent } from './my-profile/my-profile.component';
 
 const routes: Routes=[
                       {path:'',redirectTo: '/home', pathMatch: 'full'},
@@ -67,7 +69,8 @@ const routes: Routes=[
                       {path: 'myavailability',    component: AvailabilityComponent, canActivate: [ OktaAuthGuard]},
                       {path: 'myshifts',    component: ShiftsComponent, canActivate: [ OktaAuthGuard]},
                       {path: 'myshifts/shiftdetails', component: ShiftDetailsComponent},
-                      {path: 'useravailability', component: UserAvailabilityComponent, canActivate: [ OktaAuthGuard]}                      
+                      {path: 'useravailability', component: UserAvailabilityComponent, canActivate: [ OktaAuthGuard]},
+                      {path: 'myprofile', component: MyProfileComponent, canActivate: [ OktaAuthGuard]}                     
                      ];
                        
  const config = {
@@ -96,6 +99,7 @@ const routes: Routes=[
     HideIfUnauthorizedDirective,
     UserAvailabilityComponent,
     SignUpComponent,
+    MyProfileComponent,
         
   ],
   imports: [
@@ -111,6 +115,8 @@ const routes: Routes=[
     DialogModule,
     ToastModule,
     DropdownModule,
+    SliderModule,
+    CardModule,
     RadioButtonModule,
     CheckboxModule,
     AutoCompleteModule,

@@ -1,7 +1,15 @@
 .red-cell {
         background-color: red !important;
-      }
-      .blue-cell {
+}
+.blue-cell {
         background-color: blue !important;
-      }
- 
+}
+
+
+div.cal-header {
+    visibility: hidden;
+}
+
+div.cal-days {
+	overflow:auto;
+}
