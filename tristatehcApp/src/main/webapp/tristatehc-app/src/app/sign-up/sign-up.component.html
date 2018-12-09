@@ -10,16 +10,27 @@
 	
     </p-header>
    	<div class="ui-g-12">
-	<form [formGroup]="jobForm">  
+	<form [formGroup]="jobForm" (ngSubmit)="onSubmit()" >   
 		
 		<div class="ui-g-12 ui-sm-12">
 					<div class="ui-g-2 ui-sm-12">
 						<label>Email<span class="form-info">*</span>: </label>
 					</div>
 					<div class="ui-g-8 ui-sm-12">
-						<input id="input" type="email" maxlength="35" size="35" pInputText formControlName="email" pKeyFilter="email">
+						<input id="email_id" type="email" maxlength="35" size="35" pInputText formControlName="email" pKeyFilter="email">
 						<div class="ui-g-12">
 							<p-message severity="error" [text]="jobform.email.errors.required?'Email is required' : jobform.email.errors.email?'Invalid email' : ''" *ngIf="!jobform.email.valid && jobform.email.dirty"></p-message>
+						</div>
+					</div>
+		</div>
+		<div class="ui-g-12 ui-sm-12">
+					<div class="ui-g-2 ui-sm-12">
+						<label>Password<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-8 ui-sm-12">
+						<input id="password_id" type="password" maxlength="30" size="35" pInputText formControlName="password" pKeyFilter="email">
+						<div class="ui-g-12">
+							<p-message severity="error" [text]="jobform.password.errors.required?'Password is required' : jobform.password.errors.minlength?'Minimum 5 characters is Required' : ''" *ngIf="!jobform.password.valid && jobform.password.dirty"></p-message>
 						</div>
 					</div>
 		</div>
@@ -28,7 +39,7 @@
 						<label>Phone<span class="form-info">*</span>: </label>
 					</div>
 					<div class="ui-g-8 ui-sm-12">
-						<input type="tel" formControlName="phone" size="30" maxlength="10" pInputText pKeyFilter="num">
+						<input id="phone_id" type="tel" formControlName="phone" size="35" maxlength="10" pInputText pKeyFilter="num">
 						<div class="ui-g-12">
 							<p-message severity="error" [text]="jobform.phone.errors.required?'Phone is required':jobform.phone.errors.pattern?'Invalid phone':''" *ngIf="!jobform.phone.valid && jobform.phone.dirty"></p-message>
 						</div>
@@ -39,7 +50,7 @@
 						<label>First Name<span class="form-info">*</span>:</label>
 					</div>
 					<div class="ui-g-8 ui-sm-12">
-						<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="firstName">
+						<input id="fname_id" type="text" maxlength="30" size="35" pInputText formControlName="firstName">
 						<div class="ui-g-12">
 							<p-message severity="error" text="First Name is required" *ngIf="!jobform.firstName.valid && jobform.firstName.dirty"></p-message>
 						</div>
@@ -50,7 +61,7 @@
 						<label>Middle Name<span class="form-info"></span>:</label>
 					</div>
 					<div class="ui-g-6 ui-sm-12">
-						<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="middleName">
+						<input id="mname_id" type="text" maxlength="30" size="35" pInputText formControlName="middleName">
 					</div>
 					
 		</div>
@@ -59,7 +70,7 @@
 						<label>Last Name<span class="form-info">*</span>:</label>
 					</div>
 					<div class="ui-g-6 ui-sm-12">
-						<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="lastName">
+						<input id="lname_id" type="text" maxlength="30" size="35" pInputText formControlName="lastName">
 						<div class="ui-g-12">
 							<p-message severity="error" text="Street Address is required" *ngIf="!jobform.lastName.valid && jobform.lastName.dirty"></p-message>
 						</div>
@@ -73,7 +84,7 @@
 	</form>
 </div>
     <p-footer>
-       	<button pButton type="submit " label="Apply" [disabled]="jobForm.invalid"></button>
+       	<button pButton type="submit " (click)="onSubmit()" label="Apply" [disabled]="jobForm.invalid"></button>
     </p-footer>
 </p-card> 
 

@@ -15,7 +15,8 @@ export const environment = {
   jobseekerUrl: 'job/apply',
   shiftConfigurationUrl: 'shiftconfiguration/',
   custaddShift:'addshift/',
-  radiusInMiles:100
+  radiusInMiles:100,
+  signupUrl:'https://dev-581945.oktapreview.com/signin/register'
 };
 
 /*

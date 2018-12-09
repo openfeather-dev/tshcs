@@ -61,7 +61,7 @@ const routes: Routes=[
                       {path:'clients',component:Clients},
                       {path:'contact',component:Contact},
                       {path:'jobs',component:Jobs},
-                      {path:'jobseekers',component:SignUpComponent},
+                      {path:'jobseekers',component:UserRegisterationComponent},
                       {path:'login',component:LoginComponent},
                       {path:'schedule',component:ScheduleComponent,canActivate: [ OktaAuthGuard ]},
                       {path:'register',component:UserRegisterationComponent},

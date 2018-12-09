@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
 import {PasswordModule} from 'primeng/password';
-
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-user-registeration',
@@ -18,7 +18,7 @@ export class UserRegisterationComponent implements OnInit {
 	private email:string;
 	private password:string;
 	private reconfirmPassword:string;
-	
+	private signupUrl:string = environment.signupUrl;
 
   constructor(private router: Router) { }
 
