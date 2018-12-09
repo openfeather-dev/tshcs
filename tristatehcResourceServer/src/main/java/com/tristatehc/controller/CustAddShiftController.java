@@ -29,7 +29,6 @@ public class CustAddShiftController {
 	
 	@RequestMapping(path="/shift/{custId}",method=RequestMethod.POST,produces={MediaType.APPLICATION_JSON_VALUE})
 	public Map<String,String>getShifts(@RequestBody String date,@PathVariable("custId") String custId) {
-								System.out.println("date @RequestBody  "+date);								
 		return service.getShifts(date,custId);
 		//return service.getTitles(state);
 	}

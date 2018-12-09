@@ -77,8 +77,9 @@ export class CustomerAddShiftsComponent implements OnInit {
     }
     
     getAllShifts(){
+        let today = new Date();
         
-        this.service.getShiftsForCustomer(this.clientId,"11/11/2018").subscribe(shiftmap => {
+        this.service.getShiftsForCustomer(this.clientId,(today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()).subscribe(shiftmap => {
            //this.shifts = shiftmap;
             
            this.shifts =  new Map(Object.entries(shiftmap));

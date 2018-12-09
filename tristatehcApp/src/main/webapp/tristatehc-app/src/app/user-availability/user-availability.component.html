@@ -1,25 +1,28 @@
 <p-progressBar *ngIf="blocked" mode="indeterminate"></p-progressBar>
-<div class=" ui-g-12">
+
+<p-accordion>
+    <p-accordionTab header="Search">
+    <div class=" ui-g-12">
 	<div class="ui-g-12">
 		<div class="ui-g-12 filter-block">
 			<div class="ui-g-12 ">
 				<div class="ui-g-4 ui-sm-12">
-					<div class="ui-g-2 ui-sm-12">
+					<div class="ui-g-3 ui-sm-12">
 						<label>Zip Code:</label>
 					</div>
-					<div class="ui-g-6 ui-sm-12">
+					<div class="ui-g-5 ui-sm-12">
 						<input type="text" pInputText [(ngModel)]="zipcode" size="23" >
 						<div class="msg">
 							{{msgs}}
 						</div>
-					</div>
+					</div>	
 				</div>
 				<div class="ui-g-4 ui-sm-12">
 					<div class="ui-g-2 ui-sm-12">
 						<label>Facility:</label>
 					</div>
 					<div class="ui-g-6 ui-sm-12">
-						<p-dropdown [options]="facilities" [(ngModel)]="selectedFacility" name="selectedFacility" filter="true" [style]="{'width':'21em'}">
+						<p-dropdown [options]="facilities" [(ngModel)]="selectedFacility" name="selectedFacility" filter="true" [style]="{'width':'15em'}">
 						    <ng-template let-item pTemplate="selectedItem">
 						        <span>{{item.label}}</span>
 						    </ng-template>
@@ -31,11 +34,11 @@
 						</p-dropdown>
 					</div>
 				</div>
-				<div class="ui-g-4 ui-sm-12">
-					<div class="ui-g-3 ui-sm-12">
+				<div class="ui-g-4 ui-sm-12 ">
+					<div class="ui-g-3 ui-sm-12 ">
 						<label>Radius (Miles):</label>
 					</div>
-					<div class="ui-g-6 ui-sm-12">
+					<div class="ui-g-6 ui-sm-12 ">
 						<input type="type" pInputText [(ngModel)]="radius" style="width:14em" disabled="true"/>
 						<p-slider [(ngModel)]="radius" [style]="{'width':'14em'}"></p-slider>
 					</div>
@@ -61,16 +64,16 @@
 						<label>Shifts:</label>
 					</div>
 					<div class="ui-g-2 ui-sm-4">
-							<p-checkbox name="shifts" value="7-3" label="7-3" [(ngModel)]="selectedShifts" ></p-checkbox>
+							<p-checkbox name="shifts" value="7-3" label="7-3" [(ngModel)]="selectedShift7To3" ></p-checkbox>
 					</div>
 					<div class="ui-g-2 ui-sm-4">
-						<p-checkbox name="shifts" value="3-11" label="3-11" [(ngModel)]="selectedShifts" ></p-checkbox>
+						<p-checkbox name="shifts" value="3-11" label="3-11" [(ngModel)]="selectedShift3To11" ></p-checkbox>
 					</div>
 					<div class="ui-g-2 ui-sm-4">
-						<p-checkbox name="shifts" value="11-7" label="11-7" [(ngModel)]="selectedShifts" ></p-checkbox>
+						<p-checkbox name="shifts" value="11-7" label="11-7" [(ngModel)]="selectedShifts11To7" ></p-checkbox>
 					</div>
 					<div class="ui-g-2 ui-sm-4">
-						<p-checkbox name="shifts" value="Other" label="Other" [(ngModel)]="selectedShifts" ></p-checkbox>
+						<p-checkbox name="shifts" value="Other" label="Other" [(ngModel)]="selectedShiftOther" ></p-checkbox>
 					</div>
 				</div>
 			</div>
@@ -80,39 +83,39 @@
 						<label>Titles:</label>
 					</div>
 					<div class="ui-g-2 ui-sm-4">
-						<p-checkbox name="titles" value="LPN" label="LPN" [(ngModel)]="selectedTitles" ></p-checkbox>
+						<p-radioButton name="titles" value="LPN" label="LPN" [(ngModel)]="selectedTitle" ></p-radioButton>
 					</div>
 					<div class="ui-g-2 ui-sm-4">
-						<p-checkbox name="titles" value="RN" label="RN" [(ngModel)]="selectedTitles" ></p-checkbox>
+						<p-radioButton name="titles" value="RN" label="RN" [(ngModel)]="selectedTitle" ></p-radioButton>
 					</div>
 					<div class="ui-g-2 ui-sm-4">
-						<p-checkbox name="titles" value="CNA" label="CNA" [(ngModel)]="selectedTitles" ></p-checkbox>
+						<p-radioButton name="titles" value="CNA" label="CNA" [(ngModel)]="selectedTitle" ></p-radioButton>
 					</div>
 					<div class="ui-g-2 ui-sm-4">
-						<p-checkbox name="titles" value="STNA" label="STNA" [(ngModel)]="selectedTitles" ></p-checkbox>
+						<p-radioButton name="titles" value="STNA" label="STNA" [(ngModel)]="selectedTitle" ></p-radioButton>
 					</div>
 					<div class="ui-g-2 ui-sm-4">
-						<p-checkbox name="titles" value="GNA" label="GNA" [(ngModel)]="selectedTitles" ></p-checkbox>
+						<p-radioButton name="titles" value="GNA" label="GNA" [(ngModel)]="selectedTitle" ></p-radioButton>
 					</div>
 					<div class="ui-g-2 ui-sm-4">
-						<p-checkbox name="titles" value="Others" label="Others" [(ngModel)]="selectedTitles" ></p-checkbox>
+						<p-radioButton name="titles" value="Others" label="Others" [(ngModel)]="selectedTitle" ></p-radioButton>
 					</div>
 				</div>
 				<div class="ui-g-6 ui-sm-12">
 					<div class="ui-g-2 ui-sm-12">
 						<label>Eliminate:</label>
 					</div>
-					<div class="ui-g-3 ui-sm-6">
-						<p-checkbox name="titles" value="Already booked" label="Already booked" [(ngModel)]="selectedEliminate" ></p-checkbox>
+					<div class="ui-g-3 ui-sm-12">
+						<p-checkbox name="titles" value="Booked" label="Already Booked" [(ngModel)]="selectedEliminateBooked" ></p-checkbox>
 					</div>
-					<div class="ui-g-2 ui-sm-6">
-						<p-checkbox name="titles" value="Blacklisted" label="Blacklisted" [(ngModel)]="selectedEliminate" ></p-checkbox>
+					<div class="ui-g-2 ui-sm-12">
+						<p-checkbox name="titles" value="Banned" label="Blacklisted" [(ngModel)]="selectedEliminateBanned" ></p-checkbox>
 					</div>
-					<div class="ui-g-3 ui-sm-6">
-						<p-checkbox name="titles" value="New application" label="New application" [(ngModel)]="selectedEliminate" ></p-checkbox>
+					<div class="ui-g-3 ui-sm-12">
+						<p-checkbox name="titles" value="Pending" label="New application" [(ngModel)]="selectedEliminatePending" ></p-checkbox>
 					</div>
-					<div class="ui-g-3 ui-sm-7">
-						<p-checkbox name="titles" value="Has not been there" label="Has not been there" [(ngModel)]="selectedEliminate" ></p-checkbox>
+					<div class="ui-g-3 ui-sm-12">
+						<p-checkbox name="titles" value="Not been" label="Has not been there" [(ngModel)]="selectedEliminateNotBeen" ></p-checkbox>
 					</div>
 				</div>
 			</div>
@@ -122,6 +125,8 @@
 		</div>
 	</div>
 </div>
+    </p-accordionTab>
+</p-accordion>
 <div class="ui-g-12">
 	<p-blockUI [blocked]="blocked" [target]="ui-g"></p-blockUI>
 	<p-toast position="top-center"></p-toast>

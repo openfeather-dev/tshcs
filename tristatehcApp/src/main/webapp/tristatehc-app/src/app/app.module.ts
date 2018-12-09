@@ -51,6 +51,7 @@ import {ToolbarModule} from 'primeng/toolbar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import {CardModule} from 'primeng/card';
+import {AccordionModule} from 'primeng/accordion';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 
 const routes: Routes=[
@@ -117,6 +118,7 @@ const routes: Routes=[
     DropdownModule,
     SliderModule,
     CardModule,
+    AccordionModule,
     RadioButtonModule,
     CheckboxModule,
     AutoCompleteModule,

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tristatehc.dao.UserAvailabilityRepository;
+import com.tristatehc.dto.UserAvailabilitySearchCriteria;
 import com.tristatehc.entity.AvailabilityData;
 
 @Service
@@ -13,15 +14,10 @@ public class UserAvailabilityServiceImpl implements UserAvailabilityService {
 	
 	@Autowired UserAvailabilityRepository repository;
 
-	/*@Override
-	public List<UserAvailabilityDTO> getAllUserAvailability() {
-		List<UserAvailabilityProjection> projection = repository.findAllAvailabilityForProjection();
-		List<UserAvailabilityDTO> dto = projection.stream().map( proj -> UserMapper.INSTANCE.userAvailabilityProjectionToUserAvailabilityDto(proj)).collect(Collectors.toList());
-		return dto;
-	}*/
 	
-	public List<AvailabilityData> getAllUserAvailability(){
-		return repository.getViewResult();
+	public List<AvailabilityData> getAllUserAvailability(UserAvailabilitySearchCriteria search){	
+		return repository.getAvailabilityData(search.getLoggedInUserEmail(),search.getZipcode(),search.getSelectedFacility(), search.getRadius(), search.getShiftDateFrom(),search.getShiftDateTo(),search.getSelectedTitle(),search.getSelectedShift7To3(), search.getSelectedShift3To11(),search.getSelectedShift11To7(),search.getSelectedShiftOther(), search.getSelectedEliminateBooked(), search.getSelectedEliminatePending(), search.getSelectedEliminateBanned(), search.getSelectedEliminateNotBeen());
+		
 	}
 
 }

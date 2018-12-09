@@ -38,18 +38,14 @@ public class CustAddShiftServiceImpl implements CustAddShiftService {
 
 	@Override
 	public Map<String, String> getShifts(String date,String customerId) {
-		List<ShiftCountByCustomer> shifts =  shiftCountByCustomerRepository.getCustomerShifts("custB","09/10/2018",0,70);
-		System.out.println("shifts  " +shifts.size());
+		List<ShiftCountByCustomer> shifts =  shiftCountByCustomerRepository.getCustomerShifts(customerId,date,0,70);
 		
 		Map<String,String> shiftsMap = new HashMap<>();
 		 shifts.forEach(shiftByCustomer->{
-			 System.out.println(shiftByCustomer);
 			 shiftsMap.put(shiftByCustomer.getId().getShiftTitleCode()+shiftByCustomer.getId().getShiftDt()+shiftByCustomer.getId().getShiftTmMt()+"required",shiftByCustomer.getTotal());
 			 shiftsMap.put(shiftByCustomer.getId().getShiftTitleCode()+shiftByCustomer.getId().getShiftDt()+shiftByCustomer.getId().getShiftTmMt()+"assigned",shiftByCustomer.getAssign());
 			 shiftsMap.put(shiftByCustomer.getId().getShiftTitleCode()+shiftByCustomer.getId().getShiftDt()+shiftByCustomer.getId().getShiftTmMt()+"unassigned",shiftByCustomer.getUnsassign());
 		 });
-		 System.out.println("shiftsMap  " +shiftsMap);
-		 shiftsMap.put("CNA11/11/201814:00-22:00required", "2");
 		 
 		 return shiftsMap;
 	}

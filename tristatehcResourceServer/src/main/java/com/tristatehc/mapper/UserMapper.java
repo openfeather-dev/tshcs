@@ -11,7 +11,6 @@ import com.tristatehc.dto.CustomerShiftConfigurationDTO;
 import com.tristatehc.dto.EventDTO;
 import com.tristatehc.dto.JobseekerDTO;
 import com.tristatehc.dto.TitlesDTO;
-import com.tristatehc.dto.UserAvailabilityDTO;
 import com.tristatehc.dto.UserDTO;
 import com.tristatehc.dto.UserProfileDTO;
 import com.tristatehc.entity.Availability;
@@ -51,26 +50,7 @@ public interface UserMapper {
 })
     AvailabilityDTO availabilityToAvailabilityDto(Availability availability);
     
-    @Mappings({@Mapping(target="empId", source="projection.userProfile.empId"),
-    	@Mapping(target="availDate", source="projection.availability.availabilityId.availDate"),
-    	 @Mapping(target="availTime", source="projection.availability.availabilityId.availTime"),
-    	 @Mapping(target="availShift", source="projection.availability.availShift"),
-    	 @Mapping(target="availComments", source="projection.availability.availComments"),
-    	 @Mapping(target="enterBySource", source="projection.availability.enterBySource"),
-    	 @Mapping(target="enterTime", source="projection.availability.enterTime"),
-    	@Mapping(target="emailPrimary", source="projection.userProfile.emailPrimary"),
-    	@Mapping(target="employmentStatus", source="projection.userProfile.employmentStatus"),
-    	@Mapping(target="fname", source="projection.userProfile.fname"),
-    	@Mapping(target="lname", source="projection.userProfile.lname"),
-    	@Mapping(target="mname", source="projection.userProfile.mname"),
-    	@Mapping(target="phoneCell", source="projection.userProfile.phoneCell"),
-    	@Mapping(target="phoneCell2", source="projection.userProfile.phoneCell2"),
-    	@Mapping(target="phoneHome", source="projection.userProfile.phoneHome"),
-    	@Mapping(target="phoneBackup", source="projection.userProfile.phoneBackup"),
-    	@Mapping(target="emailSecondary", source="projection.userProfile.emailSecondary"),
-    })
-    UserAvailabilityDTO userAvailabilityProjectionToUserAvailabilityDto(UserAvailabilityProjection projection);
-    
+     
     JobseekerDTO jobseekersToJobseekersDto(Jobseeker jobseeker);
     
     Jobseeker jobseekerDtoToJobseeker(JobseekerDTO jobseekerDto);

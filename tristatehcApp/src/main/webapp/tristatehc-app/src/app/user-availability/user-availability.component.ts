@@ -1,9 +1,11 @@
 import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 import {MessageService} from 'primeng/api';
 import { UserAvailability } from '../model/user-availability';
+import { SearchCriteriaUserAvailability } from '../model/search-criteria-user-availability';
 import {UserAvailabilityService} from './user-availability.service';
 import { environment } from '../../environments/environment';
 import {SelectItem} from 'primeng/api';
+import { OktaAuthService } from '@okta/okta-angular';
 
 
 @Component({
@@ -21,29 +23,35 @@ export class UserAvailabilityComponent implements OnInit {
     showTable : boolean;
     maxRadius : number;
     radius : number;
-    zipcode : string;
-    facilities: SelectItem[];
-    selectedFacility: string;
-    selectedShifts: string[] = [];
-    selectedTitles: string[] = [];
-    selectedEliminate: string[] = [];
+    zipcode : string ="";
+    facilities: any[] = [];
+    selectedFacility: string="";
+    selectedShift7To3 :string[] = [];
+    selectedShift3To11 : string[] = [];
+    selectedShift11To7: string[] = [];
+    selectedShiftOther: string[] = [];
+    selectedTitle: string="";
+    selectedEliminateBooked : string[] = [];
+    selectedEliminateBanned : string[] = [];
+    selectedEliminatePending : string[] = [];
+    selectedEliminateNotBeen : string[] = [];
     defaultDate: Date;
     shiftDateFrom : Date;
     shiftDateTo : Date;
     msgs: string = ""; //city message
+    loggedInUserEmail : string ="";
  
     
-  constructor(private messageService: MessageService,private service : UserAvailabilityService) { 
-     this.facilities = [
-            {label: 'Merwick Care and Rehabilitation Center', value: 'Merwick Care and Rehabilitation Center'},
-            {label: 'Heather Glen Senior Living', value: 'Heather Glen Senior Living'},
-            {label: 'Regency Health Care and Rehab Center', value: 'Regency Health Care and Rehab Center'},
-        ];
+  constructor(private messageService: MessageService,private service : UserAvailabilityService,private oktaAuth: OktaAuthService) { 
       
   }
 
-  ngOnInit() {
-      this.selectedFacility = this.facilities[0].value;
+  async ngOnInit() {
+      this.blocked = true;
+      this.facilities.push({label:"Select Facility", value:""});
+      this.service.getAllCustomers().subscribe(customers => {
+                    customers.forEach(customer => this.facilities.push({label:customer.lastName, value:customer.lastName}));
+       });
       this.maxRadius = environment.radiusInMiles;
       this.radius = this.maxRadius;
       this.defaultDate = new Date();
@@ -53,7 +61,15 @@ export class UserAvailabilityComponent implements OnInit {
       if (this.shiftDateTo == undefined){
           this.shiftDateTo = this.defaultDate;
       }
-      this.getAllAvailabilities();
+      let isAuthenticated = await this.oktaAuth.isAuthenticated();
+          if(isAuthenticated){
+              
+              this.oktaAuth.getUser().then(user => {
+                this.loggedInUserEmail  = user.preferred_username;
+                this.getAllAvailabilities();
+          
+          });
+      }
   }
     
     /**
@@ -62,9 +78,26 @@ export class UserAvailabilityComponent implements OnInit {
      */
     
     getAllAvailabilities(){
-        this.blocked = true;
-        let availabilities :UserAvailability[] = [];
-        this.service.getAllAvailabilities().subscribe(userAvailabilities => {
+        let availabilities : UserAvailability[] = [];
+        let searchCriteria = new SearchCriteriaUserAvailability();
+        searchCriteria.loggedInUserEmail = this.loggedInUserEmail;
+        searchCriteria.zipcode = this.zipcode;
+        searchCriteria.selectedFacility = this.selectedFacility;
+        searchCriteria.radius = this.radius.toString();
+        searchCriteria.shiftDateFrom = (this.shiftDateFrom.getMonth()+1)+"/"+this.shiftDateFrom.getDate()+"/"+this.shiftDateFrom.getFullYear();
+        searchCriteria.shiftDateTo = (this.shiftDateTo.getMonth()+1)+"/"+this.shiftDateTo.getDate()+"/"+this.shiftDateTo.getFullYear()
+        searchCriteria.selectedShift7To3 = this.selectedShift7To3.toString();
+        searchCriteria.selectedShift3To11 = this.selectedShift3To11.toString();
+        searchCriteria.selectedShift11To7 = this.selectedShift11To7.toString();
+        searchCriteria.selectedShiftOther = this.selectedShiftOther.toString();
+        searchCriteria.selectedTitle = this.selectedTitle; 
+        searchCriteria.selectedEliminateBooked = this.selectedEliminateBooked.toString();
+        searchCriteria.selectedEliminateBanned = this.selectedEliminateBanned.toString();
+        searchCriteria.selectedEliminatePending = this.selectedEliminatePending.toString();
+        searchCriteria.selectedEliminateNotBeen = this.selectedEliminateNotBeen.toString();
+        console.log(searchCriteria);
+        this.service.getAllAvailabilities(searchCriteria).subscribe(userAvailabilities => {
+            
             if(userAvailabilities){
                 let header = userAvailabilities.shift();
                 
@@ -104,6 +137,7 @@ export class UserAvailabilityComponent implements OnInit {
                     availabilities.push(avail);
                 })
             }
+             
             this.userAvailabilities = availabilities;
             this.showTable = true;
             this.blocked = false;
@@ -118,15 +152,7 @@ export class UserAvailabilityComponent implements OnInit {
    
     
     search(){
-        console.log(this.zipcode);
-        console.log(this.radius);
-        console.log(this.selectedFacility);
-        console.log(this.shiftDateFrom);
-        console.log(this.shiftDateTo);
-        console.log(this.selectedShifts);
-        console.log(this.selectedTitles);
-        console.log(this.selectedEliminate);
-        
+        this.getAllAvailabilities();
     }
 
 }
