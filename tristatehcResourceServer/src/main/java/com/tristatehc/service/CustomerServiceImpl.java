@@ -19,7 +19,7 @@ public class CustomerServiceImpl implements CustomerService {
 	CustomerRepository customerRepository;
 
 	public List<CustomerDTO> getAllCustomers() {
-		List<Customer> customers = customerRepository.findAll();
+		List<Customer> customers = customerRepository.findAllByOrderByLastNameAsc();
 		List<CustomerDTO> customerDto = new ArrayList<>();
 		if(!customers.isEmpty()) {
 			customerDto = customers.stream().map(customer -> UserMapper.INSTANCE.customerToCustomerDto(customer)).collect(Collectors.toList());
