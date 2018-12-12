@@ -11,6 +11,7 @@ public class JobseekerDTO {
 	private String zip;
 	private String homePhone;
 	private String cellPhone;
+	private String cellPhoneProvider;
 	private String email;
 	private String ssn;
 	private String selectedOption;
@@ -283,23 +284,28 @@ public class JobseekerDTO {
 	public void setRefPhone2(String refPhone2) {
 		this.refPhone2 = refPhone2;
 	}
+	public String getCellPhoneProvider() {
+		return cellPhoneProvider;
+	}
+	public void setCellPhoneProvider(String cellPhoneProvider) {
+		this.cellPhoneProvider = cellPhoneProvider;
+	}
 	@Override
 	public String toString() {
 		return "JobseekerDTO [lastName=" + lastName + ", firstName=" + firstName + ", middleInitial=" + middleInitial
 				+ ", address=" + address + ", city=" + city + ", state=" + state + ", zip=" + zip + ", homePhone="
-				+ homePhone + ", cellPhone=" + cellPhone + ", email=" + email + ", ssn=" + ssn + ", selectedOption="
-				+ selectedOption + ", emergencyContact=" + emergencyContact + ", emergencyPhone=" + emergencyPhone
-				+ ", positions=" + positions + ", unavailable=" + unavailable + ", highSchoolName=" + highSchoolName
-				+ ", highSchoolAddress=" + highSchoolAddress + ", highSchoolYears=" + highSchoolYears
-				+ ", highSchoolDegree=" + highSchoolDegree + ", collegeName=" + collegeName + ", collegeAddress="
-				+ collegeAddress + ", collegeYears=" + collegeYears + ", collegeDegree=" + collegeDegree
-				+ ", tradeName=" + tradeName + ", tradeAddress=" + tradeAddress + ", tradeYears=" + tradeYears
-				+ ", tradeDegree=" + tradeDegree + ", graduateName=" + graduateName + ", graduateAddress="
-				+ graduateAddress + ", graduateYears=" + graduateYears + ", graduateDegree=" + graduateDegree
-				+ ", refName1=" + refName1 + ", refPosition1=" + refPosition1 + ", refAddress1=" + refAddress1
-				+ ", refPhone1=" + refPhone1 + ", refName2=" + refName2 + ", refPosition2=" + refPosition2
-				+ ", refAddress2=" + refAddress2 + ", refPhone2=" + refPhone2 + "]";
+				+ homePhone + ", cellPhone=" + cellPhone + ", cellPhoneProvider=" + cellPhoneProvider + ", email="
+				+ email + ", ssn=" + ssn + ", selectedOption=" + selectedOption + ", emergencyContact="
+				+ emergencyContact + ", emergencyPhone=" + emergencyPhone + ", positions=" + positions
+				+ ", unavailable=" + unavailable + ", highSchoolName=" + highSchoolName + ", highSchoolAddress="
+				+ highSchoolAddress + ", highSchoolYears=" + highSchoolYears + ", highSchoolDegree=" + highSchoolDegree
+				+ ", collegeName=" + collegeName + ", collegeAddress=" + collegeAddress + ", collegeYears="
+				+ collegeYears + ", collegeDegree=" + collegeDegree + ", tradeName=" + tradeName + ", tradeAddress="
+				+ tradeAddress + ", tradeYears=" + tradeYears + ", tradeDegree=" + tradeDegree + ", graduateName="
+				+ graduateName + ", graduateAddress=" + graduateAddress + ", graduateYears=" + graduateYears
+				+ ", graduateDegree=" + graduateDegree + ", refName1=" + refName1 + ", refPosition1=" + refPosition1
+				+ ", refAddress1=" + refAddress1 + ", refPhone1=" + refPhone1 + ", refName2=" + refName2
+				+ ", refPosition2=" + refPosition2 + ", refAddress2=" + refAddress2 + ", refPhone2=" + refPhone2 + "]";
 	}
-	
 
 }

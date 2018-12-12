@@ -6,6 +6,7 @@ import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 import com.tristatehc.dto.AvailabilityDTO;
+import com.tristatehc.dto.CellPhoneProviderDTO;
 import com.tristatehc.dto.CustomerDTO;
 import com.tristatehc.dto.CustomerShiftConfigurationDTO;
 import com.tristatehc.dto.EventDTO;
@@ -13,15 +14,17 @@ import com.tristatehc.dto.JobseekerDTO;
 import com.tristatehc.dto.TitlesDTO;
 import com.tristatehc.dto.UserDTO;
 import com.tristatehc.dto.UserProfileDTO;
+import com.tristatehc.dto.ZipcodeDTO;
 import com.tristatehc.entity.Availability;
+import com.tristatehc.entity.CellPhoneProvider;
 import com.tristatehc.entity.Customer;
 import com.tristatehc.entity.CustomerShiftConfiguration;
 import com.tristatehc.entity.Event;
 import com.tristatehc.entity.Jobseeker;
 import com.tristatehc.entity.Titles;
 import com.tristatehc.entity.User;
-import com.tristatehc.entity.UserAvailabilityProjection;
 import com.tristatehc.entity.UserProfile;
+import com.tristatehc.entity.Zipcode;
 
 @Mapper
 public interface UserMapper {
@@ -67,6 +70,10 @@ public interface UserMapper {
     CustomerShiftConfiguration custShiftConfigDtoToCustShiftConfig(CustomerShiftConfigurationDTO custShiftConfigDto);
     
     TitlesDTO titlesToTitlesDto(Titles title);
+    
+    ZipcodeDTO zipcodeToZipcodeDto(Zipcode zipcode);
+    
+    CellPhoneProviderDTO providerToproviderDto(CellPhoneProvider provider);
     
      
 }

@@ -38,6 +38,9 @@ public class Jobseeker implements Serializable{
 	@Column(name="cell_phone")
 	private String cellPhone;
 	
+	@Column(name="cell_phone_provider")
+	private String cellPhoneProvider;
+	
 	@Column(name="adult")
 	private String selectedOption;
 	
@@ -362,24 +365,30 @@ public class Jobseeker implements Serializable{
 	public void setRefPhone2(String refPhone2) {
 		this.refPhone2 = refPhone2;
 	}
+	
+	public String getCellPhoneProvider() {
+		return cellPhoneProvider;
+	}
+	public void setCellPhoneProvider(String cellPhoneProvider) {
+		this.cellPhoneProvider = cellPhoneProvider;
+	}
 	@Override
 	public String toString() {
-		return "Jobseeker [lastName=" + lastName + ", firstName=" + firstName + ", middleInitial=" + middleInitial
-				+ ", address=" + address + ", city=" + city + ", state=" + state + ", zip=" + zip + ", homePhone="
-				+ homePhone + ", cellPhone=" + cellPhone + ", email=" + email + ", ssn=" + ssn + ", selectedOption="
-				+ selectedOption + ", emergencyContact=" + emergencyContact + ", emergencyPhone=" + emergencyPhone
-				+ ", positions=" + positions + ", unavailable=" + unavailable + ", highSchoolName=" + highSchoolName
-				+ ", highSchoolAddress=" + highSchoolAddress + ", highSchoolYears=" + highSchoolYears
-				+ ", highSchoolDegree=" + highSchoolDegree + ", collegeName=" + collegeName + ", collegeAddress="
-				+ collegeAddress + ", collegeYears=" + collegeYears + ", collegeDegree=" + collegeDegree
-				+ ", tradeName=" + tradeName + ", tradeAddress=" + tradeAddress + ", tradeYears=" + tradeYears
-				+ ", tradeDegree=" + tradeDegree + ", graduateName=" + graduateName + ", graduateAddress="
-				+ graduateAddress + ", graduateYears=" + graduateYears + ", graduateDegree=" + graduateDegree
-				+ ", refName1=" + refName1 + ", refPosition1=" + refPosition1 + ", refAddress1=" + refAddress1
-				+ ", refPhone1=" + refPhone1 + ", refName2=" + refName2 + ", refPosition2=" + refPosition2
+		return "Jobseeker [email=" + email + ", lastName=" + lastName + ", firstName=" + firstName + ", middleInitial="
+				+ middleInitial + ", address=" + address + ", city=" + city + ", state=" + state + ", zip=" + zip
+				+ ", ssn=" + ssn + ", unavailable=" + unavailable + ", homePhone=" + homePhone + ", cellPhone="
+				+ cellPhone + ", cellPhoneProvider=" + cellPhoneProvider + ", selectedOption=" + selectedOption
+				+ ", emergencyContact=" + emergencyContact + ", emergencyPhone=" + emergencyPhone + ", positions="
+				+ positions + ", highSchoolName=" + highSchoolName + ", highSchoolAddress=" + highSchoolAddress
+				+ ", highSchoolYears=" + highSchoolYears + ", highSchoolDegree=" + highSchoolDegree + ", collegeName="
+				+ collegeName + ", collegeAddress=" + collegeAddress + ", collegeYears=" + collegeYears
+				+ ", collegeDegree=" + collegeDegree + ", tradeName=" + tradeName + ", tradeAddress=" + tradeAddress
+				+ ", tradeYears=" + tradeYears + ", tradeDegree=" + tradeDegree + ", graduateName=" + graduateName
+				+ ", graduateAddress=" + graduateAddress + ", graduateYears=" + graduateYears + ", graduateDegree="
+				+ graduateDegree + ", refName1=" + refName1 + ", refPosition1=" + refPosition1 + ", refAddress1="
+				+ refAddress1 + ", refPhone1=" + refPhone1 + ", refName2=" + refName2 + ", refPosition2=" + refPosition2
 				+ ", refAddress2=" + refAddress2 + ", refPhone2=" + refPhone2 + "]";
 	}
 		
-    
 	
 }
