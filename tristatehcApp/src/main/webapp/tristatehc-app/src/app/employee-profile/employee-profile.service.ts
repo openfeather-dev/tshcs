@@ -9,9 +9,9 @@ import { Title } from '../model/title';
 @Injectable({
   providedIn: 'root'
 })
-export class MyProfileService {
+export class EmployeeProfileService {
 
- constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
     
     saveApplication(job : JobseekersData){
         return this.http.post(environment.resourceServerUrl+environment.jobseekerUrl+"apply", job );
@@ -29,6 +29,4 @@ export class MyProfileService {
     getTitlesByState(state : string){
      return this.http.get<Title[]>(environment.resourceServerUrl+environment.titleUrl+state)
     }
-    
-    
 }

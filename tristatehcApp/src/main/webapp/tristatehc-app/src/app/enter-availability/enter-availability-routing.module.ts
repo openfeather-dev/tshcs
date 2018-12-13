@@ -23,14 +23,14 @@ import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 import { CalendarUtilsModule } from '../../calendar-utils/calendar-utils.module';
 import {KeyFilterModule} from 'primeng/keyfilter';
-
+import { EmployeeProfileComponent } from '../employee-profile/employee-profile.component';
 
 const enterAvailabilityRoutes: Routes = [{path: 'admin', component: EnterAvailabilityComponent, canActivate: [OktaAuthGuard] , 
                                             children: [{path:'employee/:email', component: EmployeeAvailabilityComponent, canActivate: [ OktaAuthGuard]},
                                                        {path:'customer/:facname/:name/:city/:state', component: CustomerOptionsComponent,canActivate: [ OktaAuthGuard],
                                                             children:[{path:'config/:clientid', component: CustomerShiftConfigurationComponent, canActivate: [ OktaAuthGuard] },
                                                                        {path:'addShifts/:state/:clientid', component:CustomerAddShiftsComponent, canActivate: [ OktaAuthGuard]}]
-                                                      }]
+                                                      },{path:'newemployee/:email', component: EmployeeProfileComponent, canActivate: [ OktaAuthGuard]}]
                                           
                                           }];
 

@@ -53,6 +53,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import {CardModule} from 'primeng/card';
 import {AccordionModule} from 'primeng/accordion';
 import { MyProfileComponent } from './my-profile/my-profile.component';
+import { EmployeeProfileComponent } from './employee-profile/employee-profile.component';
 
 const routes: Routes=[
                       {path:'',redirectTo: '/home', pathMatch: 'full'},
@@ -101,6 +102,7 @@ const routes: Routes=[
     UserAvailabilityComponent,
     SignUpComponent,
     MyProfileComponent,
+    EmployeeProfileComponent,
         
   ],
   imports: [

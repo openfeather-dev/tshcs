@@ -1,5 +1,7 @@
 package com.tristatehc.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +21,11 @@ public class JobseekerController {
 	@RequestMapping(path="/apply",method=RequestMethod.POST,consumes={MediaType.APPLICATION_JSON_VALUE})
 	public JobseekerDTO saveApplication(@RequestBody JobseekerDTO jobseekerDto) {
 		return jobService.saveJobApplication(jobseekerDto);
+	}
+	
+	@RequestMapping(path="/", method=RequestMethod.GET, produces= {MediaType.APPLICATION_JSON_VALUE})
+	public List<JobseekerDTO> getAllApplicants() {
+		return jobService.getAllApplicants();
 	}
 	
 }

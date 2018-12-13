@@ -3,6 +3,7 @@ import {EnterAvailabilityService} from './enter-availability.service';
 import {MessageService} from 'primeng/api';
 
 const CUSTOMER = "customer";
+const NEW_EMPLOYEE = "newEmployee";
 
 @Component({
   selector: 'app-enter-availability',
@@ -16,6 +17,7 @@ export class EnterAvailabilityComponent implements OnInit {
     cols : any[];
     isEmployeeSelected : boolean = false;
     isCustomerSelected : boolean = false;
+    isNewEmployeeSelected : boolean = false;
     isRadioButtonDisabled : boolean = false;
     selectedValue : string;
     namesList : any[];
@@ -38,6 +40,8 @@ export class EnterAvailabilityComponent implements OnInit {
             { field: 'lastName'},
             { field: 'facCity'},
             { field: 'facState'},
+            { field: 'firstName'},
+            { field: 'lastName'}
         ];
 
     }
@@ -61,8 +65,21 @@ export class EnterAvailabilityComponent implements OnInit {
                     this.blocked = false;
                 });
                 this.isCustomerSelected = true;
+                this.isNewEmployeeSelected = false;
                 this.isEmployeeSelected = false;
-            }else{
+            }else if(this.selectedValue === NEW_EMPLOYEE){
+                this.service.getAllNewEmployees().subscribe(newEmps =>{
+                    newEmps.forEach(emp => userList.push(emp));
+                    this.namesList = userList;
+                    this.blocked = false;
+                },error =>{
+                    this.messageService.add({severity:'error', summary: 'Error', detail:'Employees could not be retrieved please try later!!'});
+                    this.blocked = false;
+                });
+                this.isNewEmployeeSelected = true;
+                this.isCustomerSelected = false;
+                this.isEmployeeSelected = false;
+            } else{
                 this.service.getAllEmployees().subscribe(users => {
                     users.forEach(user => userList.push(user));
                     this.namesList = userList;
@@ -73,7 +90,7 @@ export class EnterAvailabilityComponent implements OnInit {
                 });
                 this.isEmployeeSelected = true;
                 this.isCustomerSelected = false;
-                
+                this.isNewEmployeeSelected = false;
             }
         
         }

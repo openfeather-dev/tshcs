@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService{
 
 	@Autowired UserRepository userRepository;
 	@Autowired UserProfileRepository profileRepository;
-	//@Autowired UserMapper mapper;
+
 	public Optional<UserDTO> getUser(String emailId){
 		Optional<User> userOptnl =  userRepository.findById(emailId);
 		if(userOptnl.isPresent()){
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService{
 
 
 	public List<UserProfileDTO> getAllUserProfiles() {
-		List<UserProfile> users = profileRepository.findAll();
+		List<UserProfile> users = profileRepository.findAllByOrderByFnameAsc();
 		List<UserProfileDTO> usersDto = new ArrayList<>();
 		if(!users.isEmpty()) {
 			usersDto = users.stream().map(user -> UserMapper.INSTANCE.userProfileToUserProfileDto(user)).collect(Collectors.toList());

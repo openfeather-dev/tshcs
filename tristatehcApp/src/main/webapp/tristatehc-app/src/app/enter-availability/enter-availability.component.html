@@ -20,6 +20,11 @@
 							name="searchName" value="employee" label="Employee"
 							[(ngModel)]="selectedValue" (click)="getList()"
 							[disabled]="isDisabled">
+						</p-radioButton><br>
+						<p-radioButton 
+							name="searchName" value="newEmployee" label="New Employee"
+							[(ngModel)]="selectedValue" (click)="getList()"
+							[disabled]="isDisabled">
 						</p-radioButton>
 					</th>
 				</tr>
@@ -36,6 +41,9 @@
 					[routerLink]="['employee', rowData.emailPrimary]">
 					{{rowData[columns[0].field]+' '+rowData[columns[1].field]}}</a> 
 					<a *ngIf="isCustomerSelected" [routerLink]="['customer',rowData.facilityName,rowData[columns[2].field],rowData[columns[3].field],rowData[columns[4].field]]" > {{rowData[columns[2].field]+' , '+rowData[columns[3].field]+' , '+rowData[columns[4].field]}} </a> 
+					<a *ngIf="isNewEmployeeSelected"
+					[routerLink]="['newemployee', rowData.email]">
+					{{rowData[columns[5].field]+' '+rowData[columns[6].field]}}</a> 
 				</td>
 					
 			</tr>

@@ -1,41 +1,6 @@
-html{
-	width: 100%;
-	overflow: hidden;
-}
-
 .form-info{
     color: red;
 }
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  
-  /* Float four columns side by side */
-  .column {
-    float: left;
-    width: 25%;
-    padding: 0 10px;
-  }
-  
-  /* Remove extra left and right margins, due to padding */
-  .row {margin: 0 -5px;}
-  
-  /* Clear floats after the columns */
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-  
-  /* Responsive columns */
-  @media screen and (max-width: 600px) {
-    .column {
-      width: 100%;
-      display: block;
-      margin-bottom: 20px;
-    }
-  }
 
 
 .form-table-style
@@ -61,11 +26,6 @@ h2.header{
 	font-weight: bold;
 }
 
-h3.title{
-	float: left;
-	font-weight: bolder;
-}
-
 input{
         max-width: 100%;
     }
@@ -77,18 +37,15 @@ input{
 	height: 300px;
 	
 }
-h1.card-header{
-	font-weight: 900;
+h3.card-header{
+	font-weight: 500;
 	text-align: center;
 	color: #00ce00;
-}
-h4.card-text{
-	text-align: center;
 }
 
 body .ui-card{
 	background-color: #fbfbfb;
-	width: 70%;
+	width: 50%;
   	margin-left: auto;
   	margin-right: auto;
   	margin-bottom: auto;
@@ -105,4 +62,11 @@ body .ui-card{
     border:#e4e4e4;
     background: #e4e4e4;
 }
-
+.ui-button.grey-button:hover {
+   background-color: #d3d3d3;
+   border-color: #d3d3d3;
+   color: #777;
+   border:#d3d3d3;
+   background: #d3d3d3;
+   
+}

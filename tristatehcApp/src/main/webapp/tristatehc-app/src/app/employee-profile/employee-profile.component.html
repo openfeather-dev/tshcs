@@ -1,11 +1,12 @@
 <p-toast class="toast-style" position="top-center"></p-toast>
 <p-progressBar *ngIf="blocked" mode="indeterminate"></p-progressBar>
-
-<div class="container" *ngIf="isSubmitted">
+<div class="back">
+	<button class="grey-button ui-button-raised" pButton  icon="pi pi-times" type="button" label="Close" [routerLink]="['../../']" (click)="cancel()"></button>
+</div>
+<div *ngIf="isSubmitted">
 	<div class="ui-g-12 ui-sm-12 card" >
 		<p-card >
-		   <div><h1 class="card-header">Thank You!</h1></div>
-			<div><h4 class="card-text">Your profile has been updated.</h4></div>
+		   <div><h3 class="card-header">Profile has been updated.</h3></div>
 		</p-card>
 	</div>
 </div>

@@ -83,7 +83,6 @@ export class CustomerAddShiftsComponent implements OnInit {
            //this.shifts = shiftmap;
             
            this.shifts =  new Map(Object.entries(shiftmap));
-            console.log("shifts" +this.shifts);
         });
     
     }

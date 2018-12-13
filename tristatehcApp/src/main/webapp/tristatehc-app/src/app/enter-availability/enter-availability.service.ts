@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { UserProfile } from '../model/user-profile';
 import { environment } from '../../environments/environment';
 import { Customer } from '../model/customer';
+import { JobseekersData } from '../model/jobseekers-data';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,13 @@ export class EnterAvailabilityService {
      */
     getAllCustomers(){
         return this.http.get<Customer[]>(environment.resourceServerUrl+environment.customerUrl);
+    }
+    
+    /**
+     * Get all new employees
+     */
+    getAllNewEmployees(){
+        return this.http.get<JobseekersData[]>(environment.resourceServerUrl+environment.jobseekerUrl);
     }
     
 }

@@ -15,7 +15,7 @@ export class JobseekersService {
   }*/
     
     saveApplication(job : JobseekersData){
-        return this.http.post(environment.resourceServerUrl+environment.jobseekerUrl, job );
+        return this.http.post(environment.resourceServerUrl+environment.jobseekerUrl+"apply", job );
   }
   
     getApp(){

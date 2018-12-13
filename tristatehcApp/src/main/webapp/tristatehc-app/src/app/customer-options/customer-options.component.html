@@ -14,7 +14,7 @@
 		(click)="setSelectedButton('addShifts')"></button>
 	</div>
 	<div class="ui-g-4">
-		<button pButton type="button" label="Assign Shifts"></button>
+		<button pButton type="button" label="Assign Shifts" [disabled]="(buttonSelected !== '' && buttonSelected !== 'assignShift')"></button>
 	</div>
 	<div class="ui-g-5">
 		<button pButton type="button" label="Shifts Configuration"

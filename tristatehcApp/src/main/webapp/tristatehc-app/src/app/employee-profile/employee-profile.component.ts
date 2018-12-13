@@ -1,4 +1,4 @@
-import { Component,OnInit,ViewEncapsulation } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -6,7 +6,7 @@ import { TableModule } from 'primeng/table';
 import { Data } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpParams } from '@angular/common/http';
-import { MyProfileService } from './my-profile.service';
+import { EmployeeProfileService } from './employee-profile.service';
 import { JobseekersData } from '../model/jobseekers-data';
 import { State } from '../model/state';
 import { CellPhoneProvider } from '../model/cell-phone-provider';
@@ -14,13 +14,15 @@ import {MessageService} from 'primeng/api';
 import { environment } from '../../environments/environment';
 import {SelectItem} from 'primeng/api';
 import { OktaAuthService } from '@okta/okta-angular';
+import { ActivatedRoute } from '@angular/router';
+import { EnterAvailabilityService } from '../enter-availability/enter-availability.service';
 
 @Component({
-  selector: 'app-my-profile',
-  templateUrl: './my-profile.component.html',
-  styleUrls: ['./my-profile.component.css']
+  selector: 'app-employee-profile',
+  templateUrl: './employee-profile.component.html',
+  styleUrls: ['./employee-profile.component.css'],
 })
-export class MyProfileComponent implements OnInit {
+export class EmployeeProfileComponent implements OnInit {
 jobForm : FormGroup;
     blocked : boolean = false;
     isSubmitted : boolean = false;
@@ -33,11 +35,13 @@ jobForm : FormGroup;
     titles: SelectItem[] = [{label:"Select Title", value:""}];
     today : Date;
      
-    constructor(private formBuilder: FormBuilder, private service : MyProfileService, private messageService: MessageService,private oktaAuth: OktaAuthService) { 
+    constructor(private formBuilder: FormBuilder, private service : EmployeeProfileService, private messageService: MessageService,private oktaAuth: OktaAuthService,private route : ActivatedRoute,private availablility:EnterAvailabilityService) { 
     }
     
     async ngOnInit() {
        this.blocked = true;
+       this.availablility.disableElement(true);
+       this.loggedInUserEmail = this.route.snapshot.paramMap.get('email');
        this.today = new Date();
        this.yearRange = (this.today.getFullYear()) + ':' + (this.today.getFullYear() + 30);
        this.getUsaStates();
@@ -104,7 +108,8 @@ jobForm : FormGroup;
            
        });
         
-       let isAuthenticated = await this.oktaAuth.isAuthenticated();
+        if(this.loggedInUserEmail === null){
+            let isAuthenticated = await this.oktaAuth.isAuthenticated();
             if(isAuthenticated){
                   this.oktaAuth.getUser().then(user => {
                     this.loggedInUserEmail  = user.preferred_username;
@@ -113,6 +118,12 @@ jobForm : FormGroup;
               
               });
           } 
+        } else {
+            this.jobForm.controls['email'].setValue(this.loggedInUserEmail);
+            this.blocked = false;
+        }
+        
+       
         
         
     }
@@ -192,6 +203,13 @@ jobForm : FormGroup;
        })
    }
     
+    checkDate(date : any){
+        if(date !== ""){
+            date = (date.getMonth()+1)+"-"+date.getDate()+"-"+date.getFullYear();
+        }
+        return date;
+    }
+    
    //to get easy access to fields
     get jobform() { 
         return this.jobForm.controls;
@@ -232,11 +250,8 @@ jobForm : FormGroup;
         });
         }
     }
-    checkDate(date : any){
-        if(date !== ""){
-            date = (date.getMonth()+1)+"-"+date.getDate()+"-"+date.getFullYear();
-        }
-        return date;
+    cancel(){
+       this.availablility.disableElement(false); 
     }
     
 }

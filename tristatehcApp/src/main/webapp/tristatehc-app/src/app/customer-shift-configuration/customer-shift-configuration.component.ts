@@ -34,7 +34,6 @@ export class CustomerShiftConfigurationComponent implements OnInit {
                  shift.shiftSequence = config.shiftSequence;
                  shift.seqLabel = config.seqLabel;
                  let tmpValue = config.shiftTime.split("-");
-                 console.log(tmpValue);
                  shift.shiftFromTime = tmpValue[0];
                  shift.shiftToTime = tmpValue[1];
                  this.shifts.push(shift);

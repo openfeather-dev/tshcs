@@ -14,7 +14,7 @@ export const environment = {
   customerUrl:'customer/',
   userAvailabilities: 'useravailability/',
   myshiftUrl: 'shifts/',
-  jobseekerUrl: 'job/apply',
+  jobseekerUrl: 'job/',
   shiftConfigurationUrl: 'shiftconfiguration/',
   custaddShiftUrl:'addshift/',
   signupUrl:'https://dev-581945.oktapreview.com/signin/register',
