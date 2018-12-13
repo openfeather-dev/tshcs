@@ -16,11 +16,12 @@ export const environment = {
   myshiftUrl: 'shifts/',
   jobseekerUrl: 'job/apply',
   shiftConfigurationUrl: 'shiftconfiguration/',
-  custaddShift:'addshift/',
+  custaddShiftUrl:'addshift/',
   signupUrl:'https://dev-581945.oktapreview.com/signin/register',
   zipcodeUrl:'zipcode/',
   cellProviderUrl:'provider/',
-  usastatesUrl:'usastates/'
+  usastatesUrl:'state/',
+  titleUrl:'title/'
 };
 
 /*

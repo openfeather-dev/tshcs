@@ -194,13 +194,13 @@
 					</div>
 					<div class="ui-g-6 ui-sm-7" style="float: left">
 						<div class="ui-g-6">
-							<p-radioButton   name="age" value="Yes" label="Yes" formControlName="selectedOption" inputId="yes"></p-radioButton>
+							<p-radioButton   name="age" value="Yes" label="Yes" formControlName="adult" inputId="yes"></p-radioButton>
 						</div>
 						<div class="ui-g-6">
-							<p-radioButton   name="age" value="No" label="No" formControlName="selectedOption" inputId="no"></p-radioButton>
+							<p-radioButton   name="age" value="No" label="No" formControlName="adult" inputId="no"></p-radioButton>
 						</div>
 						<div class="ui-g-12">
-							<p-message severity="error" text="Field is required" *ngIf="!jobform.selectedOption.valid && jobform.selectedOption.dirty"></p-message>
+							<p-message severity="error" text="Field is required" *ngIf="!jobform.adult.valid && jobform.adult.dirty"></p-message>
 						</div>
 					</div>
 				</div>

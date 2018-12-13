@@ -42,7 +42,7 @@ public class Jobseeker implements Serializable{
 	private String cellPhoneProvider;
 	
 	@Column(name="adult")
-	private String selectedOption;
+	private String adult;
 	
 	@Column(name="emergency_contact")
 	private String emergencyContact;
@@ -107,6 +107,9 @@ public class Jobseeker implements Serializable{
 	@Column(name="ref_fst_position")
 	private String refPosition1;
 	
+	@Column(name="ref_fst_facility_name")
+	private String ref1FacilityName;
+	
 	@Column(name="ref_fst_address")
 	private String refAddress1;
 	
@@ -118,6 +121,9 @@ public class Jobseeker implements Serializable{
 	
 	@Column(name="ref_sec_position")
 	private String refPosition2;
+	
+	@Column(name="ref_sec_facility_name")
+	private String ref2FacilityName;
 	
 	@Column(name="ref_sec_address")
 	private String refAddress2;
@@ -229,12 +235,6 @@ public class Jobseeker implements Serializable{
 	}
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
-	}
-	public String getSelectedOption() {
-		return selectedOption;
-	}
-	public void setSelectedOption(String selectedOption) {
-		this.selectedOption = selectedOption;
 	}
 	public String getEmergencyContact() {
 		return emergencyContact;
@@ -489,27 +489,45 @@ public class Jobseeker implements Serializable{
 	public void setMedLicenseExpiry(String medLicenseExpiry) {
 		this.medLicenseExpiry = medLicenseExpiry;
 	}
+	public String getAdult() {
+		return adult;
+	}
+	public void setAdult(String adult) {
+		this.adult = adult;
+	}
+	public String getRef1FacilityName() {
+		return ref1FacilityName;
+	}
+	public void setRef1FacilityName(String ref1FacilityName) {
+		this.ref1FacilityName = ref1FacilityName;
+	}
+	public String getRef2FacilityName() {
+		return ref2FacilityName;
+	}
+	public void setRef2FacilityName(String ref2FacilityName) {
+		this.ref2FacilityName = ref2FacilityName;
+	}
 	@Override
 	public String toString() {
 		return "Jobseeker [email=" + email + ", lastName=" + lastName + ", firstName=" + firstName + ", middleInitial="
 				+ middleInitial + ", address=" + address + ", city=" + city + ", state=" + state + ", zip=" + zip
 				+ ", ssn=" + ssn + ", unavailable=" + unavailable + ", homePhone=" + homePhone + ", cellPhone="
-				+ cellPhone + ", cellPhoneProvider=" + cellPhoneProvider + ", selectedOption=" + selectedOption
-				+ ", emergencyContact=" + emergencyContact + ", emergencyPhone=" + emergencyPhone + ", positions="
-				+ positions + ", highSchoolName=" + highSchoolName + ", highSchoolAddress=" + highSchoolAddress
+				+ cellPhone + ", cellPhoneProvider=" + cellPhoneProvider + ", adult=" + adult + ", emergencyContact="
+				+ emergencyContact + ", emergencyPhone=" + emergencyPhone + ", positions=" + positions
+				+ ", highSchoolName=" + highSchoolName + ", highSchoolAddress=" + highSchoolAddress
 				+ ", highSchoolYears=" + highSchoolYears + ", highSchoolDegree=" + highSchoolDegree + ", collegeName="
 				+ collegeName + ", collegeAddress=" + collegeAddress + ", collegeYears=" + collegeYears
 				+ ", collegeDegree=" + collegeDegree + ", tradeName=" + tradeName + ", tradeAddress=" + tradeAddress
 				+ ", tradeYears=" + tradeYears + ", tradeDegree=" + tradeDegree + ", graduateName=" + graduateName
 				+ ", graduateAddress=" + graduateAddress + ", graduateYears=" + graduateYears + ", graduateDegree="
-				+ graduateDegree + ", refName1=" + refName1 + ", refPosition1=" + refPosition1 + ", refAddress1="
-				+ refAddress1 + ", refPhone1=" + refPhone1 + ", refName2=" + refName2 + ", refPosition2=" + refPosition2
+				+ graduateDegree + ", refName1=" + refName1 + ", refPosition1=" + refPosition1 + ", ref1FacilityName="
+				+ ref1FacilityName + ", refAddress1=" + refAddress1 + ", refPhone1=" + refPhone1 + ", refName2="
+				+ refName2 + ", refPosition2=" + refPosition2 + ", ref2FacilityName=" + ref2FacilityName
 				+ ", refAddress2=" + refAddress2 + ", refPhone2=" + refPhone2 + ", bankName=" + bankName
 				+ ", bankAddress=" + bankAddress + ", bankCity=" + bankCity + ", bankState=" + bankState + ", bankZip="
 				+ bankZip + ", accountType=" + accountType + ", accountNumber=" + accountNumber + ", routingNumber="
 				+ routingNumber + ", id=" + id + ", idExpiry=" + idExpiry + ", medLicenseNumber=" + medLicenseNumber
 				+ ", licenseState=" + licenseState + ", medLicenseExpiry=" + medLicenseExpiry + "]";
 	}
-	
 	
 }

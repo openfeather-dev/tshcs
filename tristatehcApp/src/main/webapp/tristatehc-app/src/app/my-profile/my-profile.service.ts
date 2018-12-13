@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { JobseekersData } from'../model/jobseekers-data';
 import { CellPhoneProvider } from '../model/cell-phone-provider';
 import { State } from '../model/state';
+import { Title } from '../model/title';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,10 @@ export class MyProfileService {
     
     getAllUsaStates(){
             return this.http.get<State[]>(environment.resourceServerUrl+environment.usastatesUrl);
+    }
+    
+    getTitlesByState(state : string){
+     return this.http.get<Title[]>(environment.resourceServerUrl+environment.titleUrl+state)
     }
     
     

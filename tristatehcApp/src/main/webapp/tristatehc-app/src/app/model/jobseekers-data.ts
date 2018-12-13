@@ -11,7 +11,7 @@ export class JobseekersData {
     cellPhoneProvider:string;
     email: string;
     ssn: string;
-    selectedOption: string;
+    adult: string;
     emergencyContact: string;
     emergencyPhone: string;
     positions: string;
@@ -34,10 +34,12 @@ export class JobseekersData {
     graduateDegree: string;
     refName1:string;
     refPosition1: string;
+    ref1FacilityName: string;
     refAddress1: string;
     refPhone1: string;
     refName2: string;
     refPosition2: string;
+    ref2FacilityName: string;
     refAddress2: string;
     refPhone2: string;
     bankName : string;

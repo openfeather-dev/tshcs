@@ -39,7 +39,7 @@ export class Jobseekers implements OnInit{
             cellPhone: new FormControl('',Validators.compose([Validators.required, Validators.pattern('[0-9]{10}')])),
             email: new FormControl('',Validators.compose([Validators.required, Validators.email])),
             ssn: new FormControl('',Validators.compose([Validators.pattern('[0-9]{9}')])),
-            selectedOption: new FormControl('',Validators.required),
+            adult: new FormControl('',Validators.required),
             emergencyContact: new FormControl('',Validators.required),
             emergencyPhone: new FormControl('',Validators.compose([Validators.required, Validators.pattern('[0-9]{10}')])),
             positions: new FormControl('',Validators.required),
@@ -93,7 +93,7 @@ export class Jobseekers implements OnInit{
         jobApp.cellPhone= this.jobForm.value.cellPhone;
         jobApp.email= this.jobForm.value.email;
         jobApp.ssn= this.jobForm.value.ssn;
-        jobApp.selectedOption= this.jobForm.value.selectedOption;
+        jobApp.adult= this.jobForm.value.adult;
         jobApp.emergencyContact= this.jobForm.value.emergencyContact;
         jobApp.emergencyPhone= this.jobForm.value.emergencyPhone;
         jobApp.positions= this.jobForm.value.positions;

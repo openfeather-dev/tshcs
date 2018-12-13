@@ -100,7 +100,6 @@ export class UserAvailabilityComponent implements OnInit {
         searchCriteria.selectedEliminateBanned = this.selectedEliminateBanned.toString();
         searchCriteria.selectedEliminatePending = this.selectedEliminatePending.toString();
         searchCriteria.selectedEliminateNotBeen = this.selectedEliminateNotBeen.toString();
-        console.log(searchCriteria);
         this.service.getAllAvailabilities(searchCriteria).subscribe(userAvailabilities => {
             
             if(userAvailabilities){

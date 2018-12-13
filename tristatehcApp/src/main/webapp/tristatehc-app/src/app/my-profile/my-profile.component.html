@@ -199,13 +199,13 @@
 					</div>
 					<div class="ui-g-6 ui-sm-7" style="float: left">
 						<div class="ui-g-6">
-							<p-radioButton   name="age" value="Yes" label="Yes" formControlName="selectedOption" inputId="yes"></p-radioButton>
+							<p-radioButton   name="age" value="Yes" label="Yes" formControlName="adult" inputId="yes"></p-radioButton>
 						</div>
 						<div class="ui-g-6">
-							<p-radioButton   name="age" value="No" label="No" formControlName="selectedOption" inputId="no"></p-radioButton>
+							<p-radioButton   name="age" value="No" label="No" formControlName="adult" inputId="no"></p-radioButton>
 						</div>
 						<div class="ui-g-12">
-							<p-message severity="error" text="Field is required" *ngIf="!jobform.selectedOption.valid && jobform.selectedOption.dirty"></p-message>
+							<p-message severity="error" text="Field is required" *ngIf="!jobform.adult.valid && jobform.adult.dirty"></p-message>
 						</div>
 					</div>
 				</div>
@@ -214,7 +214,7 @@
 						<label>Position(s) Applying For<span class="form-info">*</span>: </label>
 					</div>
 					<div class="ui-g-6 ui-sm-12">
-						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="positions">
+						<p-dropdown [options]="titles" formControlName="positions" size="20" [style]="{'width':'150px'}"></p-dropdown>
 						<div class="ui-g-12">
 								<p-message severity="error" text="Position(s) Applying For is required" *ngIf="!jobform.positions.valid && jobform.positions.dirty"></p-message>
 						</div>
@@ -262,7 +262,7 @@
 							<label>Number of Years Completed? </label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="highSchoolYears" pKeyFilter="num">
+							<input id="input" type="text" maxlength="10" size="30" pInputText formControlName="highSchoolYears" pKeyFilter="num">
 						</div>
 					</div>
 					<div class="ui-g-12 ui-sm-12">
@@ -299,7 +299,7 @@
 							<label>Number of Years Completed? </label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="collegeYears" pKeyFilter="num">
+							<input id="input" type="text" maxlength="10" size="30" pInputText formControlName="collegeYears" pKeyFilter="num">
 						</div>
 					</div>
 					<div class="ui-g-12 ui-sm-12">
@@ -339,7 +339,7 @@
 							<label>Number of Years Completed? </label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="tradeYears" pKeyFilter="num">
+							<input id="input" type="text" maxlength="11" size="30" pInputText formControlName="tradeYears" pKeyFilter="num">
 						</div>
 					</div>
 					<div class="ui-g-12 ui-sm-12">
@@ -376,7 +376,7 @@
 							<label>Number of Years Completed? </label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="graduateYears" pKeyFilter="num">
+							<input id="input" type="text" maxlength="10" size="30" pInputText formControlName="graduateYears" pKeyFilter="num">
 						</div>
 					</div>
 					<div class="ui-g-12 ui-sm-12">
@@ -419,6 +419,17 @@
 								<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="refPosition1">
 								<div class="ui-g-12">
 									<p-message severity="error" text="Position is required" *ngIf="!jobform.refPosition1.valid && jobform.refPosition1.dirty"></p-message>
+								</div>
+							</div>
+						</div>
+						<div class="ui-g-12 ui-sm-12">
+							<div class="ui-g-3 ui-sm-5">
+								<label>Facility Name<span class="form-info">*</span>:</label>
+							</div>
+							<div class="ui-g-6 ui-sm-7">
+								<input id="input" type="text" maxlength="100" size="30" pInputText formControlName="ref1FacilityName">
+								<div class="ui-g-12">
+									<p-message severity="error" text="Facility Name is required" *ngIf="!jobform.ref1FacilityName.valid && jobform.ref1FacilityName.dirty"></p-message>
 								</div>
 							</div>
 						</div>
@@ -473,6 +484,17 @@
 						</div>
 						<div class="ui-g-12 ui-sm-12">
 							<div class="ui-g-3 ui-sm-5">
+								<label>Facility Name<span class="form-info">*</span>:</label>
+							</div>
+							<div class="ui-g-6 ui-sm-7">
+								<input id="input" type="text" maxlength="100" size="30" pInputText formControlName="ref2FacilityName">
+								<div class="ui-g-12">
+									<p-message severity="error" text="Facility Name is required" *ngIf="!jobform.ref2FacilityName.valid && jobform.ref2FacilityName.dirty"></p-message>
+								</div>
+							</div>
+						</div>
+						<div class="ui-g-12 ui-sm-12">
+							<div class="ui-g-3 ui-sm-5">
 								<label>Address<span class="form-info">*</span>:</label>
 							</div>
 							<div class="ui-g-6 ui-sm-7">
@@ -500,12 +522,12 @@
 			<br>
 			<h3 class="sub-heading">BANK INFORMATION FOR PAYROLL</h3>
 			<div class="ui-g-12">
-				<div class="ui-g-4 ui-sm-12">
-					<div class="ui-g-4 ui-sm-5">
+				<div class="ui-g-5 ui-sm-12">
+					<div class="ui-g-3 ui-sm-5">
 						<label>Bank Name<span class="form-info">*</span>:</label>
 					</div>
-					<div class="ui-g-6 ui-sm-7">
-						<input id="input" type="text" maxlength="100" size="30" pInputText formControlName="bankName">
+					<div class="ui-g-7 ui-sm-7">
+						<input id="input" type="text" maxlength="100" size="50" pInputText formControlName="bankName">
 						<div class="ui-g-12">
 							<p-message severity="error" text="Bank Name is required" *ngIf="!jobform.bankName.valid && jobform.bankName.dirty"></p-message>
 						</div>
@@ -620,7 +642,7 @@
 						<label>Expiry Date: </label>
 					</div>
 					<div class="ui-g-8 ui-sm-7">
-						<p-calendar formControlName="idExpiry" [showIcon]="true" dateFormat="mm-dd-yy" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange"></p-calendar>
+						<p-calendar formControlName="idExpiry" [showIcon]="true" dateFormat="mm-dd-yy" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [minDate]="today"></p-calendar>
 					</div>
 					
 				</div>
@@ -656,7 +678,7 @@
 						<label>Expiry Date: </label>
 					</div>
 					<div class="ui-g-8 ui-sm-7">
-						<p-calendar formControlName="medLicenseExpiry" [showIcon]="true" dateFormat="mm-dd-yy" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange"></p-calendar>
+						<p-calendar formControlName="medLicenseExpiry" [showIcon]="true" dateFormat="mm-dd-yy" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [minDate]="today"></p-calendar>
 					</div>
 				</div>
 			</div>

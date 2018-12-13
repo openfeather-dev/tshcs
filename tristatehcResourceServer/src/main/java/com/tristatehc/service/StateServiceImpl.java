@@ -25,7 +25,6 @@ public class StateServiceImpl implements StateService {
 		if(!states.isEmpty()) {
 			statesDto = states.stream().map(state -> UserMapper.INSTANCE.stateToStateDto(state)).collect(Collectors.toList());
 		}
-		System.out.println("In Servceimpl");
 		return statesDto;
 	}
 

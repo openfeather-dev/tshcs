@@ -12,14 +12,13 @@ import com.tristatehc.dto.StateDTO;
 import com.tristatehc.service.StateService;
 
 @RestController
-@RequestMapping("usastates")
+@RequestMapping("state")
 public class StateController {
 	@Autowired
 	StateService service;
 	
 	@RequestMapping(path="/", method=RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
 	public List<StateDTO> getAllStates(){
-		System.out.println("In Controller");
 		return service.getAllStates();
 	}
 

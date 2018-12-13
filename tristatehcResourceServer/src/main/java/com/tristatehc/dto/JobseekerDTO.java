@@ -1,5 +1,7 @@
 package com.tristatehc.dto;
 
+import javax.persistence.Column;
+
 public class JobseekerDTO {
 	
 	private String lastName ;
@@ -14,7 +16,7 @@ public class JobseekerDTO {
 	private String cellPhoneProvider;
 	private String email;
 	private String ssn;
-	private String selectedOption;
+	private String adult;
 	private String emergencyContact;
 	private String emergencyPhone;
 	private String positions;
@@ -37,6 +39,8 @@ public class JobseekerDTO {
 	private String graduateDegree;
 	private String refName1;
 	private String refPosition1;
+	private String ref1FacilityName;
+	private String ref2FacilityName;
 	private String refAddress1;
 	private String refPhone1;
 	private String refName2;
@@ -122,12 +126,6 @@ public class JobseekerDTO {
 	}
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
-	}
-	public String getSelectedOption() {
-		return selectedOption;
-	}
-	public void setSelectedOption(String selectedOption) {
-		this.selectedOption = selectedOption;
 	}
 	public String getEmergencyContact() {
 		return emergencyContact;
@@ -382,28 +380,45 @@ public class JobseekerDTO {
 	public void setMedLicenseExpiry(String medLicenseExpiry) {
 		this.medLicenseExpiry = medLicenseExpiry;
 	}
+	public String getAdult() {
+		return adult;
+	}
+	public void setAdult(String adult) {
+		this.adult = adult;
+	}
+	public String getRef1FacilityName() {
+		return ref1FacilityName;
+	}
+	public void setRef1FacilityName(String ref1FacilityName) {
+		this.ref1FacilityName = ref1FacilityName;
+	}
+	public String getRef2FacilityName() {
+		return ref2FacilityName;
+	}
+	public void setRef2FacilityName(String ref2FacilityName) {
+		this.ref2FacilityName = ref2FacilityName;
+	}
 	@Override
 	public String toString() {
 		return "JobseekerDTO [lastName=" + lastName + ", firstName=" + firstName + ", middleInitial=" + middleInitial
 				+ ", address=" + address + ", city=" + city + ", state=" + state + ", zip=" + zip + ", homePhone="
 				+ homePhone + ", cellPhone=" + cellPhone + ", cellPhoneProvider=" + cellPhoneProvider + ", email="
-				+ email + ", ssn=" + ssn + ", selectedOption=" + selectedOption + ", emergencyContact="
-				+ emergencyContact + ", emergencyPhone=" + emergencyPhone + ", positions=" + positions
-				+ ", unavailable=" + unavailable + ", highSchoolName=" + highSchoolName + ", highSchoolAddress="
-				+ highSchoolAddress + ", highSchoolYears=" + highSchoolYears + ", highSchoolDegree=" + highSchoolDegree
-				+ ", collegeName=" + collegeName + ", collegeAddress=" + collegeAddress + ", collegeYears="
-				+ collegeYears + ", collegeDegree=" + collegeDegree + ", tradeName=" + tradeName + ", tradeAddress="
-				+ tradeAddress + ", tradeYears=" + tradeYears + ", tradeDegree=" + tradeDegree + ", graduateName="
-				+ graduateName + ", graduateAddress=" + graduateAddress + ", graduateYears=" + graduateYears
-				+ ", graduateDegree=" + graduateDegree + ", refName1=" + refName1 + ", refPosition1=" + refPosition1
-				+ ", refAddress1=" + refAddress1 + ", refPhone1=" + refPhone1 + ", refName2=" + refName2
-				+ ", refPosition2=" + refPosition2 + ", refAddress2=" + refAddress2 + ", refPhone2=" + refPhone2
-				+ ", bankName=" + bankName + ", bankAddress=" + bankAddress + ", bankCity=" + bankCity + ", bankState="
-				+ bankState + ", bankZip=" + bankZip + ", accountType=" + accountType + ", accountNumber="
-				+ accountNumber + ", routingNumber=" + routingNumber + ", id=" + id + ", idExpiry=" + idExpiry
-				+ ", medLicenseNumber=" + medLicenseNumber + ", licenseState=" + licenseState + ", medLicenseExpiry="
-				+ medLicenseExpiry + "]";
+				+ email + ", ssn=" + ssn + ", adult=" + adult + ", emergencyContact=" + emergencyContact
+				+ ", emergencyPhone=" + emergencyPhone + ", positions=" + positions + ", unavailable=" + unavailable
+				+ ", highSchoolName=" + highSchoolName + ", highSchoolAddress=" + highSchoolAddress
+				+ ", highSchoolYears=" + highSchoolYears + ", highSchoolDegree=" + highSchoolDegree + ", collegeName="
+				+ collegeName + ", collegeAddress=" + collegeAddress + ", collegeYears=" + collegeYears
+				+ ", collegeDegree=" + collegeDegree + ", tradeName=" + tradeName + ", tradeAddress=" + tradeAddress
+				+ ", tradeYears=" + tradeYears + ", tradeDegree=" + tradeDegree + ", graduateName=" + graduateName
+				+ ", graduateAddress=" + graduateAddress + ", graduateYears=" + graduateYears + ", graduateDegree="
+				+ graduateDegree + ", refName1=" + refName1 + ", refPosition1=" + refPosition1 + ", ref1FacilityName="
+				+ ref1FacilityName + ", ref2FacilityName=" + ref2FacilityName + ", refAddress1=" + refAddress1
+				+ ", refPhone1=" + refPhone1 + ", refName2=" + refName2 + ", refPosition2=" + refPosition2
+				+ ", refAddress2=" + refAddress2 + ", refPhone2=" + refPhone2 + ", bankName=" + bankName
+				+ ", bankAddress=" + bankAddress + ", bankCity=" + bankCity + ", bankState=" + bankState + ", bankZip="
+				+ bankZip + ", accountType=" + accountType + ", accountNumber=" + accountNumber + ", routingNumber="
+				+ routingNumber + ", id=" + id + ", idExpiry=" + idExpiry + ", medLicenseNumber=" + medLicenseNumber
+				+ ", licenseState=" + licenseState + ", medLicenseExpiry=" + medLicenseExpiry + "]";
 	}
 	
-
 }

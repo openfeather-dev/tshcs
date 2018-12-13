@@ -12,7 +12,7 @@ export class CustomerAddShiftsService {
   constructor(private http: HttpClient) { }
     
     getCandiTitles(state : string){
-     return this.http.get<Title[]>(environment.resourceServerUrl+environment.custaddShift+state)
+     return this.http.get<Title[]>(environment.resourceServerUrl+environment.titleUrl+state)
     }
     
     getConfiguredShifts(clientId : string){
@@ -20,6 +20,6 @@ export class CustomerAddShiftsService {
     }
     
     getShiftsForCustomer(clientId : string,date:string){
-       return this.http.post<Map<string,string>>(environment.resourceServerUrl+environment.custaddShift+'shift/'+clientId,date);  
+       return this.http.post<Map<string,string>>(environment.resourceServerUrl+environment.custaddShiftUrl+'shift/'+clientId,date);  
     }
 }

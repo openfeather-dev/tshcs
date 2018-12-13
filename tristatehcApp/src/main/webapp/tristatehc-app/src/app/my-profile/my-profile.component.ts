@@ -30,13 +30,16 @@ jobForm : FormGroup;
     yearRange : string;   
     loggedInUserEmail : string;  
     usaStates : State[];
+    titles: SelectItem[] = [{label:"Select Title", value:""}];
+    today : Date;
      
-    constructor(private formBuilder: FormBuilder, private jobService : MyProfileService, private messageService: MessageService,private oktaAuth: OktaAuthService) { 
+    constructor(private formBuilder: FormBuilder, private service : MyProfileService, private messageService: MessageService,private oktaAuth: OktaAuthService) { 
     }
     
     async ngOnInit() {
        this.blocked = true;
-       this.yearRange = (new Date().getFullYear()) + ':' + (new Date().getFullYear() + 30);
+       this.today = new Date();
+       this.yearRange = (this.today.getFullYear()) + ':' + (this.today.getFullYear() + 30);
        this.getUsaStates();
        this.getProviders();
        this.accountTypes = environment.accountTypes;
@@ -54,7 +57,7 @@ jobForm : FormGroup;
             cellPhoneProvider: new FormControl('',Validators.required),
             email: new FormControl(''),
             ssn: new FormControl('',Validators.compose([Validators.pattern('[0-9]{9}')])),
-            selectedOption: new FormControl('',Validators.required),
+            adult: new FormControl('',Validators.required),
             emergencyContact: new FormControl('',Validators.required),
             emergencyPhone: new FormControl('',Validators.compose([Validators.required, Validators.pattern('[0-9]{3}[-][0-9]{3}[-][0-9]{4}')])),
             positions: new FormControl('',Validators.required),
@@ -77,10 +80,12 @@ jobForm : FormGroup;
             graduateDegree: new FormControl(''),
             refName1:new FormControl('',Validators.required),
             refPosition1: new FormControl('',Validators.required),
+            ref1FacilityName: new FormControl('',Validators.required),
             refAddress1: new FormControl('',Validators.required),
             refPhone1: new FormControl('',Validators.compose([Validators.required, Validators.pattern('[0-9]{3}[-][0-9]{3}[-][0-9]{4}')])),
             refName2: new FormControl('',Validators.required),
             refPosition2: new FormControl('',Validators.required),
+            ref2FacilityName: new FormControl('',Validators.required),
             refAddress2: new FormControl('',Validators.required),
             refPhone2: new FormControl('',Validators.compose([Validators.required, Validators.pattern('[0-9]{3}[-][0-9]{3}[-][0-9]{4}')])),
             bankName : new FormControl('',Validators.required),
@@ -133,7 +138,7 @@ jobForm : FormGroup;
         jobApp.cellPhoneProvider = this.jobForm.value.cellPhoneProvider;
         jobApp.email= this.jobForm.value.email;
         jobApp.ssn= this.jobForm.value.ssn;
-        jobApp.selectedOption= this.jobForm.value.selectedOption;
+        jobApp.adult= this.jobForm.value.adult;
         jobApp.emergencyContact= this.jobForm.value.emergencyContact;
         jobApp.emergencyPhone= this.jobForm.value.emergencyPhone;
         jobApp.positions= this.jobForm.value.positions;
@@ -156,10 +161,12 @@ jobForm : FormGroup;
         jobApp.graduateDegree= this.jobForm.value.graduateDegree;
         jobApp.refName1= this.jobForm.value.refName1;
         jobApp.refPosition1= this.jobForm.value.refPosition1;
+        jobApp.ref1FacilityName = this.jobForm.value.ref1FacilityName;
         jobApp.refAddress1= this.jobForm.value.refAddress1;
         jobApp.refPhone1= this.jobForm.value.refPhone1;
         jobApp.refName2= this.jobForm.value.refName2;
         jobApp.refPosition2= this.jobForm.value.refPosition2;
+        jobApp.ref2FacilityName =this.jobForm.value.ref2FacilityName;
         jobApp.refAddress2= this.jobForm.value.refAddress2;
         jobApp.refPhone2= this.jobForm.value.refPhone2;
         jobApp.bankName = this.jobForm.value.bankName;
@@ -175,8 +182,7 @@ jobForm : FormGroup;
         jobApp.medLicenseNumber= this.jobForm.value.medLicenseNumber;
         jobApp.licenseState= this.jobForm.value.licenseState;
         jobApp.medLicenseExpiry= (this.jobForm.value.medLicenseExpiry.getMonth()+1)+"-"+this.jobForm.value.medLicenseExpiry.getDate()+"-"+this.jobForm.value.medLicenseExpiry.getFullYear();
-       console.log(jobApp);
-       this.jobService.saveApplication(jobApp).subscribe(data => {
+       this.service.saveApplication(jobApp).subscribe(data => {
            this.blocked = false;
            this.isSubmitted = true;
        }, error => {
@@ -193,7 +199,7 @@ jobForm : FormGroup;
     getProviders(){
         let cellProviders : any[] = [];
         cellProviders.push({label:"Select Provider", value:""});
-        this.jobService.getAllProviders().subscribe(providersList =>{
+        this.service.getAllProviders().subscribe(providersList =>{
             providersList.forEach(provider => {
                 cellProviders.push({label:provider.providerName, value:provider.providerName});
             })
@@ -204,7 +210,7 @@ jobForm : FormGroup;
     getUsaStates(){
         let usaStates : any[] = [];
         usaStates.push({label:"Select State", value:""});
-        this.jobService.getAllUsaStates().subscribe(stateList =>{
+        this.service.getAllUsaStates().subscribe(stateList =>{
             this.usaStates = stateList;
             stateList.forEach(state =>{
                 usaStates.push({label:state.stateName, value:state.stateCode});
@@ -214,8 +220,16 @@ jobForm : FormGroup;
     }
     
     getTitles(){
-        let state : string = this.jobForm.value.state;
-        
+        let state = this.jobForm.value.state;
+        this.titles = [];
+        this.titles = [{label:"Select Title", value:""}];
+        if(state !== ""){
+            this.service.getTitlesByState(state).subscribe(titles => {
+               titles.forEach(title => {
+               this.titles.push({label:title.title, value:title.title});
+           }); 
+        });
+        }
     }
     
 }
