@@ -5,7 +5,7 @@
 	<div class="ui-g-12 ui-sm-12 card" >
 		<p-card >
 		   <div><h1 class="card-header">Thank You!</h1></div>
-			<div><h4 class="card-text">Your application was submitted successfully and we will contact you soon.</h4></div>
+			<div><h4 class="card-text">Your profile has been updated.</h4></div>
 		</p-card>
 	</div>
 </div>
@@ -22,7 +22,7 @@
 		<form [formGroup]="jobForm" (ngSubmit)="onSubmit()" >   
 		   <div class="form-group">
 		    <div class="ui-g-12">
-				<div class="ui-g-5 ui-sm-12">
+				<div class="ui-g-4 ui-sm-12">
 					<div class="ui-g-4 ui-sm-5">
 						<label>Last Name<span class="form-info">*</span>: </label>
 					</div>
@@ -44,8 +44,8 @@
 						</div>
 					</div>
 				</div>
-				<div class="ui-g-3 ui-sm-12">
-					<div class="ui-g-5 ui-sm-5">
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
 						<label>Middle Initial:</label>
 					</div>
 					<div class="ui-g-7 ui-sm-7">
@@ -55,7 +55,7 @@
 			</div>	
 		
 			<div class="ui-g-12">	
-				<div class="ui-g-5 ui-sm-12">
+				<div class="ui-g-4 ui-sm-12">
 					<div class="ui-g-4 ui-sm-5">
 						<label>Street Address<span class="form-info">*</span>:</label>
 					</div>
@@ -80,12 +80,20 @@
 				</div>
 			</div>
 			<div class="ui-g-12">
-				<div class="ui-g-5 ui-sm-12">
+				<div class="ui-g-4 ui-sm-12">
 					<div class="ui-g-4 ui-sm-5">
 						<label>State<span class="form-info">*</span>: </label>
 					</div>
 					<div class="ui-g-6 ui-sm-7">
-						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="state">
+						<p-dropdown [options]="states" formControlName="state" size="20" [style]="{'width':'150px'}" filter="true" (onChange)="getTitles()"></p-dropdown>
+						<ng-template let-item pTemplate="selectedItem">
+						        <span>{{item.label}}</span>
+					    </ng-template>
+					    <ng-template let-state pTemplate="item">
+					        <div>
+					            <div>{{state.label}}</div>
+					        </div>
+					    </ng-template>
 						<div class="ui-g-12">
 							<p-message severity="error" text="State is required" *ngIf="!jobform.state.valid && jobform.state.dirty"></p-message>
 						</div>
@@ -96,7 +104,7 @@
 						<label>Zip<span class="form-info">*</span>: </label>
 					</div>
 					<div class="ui-g-8 ui-sm-7">
-						<input id="input" type="text" maxlength="5" size="10"  pInputText formControlName="zip" pKeyFilter="num">
+						<input id="input" type="text" maxlength="5" size="20"  pInputText formControlName="zip" pKeyFilter="num">
 						<div class="ui-g-12">
 							<p-message severity="error" [text]="jobform.zip.errors.required?'Zip is required' : jobform.zip.errors.pattern?'Invalid zip' : ''" *ngIf="!jobform.zip.valid && jobform.zip.dirty"></p-message>
 						</div>
@@ -106,12 +114,12 @@
 			</div>
 				
 			<div class="ui-g-12">
-				<div class="ui-g-5 ui-sm-12">
+				<div class="ui-g-4 ui-sm-12">
 					<div class="ui-g-4 ui-sm-5">
 						<label>Home Phone<span class="form-info">*</span>: </label>
 					</div>
 					<div class="ui-g-6 ui-sm-7">
-						<input type="tel" formControlName="homePhone" size="30" maxlength="10" pInputText pKeyFilter="num">
+						<p-inputMask mask="999-999-9999" placeholder="999-999-9999" formControlName="homePhone" size="15"></p-inputMask>
 						<div class="ui-g-12">
 							<p-message severity="error" [text]="jobform.homePhone.errors.required?'Home Phone is required':jobform.homePhone.errors.pattern?'Invalid home phone':''" *ngIf="!jobform.homePhone.valid && jobform.homePhone.dirty"></p-message>
 						</div>
@@ -121,27 +129,35 @@
 					<div class="ui-g-4 ui-sm-5">
 						<label>Cell Phone<span class="form-info">*</span>: </label>
 					</div>
-					<div class="ui-g-8 ui-sm-7">
-						<input type="tel" formControlName="cellPhone" size="30" maxlength="10" pInputText pKeyFilter="num">
+					<div class="ui-g-8 ui-sm-6 ui-md-5">
+						<p-inputMask mask="999-999-9999" placeholder="999-999-9999" formControlName="cellPhone" size="15"></p-inputMask>
 						<div class="ui-g-12">
 							<p-message severity="error" [text]="jobform.cellPhone.errors.required?'Cell Phone is required':jobform.cellPhone.errors.pattern?'Invalid cell phone':''" *ngIf="!jobform.cellPhone.valid && jobform.cellPhone.dirty "></p-message>
 						</div>
 					</div>
 				</div>
-				<div class="ui-g-3 ui-sm-12">
-					<div class="ui-g-5 ui-sm-5">
-						<label>Email<span class="form-info">*</span>: </label>
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Cell Phone Provider<span class="form-info">*</span>: </label>
 					</div>
-					<div class="ui-g-7 ui-sm-7">
-						<input id="input" type="email" maxlength="35" size="35" pInputText formControlName="email" pKeyFilter="email">
+					<div class="ui-g-8 ui-sm-7">
+						<p-dropdown [options]="providers" formControlName="cellPhoneProvider" size="30" [style]="{'width':'150px'}"></p-dropdown>
 						<div class="ui-g-12">
-							<p-message severity="error" [text]="jobform.email.errors.required?'Email is required' : jobform.email.errors.email?'Invalid email' : ''" *ngIf="!jobform.email.valid && jobform.email.dirty"></p-message>
+							<p-message severity="error" text="Cell Phone Provider is required" *ngIf="!jobform.cellPhoneProvider.valid && jobform.cellPhoneProvider.dirty"></p-message>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="ui-g-12">
-				<div class="ui-g-5 ui-sm-12">
+				<div class="ui-g-4 ui-sm-12">
+						<div class="ui-g-4 ui-sm-5">
+							<label>Email<span class="form-info">*</span>: </label>
+						</div>
+						<div class="ui-g-6 ui-sm-7">
+							<input id="input" type="email" size="35" pInputText formControlName="email" disabled="true">
+						</div>
+					</div>
+				<div class="ui-g-4 ui-sm-12">
 					<div class="ui-g-4 ui-sm-5">
 						<label>Emergency Contact<span class="form-info">*</span>: </label>
 					</div>
@@ -157,7 +173,7 @@
 						<label>Phone<span class="form-info">*</span>: </label>
 					</div>
 					<div class="ui-g-8 ui-sm-7">
-						<input type="tel" formControlName="emergencyPhone" size="30" maxlength="10" pInputText pKeyFilter="num">
+						<p-inputMask mask="999-999-9999" placeholder="999-999-9999" formControlName="emergencyPhone" size="15"></p-inputMask>
 						<div class="ui-g-12">
 							<p-message severity="error" [text]="jobform.emergencyPhone.errors.required?'Emergency Phone is required':jobform.emergencyPhone.errors.pattern?'Invalid emergency phone':''" *ngIf="!jobform.emergencyPhone.valid && jobform.emergencyPhone.dirty"></p-message>
 						</div>
@@ -166,7 +182,7 @@
 			</div>
 			
 			<div class="ui-g-12">
-				<div class="ui-g-5 ui-sm-12">
+				<div class="ui-g-4 ui-sm-12">
 					<div class="ui-g-4 ui-sm-5">
 						<label>Social Security Number:</label>
 					</div>
@@ -251,7 +267,7 @@
 					</div>
 					<div class="ui-g-12 ui-sm-12">
 						<div class="ui-g-3 ui-sm-5">
-							<label>Major/Degree :</label>
+							<label>Major / Degree :</label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
 							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="highSchoolDegree">
@@ -288,7 +304,7 @@
 					</div>
 					<div class="ui-g-12 ui-sm-12">
 						<div class="ui-g-3 ui-sm-5">
-							<label>Major/Degree :</label>
+							<label>Major / Degree :</label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
 							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="collegeDegree" >
@@ -328,7 +344,7 @@
 					</div>
 					<div class="ui-g-12 ui-sm-12">
 						<div class="ui-g-3 ui-sm-5">
-							<label>Major/Degree :</label>
+							<label>Major / Degree :</label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
 							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="tradeDegree" >
@@ -365,7 +381,7 @@
 					</div>
 					<div class="ui-g-12 ui-sm-12">
 						<div class="ui-g-3 ui-sm-5">
-							<label>Major/Degree :</label>
+							<label>Major / Degree :</label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
 							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="graduateDegree">
@@ -422,7 +438,7 @@
 								<label>Phone<span class="form-info">*</span>:</label>
 							</div>
 							<div class="ui-g-6 ui-sm-7">
-								<input type="tel" formControlName="refPhone1" size="30" maxlength="10" pInputText pKeyFilter="num">
+								<p-inputMask mask="999-999-9999" placeholder="999-999-9999" formControlName="refPhone1" size="15"></p-inputMask>
 								<div class="ui-g-12">
 									<p-message severity="error" [text]="jobform.refPhone1.errors.required?'Phone is required' : jobform.refPhone1.errors.pattern?'Invalid phone':''" *ngIf="!jobform.refPhone1.valid && jobform.refPhone1.dirty"></p-message>
 								</div>
@@ -471,7 +487,7 @@
 								<label>Phone<span class="form-info">*</span>:</label>
 							</div>
 							<div class="ui-g-6 ui-sm-7">
-								<input type="tel" formControlName="refPhone2" size="30" maxlength="10" pInputText pKeyFilter="num">
+								<p-inputMask mask="999-999-9999" placeholder="999-999-9999" formControlName="refPhone2" size="15"></p-inputMask>
 								<div class="ui-g-12">
 									<p-message severity="error" [text]="jobform.refPhone2.errors.required?'Phone is required':jobform.refPhone2.errors.pattern?'Invalid phone':''" *ngIf="!jobform.refPhone2.valid && jobform.refPhone2.dirty"></p-message>
 								</div>
@@ -481,8 +497,172 @@
 				</div>
 			</div>
 			<br>
+			<br>
+			<h3 class="sub-heading">BANK INFORMATION FOR PAYROLL</h3>
+			<div class="ui-g-12">
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Bank Name<span class="form-info">*</span>:</label>
+					</div>
+					<div class="ui-g-6 ui-sm-7">
+						<input id="input" type="text" maxlength="100" size="30" pInputText formControlName="bankName">
+						<div class="ui-g-12">
+							<p-message severity="error" text="Bank Name is required" *ngIf="!jobform.bankName.valid && jobform.bankName.dirty"></p-message>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<div class="ui-g-12">	
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Street Address<span class="form-info">*</span>:</label>
+					</div>
+					<div class="ui-g-6 ui-sm-7">
+						<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="bankAddress">
+						<div class="ui-g-12">
+							<p-message severity="error" text="Street Address is required" *ngIf="!jobform.bankAddress.valid && jobform.bankAddress.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+				
+				<div class="ui-g-3 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>City<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-8 ui-sm-7">
+						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="bankCity" >
+						<div class="ui-g-12">
+							<p-message severity="error" text="City is required" *ngIf="!jobform.bankCity.valid && jobform.bankCity.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+				<div class="ui-g-3 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>State<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-6 ui-sm-7">
+						<p-dropdown [options]="states" formControlName="bankState" size="20" [style]="{'width':'150px'}" filter="true"></p-dropdown>
+						<ng-template let-item pTemplate="selectedItem">
+						        <span>{{item.label}}</span>
+					    </ng-template>
+					    <ng-template let-state pTemplate="item">
+					        <div>
+					            <div>{{state.label}}</div>
+					        </div>
+					    </ng-template>
+						<div class="ui-g-12">
+							<p-message severity="error" text="State is required" *ngIf="!jobform.bankState.valid && jobform.bankState.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+				<div class="ui-g-2 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Zip<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-8 ui-sm-7">
+						<input id="input" type="text" maxlength="5" size="20"  pInputText formControlName="bankZip" pKeyFilter="num">
+						<div class="ui-g-12">
+							<p-message severity="error" [text]="jobform.bankZip.errors.required?'Zip is required' : jobform.bankZip.errors.pattern?'Invalid zip' : ''" *ngIf="!jobform.bankZip.valid && jobform.bankZip.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ui-g-12">	
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Account Type<span class="form-info">*</span>:</label>
+					</div>
+					<div class="ui-g-6 ui-sm-7">
+						<p-dropdown [options]="accountTypes" formControlName="accountType" size="30" [style]="{'width':'150px'}"></p-dropdown>
+						<div class="ui-g-12">
+							<p-message severity="error" text="Account Type is required" *ngIf="!jobform.accountType.valid && jobform.accountType.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+				
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Account Number<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-8 ui-sm-7">
+						<input id="input" type="text" maxlength="30" size="20" pInputText formControlName="accountNumber" >
+						<div class="ui-g-12">
+							<p-message severity="error" text="Account Number is required" *ngIf="!jobform.accountNumber.valid && jobform.accountNumber.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Bank Routing Number<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-8 ui-sm-7">
+						<input id="input" type="text" maxlength="30" size="20" pInputText formControlName="routingNumber">
+						<div class="ui-g-12">
+							<p-message severity="error" text="Routing Number is required" *ngIf="!jobform.routingNumber.valid && jobform.routingNumber.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+			</div>
+			<h3 class="sub-heading">ADDITIONAL INFORMATION</h3>
+			<div class="ui-g-12">	
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Driver License or Photo Id #:</label>
+					</div>
+					<div class="ui-g-6 ui-sm-7">
+						<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="id">
+					</div>
+				</div>
+				
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Expiry Date: </label>
+					</div>
+					<div class="ui-g-8 ui-sm-7">
+						<p-calendar formControlName="idExpiry" [showIcon]="true" dateFormat="mm-dd-yy" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange"></p-calendar>
+					</div>
+					
+				</div>
+			</div>
+			<div class="ui-g-12">	
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Medical License #:</label>
+					</div>
+					<div class="ui-g-6 ui-sm-7">
+						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="medLicenseNumber" >
+					</div>
+				</div>
+				
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>License State: </label>
+					</div>
+					<div class="ui-g-8 ui-sm-7">
+						<p-dropdown [options]="states" formControlName="licenseState" size="30" [style]="{'width':'150px'}" filter="true"></p-dropdown>
+						<ng-template let-item pTemplate="selectedItem">
+						        <span>{{item.label}}</span>
+					    </ng-template>
+					    <ng-template let-state pTemplate="item">
+					        <div>
+					            <div>{{state.label}}</div>
+					        </div>
+					    </ng-template>
+					</div>
+				</div>
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Expiry Date: </label>
+					</div>
+					<div class="ui-g-8 ui-sm-7">
+						<p-calendar formControlName="medLicenseExpiry" [showIcon]="true" dateFormat="mm-dd-yy" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange"></p-calendar>
+					</div>
+				</div>
+			</div>
+			<br>
 			<div class="ui-g-12" align="center">
-				<button pButton type="submit " label="Apply" [disabled]="jobForm.invalid"></button>
+				<button pButton type="submit " label="Save" [disabled]="jobForm.invalid"></button>
 			</div>
 		</div>
 	</form>

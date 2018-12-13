@@ -18,7 +18,6 @@ public class JobseekerController {
 	
 	@RequestMapping(path="/apply",method=RequestMethod.POST,consumes={MediaType.APPLICATION_JSON_VALUE})
 	public JobseekerDTO saveApplication(@RequestBody JobseekerDTO jobseekerDto) {
-		System.out.println(jobseekerDto);
 		return jobService.saveJobApplication(jobseekerDto);
 	}
 	

@@ -43,6 +43,19 @@ public class JobseekerDTO {
 	private String refPosition2;
 	private String refAddress2;
 	private String refPhone2;
+	private String bankName ;
+	private String bankAddress;
+	private String bankCity;
+	private String bankState;
+	private String bankZip;
+	private String accountType;
+	private String accountNumber;
+	private String routingNumber;
+	private String id ;
+	private String idExpiry;
+	private String medLicenseNumber;
+	private String licenseState;
+	private String medLicenseExpiry;
 	
 	public String getLastName() {
 		return lastName;
@@ -290,6 +303,85 @@ public class JobseekerDTO {
 	public void setCellPhoneProvider(String cellPhoneProvider) {
 		this.cellPhoneProvider = cellPhoneProvider;
 	}
+	
+	public String getBankName() {
+		return bankName;
+	}
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
+	}
+	public String getBankAddress() {
+		return bankAddress;
+	}
+	public void setBankAddress(String bankAddress) {
+		this.bankAddress = bankAddress;
+	}
+	public String getBankCity() {
+		return bankCity;
+	}
+	public void setBankCity(String bankCity) {
+		this.bankCity = bankCity;
+	}
+	public String getBankState() {
+		return bankState;
+	}
+	public void setBankState(String bankState) {
+		this.bankState = bankState;
+	}
+	public String getBankZip() {
+		return bankZip;
+	}
+	public void setBankZip(String bankZip) {
+		this.bankZip = bankZip;
+	}
+	public String getAccountType() {
+		return accountType;
+	}
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
+	}
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+	public String getRoutingNumber() {
+		return routingNumber;
+	}
+	public void setRoutingNumber(String routingNumber) {
+		this.routingNumber = routingNumber;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getIdExpiry() {
+		return idExpiry;
+	}
+	public void setIdExpiry(String idExpiry) {
+		this.idExpiry = idExpiry;
+	}
+	public String getMedLicenseNumber() {
+		return medLicenseNumber;
+	}
+	public void setMedLicenseNumber(String medLicenseNumber) {
+		this.medLicenseNumber = medLicenseNumber;
+	}
+	public String getLicenseState() {
+		return licenseState;
+	}
+	public void setLicenseState(String licenseState) {
+		this.licenseState = licenseState;
+	}
+	public String getMedLicenseExpiry() {
+		return medLicenseExpiry;
+	}
+	public void setMedLicenseExpiry(String medLicenseExpiry) {
+		this.medLicenseExpiry = medLicenseExpiry;
+	}
 	@Override
 	public String toString() {
 		return "JobseekerDTO [lastName=" + lastName + ", firstName=" + firstName + ", middleInitial=" + middleInitial
@@ -305,7 +397,13 @@ public class JobseekerDTO {
 				+ graduateName + ", graduateAddress=" + graduateAddress + ", graduateYears=" + graduateYears
 				+ ", graduateDegree=" + graduateDegree + ", refName1=" + refName1 + ", refPosition1=" + refPosition1
 				+ ", refAddress1=" + refAddress1 + ", refPhone1=" + refPhone1 + ", refName2=" + refName2
-				+ ", refPosition2=" + refPosition2 + ", refAddress2=" + refAddress2 + ", refPhone2=" + refPhone2 + "]";
+				+ ", refPosition2=" + refPosition2 + ", refAddress2=" + refAddress2 + ", refPhone2=" + refPhone2
+				+ ", bankName=" + bankName + ", bankAddress=" + bankAddress + ", bankCity=" + bankCity + ", bankState="
+				+ bankState + ", bankZip=" + bankZip + ", accountType=" + accountType + ", accountNumber="
+				+ accountNumber + ", routingNumber=" + routingNumber + ", id=" + id + ", idExpiry=" + idExpiry
+				+ ", medLicenseNumber=" + medLicenseNumber + ", licenseState=" + licenseState + ", medLicenseExpiry="
+				+ medLicenseExpiry + "]";
 	}
+	
 
 }

@@ -16,21 +16,21 @@ import { OktaAuthService } from '@okta/okta-angular';
   encapsulation: ViewEncapsulation.None
 })
 export class UserAvailabilityComponent implements OnInit {
-
     availCols : any[] = [];
     userAvailabilities : UserAvailability[] = [];
     blocked : boolean;
     showTable : boolean;
     maxRadius : number;
     radius : number;
-    zipcode : string ="";
+    filteredZipcode : any[] = [];
+    selectedZipcode : any = "";
     facilities: any[] = [];
     selectedFacility: string="";
     selectedShift7To3 :string[] = [];
     selectedShift3To11 : string[] = [];
     selectedShift11To7: string[] = [];
     selectedShiftOther: string[] = [];
-    selectedTitle: string="";
+    selectedTitle: string="All";
     selectedEliminateBooked : string[] = [];
     selectedEliminateBanned : string[] = [];
     selectedEliminatePending : string[] = [];
@@ -40,6 +40,11 @@ export class UserAvailabilityComponent implements OnInit {
     shiftDateTo : Date;
     msgs: string = ""; //city message
     loggedInUserEmail : string ="";
+    
+    country: any;
+
+    filteredCountriesSingle: any[];
+
  
     
   constructor(private messageService: MessageService,private service : UserAvailabilityService,private oktaAuth: OktaAuthService) { 
@@ -81,7 +86,7 @@ export class UserAvailabilityComponent implements OnInit {
         let availabilities : UserAvailability[] = [];
         let searchCriteria = new SearchCriteriaUserAvailability();
         searchCriteria.loggedInUserEmail = this.loggedInUserEmail;
-        searchCriteria.zipcode = this.zipcode;
+        searchCriteria.zipcode = this.selectedZipcode;
         searchCriteria.selectedFacility = this.selectedFacility;
         searchCriteria.radius = this.radius.toString();
         searchCriteria.shiftDateFrom = (this.shiftDateFrom.getMonth()+1)+"/"+this.shiftDateFrom.getDate()+"/"+this.shiftDateFrom.getFullYear();
@@ -149,10 +154,26 @@ export class UserAvailabilityComponent implements OnInit {
         
     }
     
-   
-    
     search(){
+        this.blocked = true;
         this.getAllAvailabilities();
     }
-
+    
+    filteredZipcodes(event){
+        this.filteredZipcode;
+        let query = event.query;
+        this.service.getAllZipcodes(query).subscribe(filteredZipcodes =>{
+            this.filteredZipcode = [];
+            filteredZipcodes.forEach(zip =>{
+                this.filteredZipcode.push(zip.zipCode.toString());
+                this.msgs = zip.cityName;
+            });
+        });
+        
+    }
+    
+    clear(){
+       this.msgs = ""; 
+    }
+     
 }

@@ -5,6 +5,7 @@ import { SearchCriteriaUserAvailability } from '../model/search-criteria-user-av
 import { HttpClient } from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import { Customer } from '../model/customer';
+import { Zipcode } from '../model/zipcode';
 
 
 @Injectable({
@@ -27,6 +28,13 @@ export class UserAvailabilityService {
      */
     getAllCustomers(){
         return this.http.get<Customer[]>(environment.resourceServerUrl+environment.customerUrl);
+    }
+    
+    /**
+     * Get all zipcodes
+     */
+    getAllZipcodes(query : any){
+        return this.http.get<Zipcode[]>(environment.resourceServerUrl+environment.zipcodeUrl+query);
     }
     
 }

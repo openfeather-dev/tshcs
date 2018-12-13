@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { JobseekersData } from'../model/jobseekers-data';
+import { CellPhoneProvider } from '../model/cell-phone-provider';
+import { State } from '../model/state';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +20,14 @@ export class MyProfileService {
         return this.http.post(environment.resourceServerUrl+environment.jobseekerUrl, job );
   }
   
+    
+    getAllProviders(){
+        return this.http.get<CellPhoneProvider[]>(environment.resourceServerUrl+environment.cellProviderUrl);   
+    }
+    
+    getAllUsaStates(){
+            return this.http.get<State[]>(environment.resourceServerUrl+environment.usastatesUrl);
+    }
+    
     
 }

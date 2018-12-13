@@ -6,6 +6,8 @@ export const environment = {
   production: false,
   port:4200,
   host:'localhost',
+  radiusInMiles:100,
+  accountTypes: [{label:'Select Type', value:''},{label:'Checking', value:'Checking'},{label:'Saving', value:'Saving'}],
   resourceServerUrl: 'http://localhost:8090/',
   availabilityUrl: 'availability/',
   userUrl: 'user/',
@@ -15,8 +17,10 @@ export const environment = {
   jobseekerUrl: 'job/apply',
   shiftConfigurationUrl: 'shiftconfiguration/',
   custaddShift:'addshift/',
-  radiusInMiles:100,
-  signupUrl:'https://dev-581945.oktapreview.com/signin/register'
+  signupUrl:'https://dev-581945.oktapreview.com/signin/register',
+  zipcodeUrl:'zipcode/',
+  cellProviderUrl:'provider/',
+  usastatesUrl:'usastates/'
 };
 
 /*

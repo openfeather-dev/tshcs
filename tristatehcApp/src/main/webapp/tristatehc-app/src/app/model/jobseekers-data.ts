@@ -8,6 +8,7 @@ export class JobseekersData {
     zip: string;
     homePhone: string;
     cellPhone: string;
+    cellPhoneProvider:string;
     email: string;
     ssn: string;
     selectedOption: string;
@@ -39,4 +40,17 @@ export class JobseekersData {
     refPosition2: string;
     refAddress2: string;
     refPhone2: string;
+    bankName : string;
+    bankAddress: string;
+    bankCity: string;
+    bankState: string;
+    bankZip: string;
+    accountType: string;
+    accountNumber: string;
+    routingNumber: string;
+    id : string;
+    idExpiry: string;
+    medLicenseNumber: string;
+    licenseState: string;
+    medLicenseExpiry:string;
 }

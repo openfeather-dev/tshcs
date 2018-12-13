@@ -11,8 +11,9 @@
 						<label>Zip Code:</label>
 					</div>
 					<div class="ui-g-5 ui-sm-12">
-						<input type="text" pInputText [(ngModel)]="zipcode" size="23" >
-						<div class="msg">
+						<p-autoComplete [(ngModel)]="selectedZipcode" [suggestions]="filteredZipcode" (completeMethod)="filteredZipcodes($event)" (onClear)="clear()" [size]="30"
+   						 placeholder="Zipcode" [minLength]="1"></p-autoComplete>
+						<div class="msg" >
 							{{msgs}}
 						</div>
 					</div>	
@@ -81,6 +82,9 @@
 				<div class="ui-g-6 ui-sm-12">
 					<div class="ui-g-1 ui-sm-12">
 						<label>Titles:</label>
+					</div>
+					<div class="ui-g-2 ui-sm-4">
+						<p-radioButton name="titles" value="All" label="All" [(ngModel)]="selectedTitle" ></p-radioButton>
 					</div>
 					<div class="ui-g-2 ui-sm-4">
 						<p-radioButton name="titles" value="LPN" label="LPN" [(ngModel)]="selectedTitle" ></p-radioButton>
