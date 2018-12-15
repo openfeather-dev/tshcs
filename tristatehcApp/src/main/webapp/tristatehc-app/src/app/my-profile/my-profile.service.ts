@@ -5,6 +5,7 @@ import { JobseekersData } from'../model/jobseekers-data';
 import { CellPhoneProvider } from '../model/cell-phone-provider';
 import { State } from '../model/state';
 import { Title } from '../model/title';
+import { Status } from '../model/status';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,15 @@ export class MyProfileService {
     }
     
     getTitlesByState(state : string){
-     return this.http.get<Title[]>(environment.resourceServerUrl+environment.titleUrl+state)
+     return this.http.get<Title[]>(environment.resourceServerUrl+environment.titleUrl+state);
+    }
+    
+    getApplicantData(email : string){
+        return this.http.get<JobseekersData>(environment.resourceServerUrl+environment.jobseekerUrl+email);
+    }
+    
+    getStatus(status : string){
+        return this.http.get<Status>(environment.resourceServerUrl+environment.statusUrl+status);
     }
     
     

@@ -12,6 +12,7 @@ import com.tristatehc.dto.CustomerShiftConfigurationDTO;
 import com.tristatehc.dto.EventDTO;
 import com.tristatehc.dto.JobseekerDTO;
 import com.tristatehc.dto.StateDTO;
+import com.tristatehc.dto.StatusDTO;
 import com.tristatehc.dto.TitlesDTO;
 import com.tristatehc.dto.UserDTO;
 import com.tristatehc.dto.UserProfileDTO;
@@ -23,6 +24,7 @@ import com.tristatehc.entity.CustomerShiftConfiguration;
 import com.tristatehc.entity.Event;
 import com.tristatehc.entity.Jobseeker;
 import com.tristatehc.entity.State;
+import com.tristatehc.entity.Status;
 import com.tristatehc.entity.Titles;
 import com.tristatehc.entity.User;
 import com.tristatehc.entity.UserProfile;
@@ -79,5 +81,6 @@ public interface UserMapper {
     
     StateDTO stateToStateDto(State state);
     
+    StatusDTO statusToStatusDto(Status status);
      
 }

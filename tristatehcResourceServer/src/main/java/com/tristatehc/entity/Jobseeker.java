@@ -170,6 +170,9 @@ public class Jobseeker implements Serializable{
 	@Column(name="med_license_expiry")
 	private String medLicenseExpiry;
 	
+	@Column(name="status")
+	private String status;
+	
 	public String getLastName() {
 		return lastName;
 	}
@@ -507,6 +510,12 @@ public class Jobseeker implements Serializable{
 	public void setRef2FacilityName(String ref2FacilityName) {
 		this.ref2FacilityName = ref2FacilityName;
 	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	@Override
 	public String toString() {
 		return "Jobseeker [email=" + email + ", lastName=" + lastName + ", firstName=" + firstName + ", middleInitial="
@@ -527,7 +536,8 @@ public class Jobseeker implements Serializable{
 				+ ", bankAddress=" + bankAddress + ", bankCity=" + bankCity + ", bankState=" + bankState + ", bankZip="
 				+ bankZip + ", accountType=" + accountType + ", accountNumber=" + accountNumber + ", routingNumber="
 				+ routingNumber + ", id=" + id + ", idExpiry=" + idExpiry + ", medLicenseNumber=" + medLicenseNumber
-				+ ", licenseState=" + licenseState + ", medLicenseExpiry=" + medLicenseExpiry + "]";
+				+ ", licenseState=" + licenseState + ", medLicenseExpiry=" + medLicenseExpiry + ", status=" + status
+				+ "]";
 	}
 	
 }

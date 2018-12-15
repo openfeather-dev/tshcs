@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.tristatehc.entity.Jobseeker;
 
 @Repository
-public interface JobseekerRepository extends JpaRepository<Jobseeker,Long>{
+public interface JobseekerRepository extends JpaRepository<Jobseeker,String>{
 	List<Jobseeker> findAllByOrderByFirstNameAsc();
 
 }

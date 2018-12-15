@@ -1,25 +1,17 @@
 <p-toast class="toast-style" position="top-center"></p-toast>
 <p-progressBar *ngIf="blocked" mode="indeterminate"></p-progressBar>
 
-<div class="container" *ngIf="isSubmitted">
-	<div class="ui-g-12 ui-sm-12 card" >
-		<p-card >
-		   <div><h1 class="card-header">Thank You!</h1></div>
-			<div><h4 class="card-text">Your profile has been updated.</h4></div>
-		</p-card>
-	</div>
-</div>
 
-<div class="container form-table-style" *ngIf="!isSubmitted"> 
+<div class="container form-table-style" > 
 	<p-blockUI [blocked]="blocked" [target]="container"></p-blockUI>
 	<p-toast class="toast-style" position="top-center"></p-toast>
-			<div class="ui-g-12 ui-sm-12">
-					<h2 class="header">TRISTATE EMPLOYMENT APPLICATION</h2><br>
+			<div class="right" >
+				<h4>Status :&nbsp;<span [style.color]="statusColor">{{currentStatus}}</span></h4>
 			</div>
-			<div class="ui-g-12 ui-sm-12">
+			<div class="ui-g-12 ui-sm-12" >
 				<label class="form-info">Fields marked * are madatory</label>
 			</div>
-		    <h3 class="sub-heading">PERSONAL INFORMATION</h3> 
+		    <h3 class="sub-heading">Personal Information</h3> 
 		<form [formGroup]="jobForm" (ngSubmit)="onSubmit()" >   
 		   <div class="form-group">
 		    <div class="ui-g-12">
@@ -28,7 +20,7 @@
 						<label>Last Name<span class="form-info">*</span>: </label>
 					</div>
 					<div class="ui-g-6 ui-sm-7">
-						<input id="input" type="text" maxlength="20" size="30" pInputText formControlName="lastName">
+						<input id="input" type="text" maxlength="20" size="30" pInputText formControlName="lastName" [disableControl]="disable">
 						<div class="ui-g-12">
 								<p-message severity="error" text="Last Name is required" *ngIf="!jobform.lastName.valid && jobform.lastName.dirty"></p-message>
 						</div>
@@ -39,7 +31,7 @@
 						<label>First Name<span class="form-info">*</span>: </label>
 					</div>
 					<div class="ui-g-8 ui-sm-7">
-						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="firstName">
+						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="firstName" [disableControl]="disable">
 						<div class="ui-g-12">
 							<p-message severity="error" text="First Name is required" *ngIf="!jobform.firstName.valid && jobform.firstName.dirty"></p-message>
 						</div>
@@ -50,7 +42,7 @@
 						<label>Middle Initial:</label>
 					</div>
 					<div class="ui-g-7 ui-sm-7">
-						<input id="input" type="text" maxlength="2" size="35" pInputText formControlName="middleInitial">
+						<input id="input" type="text" maxlength="2" size="35" pInputText formControlName="middleInitial" [disableControl]="disable">
 					</div>
 				</div>
 			</div>	
@@ -61,7 +53,7 @@
 						<label>Street Address<span class="form-info">*</span>:</label>
 					</div>
 					<div class="ui-g-6 ui-sm-7">
-						<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="address">
+						<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="address" [disableControl]="disable">
 						<div class="ui-g-12">
 							<p-message severity="error" text="Street Address is required" *ngIf="!jobform.address.valid && jobform.address.dirty"></p-message>
 						</div>
@@ -73,7 +65,7 @@
 						<label>City<span class="form-info">*</span>: </label>
 					</div>
 					<div class="ui-g-8 ui-sm-7">
-						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="city" >
+						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="city" [disableControl]="disable">
 						<div class="ui-g-12">
 							<p-message severity="error" text="City is required" *ngIf="!jobform.city.valid && jobform.city.dirty"></p-message>
 						</div>
@@ -86,7 +78,7 @@
 						<label>State<span class="form-info">*</span>: </label>
 					</div>
 					<div class="ui-g-6 ui-sm-7">
-						<p-dropdown [options]="states" formControlName="state" size="20" [style]="{'width':'150px'}" filter="true" (onChange)="getTitles()"></p-dropdown>
+						<p-dropdown [options]="states" formControlName="state" size="20" [style]="{'width':'150px'}" filter="true" (onChange)="getTitles()" [disableControl]="disable"></p-dropdown>
 						<ng-template let-item pTemplate="selectedItem">
 						        <span>{{item.label}}</span>
 					    </ng-template>
@@ -105,7 +97,7 @@
 						<label>Zip<span class="form-info">*</span>: </label>
 					</div>
 					<div class="ui-g-8 ui-sm-7">
-						<input id="input" type="text" maxlength="5" size="20"  pInputText formControlName="zip" pKeyFilter="num">
+						<input id="input" type="text" maxlength="5" size="20"  pInputText formControlName="zip" pKeyFilter="num" [disableControl]="disable">
 						<div class="ui-g-12">
 							<p-message severity="error" [text]="jobform.zip.errors.required?'Zip is required' : jobform.zip.errors.pattern?'Invalid zip' : ''" *ngIf="!jobform.zip.valid && jobform.zip.dirty"></p-message>
 						</div>
@@ -120,7 +112,7 @@
 						<label>Home Phone<span class="form-info">*</span>: </label>
 					</div>
 					<div class="ui-g-6 ui-sm-7">
-						<p-inputMask mask="999-999-9999" placeholder="XXX-XXX-XXXX" formControlName="homePhone" size="15"></p-inputMask>
+						<p-inputMask mask="999-999-9999" placeholder="XXX-XXX-XXXX" formControlName="homePhone" size="15" [disableControl]="disable"></p-inputMask>
 						<div class="ui-g-12">
 							<p-message severity="error" [text]="jobform.homePhone.errors.required?'Home Phone is required':jobform.homePhone.errors.pattern?'Invalid home phone':''" *ngIf="!jobform.homePhone.valid && jobform.homePhone.dirty"></p-message>
 						</div>
@@ -155,7 +147,7 @@
 							<label>Email<span class="form-info">*</span>: </label>
 						</div>
 						<div class="ui-g-6 ui-sm-7">
-							<input id="input" type="email" size="35" pInputText formControlName="email" disabled="true">
+							<input id="input" type="email" size="35" pInputText formControlName="email">
 						</div>
 					</div>
 				<div class="ui-g-4 ui-sm-12">
@@ -163,7 +155,7 @@
 						<label>Emergency Contact<span class="form-info">*</span>: </label>
 					</div>
 					<div class="ui-g-6 ui-sm-7">
-						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="emergencyContact">
+						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="emergencyContact" [disableControl]="disable">
 						<div class="ui-g-12">
 							<p-message severity="error" text="Emergency Contact is required" *ngIf="!jobform.emergencyContact.valid && jobform.emergencyContact.dirty"></p-message>
 						</div>
@@ -174,7 +166,7 @@
 						<label>Phone<span class="form-info">*</span>: </label>
 					</div>
 					<div class="ui-g-8 ui-sm-7">
-						<p-inputMask mask="999-999-9999" placeholder="XXX-XXX-XXXX" formControlName="emergencyPhone" size="15"></p-inputMask>
+						<p-inputMask mask="999-999-9999" placeholder="XXX-XXX-XXXX" formControlName="emergencyPhone" size="15" [disableControl]="disable"></p-inputMask>
 						<div class="ui-g-12">
 							<p-message severity="error" [text]="jobform.emergencyPhone.errors.required?'Emergency Phone is required':jobform.emergencyPhone.errors.pattern?'Invalid emergency phone':''" *ngIf="!jobform.emergencyPhone.valid && jobform.emergencyPhone.dirty"></p-message>
 						</div>
@@ -188,7 +180,7 @@
 						<label>Social Security Number:</label>
 					</div>
 					<div class="ui-g-6 ui-sm-7">
-						<input type="text" formControlName="ssn" size="30" maxlength="9" pInputText pKeyFilter="num">
+						<input type="text" formControlName="ssn" size="30" maxlength="9" pInputText pKeyFilter="num" [disableControl]="disable">
 						<div class="ui-g-12">
 							<p-message severity="error" [text]="jobform.ssn.errors.pattern?'Invalid ssn':''" *ngIf="!jobform.ssn.valid && jobform.ssn.dirty"></p-message>
 						</div>
@@ -200,22 +192,94 @@
 					</div>
 					<div class="ui-g-6 ui-sm-7" style="float: left">
 						<div class="ui-g-6">
-							<p-radioButton   name="age" value="Yes" label="Yes" formControlName="adult" inputId="yes"></p-radioButton>
+							<p-radioButton   name="age" value="Yes" label="Yes" formControlName="adult" inputId="yes" [disableControl]="disable"></p-radioButton>
 						</div>
 						<div class="ui-g-6">
-							<p-radioButton   name="age" value="No" label="No" formControlName="adult" inputId="no"></p-radioButton>
+							<p-radioButton   name="age" value="No" label="No" formControlName="adult" inputId="no" [disableControl]="disable"></p-radioButton>
 						</div>
 						<div class="ui-g-12">
 							<p-message severity="error" text="Field is required" *ngIf="!jobform.adult.valid && jobform.adult.dirty"></p-message>
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="ui-g-12">	
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Driver License or Photo Id #<span class="form-info">*</span>:</label>
+					</div>
+					<div class="ui-g-6 ui-sm-7">
+						<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="id" [disableControl]="disable">
+						<div class="ui-g-12">
+							<p-message severity="error" text="Driver License or Photo Id # is required" *ngIf="!jobform.id.valid && jobform.id.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+				
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Expiry Date<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-8 ui-sm-7">
+						<p-calendar formControlName="idExpiry" [showIcon]="true" dateFormat="mm-dd-yy" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [minDate]="today" [disableControl]="disable"></p-calendar>
+						<div class="ui-g-12">
+							<p-message severity="error" text="Expiry is required" *ngIf="!jobform.idExpiry.valid && jobform.idExpiry.dirty"></p-message>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			
+			<div class="ui-g-12">	
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Medical License #<span class="form-info">*</span>:</label>
+					</div>
+					<div class="ui-g-6 ui-sm-7">
+						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="medLicenseNumber" [disableControl]="disable">
+						<div class="ui-g-12">
+							<p-message severity="error" text="Medical License # is required" *ngIf="!jobform.medLicenseNumber.valid && jobform.medLicenseNumber.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>License State<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-8 ui-sm-7">
+						<p-dropdown [options]="states" formControlName="licenseState" size="30" [style]="{'width':'150px'}" filter="true" [disableControl]="disable"></p-dropdown>
+						<ng-template let-item pTemplate="selectedItem">
+						        <span>{{item.label}}</span>
+					    </ng-template>
+					    <ng-template let-state pTemplate="item">
+					        <div>
+					            <div>{{state.label}}</div>
+					        </div>
+					    </ng-template>
+					    <div class="ui-g-12">
+							<p-message severity="error" text="State is required" *ngIf="!jobform.licenseState.valid && jobform.licenseState.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Expiry Date<span class="form-info">*</span>: </label>
+					</div>
+					<div class="ui-g-8 ui-sm-7">
+						<p-calendar formControlName="medLicenseExpiry" [showIcon]="true" dateFormat="mm-dd-yy" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [minDate]="today" [disableControl]="disable"></p-calendar>
+						<div class="ui-g-12">
+							<p-message severity="error" text="Expiry is required" *ngIf="!jobform.medLicenseExpiry.valid && jobform.medLicenseExpiry.dirty"></p-message>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ui-g-12">
 				<div class="ui-g-12 ui-sm-12">
 					<div class="ui-g-12 ui-sm-12">
 						<label>Position(s) Applying For<span class="form-info">*</span>: </label>
 					</div>
 					<div class="ui-g-6 ui-sm-12">
-						<p-dropdown [options]="titles" formControlName="positions" size="20" [style]="{'width':'150px'}"></p-dropdown>
+						<p-dropdown [options]="titles" formControlName="positions" size="20" [style]="{'width':'150px'}" [disableControl]="disable"></p-dropdown>
 						<div class="ui-g-12">
 								<p-message severity="error" text="Position(s) Applying For is required" *ngIf="!jobform.positions.valid && jobform.positions.dirty"></p-message>
 						</div>
@@ -229,15 +293,15 @@
 				</div>
 				<div class="ui-g-12">
 					<div class="ui-g-12 ui-sm-12">
-						<input id="input" type="text" maxlength="50" size="50" pInputText formControlName="unavailable">
+						<input id="input" type="text" maxlength="50" size="50" pInputText formControlName="unavailable" [disableControl]="disable">
 					</div>
 				</div>
 			</div>
 			
 			<br>
 			<br>
-			<h3 class="sub-heading">EDUCATION</h3>
-			<div class="ui-g-12">
+			<h3 class="sub-heading">Education</h3>
+			<div class="ui-g-12" >
 				<div class="ui-g-6 ui-sm-12 form-table-style">
 					<div class="ui-g-12 ui-sm-12">
 						<label>HIGH SCHOOL</label>
@@ -247,7 +311,7 @@
 							<label>Name : </label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="highSchoolName">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="highSchoolName" [disableControl]="disable">
 						</div>
 					</div>
 					<div class="ui-g-12 ui-sm-12">
@@ -255,7 +319,7 @@
 							<label>Address : </label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="highSchoolAddress">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="highSchoolAddress" [disableControl]="disable">
 						</div>
 					</div>
 					<div class="ui-g-12 ui-sm-12">
@@ -263,7 +327,7 @@
 							<label>Number of Years Completed? </label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="10" size="30" pInputText formControlName="highSchoolYears" pKeyFilter="num">
+							<input id="input" type="text" maxlength="10" size="30" pInputText formControlName="highSchoolYears" pKeyFilter="num" [disableControl]="disable">
 						</div>
 					</div>
 					<div class="ui-g-12 ui-sm-12">
@@ -271,7 +335,7 @@
 							<label>Major / Degree :</label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="highSchoolDegree">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="highSchoolDegree" [disableControl]="disable">
 						</div>
 					</div>
 				</div>
@@ -284,7 +348,7 @@
 							<label>Name : </label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="collegeName">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="collegeName" [disableControl]="disable">
 						</div>
 					</div>
 					<div class="ui-g-12 ui-sm-12">
@@ -292,7 +356,7 @@
 							<label>Address : </label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="collegeAddress">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="collegeAddress" [disableControl]="disable">
 						</div>
 					</div>
 					<div class="ui-g-12 ui-sm-12">
@@ -300,7 +364,7 @@
 							<label>Number of Years Completed? </label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="10" size="30" pInputText formControlName="collegeYears" pKeyFilter="num">
+							<input id="input" type="text" maxlength="10" size="30" pInputText formControlName="collegeYears" pKeyFilter="num" [disableControl]="disable">
 						</div>
 					</div>
 					<div class="ui-g-12 ui-sm-12">
@@ -308,7 +372,7 @@
 							<label>Major / Degree :</label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="collegeDegree" >
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="collegeDegree" [disableControl]="disable">
 						</div>
 					</div>
 				</div>
@@ -324,7 +388,7 @@
 							<label>Name : </label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="tradeName">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="tradeName" [disableControl]="disable">
 						</div>
 					</div>
 					<div class="ui-g-12 ui-sm-12">
@@ -332,7 +396,7 @@
 							<label>Address : </label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="tradeAddress">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="tradeAddress" [disableControl]="disable">
 						</div>
 					</div>
 					<div class="ui-g-12 ui-sm-12">
@@ -340,7 +404,7 @@
 							<label>Number of Years Completed? </label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="11" size="30" pInputText formControlName="tradeYears" pKeyFilter="num">
+							<input id="input" type="text" maxlength="11" size="30" pInputText formControlName="tradeYears" pKeyFilter="num" [disableControl]="disable">
 						</div>
 					</div>
 					<div class="ui-g-12 ui-sm-12">
@@ -348,7 +412,7 @@
 							<label>Major / Degree :</label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="tradeDegree" >
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="tradeDegree" [disableControl]="disable">
 						</div>
 					</div>
 				</div>
@@ -361,7 +425,7 @@
 							<label>Name : </label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="graduateName">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="graduateName" [disableControl]="disable" >
 						</div>
 					</div>
 					<div class="ui-g-12 ui-sm-12">
@@ -369,7 +433,7 @@
 							<label>Address : </label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="graduateAddress">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="graduateAddress"[disableControl]="disable" >
 						</div>
 					</div>
 					<div class="ui-g-12 ui-sm-12">
@@ -377,7 +441,7 @@
 							<label>Number of Years Completed? </label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="10" size="30" pInputText formControlName="graduateYears" pKeyFilter="num">
+							<input id="input" type="text" maxlength="10" size="30" pInputText formControlName="graduateYears" pKeyFilter="num" [disableControl]="disable">
 						</div>
 					</div>
 					<div class="ui-g-12 ui-sm-12">
@@ -385,17 +449,13 @@
 							<label>Major / Degree :</label>
 						</div>
 						<div class="ui-g-8 ui-sm-7">
-							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="graduateDegree">
+							<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="graduateDegree" [disableControl]="disable">
 						</div>
 					</div>
 				</div>
 			</div>
+			<h3 class="sub-heading">Work History</h3>
 			<div class="ui-g-12">
-				<div class="ui-g-12">
-					<div class="ui-g-12 ui-sm-12">
-						<label>Please list any two references personal/professional references</label>
-					</div>
-				</div>
 				<div class="ui-g-12">
 					<div class="ui-g-6 ui-sm-12">
 						<div clas="ui-g-6 ui-sm-12">
@@ -406,7 +466,7 @@
 								<label>Name<span class="form-info">*</span>:</label>
 							</div>
 							<div class="ui-g-6 ui-sm-7">
-								<input id="input" type="text" maxlength="20" size="30" pInputText formControlName="refName1">
+								<input id="input" type="text" maxlength="20" size="30" pInputText formControlName="refName1" [disableControl]="disable">
 								<div class="ui-g-12">
 									<p-message severity="error" text="Name is required" *ngIf="!jobform.refName1.valid && jobform.refName1.dirty"></p-message>
 								</div>
@@ -417,7 +477,7 @@
 								<label>Position<span class="form-info">*</span>:</label>
 							</div>
 							<div class="ui-g-6 ui-sm-7">
-								<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="refPosition1">
+								<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="refPosition1" [disableControl]="disable">
 								<div class="ui-g-12">
 									<p-message severity="error" text="Position is required" *ngIf="!jobform.refPosition1.valid && jobform.refPosition1.dirty"></p-message>
 								</div>
@@ -428,7 +488,7 @@
 								<label>Facility Name<span class="form-info">*</span>:</label>
 							</div>
 							<div class="ui-g-6 ui-sm-7">
-								<input id="input" type="text" maxlength="100" size="30" pInputText formControlName="ref1FacilityName">
+								<input id="input" type="text" maxlength="100" size="30" pInputText formControlName="ref1FacilityName" [disableControl]="disable">
 								<div class="ui-g-12">
 									<p-message severity="error" text="Facility Name is required" *ngIf="!jobform.ref1FacilityName.valid && jobform.ref1FacilityName.dirty"></p-message>
 								</div>
@@ -439,7 +499,7 @@
 								<label>Address<span class="form-info">*</span>:</label>
 							</div>
 							<div class="ui-g-6 ui-sm-7">
-								<input id="input" type="text" maxlength="50" size="30" pInputText formControlName="refAddress1">
+								<input id="input" type="text" maxlength="50" size="30" pInputText formControlName="refAddress1" [disableControl]="disable">
 								<div class="ui-g-12">
 									<p-message severity="error" text="Address is required" *ngIf="!jobform.refAddress1.valid && jobform.refAddress1.dirty"></p-message>
 								</div>
@@ -450,7 +510,7 @@
 								<label>Phone<span class="form-info">*</span>:</label>
 							</div>
 							<div class="ui-g-6 ui-sm-7">
-								<p-inputMask mask="999-999-9999" placeholder="XXX-XXX-XXXX" formControlName="refPhone1" size="15"></p-inputMask>
+								<p-inputMask mask="999-999-9999" placeholder="XXX-XXX-XXXX" formControlName="refPhone1" size="15" [disableControl]="disable"></p-inputMask>
 								<div class="ui-g-12">
 									<p-message severity="error" [text]="jobform.refPhone1.errors.required?'Phone is required' : jobform.refPhone1.errors.pattern?'Invalid phone':''" *ngIf="!jobform.refPhone1.valid && jobform.refPhone1.dirty"></p-message>
 								</div>
@@ -466,7 +526,7 @@
 								<label>Name<span class="form-info">*</span>:</label>
 							</div>
 							<div class="ui-g-6 ui-sm-7">
-								<input id="input" type="text" maxlength="20" size="30" pInputText formControlName="refName2">
+								<input id="input" type="text" maxlength="20" size="30" pInputText formControlName="refName2" [disableControl]="disable">
 								<div class="ui-g-12">
 									<p-message severity="error" text="Name is required" *ngIf="!jobform.refName2.valid && jobform.refName2.dirty"></p-message>
 								</div>
@@ -477,7 +537,7 @@
 								<label>Position<span class="form-info">*</span>:</label>
 							</div>
 							<div class="ui-g-6 ui-sm-7">
-								<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="refPosition2">
+								<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="refPosition2" [disableControl]="disable">
 								<div class="ui-g-12">
 									<p-message severity="error" text="Position is required" *ngIf="!jobform.refPosition2.valid && jobform.refPosition2.dirty"></p-message>
 								</div>
@@ -488,7 +548,7 @@
 								<label>Facility Name<span class="form-info">*</span>:</label>
 							</div>
 							<div class="ui-g-6 ui-sm-7">
-								<input id="input" type="text" maxlength="100" size="30" pInputText formControlName="ref2FacilityName">
+								<input id="input" type="text" maxlength="100" size="30" pInputText formControlName="ref2FacilityName" [disableControl]="disable">
 								<div class="ui-g-12">
 									<p-message severity="error" text="Facility Name is required" *ngIf="!jobform.ref2FacilityName.valid && jobform.ref2FacilityName.dirty"></p-message>
 								</div>
@@ -499,7 +559,7 @@
 								<label>Address<span class="form-info">*</span>:</label>
 							</div>
 							<div class="ui-g-6 ui-sm-7">
-								<input id="input" type="text" maxlength="50" size="30" pInputText formControlName="refAddress2">
+								<input id="input" type="text" maxlength="50" size="30" pInputText formControlName="refAddress2" [disableControl]="disable">
 								<div class="ui-g-12">
 									<p-message severity="error" text="Address is required" *ngIf="!jobform.refAddress2.valid && jobform.refAddress2.dirty"></p-message>
 								</div>
@@ -510,7 +570,7 @@
 								<label>Phone<span class="form-info">*</span>:</label>
 							</div>
 							<div class="ui-g-6 ui-sm-7">
-								<p-inputMask mask="999-999-9999" placeholder="XXX-XXX-XXXX" formControlName="refPhone2" size="15"></p-inputMask>
+								<p-inputMask mask="999-999-9999" placeholder="XXX-XXX-XXXX" formControlName="refPhone2" size="15" [disableControl]="disable"></p-inputMask>
 								<div class="ui-g-12">
 									<p-message severity="error" [text]="jobform.refPhone2.errors.required?'Phone is required':jobform.refPhone2.errors.pattern?'Invalid phone':''" *ngIf="!jobform.refPhone2.valid && jobform.refPhone2.dirty"></p-message>
 								</div>
@@ -521,17 +581,14 @@
 			</div>
 			<br>
 			<br>
-			<h3 class="sub-heading">BANK INFORMATION FOR PAYROLL</h3>
+			<h3 class="sub-heading">Bank Information For Payroll</h3>
 			<div class="ui-g-12">
 				<div class="ui-g-5 ui-sm-12">
 					<div class="ui-g-3 ui-sm-5">
-						<label>Bank Name<span class="form-info">*</span>:</label>
+						<label>Bank Name:</label>
 					</div>
 					<div class="ui-g-7 ui-sm-7">
-						<input id="input" type="text" maxlength="100" size="50" pInputText formControlName="bankName">
-						<div class="ui-g-12">
-							<p-message severity="error" text="Bank Name is required" *ngIf="!jobform.bankName.valid && jobform.bankName.dirty"></p-message>
-						</div>
+						<input id="input" type="text" maxlength="100" size="50" pInputText formControlName="bankName" [disableControl]="disable" >
 					</div>
 					
 				</div>
@@ -539,33 +596,27 @@
 			<div class="ui-g-12">	
 				<div class="ui-g-4 ui-sm-12">
 					<div class="ui-g-4 ui-sm-5">
-						<label>Street Address<span class="form-info">*</span>:</label>
+						<label>Street Address:</label>
 					</div>
 					<div class="ui-g-6 ui-sm-7">
-						<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="bankAddress">
-						<div class="ui-g-12">
-							<p-message severity="error" text="Street Address is required" *ngIf="!jobform.bankAddress.valid && jobform.bankAddress.dirty"></p-message>
-						</div>
+						<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="bankAddress" [disableControl]="disable" >
 					</div>
 				</div>
 				
 				<div class="ui-g-3 ui-sm-12">
 					<div class="ui-g-4 ui-sm-5">
-						<label>City<span class="form-info">*</span>: </label>
+						<label>City: </label>
 					</div>
 					<div class="ui-g-8 ui-sm-7">
-						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="bankCity" >
-						<div class="ui-g-12">
-							<p-message severity="error" text="City is required" *ngIf="!jobform.bankCity.valid && jobform.bankCity.dirty"></p-message>
-						</div>
+						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="bankCity" [disableControl]="disable" >
 					</div>
 				</div>
 				<div class="ui-g-3 ui-sm-12">
 					<div class="ui-g-4 ui-sm-5">
-						<label>State<span class="form-info">*</span>: </label>
+						<label>State: </label>
 					</div>
 					<div class="ui-g-6 ui-sm-7">
-						<p-dropdown [options]="states" formControlName="bankState" size="20" [style]="{'width':'150px'}" filter="true"></p-dropdown>
+						<p-dropdown [options]="states" formControlName="bankState" size="20" [style]="{'width':'150px'}" filter="true" [disableControl]="disable"></p-dropdown>
 						<ng-template let-item pTemplate="selectedItem">
 						        <span>{{item.label}}</span>
 					    </ng-template>
@@ -574,19 +625,16 @@
 					            <div>{{state.label}}</div>
 					        </div>
 					    </ng-template>
-						<div class="ui-g-12">
-							<p-message severity="error" text="State is required" *ngIf="!jobform.bankState.valid && jobform.bankState.dirty"></p-message>
-						</div>
 					</div>
 				</div>
 				<div class="ui-g-2 ui-sm-12">
 					<div class="ui-g-4 ui-sm-5">
-						<label>Zip<span class="form-info">*</span>: </label>
+						<label>Zip: </label>
 					</div>
 					<div class="ui-g-8 ui-sm-7">
-						<input id="input" type="text" maxlength="5" size="20"  pInputText formControlName="bankZip" pKeyFilter="num">
+						<input id="input" type="text" maxlength="5" size="20"  pInputText formControlName="bankZip" pKeyFilter="num" [disableControl]="disable">
 						<div class="ui-g-12">
-							<p-message severity="error" [text]="jobform.bankZip.errors.required?'Zip is required' : jobform.bankZip.errors.pattern?'Invalid zip' : ''" *ngIf="!jobform.bankZip.valid && jobform.bankZip.dirty"></p-message>
+							<p-message severity="error" [text]="jobform.bankZip.errors.pattern?'Invalid zip' : ''" *ngIf="!jobform.bankZip.valid && jobform.bankZip.dirty"></p-message>
 						</div>
 					</div>
 				</div>
@@ -594,95 +642,31 @@
 			<div class="ui-g-12">	
 				<div class="ui-g-4 ui-sm-12">
 					<div class="ui-g-4 ui-sm-5">
-						<label>Account Type<span class="form-info">*</span>:</label>
+						<label>Account Type:</label>
 					</div>
 					<div class="ui-g-6 ui-sm-7">
-						<p-dropdown [options]="accountTypes" formControlName="accountType" size="30" [style]="{'width':'150px'}"></p-dropdown>
-						<div class="ui-g-12">
-							<p-message severity="error" text="Account Type is required" *ngIf="!jobform.accountType.valid && jobform.accountType.dirty"></p-message>
-						</div>
+						<p-dropdown [options]="accountTypes" formControlName="accountType" size="30" [style]="{'width':'150px'}" [disableControl]="disable"></p-dropdown>
 					</div>
 				</div>
 				
 				<div class="ui-g-4 ui-sm-12">
 					<div class="ui-g-4 ui-sm-5">
-						<label>Account Number<span class="form-info">*</span>: </label>
+						<label>Account Number: </label>
 					</div>
 					<div class="ui-g-8 ui-sm-7">
-						<input id="input" type="text" maxlength="30" size="20" pInputText formControlName="accountNumber" >
-						<div class="ui-g-12">
-							<p-message severity="error" text="Account Number is required" *ngIf="!jobform.accountNumber.valid && jobform.accountNumber.dirty"></p-message>
-						</div>
+						<input id="input" type="text" maxlength="30" size="20" pInputText formControlName="accountNumber" [disableControl]="disable">
 					</div>
 				</div>
 				<div class="ui-g-4 ui-sm-12">
 					<div class="ui-g-4 ui-sm-5">
-						<label>Bank Routing Number<span class="form-info">*</span>: </label>
+						<label>Bank Routing Number: </label>
 					</div>
 					<div class="ui-g-8 ui-sm-7">
-						<input id="input" type="text" maxlength="30" size="20" pInputText formControlName="routingNumber">
-						<div class="ui-g-12">
-							<p-message severity="error" text="Routing Number is required" *ngIf="!jobform.routingNumber.valid && jobform.routingNumber.dirty"></p-message>
-						</div>
+						<input id="input" type="text" maxlength="30" size="20" pInputText formControlName="routingNumber" [disableControl]="disable">
 					</div>
 				</div>
 			</div>
-			<h3 class="sub-heading">ADDITIONAL INFORMATION</h3>
-			<div class="ui-g-12">	
-				<div class="ui-g-4 ui-sm-12">
-					<div class="ui-g-4 ui-sm-5">
-						<label>Driver License or Photo Id #:</label>
-					</div>
-					<div class="ui-g-6 ui-sm-7">
-						<input id="input" type="text" maxlength="30" size="30" pInputText formControlName="id">
-					</div>
-				</div>
-				
-				<div class="ui-g-4 ui-sm-12">
-					<div class="ui-g-4 ui-sm-5">
-						<label>Expiry Date: </label>
-					</div>
-					<div class="ui-g-8 ui-sm-7">
-						<p-calendar formControlName="idExpiry" [showIcon]="true" dateFormat="mm-dd-yy" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [minDate]="today"></p-calendar>
-					</div>
-					
-				</div>
-			</div>
-			<div class="ui-g-12">	
-				<div class="ui-g-4 ui-sm-12">
-					<div class="ui-g-4 ui-sm-5">
-						<label>Medical License #:</label>
-					</div>
-					<div class="ui-g-6 ui-sm-7">
-						<input id="input" type="text" maxlength="20" size="20" pInputText formControlName="medLicenseNumber" >
-					</div>
-				</div>
-				
-				<div class="ui-g-4 ui-sm-12">
-					<div class="ui-g-4 ui-sm-5">
-						<label>License State: </label>
-					</div>
-					<div class="ui-g-8 ui-sm-7">
-						<p-dropdown [options]="states" formControlName="licenseState" size="30" [style]="{'width':'150px'}" filter="true"></p-dropdown>
-						<ng-template let-item pTemplate="selectedItem">
-						        <span>{{item.label}}</span>
-					    </ng-template>
-					    <ng-template let-state pTemplate="item">
-					        <div>
-					            <div>{{state.label}}</div>
-					        </div>
-					    </ng-template>
-					</div>
-				</div>
-				<div class="ui-g-4 ui-sm-12">
-					<div class="ui-g-4 ui-sm-5">
-						<label>Expiry Date: </label>
-					</div>
-					<div class="ui-g-8 ui-sm-7">
-						<p-calendar formControlName="medLicenseExpiry" [showIcon]="true" dateFormat="mm-dd-yy" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [minDate]="today"></p-calendar>
-					</div>
-				</div>
-			</div>
+			
 			<br>
 			<div class="ui-g-12" align="center">
 				<button pButton type="submit " label="Save" [disabled]="jobForm.invalid"></button>

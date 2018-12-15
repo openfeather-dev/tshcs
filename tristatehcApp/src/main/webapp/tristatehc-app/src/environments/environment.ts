@@ -7,6 +7,7 @@ export const environment = {
   port:4200,
   host:'localhost',
   radiusInMiles:100,
+  onboardedStatus:'Onboarded',
   accountTypes: [{label:'Select Type', value:''},{label:'Checking', value:'Checking'},{label:'Saving', value:'Saving'}],
   resourceServerUrl: 'http://localhost:8090/',
   availabilityUrl: 'availability/',
@@ -21,7 +22,8 @@ export const environment = {
   zipcodeUrl:'zipcode/',
   cellProviderUrl:'provider/',
   usastatesUrl:'state/',
-  titleUrl:'title/'
+  titleUrl:'title/',
+  statusUrl:'status/'
 };
 
 /*

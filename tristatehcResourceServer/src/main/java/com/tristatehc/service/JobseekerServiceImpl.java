@@ -2,6 +2,7 @@ package com.tristatehc.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 import com.tristatehc.dao.JobseekerRepository;
 import com.tristatehc.dto.JobseekerDTO;
 import com.tristatehc.entity.Jobseeker;
-import com.tristatehc.entity.User;
 import com.tristatehc.mapper.UserMapper;
 
 @Service
@@ -40,5 +40,15 @@ public class JobseekerServiceImpl implements JobseekerService {
 		}
 		return employeesDto;
 		
+	}
+
+	@Override
+	public Optional<JobseekerDTO> getApplicant(String email) {
+		Optional<Jobseeker> applicantOptnl = repository.findById(email);
+		if(applicantOptnl.isPresent()) {
+			Jobseeker applicant = applicantOptnl.get();
+			return Optional.of(UserMapper.INSTANCE.jobseekersToJobseekersDto(applicant));
+		}
+		return Optional.empty();
 	}
 }	

@@ -95,14 +95,15 @@ body .ui-card{
   	margin-top: 50px;
 }
 
-.back{
-	float:right;
-}
 .ui-button.grey-button{
 	background-color: #e4e4e4;
     border-color: #e4e4e4;
     color: #777;
     border:#e4e4e4;
     background: #e4e4e4;
+}
+
+.right{
+	float:right;
 }
 

@@ -60,6 +60,7 @@ public class JobseekerDTO {
 	private String medLicenseNumber;
 	private String licenseState;
 	private String medLicenseExpiry;
+	private String status;
 	
 	public String getLastName() {
 		return lastName;
@@ -398,6 +399,12 @@ public class JobseekerDTO {
 	public void setRef2FacilityName(String ref2FacilityName) {
 		this.ref2FacilityName = ref2FacilityName;
 	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	@Override
 	public String toString() {
 		return "JobseekerDTO [lastName=" + lastName + ", firstName=" + firstName + ", middleInitial=" + middleInitial
@@ -418,7 +425,8 @@ public class JobseekerDTO {
 				+ ", bankAddress=" + bankAddress + ", bankCity=" + bankCity + ", bankState=" + bankState + ", bankZip="
 				+ bankZip + ", accountType=" + accountType + ", accountNumber=" + accountNumber + ", routingNumber="
 				+ routingNumber + ", id=" + id + ", idExpiry=" + idExpiry + ", medLicenseNumber=" + medLicenseNumber
-				+ ", licenseState=" + licenseState + ", medLicenseExpiry=" + medLicenseExpiry + "]";
+				+ ", licenseState=" + licenseState + ", medLicenseExpiry=" + medLicenseExpiry + ", status=" + status
+				+ "]";
 	}
 	
 }

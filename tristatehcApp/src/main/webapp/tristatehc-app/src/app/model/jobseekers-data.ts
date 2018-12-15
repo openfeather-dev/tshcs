@@ -55,4 +55,5 @@ export class JobseekersData {
     medLicenseNumber: string;
     licenseState: string;
     medLicenseExpiry:string;
+    status:string;
 }
