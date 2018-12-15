@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,ViewEncapsulation } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -21,6 +21,7 @@ import { EnterAvailabilityService } from '../enter-availability/enter-availabili
   selector: 'app-employee-profile',
   templateUrl: './employee-profile.component.html',
   styleUrls: ['./employee-profile.component.css'],
+  encapsulation:ViewEncapsulation.None
 })
 export class EmployeeProfileComponent implements OnInit {
 jobForm : FormGroup;
@@ -31,6 +32,7 @@ jobForm : FormGroup;
     loggedInUserEmail : string;
     usaStates : State[];
     titles: SelectItem[] = [{label:"Select Title", value:""}];
+    facilities: SelectItem[] =[];
     today : Date;
     statuses: SelectItem[] =[];
      
@@ -38,13 +40,14 @@ jobForm : FormGroup;
     }
     
     async ngOnInit() {
-       this.availablility.blockUI(true);
+      // this.availablility.blockUI(true);
        this.availablility.disableElement(true);
        this.loggedInUserEmail = this.route.snapshot.paramMap.get('email');
        this.today = new Date();
        this.yearRange = (this.today.getFullYear()) + ':' + (this.today.getFullYear() + 30);
        this.getUsaStates();
        this.getProviders();
+       this.getAllFacilities();
        this.accountTypes = environment.accountTypes;
         
        this.jobForm =  this.formBuilder.group({
@@ -104,10 +107,19 @@ jobForm : FormGroup;
             accountType: new FormControl(''),
             accountNumber: new FormControl(''),
             routingNumber: new FormControl(''),
-            status : new FormControl('')
-           
-       });
-       this.service.getApplicantData(this.loggedInUserEmail).subscribe(info =>{
+            status : new FormControl(''),
+            comments : new FormControl({value:'',disabled:true}),
+            commentText : new FormControl(''),
+            favorites : new FormControl(''),
+            banned : new FormControl('')
+           });
+           this.getProfileData();
+       
+        
+    }
+   
+   getProfileData(){
+        this.service.getApplicantData(this.loggedInUserEmail).subscribe(info =>{
            this.getTitleToSetForm(info.state, info.positions);
            
            //Get all statuses from database and then set form data
@@ -123,12 +135,9 @@ jobForm : FormGroup;
         },error => {
             this.messageService.add({severity:'error', summary: 'Error', detail:'Profile could not be retrieved please try later!!'});
             this.availablility.blockUI(false);
-           });
-       
-        
-    }
+           });    
    
-    
+   } 
     
    onSubmit(){
         this.availablility.blockUI(true);
@@ -195,7 +204,9 @@ jobForm : FormGroup;
         jobApp.licenseState= this.jobForm.value.licenseState;
         jobApp.medLicenseExpiry= this.setDate(this.jobForm.value.medLicenseExpiry);
         jobApp.status = this.jobForm.value.status;
+        jobApp.comments = this.setComments();
         this.service.saveApplication(jobApp).subscribe(data => {
+          this.getProfileData();  
           this.availablility.blockUI(false);
           this.messageService.add({severity:'success', summary:'Success', detail:'Profile was successfully updated!!'});  
        }, error => {
@@ -203,6 +214,22 @@ jobForm : FormGroup;
            this.messageService.add({severity:'error', summary:'Error', detail:'Application could not be saved'});
        })
    }
+    
+    setComments(){
+        let comments : string;
+        if(this.jobForm.value.commentText !== ""){
+            let timeStamp : Date = new Date();
+            if(this.jobForm.getRawValue().comments !== null){
+                comments = this.jobForm.getRawValue().comments+"\n"+(timeStamp.getMonth()+1)+"-"+timeStamp.getDate()+"-"+timeStamp.getFullYear()+" "+timeStamp.getHours()+":"+timeStamp.getMinutes()+":"+timeStamp.getSeconds()+" "+this.jobForm.value.commentText;
+            } else{
+                comments = (timeStamp.getMonth()+1)+"-"+timeStamp.getDate()+"-"+timeStamp.getFullYear()+" "+timeStamp.getHours()+":"+timeStamp.getMinutes()+":"+timeStamp.getSeconds()+" "+this.jobForm.value.commentText;
+            }
+                
+        } else{
+            comments = this.jobForm.getRawValue().comments;
+        }   
+        return comments; 
+    }
     
     setDate(date : any){
         if(date !== ""){
@@ -283,7 +310,7 @@ jobForm : FormGroup;
     setFormData(data : JobseekersData){
         let idExpiry = new Date(data.idExpiry);
         let medLicenseExpiry = new Date(data.medLicenseExpiry);
-        this.jobForm.setValue({lastName:data.lastName,
+        this.jobForm.patchValue({lastName:data.lastName,
             firstName:data.firstName,
             middleInitial: data.middleInitial,
             address: data.address,
@@ -339,10 +366,20 @@ jobForm : FormGroup;
             accountType: data.accountType,
             accountNumber: data.accountNumber,
             routingNumber: data.routingNumber,
-            status:data.status
-        
+            status:data.status,
+            comments : data.comments,
+            commentText:"",
+            //favorites:"",
+            //banned:""        
         });
         
+    }
+    
+    getAllFacilities(){
+       this.service.getAllCustomers().subscribe(customers => {
+            customers.forEach(customer => this.facilities.push({label:customer.lastName, value:customer.lastName}));
+       });  
+         
     }
 
     

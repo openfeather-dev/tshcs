@@ -64,7 +64,8 @@ export class UserAvailabilityComponent implements OnInit {
           this.shiftDateFrom = this.defaultDate;
       }
       if (this.shiftDateTo == undefined){
-          this.shiftDateTo = this.defaultDate;
+          this.shiftDateTo =  new Date();
+          this.shiftDateTo.setDate(this.shiftDateTo.getDate() +7);
       }
       let isAuthenticated = await this.oktaAuth.isAuthenticated();
           if(isAuthenticated){

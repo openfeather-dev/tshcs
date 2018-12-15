@@ -35,6 +35,7 @@ jobForm : FormGroup;
     currentStatus : string;
     statusColor : string;
     disable : boolean = false;
+    comments: string;
      
     constructor(private formBuilder: FormBuilder, private service : MyProfileService, private messageService: MessageService,private oktaAuth: OktaAuthService) { 
     }
@@ -200,6 +201,7 @@ jobForm : FormGroup;
         jobApp.licenseState= this.jobForm.getRawValue().licenseState;
         jobApp.medLicenseExpiry= this.setDate(this.jobForm.getRawValue().medLicenseExpiry);
         jobApp.status = this.currentStatus;
+        jobApp.comments = this.comments;
         this.service.saveApplication(jobApp).subscribe(data => {
            this.blocked = false;
            this.messageService.add({severity:'success', summary:'Success', detail:'Your profile was successfully updated!!'});
@@ -285,6 +287,7 @@ jobForm : FormGroup;
     
     //Set form data that is retrieved from database
     setFormData(data : JobseekersData){
+        this.comments = data.comments;
         let idExpiry = new Date(data.idExpiry);
         let medLicenseExpiry = new Date(data.medLicenseExpiry);
         this.jobForm.setValue({lastName:data.lastName,

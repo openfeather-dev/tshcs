@@ -678,6 +678,37 @@
 					</div>
 				</div>
 			</div>
+			<div class="ui-g-12">
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Favorites: </label>
+					</div>
+					<div class="ui-g-8 ui-sm-7">
+						<p-multiSelect [options]="facilities" formControlName="favorites"></p-multiSelect>
+					</div>
+				</div>
+				<div class="ui-g-4 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Banned: </label>
+					</div>
+					<div class="ui-g-8 ui-sm-7">
+						<p-multiSelect [options]="facilities" formControlName="banned" ></p-multiSelect>
+					</div>
+				</div>
+			</div>
+			<div class="ui-g-12">
+				<div class="ui-g-6">
+					 <div class="ui-g-12 ui-sm-12">
+						<label>Comments</label>
+					 </div>
+					 <div class="ui-g-12 ui-sm-12">
+						<textarea rows="10" cols="100" pInputTextarea formControlName="comments"></textarea>
+					</div>
+					<div class="ui-g-12 ui-sm-12">
+						<input id="input" type="text" size="50" pInputText formControlName="commentText"> 
+					</div>
+				</div>
+			</div>
 			<br>
 			<div class="ui-g-12" align="center">
 				<button pButton type="submit " label="Save" [disabled]=""></button>

@@ -55,6 +55,8 @@ import {AccordionModule} from 'primeng/accordion';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { EmployeeProfileComponent } from './employee-profile/employee-profile.component';
 import { DisableDirective } from './common-services/disable.directive';
+import {MultiSelectModule} from 'primeng/multiselect';
+
 
 const routes: Routes=[
                       {path:'',redirectTo: '/home', pathMatch: 'full'},
@@ -138,6 +140,7 @@ const routes: Routes=[
     MessageModule,
     KeyFilterModule,
     CardModule,
+    MultiSelectModule,
     EnterAvailabilityRoutingModule,
     RouterModule.forRoot(routes),
     OktaAuthModule.initAuth(config),

@@ -70,3 +70,8 @@ body .ui-card{
    background: #d3d3d3;
    
 }
+
+.ui-multiselect .ui-multiselect-label {
+ 	width:12em;	
+
+}

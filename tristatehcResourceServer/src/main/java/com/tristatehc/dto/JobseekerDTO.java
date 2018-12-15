@@ -1,7 +1,5 @@
 package com.tristatehc.dto;
 
-import javax.persistence.Column;
-
 public class JobseekerDTO {
 	
 	private String lastName ;
@@ -61,6 +59,7 @@ public class JobseekerDTO {
 	private String licenseState;
 	private String medLicenseExpiry;
 	private String status;
+	private String comments;
 	
 	public String getLastName() {
 		return lastName;
@@ -405,6 +404,12 @@ public class JobseekerDTO {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getComments() {
+		return comments;
+	}
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
 	@Override
 	public String toString() {
 		return "JobseekerDTO [lastName=" + lastName + ", firstName=" + firstName + ", middleInitial=" + middleInitial
@@ -426,7 +431,7 @@ public class JobseekerDTO {
 				+ bankZip + ", accountType=" + accountType + ", accountNumber=" + accountNumber + ", routingNumber="
 				+ routingNumber + ", id=" + id + ", idExpiry=" + idExpiry + ", medLicenseNumber=" + medLicenseNumber
 				+ ", licenseState=" + licenseState + ", medLicenseExpiry=" + medLicenseExpiry + ", status=" + status
-				+ "]";
+				+ ", comments=" + comments + "]";
 	}
-	
+		
 }

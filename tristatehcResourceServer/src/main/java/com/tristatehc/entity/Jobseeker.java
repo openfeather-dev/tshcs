@@ -173,6 +173,9 @@ public class Jobseeker implements Serializable{
 	@Column(name="status")
 	private String status;
 	
+	@Column(name="comments")
+	private String comments;
+	
 	public String getLastName() {
 		return lastName;
 	}
@@ -516,6 +519,12 @@ public class Jobseeker implements Serializable{
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getComments() {
+		return comments;
+	}
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
 	@Override
 	public String toString() {
 		return "Jobseeker [email=" + email + ", lastName=" + lastName + ", firstName=" + firstName + ", middleInitial="
@@ -537,7 +546,7 @@ public class Jobseeker implements Serializable{
 				+ bankZip + ", accountType=" + accountType + ", accountNumber=" + accountNumber + ", routingNumber="
 				+ routingNumber + ", id=" + id + ", idExpiry=" + idExpiry + ", medLicenseNumber=" + medLicenseNumber
 				+ ", licenseState=" + licenseState + ", medLicenseExpiry=" + medLicenseExpiry + ", status=" + status
-				+ "]";
+				+ ", comments=" + comments + "]";
 	}
 	
 }
