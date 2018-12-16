@@ -220,7 +220,7 @@ jobForm : FormGroup;
         if(this.jobForm.value.commentText !== ""){
             let timeStamp : Date = new Date();
             if(this.jobForm.getRawValue().comments !== null){
-                comments = this.jobForm.getRawValue().comments+"\n"+(timeStamp.getMonth()+1)+"-"+timeStamp.getDate()+"-"+timeStamp.getFullYear()+" "+timeStamp.getHours()+":"+timeStamp.getMinutes()+":"+timeStamp.getSeconds()+" "+this.jobForm.value.commentText;
+                comments = this.jobForm.getRawValue().comments+"\n"+(timeStamp.getMonth()+1)+"-"+timeStamp.getDate()+"-"+timeStamp.getFullYear()+" "+timeStamp.getHours()+":"+timeStamp.getMinutes()+":"+timeStamp.getSeconds()+" - "+this.jobForm.value.commentText;
             } else{
                 comments = (timeStamp.getMonth()+1)+"-"+timeStamp.getDate()+"-"+timeStamp.getFullYear()+" "+timeStamp.getHours()+":"+timeStamp.getMinutes()+":"+timeStamp.getSeconds()+" "+this.jobForm.value.commentText;
             }

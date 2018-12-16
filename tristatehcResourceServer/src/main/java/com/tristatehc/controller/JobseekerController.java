@@ -34,6 +34,6 @@ public class JobseekerController {
 	@RequestMapping(path="/{email}", method=RequestMethod.GET, produces= {MediaType.APPLICATION_JSON_VALUE})
 	public JobseekerDTO getApplicant(@PathVariable("email") String email) {
 		Optional<JobseekerDTO> applicantOptnl = jobService.getApplicant(email);
-		return applicantOptnl.get();
+		return applicantOptnl.orElse(null);
 	}
 }

@@ -32,10 +32,10 @@ jobForm : FormGroup;
     titles: SelectItem[] = [{label:"Select Title", value:""}];
     today : Date;
     applicant : JobseekersData;
-    currentStatus : string;
+    currentStatus : string="";
     statusColor : string;
     disable : boolean = false;
-    comments: string;
+    comments: string = "";
      
     constructor(private formBuilder: FormBuilder, private service : MyProfileService, private messageService: MessageService,private oktaAuth: OktaAuthService) { 
     }
@@ -113,16 +113,20 @@ jobForm : FormGroup;
                     this.loggedInUserEmail  = user.preferred_username;
                     this.jobForm.patchValue({email: this.loggedInUserEmail});
                     this.service.getApplicantData(this.loggedInUserEmail).subscribe(info =>{
-                        this.currentStatus = info.status;
-                        if(this.currentStatus === environment.onboardedStatus){
-                            this.disable = true;
+                        if(info != null){
+                            this.currentStatus = info.status;
+                            if(this.currentStatus == environment.onboardedStatus){
+                                this.disable = true;
+                            }
+                            if(this.currentStatus != null && this.currentStatus != ""){
+                                this.service.getStatus(this.currentStatus).subscribe( status =>{
+                                this.statusColor = status.color;
+                                });
+                            }
+                            this.getTitleToSetForm(info.state, info.positions);
+                            this.setFormData(info);
                         }
-                        this.service.getStatus(this.currentStatus).subscribe( status =>{
-                            this.statusColor = status.color;
-                        });
-                        this.getTitleToSetForm(info.state, info.positions);
-                        this.setFormData(info);
-                        this.blocked = false;
+                        this.blocked = false;     
                     });
               },error => {
                 this.blocked = false;

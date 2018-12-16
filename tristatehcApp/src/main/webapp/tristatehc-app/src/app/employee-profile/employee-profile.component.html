@@ -232,7 +232,7 @@
 					<div class="ui-g-4 ui-sm-5">
 						<label>Expiry Date<span class="form-info">*</span>: </label>
 					</div>
-					<div class="ui-g-8 ui-sm-6">
+					<div class="ui-g-8 ui-sm-7">
 						<p-calendar formControlName="idExpiry" [showIcon]="true" dateFormat="mm-dd-yy" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [minDate]="today"></p-calendar>
 						<div class="ui-g-12">
 							<p-message severity="error" text="Expiry is required" *ngIf="!jobform.idExpiry.valid && jobform.idExpiry.dirty"></p-message>
@@ -697,14 +697,21 @@
 				</div>
 			</div>
 			<div class="ui-g-12">
-				<div class="ui-g-6">
+				<div class="ui-g-12">
 					 <div class="ui-g-12 ui-sm-12">
 						<label>Comments</label>
 					 </div>
 					 <div class="ui-g-12 ui-sm-12">
-						<textarea rows="10" cols="100" pInputTextarea formControlName="comments"></textarea>
+						<textarea class="textarea-style" rows="10" cols="100" pInputTextarea formControlName="comments"></textarea>
 					</div>
-					<div class="ui-g-12 ui-sm-12">
+				</div>
+			</div>
+			<div class="ui-g-12">
+				<div class="ui-g-10">
+					<div class="ui-g-2 ui-sm-12">
+						<label>Enter Comments:</label>
+					</div>
+					<div class="ui-g-5 ui-sm-12">
 						<input id="input" type="text" size="50" pInputText formControlName="commentText"> 
 					</div>
 				</div>

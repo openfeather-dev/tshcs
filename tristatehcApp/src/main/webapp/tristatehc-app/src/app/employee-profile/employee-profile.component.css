@@ -75,3 +75,13 @@ body .ui-card{
  	width:12em;	
 
 }
+
+.textarea-style{
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.ui-calendar.ui-calendar-w-btn .ui-inputtext{
+	width: 90%;
+	
+}
