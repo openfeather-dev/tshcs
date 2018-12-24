@@ -39,7 +39,7 @@ jobForm : FormGroup;
     comments: string = "";
     rate : number = 0;
     myComments : string="";
-    relation : string[] =[];
+    relation : any[] =[];
     
     constructor(private formBuilder: FormBuilder, private service : MyProfileService, private messageService: MessageService,private oktaAuth: OktaAuthService) { 
     }
