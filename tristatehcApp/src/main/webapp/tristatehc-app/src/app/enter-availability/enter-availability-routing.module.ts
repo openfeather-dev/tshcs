@@ -24,12 +24,15 @@ import {MessageService} from 'primeng/api';
 import { CalendarUtilsModule } from '../../calendar-utils/calendar-utils.module';
 import {KeyFilterModule} from 'primeng/keyfilter';
 import { EmployeeProfileComponent } from '../employee-profile/employee-profile.component';
+import { AssignShiftsComponent } from '../assign-shifts/assign-shifts.component';
+import {AccordionModule} from 'primeng/accordion';
 
 const enterAvailabilityRoutes: Routes = [{path: 'admin', component: EnterAvailabilityComponent, canActivate: [OktaAuthGuard] , 
                                             children: [{path:'employee/:email', component: EmployeeAvailabilityComponent, canActivate: [ OktaAuthGuard]},
                                                        {path:'customer/:facname/:name/:city/:state', component: CustomerOptionsComponent,canActivate: [ OktaAuthGuard],
                                                             children:[{path:'config/:clientid', component: CustomerShiftConfigurationComponent, canActivate: [ OktaAuthGuard] },
-                                                                       {path:'addShifts/:state/:clientid', component:CustomerAddShiftsComponent, canActivate: [ OktaAuthGuard]}]
+                                                                       {path:'addShifts/:state/:clientid', component:CustomerAddShiftsComponent, canActivate: [ OktaAuthGuard]},
+                                                                       {path:'assignShifts', component:AssignShiftsComponent, canActivate: [ OktaAuthGuard]}]
                                                       },{path:'newemployee/:email', component: EmployeeProfileComponent, canActivate: [ OktaAuthGuard]}]
                                           
                                           }];
@@ -52,6 +55,7 @@ const enterAvailabilityRoutes: Routes = [{path: 'admin', component: EnterAvailab
     BlockUIModule,
     ToastModule,
     KeyFilterModule,
+    AccordionModule,
     RouterModule.forChild(enterAvailabilityRoutes)
   ],
   exports: [RouterModule ],
@@ -60,7 +64,8 @@ const enterAvailabilityRoutes: Routes = [{path: 'admin', component: EnterAvailab
     EmployeeAvailabilityComponent,
     CustomerShiftConfigurationComponent,
     CustomerOptionsComponent,
-    CustomerAddShiftsComponent
+    CustomerAddShiftsComponent,
+    AssignShiftsComponent
       ],
   providers:[MessageService]
 })

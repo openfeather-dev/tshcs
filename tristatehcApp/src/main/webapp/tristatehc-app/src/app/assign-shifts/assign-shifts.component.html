@@ -1,0 +1,76 @@
+<p-progressBar *ngIf="blocked" mode="indeterminate"></p-progressBar>
+
+<p-accordion>
+    <p-accordionTab header="Search">
+    <div class=" ui-g-12">
+	<div class="ui-g-12">
+		<div class="ui-g-12 filter-block">
+			
+			<div class="ui-g-12 ">
+				<div class="ui-g-12 ui-sm-12">
+					<div class="ui-g-2 ui-sm-12">
+						<label>Shift From Date:</label>
+					</div>
+					<div class="ui-g-4 ui-sm-12">
+						<p-calendar [(ngModel)]="shiftDateFrom" [showIcon]="true" dateFormat="mm/dd/yy"  [defaultDate]="defaultDate"></p-calendar>
+					</div>
+					<div class="ui-g-2 ui-sm-12">
+						<label>Shift To Date:</label>
+					</div>
+					<div class="ui-g-4 ui-sm-12">
+						<p-calendar [(ngModel)]="shiftDateTo" [showIcon]="true" dateFormat="mm/dd/yy" [defaultDate]="defaultDate"></p-calendar>
+					</div>
+				</div>
+				
+			</div>
+			<div class="ui-g-12" align="center">
+				<button pButton type="submit " label="Search" (click)="search()"></button>
+			</div>
+		</div>
+	</div>
+</div>
+    </p-accordionTab>
+</p-accordion>
+<div class="ui-g-12">
+	<p-blockUI [blocked]="blocked" [target]="ui-g"></p-blockUI>
+	<p-toast position="top-center"></p-toast>
+	<div class="ui-g-12">
+		<p-table #availDt [columns]="availCols" [value]="userAvailabilities"
+			[paginator]="true" [rows]="10" [autoLayout]="true"> 
+			<ng-template pTemplate="caption">
+			<div class="right">
+				<input type="text" pInputText size="20" placeholder="Search"
+				(input)="availDt.filterGlobal($event.target.value, 'contains')"
+				style="width: auto">
+			</div>
+			</ng-template> 
+			<ng-template pTemplate="header" let-columns>
+				<tr>
+					<th *ngFor="let col of columns" class="center">{{col.header}}</th>
+				</tr>
+	
+			</ng-template> 
+			<ng-template pTemplate="body" let-rowData let-columns="columns">
+				<tr [pSelectableRow]="rowData">
+					<td *ngFor="let col of columns"  class="center">
+					<p-calendar *ngIf="col.field=='timeIn' || col.field=='timeOut' || col.field=='break'" [timeOnly]="true" hourFormat="24"  ></p-calendar>
+					<button   pButton type="button" *ngIf="col.field === 'action' && rowData[col.field]=='save'"  class="ui-button-raised ui-button-rounded" label="Save" ></button>
+					<button   pButton type="button" *ngIf="col.field === 'action' && rowData[col.field]=='remove'"  class="ui-button-raised ui-button-rounded ui-button-danger" label="Remove" ></button>
+					<input type="text" *ngIf="col.field === 'specialNotes'" value="{{rowData[col.field]}}" pInputText/>
+					<div *ngIf="!(col.field=='timeIn' || col.field === 'name' || col.field=='timeOut' || col.field=='break' || col.field === 'action' || col.field === 'specialNotes')"  [innerHTML]="rowData[col.field]"></div>
+					<p-dropdown *ngIf="col.field === 'name'"  [options]="names" [(ngModel)]="rowData[col.field]" filter="true" [style]="{'width':'15em'}">
+						    <ng-template let-item pTemplate="selectedItem">
+						        <span>{{item.label}}</span>
+						    </ng-template>
+						    <ng-template let-name pTemplate="item">
+						        <div>
+						            <div>{{name.label}}</div>
+						        </div>
+						    </ng-template>
+					</p-dropdown>
+					</td>
+				</tr>
+			</ng-template> 
+		</p-table>
+	</div>
+</div>

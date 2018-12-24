@@ -4,7 +4,7 @@ import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
 import {PasswordModule} from 'primeng/password';
 import {environment} from '../../environments/environment';
-
+import { OktaAuthService } from '@okta/okta-angular';
 @Component({
   selector: 'app-user-registeration',
   templateUrl: './user-registeration.component.html',
@@ -20,7 +20,7 @@ export class UserRegisterationComponent implements OnInit {
 	private reconfirmPassword:string;
 	private signupUrl:string = environment.signupUrl;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,private oktaAuth: OktaAuthService) { }
 
   ngOnInit() {
   }	
@@ -40,4 +40,7 @@ export class UserRegisterationComponent implements OnInit {
   	this.router.navigate(['login']);
   	
   }
+    login(){
+        this.oktaAuth.loginRedirect();
+    }
 }
