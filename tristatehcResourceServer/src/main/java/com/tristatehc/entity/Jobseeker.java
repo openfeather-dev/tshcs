@@ -1,10 +1,13 @@
 package com.tristatehc.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -175,6 +178,17 @@ public class Jobseeker implements Serializable{
 	
 	@Column(name="comments")
 	private String comments;
+	
+	@Column(name="my_comments")
+	private String myComments;
+	
+	private double rate;
+	
+	@OneToMany(mappedBy = "candidateId", cascade = CascadeType.ALL)
+	private List<FacilityRelation> relation;
+	
+	@Column(name="last_updated_by")
+	private String lastUpdatedBy;
 	
 	public String getLastName() {
 		return lastName;
@@ -525,6 +539,30 @@ public class Jobseeker implements Serializable{
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
+	public String getMyComments() {
+		return myComments;
+	}
+	public void setMyComments(String myComments) {
+		this.myComments = myComments;
+	}
+	public double getRate() {
+		return rate;
+	}
+	public void setRate(double rate) {
+		this.rate = rate;
+	}
+	public String getLastUpdatedBy() {
+		return lastUpdatedBy;
+	}
+	public void setLastUpdatedBy(String lastUpdatedBy) {
+		this.lastUpdatedBy = lastUpdatedBy;
+	}
+	public List<FacilityRelation> getRelation() {
+		return relation;
+	}
+	public void setRelation(List<FacilityRelation> relation) {
+		this.relation = relation;
+	}
 	@Override
 	public String toString() {
 		return "Jobseeker [email=" + email + ", lastName=" + lastName + ", firstName=" + firstName + ", middleInitial="
@@ -546,7 +584,8 @@ public class Jobseeker implements Serializable{
 				+ bankZip + ", accountType=" + accountType + ", accountNumber=" + accountNumber + ", routingNumber="
 				+ routingNumber + ", id=" + id + ", idExpiry=" + idExpiry + ", medLicenseNumber=" + medLicenseNumber
 				+ ", licenseState=" + licenseState + ", medLicenseExpiry=" + medLicenseExpiry + ", status=" + status
-				+ ", comments=" + comments + "]";
+				+ ", comments=" + comments + ", myComments=" + myComments + ", rate=" + rate + ", relation=" + relation
+				+ ", lastUpdatedBy=" + lastUpdatedBy + "]";
 	}
 	
 }

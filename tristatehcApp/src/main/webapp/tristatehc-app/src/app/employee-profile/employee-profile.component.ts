@@ -16,6 +16,11 @@ import {SelectItem} from 'primeng/api';
 import { OktaAuthService } from '@okta/okta-angular';
 import { ActivatedRoute } from '@angular/router';
 import { EnterAvailabilityService } from '../enter-availability/enter-availability.service';
+import { FacilityRelation } from '../model/facility-relation';
+import { Customer } from '../model/customer';
+
+const FAVORITE  = "favorite";
+const BANNED = "banned";
 
 @Component({
   selector: 'app-employee-profile',
@@ -24,25 +29,28 @@ import { EnterAvailabilityService } from '../enter-availability/enter-availabili
   encapsulation:ViewEncapsulation.None
 })
 export class EmployeeProfileComponent implements OnInit {
-jobForm : FormGroup;
+    jobForm : FormGroup;
     providers : any[] = [];
     accountTypes : SelectItem[];
     states : SelectItem[];
     yearRange : string;   
-    loggedInUserEmail : string;
+    employeeEmail : string;
     usaStates : State[];
     titles: SelectItem[] = [{label:"Select Title", value:""}];
     facilities: SelectItem[] =[];
     today : Date;
     statuses: SelectItem[] =[];
-     
+    loggedInUser : string = "";
+    favorites : any[];
+    banned : any[];
+    customers : Map<string,string> = new Map<string,string>();
     constructor(private formBuilder: FormBuilder, private service : EmployeeProfileService, private messageService: MessageService,private oktaAuth: OktaAuthService,private route : ActivatedRoute,private availablility:EnterAvailabilityService) { 
     }
     
     async ngOnInit() {
       // this.availablility.blockUI(true);
        this.availablility.disableElement(true);
-       this.loggedInUserEmail = this.route.snapshot.paramMap.get('email');
+       this.employeeEmail = this.route.snapshot.paramMap.get('email');
        this.today = new Date();
        this.yearRange = (this.today.getFullYear()) + ':' + (this.today.getFullYear() + 30);
        this.getUsaStates();
@@ -111,15 +119,24 @@ jobForm : FormGroup;
             comments : new FormControl({value:'',disabled:true}),
             commentText : new FormControl(''),
             favorites : new FormControl(''),
-            banned : new FormControl('')
-           });
+            banned : new FormControl(''),
+            myComments : new FormControl({value:'',disabled:true}),
+            rate : new  FormControl(''),
+            });
+           let isAuthenticated = await this.oktaAuth.isAuthenticated();
+            if(isAuthenticated){
+                  this.oktaAuth.getUser().then(user => {
+                    this.loggedInUser  = user.name;
+              });
+            
+           } 
            this.getProfileData();
        
         
     }
    
    getProfileData(){
-        this.service.getApplicantData(this.loggedInUserEmail).subscribe(info =>{
+        this.service.getApplicantData(this.employeeEmail).subscribe(info =>{
            this.getTitleToSetForm(info.state, info.positions);
            
            //Get all statuses from database and then set form data
@@ -205,6 +222,26 @@ jobForm : FormGroup;
         jobApp.medLicenseExpiry= this.setDate(this.jobForm.value.medLicenseExpiry);
         jobApp.status = this.jobForm.value.status;
         jobApp.comments = this.setComments();
+        jobApp.myComments = this.jobForm.getRawValue().myComments;
+        jobApp.rate = this.jobForm.value.rate;
+        jobApp.lastUpdatedBy = this.loggedInUser;
+        jobApp.relation = [];
+        let favorites = this.jobForm.value.favorites;
+        favorites.forEach(fav => {
+            let relation : FacilityRelation = new FacilityRelation();
+            relation.candidateId = this.employeeEmail;
+            relation.customerId = fav;
+            relation.relation = FAVORITE;
+            jobApp.relation.push(relation);
+        });
+        let banned = this.jobForm.value.banned;
+        banned.forEach(ban => {
+            let relation : FacilityRelation = new FacilityRelation();
+            relation.candidateId = this.employeeEmail;
+            relation.customerId = ban;
+            relation.relation = BANNED;
+            jobApp.relation.push(relation);
+        });
         this.service.saveApplication(jobApp).subscribe(data => {
           this.getProfileData();  
           this.availablility.blockUI(false);
@@ -219,10 +256,11 @@ jobForm : FormGroup;
         let comments : string;
         if(this.jobForm.value.commentText !== ""){
             let timeStamp : Date = new Date();
+            let cmntStamp : string = (timeStamp.getMonth()+1)+"-"+timeStamp.getDate()+"-"+timeStamp.getFullYear()+" "+timeStamp.getHours()+":"+timeStamp.getMinutes()+":"+timeStamp.getSeconds()+" ("+this.loggedInUser+") - "+this.jobForm.value.commentText
             if(this.jobForm.getRawValue().comments !== null){
-                comments = this.jobForm.getRawValue().comments+"\n"+(timeStamp.getMonth()+1)+"-"+timeStamp.getDate()+"-"+timeStamp.getFullYear()+" "+timeStamp.getHours()+":"+timeStamp.getMinutes()+":"+timeStamp.getSeconds()+" - "+this.jobForm.value.commentText;
+                comments = this.jobForm.getRawValue().comments+"\n"+cmntStamp;
             } else{
-                comments = (timeStamp.getMonth()+1)+"-"+timeStamp.getDate()+"-"+timeStamp.getFullYear()+" "+timeStamp.getHours()+":"+timeStamp.getMinutes()+":"+timeStamp.getSeconds()+" "+this.jobForm.value.commentText;
+                comments = cmntStamp;
             }
                 
         } else{
@@ -310,6 +348,18 @@ jobForm : FormGroup;
     setFormData(data : JobseekersData){
         let idExpiry = new Date(data.idExpiry);
         let medLicenseExpiry = new Date(data.medLicenseExpiry);
+        this.favorites = [];
+        let favs : any[] =[];
+        data.relation.filter(rel => rel.relation == FAVORITE).forEach(relation =>{
+            favs.push(relation.customerId);
+            this.favorites.push(this.customers.get(relation.customerId));
+        });
+        this.banned =[];
+        let ban : any[] =[];
+        data.relation.filter(rel => rel.relation == BANNED).forEach(relation =>{
+            ban.push(relation.customerId);
+            this.banned.push(this.customers.get(relation.customerId));
+        });
         this.jobForm.patchValue({lastName:data.lastName,
             firstName:data.firstName,
             middleInitial: data.middleInitial,
@@ -369,18 +419,22 @@ jobForm : FormGroup;
             status:data.status,
             comments : data.comments,
             commentText:"",
-            //favorites:"",
-            //banned:""        
+            myComments:data.myComments,
+            rate:data.rate,
+            favorites:favs,
+            banned:ban
         });
-        
     }
     
     getAllFacilities(){
        this.service.getAllCustomers().subscribe(customers => {
-            customers.forEach(customer => this.facilities.push({label:customer.lastName, value:customer.lastName}));
+            customers.forEach(customer => {
+                this.facilities.push({label:customer.lastName, value:customer.facilityName});
+                this.customers.set(customer.facilityName, customer.lastName);
+            });
+            
        });  
-         
+        
     }
-
     
 }

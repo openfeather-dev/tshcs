@@ -1,3 +1,5 @@
+import { FacilityRelation } from '../model/facility-relation';
+
 export class JobseekersData {
     lastName : string;
     firstName : string;
@@ -57,5 +59,9 @@ export class JobseekersData {
     medLicenseExpiry:string;
     status:string;
     comments:string;
+    myComments:string;
+    rate:number;
+    lastUpdatedBy:string;
+    relation:FacilityRelation[];
     
 }

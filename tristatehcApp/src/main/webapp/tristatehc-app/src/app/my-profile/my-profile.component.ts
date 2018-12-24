@@ -28,6 +28,7 @@ jobForm : FormGroup;
     states : SelectItem[];
     yearRange : string;   
     loggedInUserEmail : string;
+    loggedInUser : string;
     usaStates : State[];
     titles: SelectItem[] = [{label:"Select Title", value:""}];
     today : Date;
@@ -36,7 +37,10 @@ jobForm : FormGroup;
     statusColor : string;
     disable : boolean = false;
     comments: string = "";
-     
+    rate : number = 0;
+    myComments : string="";
+    relation : string[] =[];
+    
     constructor(private formBuilder: FormBuilder, private service : MyProfileService, private messageService: MessageService,private oktaAuth: OktaAuthService) { 
     }
     
@@ -111,6 +115,7 @@ jobForm : FormGroup;
             if(isAuthenticated){
                   this.oktaAuth.getUser().then(user => {
                     this.loggedInUserEmail  = user.preferred_username;
+                    this.loggedInUser = user.name;
                     this.jobForm.patchValue({email: this.loggedInUserEmail});
                     this.service.getApplicantData(this.loggedInUserEmail).subscribe(info =>{
                         if(info != null){
@@ -206,6 +211,10 @@ jobForm : FormGroup;
         jobApp.medLicenseExpiry= this.setDate(this.jobForm.getRawValue().medLicenseExpiry);
         jobApp.status = this.currentStatus;
         jobApp.comments = this.comments;
+        jobApp.rate = this.rate;
+        jobApp.myComments = this.myComments;
+        jobApp.lastUpdatedBy = this.loggedInUser;
+        jobApp.relation = this.relation;
         this.service.saveApplication(jobApp).subscribe(data => {
            this.blocked = false;
            this.messageService.add({severity:'success', summary:'Success', detail:'Your profile was successfully updated!!'});
@@ -292,6 +301,9 @@ jobForm : FormGroup;
     //Set form data that is retrieved from database
     setFormData(data : JobseekersData){
         this.comments = data.comments;
+        this.rate = data.rate;
+        this.myComments = data.myComments;
+        this.relation = data.relation;
         let idExpiry = new Date(data.idExpiry);
         let medLicenseExpiry = new Date(data.medLicenseExpiry);
         this.jobForm.setValue({lastName:data.lastName,

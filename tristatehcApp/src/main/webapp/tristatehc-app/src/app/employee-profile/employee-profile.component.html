@@ -661,7 +661,7 @@
 					</div>
 				</div>
 				
-				<div class="ui-g-4 ui-sm-12">
+				<div class="ui-g-3 ui-sm-12">
 					<div class="ui-g-4 ui-sm-5">
 						<label>Account Number: </label>
 					</div>
@@ -669,12 +669,20 @@
 						<input id="input" type="text" maxlength="30" size="20" pInputText formControlName="accountNumber" >
 					</div>
 				</div>
-				<div class="ui-g-4 ui-sm-12">
+				<div class="ui-g-3 ui-sm-12">
 					<div class="ui-g-4 ui-sm-5">
 						<label>Bank Routing Number: </label>
 					</div>
 					<div class="ui-g-8 ui-sm-7">
 						<input id="input" type="text" maxlength="30" size="20" pInputText formControlName="routingNumber">
+					</div>
+				</div>
+				<div class="ui-g-2 ui-sm-12">
+					<div class="ui-g-4 ui-sm-5">
+						<label>Rate: </label>
+					</div>
+					<div class="ui-g-8 ui-sm-7">
+						<input id="input" type="text"  size="20"  pInputText formControlName="rate" pKeyFilter="num">
 					</div>
 				</div>
 			</div>
@@ -684,25 +692,36 @@
 						<label>Favorites: </label>
 					</div>
 					<div class="ui-g-8 ui-sm-7">
-						<p-multiSelect [options]="facilities" formControlName="favorites"></p-multiSelect>
+						<p-multiSelect [options]="facilities" formControlName="favorites" #fav maxSelectedLabels="1"></p-multiSelect>
+						<div *ngFor="let favorite of favorites">{{favorite}}</div><br/>
 					</div>
+					
 				</div>
 				<div class="ui-g-4 ui-sm-12">
 					<div class="ui-g-4 ui-sm-5">
 						<label>Banned: </label>
 					</div>
 					<div class="ui-g-8 ui-sm-7">
-						<p-multiSelect [options]="facilities" formControlName="banned" ></p-multiSelect>
+						<p-multiSelect [options]="facilities" formControlName="banned" maxSelectedLabels="1" #ban></p-multiSelect>
+						<div *ngFor="let ban of banned">{{ban}}</div>
 					</div>
 				</div>
 			</div>
 			<div class="ui-g-12">
-				<div class="ui-g-12">
+				<div class="ui-g-6">
 					 <div class="ui-g-12 ui-sm-12">
 						<label>Comments</label>
 					 </div>
 					 <div class="ui-g-12 ui-sm-12">
 						<textarea class="textarea-style" rows="10" cols="100" pInputTextarea formControlName="comments"></textarea>
+					</div>
+				</div>
+				<div class="ui-g-6">
+					 <div class="ui-g-12 ui-sm-12">
+						<label>Notes</label>
+					 </div>
+					 <div class="ui-g-12 ui-sm-12">
+						<textarea class="textarea-style" rows="5" cols="100" pInputTextarea formControlName="myComments"></textarea>
 					</div>
 				</div>
 			</div>

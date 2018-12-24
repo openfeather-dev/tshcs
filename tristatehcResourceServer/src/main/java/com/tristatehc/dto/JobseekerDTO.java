@@ -1,5 +1,9 @@
 package com.tristatehc.dto;
 
+import java.util.List;
+
+import com.tristatehc.entity.FacilityRelation;
+
 public class JobseekerDTO {
 	
 	private String lastName ;
@@ -60,6 +64,10 @@ public class JobseekerDTO {
 	private String medLicenseExpiry;
 	private String status;
 	private String comments;
+	private String myComments;
+	private double rate;
+	private String lastUpdatedBy;
+	private List<FacilityRelation> relation;
 	
 	public String getLastName() {
 		return lastName;
@@ -410,28 +418,87 @@ public class JobseekerDTO {
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
+	public String getMyComments() {
+		return myComments;
+	}
+	public void setMyComments(String myComments) {
+		this.myComments = myComments;
+	}
+	public double getRate() {
+		return rate;
+	}
+	public void setRate(double rate) {
+		this.rate = rate;
+	}
+	public String getLastUpdatedBy() {
+		return lastUpdatedBy;
+	}
+	public void setLastUpdatedBy(String lastUpdatedBy) {
+		this.lastUpdatedBy = lastUpdatedBy;
+	}
+	public List<FacilityRelation> getRelation() {
+		return relation;
+	}
+	public void setRelation(List<FacilityRelation> relation) {
+		this.relation = relation;
+	}
 	@Override
 	public String toString() {
-		return "JobseekerDTO [lastName=" + lastName + ", firstName=" + firstName + ", middleInitial=" + middleInitial
-				+ ", address=" + address + ", city=" + city + ", state=" + state + ", zip=" + zip + ", homePhone="
-				+ homePhone + ", cellPhone=" + cellPhone + ", cellPhoneProvider=" + cellPhoneProvider + ", email="
-				+ email + ", ssn=" + ssn + ", adult=" + adult + ", emergencyContact=" + emergencyContact
-				+ ", emergencyPhone=" + emergencyPhone + ", positions=" + positions + ", unavailable=" + unavailable
-				+ ", highSchoolName=" + highSchoolName + ", highSchoolAddress=" + highSchoolAddress
-				+ ", highSchoolYears=" + highSchoolYears + ", highSchoolDegree=" + highSchoolDegree + ", collegeName="
-				+ collegeName + ", collegeAddress=" + collegeAddress + ", collegeYears=" + collegeYears
-				+ ", collegeDegree=" + collegeDegree + ", tradeName=" + tradeName + ", tradeAddress=" + tradeAddress
-				+ ", tradeYears=" + tradeYears + ", tradeDegree=" + tradeDegree + ", graduateName=" + graduateName
-				+ ", graduateAddress=" + graduateAddress + ", graduateYears=" + graduateYears + ", graduateDegree="
-				+ graduateDegree + ", refName1=" + refName1 + ", refPosition1=" + refPosition1 + ", ref1FacilityName="
-				+ ref1FacilityName + ", ref2FacilityName=" + ref2FacilityName + ", refAddress1=" + refAddress1
-				+ ", refPhone1=" + refPhone1 + ", refName2=" + refName2 + ", refPosition2=" + refPosition2
-				+ ", refAddress2=" + refAddress2 + ", refPhone2=" + refPhone2 + ", bankName=" + bankName
-				+ ", bankAddress=" + bankAddress + ", bankCity=" + bankCity + ", bankState=" + bankState + ", bankZip="
-				+ bankZip + ", accountType=" + accountType + ", accountNumber=" + accountNumber + ", routingNumber="
-				+ routingNumber + ", id=" + id + ", idExpiry=" + idExpiry + ", medLicenseNumber=" + medLicenseNumber
-				+ ", licenseState=" + licenseState + ", medLicenseExpiry=" + medLicenseExpiry + ", status=" + status
-				+ ", comments=" + comments + "]";
+		return "JobseekerDTO [" + (lastName != null ? "lastName=" + lastName + ", " : "")
+				+ (firstName != null ? "firstName=" + firstName + ", " : "")
+				+ (middleInitial != null ? "middleInitial=" + middleInitial + ", " : "")
+				+ (address != null ? "address=" + address + ", " : "") + (city != null ? "city=" + city + ", " : "")
+				+ (state != null ? "state=" + state + ", " : "") + (zip != null ? "zip=" + zip + ", " : "")
+				+ (homePhone != null ? "homePhone=" + homePhone + ", " : "")
+				+ (cellPhone != null ? "cellPhone=" + cellPhone + ", " : "")
+				+ (cellPhoneProvider != null ? "cellPhoneProvider=" + cellPhoneProvider + ", " : "")
+				+ (email != null ? "email=" + email + ", " : "") + (ssn != null ? "ssn=" + ssn + ", " : "")
+				+ (adult != null ? "adult=" + adult + ", " : "")
+				+ (emergencyContact != null ? "emergencyContact=" + emergencyContact + ", " : "")
+				+ (emergencyPhone != null ? "emergencyPhone=" + emergencyPhone + ", " : "")
+				+ (positions != null ? "positions=" + positions + ", " : "")
+				+ (unavailable != null ? "unavailable=" + unavailable + ", " : "")
+				+ (highSchoolName != null ? "highSchoolName=" + highSchoolName + ", " : "")
+				+ (highSchoolAddress != null ? "highSchoolAddress=" + highSchoolAddress + ", " : "")
+				+ "highSchoolYears=" + highSchoolYears + ", "
+				+ (highSchoolDegree != null ? "highSchoolDegree=" + highSchoolDegree + ", " : "")
+				+ (collegeName != null ? "collegeName=" + collegeName + ", " : "")
+				+ (collegeAddress != null ? "collegeAddress=" + collegeAddress + ", " : "") + "collegeYears="
+				+ collegeYears + ", " + (collegeDegree != null ? "collegeDegree=" + collegeDegree + ", " : "")
+				+ (tradeName != null ? "tradeName=" + tradeName + ", " : "")
+				+ (tradeAddress != null ? "tradeAddress=" + tradeAddress + ", " : "") + "tradeYears=" + tradeYears
+				+ ", " + (tradeDegree != null ? "tradeDegree=" + tradeDegree + ", " : "")
+				+ (graduateName != null ? "graduateName=" + graduateName + ", " : "")
+				+ (graduateAddress != null ? "graduateAddress=" + graduateAddress + ", " : "") + "graduateYears="
+				+ graduateYears + ", " + (graduateDegree != null ? "graduateDegree=" + graduateDegree + ", " : "")
+				+ (refName1 != null ? "refName1=" + refName1 + ", " : "")
+				+ (refPosition1 != null ? "refPosition1=" + refPosition1 + ", " : "")
+				+ (ref1FacilityName != null ? "ref1FacilityName=" + ref1FacilityName + ", " : "")
+				+ (ref2FacilityName != null ? "ref2FacilityName=" + ref2FacilityName + ", " : "")
+				+ (refAddress1 != null ? "refAddress1=" + refAddress1 + ", " : "")
+				+ (refPhone1 != null ? "refPhone1=" + refPhone1 + ", " : "")
+				+ (refName2 != null ? "refName2=" + refName2 + ", " : "")
+				+ (refPosition2 != null ? "refPosition2=" + refPosition2 + ", " : "")
+				+ (refAddress2 != null ? "refAddress2=" + refAddress2 + ", " : "")
+				+ (refPhone2 != null ? "refPhone2=" + refPhone2 + ", " : "")
+				+ (bankName != null ? "bankName=" + bankName + ", " : "")
+				+ (bankAddress != null ? "bankAddress=" + bankAddress + ", " : "")
+				+ (bankCity != null ? "bankCity=" + bankCity + ", " : "")
+				+ (bankState != null ? "bankState=" + bankState + ", " : "")
+				+ (bankZip != null ? "bankZip=" + bankZip + ", " : "")
+				+ (accountType != null ? "accountType=" + accountType + ", " : "")
+				+ (accountNumber != null ? "accountNumber=" + accountNumber + ", " : "")
+				+ (routingNumber != null ? "routingNumber=" + routingNumber + ", " : "")
+				+ (id != null ? "id=" + id + ", " : "") + (idExpiry != null ? "idExpiry=" + idExpiry + ", " : "")
+				+ (medLicenseNumber != null ? "medLicenseNumber=" + medLicenseNumber + ", " : "")
+				+ (licenseState != null ? "licenseState=" + licenseState + ", " : "")
+				+ (medLicenseExpiry != null ? "medLicenseExpiry=" + medLicenseExpiry + ", " : "")
+				+ (status != null ? "status=" + status + ", " : "")
+				+ (comments != null ? "comments=" + comments + ", " : "")
+				+ (myComments != null ? "myComments=" + myComments + ", " : "") + "rate=" + rate + ", "
+				+ (lastUpdatedBy != null ? "lastUpdatedBy=" + lastUpdatedBy + ", " : "")
+				+ (relation != null ? "relation=" + relation : "") + "]";
 	}
-		
+	
+				
 }
