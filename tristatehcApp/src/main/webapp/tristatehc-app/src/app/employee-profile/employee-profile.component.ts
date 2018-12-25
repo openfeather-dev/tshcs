@@ -346,8 +346,14 @@ export class EmployeeProfileComponent implements OnInit {
     
     //Set form data that is retrieved from database
     setFormData(data : JobseekersData){
-        let idExpiry = new Date(data.idExpiry);
-        let medLicenseExpiry = new Date(data.medLicenseExpiry);
+        let idExpiry: Date;
+        if(data.idExpiry !=  null){
+            idExpiry = new Date(data.idExpiry);
+        }
+        let medLicenseExpiry :Date;
+        if(data.medLicenseExpiry !=null){
+            medLicenseExpiry = new Date(data.medLicenseExpiry);
+        }
         this.favorites = [];
         let favs : any[] =[];
         data.relation.filter(rel => rel.relation == FAVORITE).forEach(relation =>{
