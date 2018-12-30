@@ -23,6 +23,8 @@ export class AssignShiftsComponent implements OnInit {
      availCols : any[] = [];
     names:any[];
     statuses:any[];
+    titles:SelectItem[];
+    shifts:SelectItem[];
     notifyNames:SelectItem[];
     userAvailabilities : AssignShift[] = [];
     
@@ -77,15 +79,17 @@ export class AssignShiftsComponent implements OnInit {
           ];
 
       this.names=[{label:'Kurian', value:"Kurian"},{label:"Sneha", value:"Sneha"}];
+      this.titles=[{label:'CNA', value:"CNA"},{label:"RN", value:"RN"}];
+      this.shifts=[{label:'7-3', value:"7-3"},{label:"5-11", value:"5-11"}];
       this.notifyNames=[{label:'Harinder', value:"Harinder"},{label:"Loyola", value:"Loyola"},{label:'Kurian', value:"Kurian"},{label:"Sneha", value:"Sneha"}];
       this.statuses=[{label:'Confirmed', value:"Confirmed"},{label:"Pending", value:"Pending"}];
        this.userAvailabilities=[{
          'shiftDate': new Date("12/29/2018"),  
         'id':'1212',
-        'title':'RN',
-        'shift':'7-3',
-        'name':"kurian",
-        'status':"<span class='label label-success'>confirmed</span>",
+        'title':['RN'],
+        'shift':['5-11'],
+        'name':["Kurian"],
+        'status':["Confirmed"],
          'timeIn':new Date("12/29/2018"),
         'timeOut':new Date("12/29/2018"),
         'breakTime':new Date("12/29/2018"),
@@ -96,10 +100,10 @@ export class AssignShiftsComponent implements OnInit {
            {
         'shiftDate':new Date("12/29/2018"), 
         'id':'12222',
-        'title':'LPN',
-        'shift':'7-3',
-        'name':"sneha",
-        'status':"<span class='label label-danger'>pending</span>",
+        'title':['CNA'],
+        'shift':['7-3'],
+        'name':["Sneha"],
+        'status':["Pending"],
         'timeIn':new Date("12/29/2018"),
         'timeOut':new Date("12/29/2018"),
         'breakTime':new Date("12/29/2018"),

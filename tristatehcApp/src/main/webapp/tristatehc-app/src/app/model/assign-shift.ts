@@ -2,11 +2,11 @@ import {SelectItem} from 'primeng/api';
 export class AssignShift{
     shiftDate: Date ;
     id:string;
-    title:string;
-    shift:string;
+    title:string[];
+    shift:string[];
     
-    name:string;
-    status:string;
+    name:string[];
+    status:string[];
     timeIn:Date;
     timeOut:Date;
     breakTime:Date;

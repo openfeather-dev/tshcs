@@ -58,8 +58,28 @@
 					<button   pButton type="button" *ngIf="col.field === 'action' "  class="ui-button-raised ui-button-rounded" label="Save" ></button>
 					<button   pButton type="button" *ngIf="col.field === 'action' "  class="ui-button-raised ui-button-rounded ui-button-danger" label="Remove" ></button>
 					<input type="text" *ngIf="col.field === 'specialNotes'" value="{{rowData[col.field]}}" pInputText/>
-					<div *ngIf="!(col.field=='timeIn' || col.field === 'name' || col.field=='timeOut' || col.field=='breakTime' || col.field === 'action' || col.field === 'specialNotes' || col.field === 'status' || col.field === 'shiftDate' ||col.field === 'notfiy')"  [innerHTML]="rowData[col.field]"></div>
+					<div *ngIf="!(col.field=='title' || col.field=='shift' || col.field=='timeIn' || col.field === 'name' || col.field=='timeOut' || col.field=='breakTime' || col.field === 'action' || col.field === 'specialNotes' || col.field === 'status' || col.field === 'shiftDate' ||col.field === 'notify')"  [innerHTML]="rowData[col.field]"></div>
 					<p-dropdown appendTo="body" *ngIf="col.field === 'name'"  [options]="names" [(ngModel)]="rowData[col.field]" filter="true" [style]="{'width':'15em'}">
+						    <ng-template let-item pTemplate="selectedItem">
+						        <span>{{item.label}}</span>
+						    </ng-template>
+						    <ng-template let-name pTemplate="item">
+						        <div>
+						            <div>{{name.label}}</div>
+						        </div>
+						    </ng-template>
+					</p-dropdown>
+					<p-dropdown appendTo="body" *ngIf="col.field === 'title'"  [options]="titles" [(ngModel)]="rowData[col.field]" filter="true" [style]="{'width':'15em'}">
+						    <ng-template let-item pTemplate="selectedItem">
+						        <span>{{item.label}}</span>
+						    </ng-template>
+						    <ng-template let-name pTemplate="item">
+						        <div>
+						            <div>{{name.label}}</div>
+						        </div>
+						    </ng-template>
+					</p-dropdown>
+					<p-dropdown appendTo="body" *ngIf="col.field === 'shift'"  [options]="shifts" [(ngModel)]="rowData[col.field]" filter="true" [style]="{'width':'15em'}">
 						    <ng-template let-item pTemplate="selectedItem">
 						        <span>{{item.label}}</span>
 						    </ng-template>
@@ -116,7 +136,16 @@
 		                <label for="title_id">Title</label>
 		            </div>
 		            <div class="ui-g-3">
-		            	<input id="title_id" type="text"  [(ngModel)]="assignedShift.title"  pInputText/>
+		            	<p-dropdown appendTo="body"  id="title_id" [options]="titles" [(ngModel)]="assignedShift.title" filter="true" [style]="{'width':'15em'}">
+						    <ng-template let-item pTemplate="selectedItem">
+						        <span>{{item.label}}</span>
+						    </ng-template>
+						    <ng-template let-name pTemplate="item">
+						        <div>
+						            <div>{{name.label}}</div>
+						        </div>
+						    </ng-template>
+						</p-dropdown>
 		            </div>
 		        </div>
 		        
@@ -125,7 +154,16 @@
 		                <label for="shift_id">Shift</label>
 		            </div>
 		            <div class="ui-g-3">
-		            	<input id="shift_id" type="text"  [(ngModel)]="assignedShift.shift"  pInputText/>
+		            	<p-dropdown appendTo="body"  id="shift_id" [options]="shifts" [(ngModel)]="assignedShift.shift" filter="true" [style]="{'width':'15em'}">
+						    <ng-template let-item pTemplate="selectedItem">
+						        <span>{{item.label}}</span>
+						    </ng-template>
+						    <ng-template let-name pTemplate="item">
+						        <div>
+						            <div>{{name.label}}</div>
+						        </div>
+						    </ng-template>
+						</p-dropdown>
 		            </div>
 		        </div>
 		        
