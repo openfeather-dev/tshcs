@@ -36,7 +36,7 @@
 	<p-toast position="top-center"></p-toast>
 	<div class="ui-g-12">
 		<p-table #availDt [columns]="availCols" [value]="userAvailabilities"
-			[paginator]="true" [rows]="10" [autoLayout]="true"> 
+			[paginator]="true" [rows]="10" [autoLayout]="true" dataKey="specialNotes"> 
 			<ng-template pTemplate="caption">
 			<div class="right">
 				<input type="text" pInputText size="20" placeholder="Search"
@@ -46,18 +46,31 @@
 			</ng-template> 
 			<ng-template pTemplate="header" let-columns>
 				<tr>
+					 <th style="width: 3em"></th>
 					<th *ngFor="let col of columns" class="center">{{col.header}}</th>
 				</tr>
 	
 			</ng-template> 
-			<ng-template pTemplate="body" let-rowData let-columns="columns">
-				<tr [pSelectableRow]="rowData">
-					<td *ngFor="let col of columns"  class="center"> 
+			<ng-template pTemplate="body" let-rowData let-columns="columns" let-expanded="expanded" >
+				<tr   >
+					<td >
+							<a  [pRowToggler]="rowData" >
+				                    <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+				            </a>
+			        </td>
+				
+					<td *ngFor="let col of columns"  class="center">
+					
+		               
+		             
 					<p-calendar appendTo="body" *ngIf="col.field=='timeIn' || col.field=='timeOut' || col.field=='breakTime'" [timeOnly]="true" hourFormat="24" [(ngModel)]="rowData[col.field]" ></p-calendar>
 					<p-calendar appendTo="body" *ngIf="col.field=='shiftDate'" [(ngModel)]="rowData[col.field]" ></p-calendar>
-					<button   pButton type="button" *ngIf="col.field === 'action' "  class="ui-button-raised ui-button-rounded" label="Save" ></button>
-					<button   pButton type="button" *ngIf="col.field === 'action' "  class="ui-button-raised ui-button-rounded ui-button-danger" label="Remove" ></button>
-					<input type="text" *ngIf="col.field === 'specialNotes'" value="{{rowData[col.field]}}" pInputText/>
+					<div class="ui-g-12" *ngIf="col.field === 'action' ">
+						<button class="ui-g-4"  pButton type="button" *ngIf="col.field === 'action' "  class="ui-button-raised ui-button-rounded" label="Save" ></button>
+						<button class="ui-g-8"  pButton type="button" *ngIf="col.field === 'action' "  class="ui-button-raised ui-button-rounded ui-button-danger" label="Remove" ></button>
+					</div>
+					
+					<textarea *ngIf="col.field === 'specialNotes'" pInputTextarea id="specialNotes_id" [(ngModel)]="rowData[col.field]"></textarea>
 					<div *ngIf="!(col.field=='title' || col.field=='shift' || col.field=='timeIn' || col.field === 'name' || col.field=='timeOut' || col.field=='breakTime' || col.field === 'action' || col.field === 'specialNotes' || col.field === 'status' || col.field === 'shiftDate' ||col.field === 'notify')"  [innerHTML]="rowData[col.field]"></div>
 					<p-dropdown appendTo="body" *ngIf="col.field === 'name'"  [options]="names" [(ngModel)]="rowData[col.field]" filter="true" [style]="{'width':'15em'}">
 						    <ng-template let-item pTemplate="selectedItem">
@@ -106,6 +119,15 @@
 				</tr>
 				 
 			</ng-template>
+			 <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+		        <tr >
+		             <td [attr.colspan]="columns.length + 1">
+		            	<textarea rows="10" cols="100" pInputTextarea  [(ngModel)]="rowData.specialNotes"></textarea>
+		            </td>	
+		                
+		           
+		        </tr>
+		    </ng-template>
 			 
 		</p-table>
 		<br>
@@ -241,7 +263,7 @@
 		                <label for="specialNotes_id">Special Notes</label>
 		            </div>
 		            <div class="ui-g-3">
-		            	<input id="specialNotes_id" type="text"  [(ngModel)]="assignedShift.specialNotes"  pInputText/>
+		            	<textarea rows="10" cols="100" pInputTextarea id="specialNotes_id" [(ngModel)]="assignedShift.specialNotes"></textarea>
 		            </div>
 		        </div>
 		        
