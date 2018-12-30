@@ -15,8 +15,7 @@ import {DialogModule} from 'primeng/dialog';
   selector: 'app-assign-shifts',
   templateUrl: './assign-shifts.component.html',
   styleUrls: ['./assign-shifts.component.css'],
-  providers:[MessageService],
-  encapsulation: ViewEncapsulation.None
+  providers:[MessageService]
 })
 export class AssignShiftsComponent implements OnInit {
 
