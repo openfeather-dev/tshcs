@@ -79,7 +79,8 @@
 						        </div>
 						    </ng-template>
 					</p-dropdown>
-					<p-multiSelect appendTo="body" *ngIf="col.field === 'notfiy'"  [options]="notifyNames" [(ngModel)]="rowData[col.field]" [style]="{'width':'15em'}">
+					<p-multiSelect appendTo="body" *ngIf="col.field === 'notify'"  [options]="notifyNames" [(ngModel)]="rowData[col.field]" [style]="{'width':'15em'}">
+						    
 					</p-multiSelect>
 					</td>
 				</tr>
@@ -87,7 +88,8 @@
 			</ng-template>
 			 
 		</p-table>
-		<div style="text-align:left">
+		<br>
+		<div style="float:left">
 		      <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
 		</div>
 		
@@ -192,6 +194,7 @@
 		            </div>
 		            <div class="ui-g-3">
 		            	<p-multiSelect appendTo="body" id="notify_id" [options]="notifyNames" [(ngModel)]="assignedShift.notify"  [style]="{'width':'15em'}">
+						    
 					</p-multiSelect>
 		            </div>
 		        </div>

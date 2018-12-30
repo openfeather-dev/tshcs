@@ -11,7 +11,7 @@ export class AssignShift{
     timeOut:Date;
     breakTime:Date;
     
-    notfiy:string[];
+    notify:string[];
     specialNotes:string;
     action:string;
     

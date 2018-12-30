@@ -10,6 +10,7 @@ import {DialogModule} from 'primeng/dialog';
 
 
 
+
 @Component({
   selector: 'app-assign-shifts',
   templateUrl: './assign-shifts.component.html',
@@ -67,7 +68,7 @@ export class AssignShiftsComponent implements OnInit {
                { field: 'timeIn', header: 'Time In' },
                 { field: 'timeOut', header: 'Time Out' },
                  { field: 'breakTime', header: 'Break' },
-                  { field: 'notfiy', header: 'Notfiy' },
+                  { field: 'notify', header: 'Notify' },
                   { field: 'specialNotes', header: 'Special Notes' },
                   { field: 'action', header: 'Action' }
             
@@ -88,7 +89,7 @@ export class AssignShiftsComponent implements OnInit {
          'timeIn':new Date("12/29/2018"),
         'timeOut':new Date("12/29/2018"),
         'breakTime':new Date("12/29/2018"),
-        'notfiy':['Kurian'],
+        'notify':['Kurian'],
         'specialNotes':'I am not available',
         'action':'save'
         },
@@ -102,7 +103,7 @@ export class AssignShiftsComponent implements OnInit {
         'timeIn':new Date("12/29/2018"),
         'timeOut':new Date("12/29/2018"),
         'breakTime':new Date("12/29/2018"),
-        'notfiy':['Sneha'],
+        'notify':['Sneha'],
         'specialNotes':'I am okk to go',
         'action':'remove'
         }];
@@ -137,10 +138,9 @@ export class AssignShiftsComponent implements OnInit {
         addedAssignShift.timeIn = this.assignedShift.timeIn;
         addedAssignShift.timeOut = this.assignedShift.timeOut;
         addedAssignShift.breakTime = this.assignedShift.breakTime;
-        addedAssignShift.notfiy = this.assignedShift.notify;
+        addedAssignShift.notify = this.assignedShift.notify;
         addedAssignShift.specialNotes = this.assignedShift.specialNotes;
         addedAssignShift.action = this.assignedShift.action;
-      
     
         this.userAvailabilities.push(addedAssignShift);
         this.displayDialog=false;
