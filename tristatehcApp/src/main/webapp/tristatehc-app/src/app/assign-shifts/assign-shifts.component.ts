@@ -5,9 +5,7 @@ import { AssignShift } from '../model/assign-shift';
 import {SelectItem} from 'primeng/api';
 import { OktaAuthService } from '@okta/okta-angular';
 import {DialogModule} from 'primeng/dialog';
-
-
-
+import { CustomerOptionsService } from '../customer-options/customer-options.service';
 
 
 
@@ -55,7 +53,7 @@ export class AssignShiftsComponent implements OnInit {
     country: any;
 
     filteredCountriesSingle: any[];
-  constructor(private messageService: MessageService,private oktaAuth: OktaAuthService) { }
+  constructor(private messageService: MessageService,private oktaAuth: OktaAuthService,private parentService : CustomerOptionsService) { }
 
   ngOnInit() {
       
@@ -125,6 +123,13 @@ export class AssignShiftsComponent implements OnInit {
      clear(){
          
      }
+    
+    /**
+     * Method to inform parent component to enable its buttons
+     */
+    cancel(){
+        this.parentService.enableButton(true);
+    }
     
     showDialogToAdd(){
         this.displayDialog=true;

@@ -132,8 +132,14 @@
 		</p-table>
 		<br>
 		<div style="float:left">
-		      <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+			<div class="ui-g-6">
+		      <button type="button" pButton icon="pi pi-plus" (click)="showDialogToAdd()" label="Add"></button>
+		     </div>
+		     <div class="ui-g-5">
+		      <button pButton type="button" label="Cancel" [routerLink]="['../']" (click)="cancel()"></button>
+			</div>
 		</div>
+		
 		
 		<p-dialog  header="Shift Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'} ">
 		    <div class="ui-g">
@@ -271,7 +277,7 @@
 		    </div>
 		    <p-footer>
 		        <div class="ui-dialog-buttonpane ui-helper-clearfix">
-		            <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
+		            <button type="button" pButton icon="pi pi-check" (click)="save()" label="Save"></button>
 		        </div>
 		    </p-footer>
 		</p-dialog>
