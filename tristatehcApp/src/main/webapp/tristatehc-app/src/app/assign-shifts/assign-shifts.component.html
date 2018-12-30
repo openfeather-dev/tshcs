@@ -58,7 +58,7 @@
 					<button   pButton type="button" *ngIf="col.field === 'action' "  class="ui-button-raised ui-button-rounded" label="Save" ></button>
 					<button   pButton type="button" *ngIf="col.field === 'action' "  class="ui-button-raised ui-button-rounded ui-button-danger" label="Remove" ></button>
 					<input type="text" *ngIf="col.field === 'specialNotes'" value="{{rowData[col.field]}}" pInputText/>
-					<div *ngIf="!(col.field=='timeIn' || col.field === 'name' || col.field=='timeOut' || col.field=='breakTime' || col.field === 'action' || col.field === 'specialNotes' || col.field === 'status' || col.field === 'shiftDate' )"  [innerHTML]="rowData[col.field]"></div>
+					<div *ngIf="!(col.field=='timeIn' || col.field === 'name' || col.field=='timeOut' || col.field=='breakTime' || col.field === 'action' || col.field === 'specialNotes' || col.field === 'status' || col.field === 'shiftDate' ||col.field === 'notfiy')"  [innerHTML]="rowData[col.field]"></div>
 					<p-dropdown appendTo="body" *ngIf="col.field === 'name'"  [options]="names" [(ngModel)]="rowData[col.field]" filter="true" [style]="{'width':'15em'}">
 						    <ng-template let-item pTemplate="selectedItem">
 						        <span>{{item.label}}</span>
@@ -79,6 +79,8 @@
 						        </div>
 						    </ng-template>
 					</p-dropdown>
+					<p-multiSelect appendTo="body" *ngIf="col.field === 'notfiy'"  [options]="notifyNames" [(ngModel)]="rowData[col.field]" [style]="{'width':'15em'}">
+					</p-multiSelect>
 					</td>
 				</tr>
 				 
@@ -189,7 +191,8 @@
 		                <label for="notify_id">Notify</label>
 		            </div>
 		            <div class="ui-g-3">
-		            	<input id="notify_id" type="text"  [(ngModel)]="assignedShift.notify"  pInputText/>
+		            	<p-multiSelect appendTo="body" id="notify_id" [options]="notifyNames" [(ngModel)]="assignedShift.notify"  [style]="{'width':'15em'}">
+					</p-multiSelect>
 		            </div>
 		        </div>
 		        <div class="ui-g-12">

@@ -1,3 +1,4 @@
+import {SelectItem} from 'primeng/api';
 export class AssignShift{
     shiftDate: Date ;
     id:string;
@@ -10,7 +11,7 @@ export class AssignShift{
     timeOut:Date;
     breakTime:Date;
     
-    notfiy:string;
+    notfiy:string[];
     specialNotes:string;
     action:string;
     

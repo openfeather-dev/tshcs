@@ -27,6 +27,7 @@ import { EmployeeProfileComponent } from '../employee-profile/employee-profile.c
 import { AssignShiftsComponent } from '../assign-shifts/assign-shifts.component';
 import {AccordionModule} from 'primeng/accordion';
 import {DialogModule} from 'primeng/dialog';
+import {MultiSelectModule} from 'primeng/multiselect';
 
 
 
@@ -60,6 +61,7 @@ const enterAvailabilityRoutes: Routes = [{path: 'admin', component: EnterAvailab
     KeyFilterModule,
     AccordionModule,
     DialogModule,
+    MultiSelectModule,
     RouterModule.forChild(enterAvailabilityRoutes)
   ],
   exports: [RouterModule ],

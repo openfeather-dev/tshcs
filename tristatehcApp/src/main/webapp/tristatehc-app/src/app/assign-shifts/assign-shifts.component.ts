@@ -22,6 +22,7 @@ export class AssignShiftsComponent implements OnInit {
      availCols : any[] = [];
     names:any[];
     statuses:any[];
+    notifyNames:SelectItem[];
     userAvailabilities : AssignShift[] = [];
     
     assignedShift:AssignShift = new AssignShift();
@@ -75,6 +76,7 @@ export class AssignShiftsComponent implements OnInit {
           ];
 
       this.names=[{label:'Kurian', value:"Kurian"},{label:"Sneha", value:"Sneha"}];
+      this.notifyNames=[{label:'Harinder', value:"Harinder"},{label:"Loyola", value:"Loyola"},{label:'Kurian', value:"Kurian"},{label:"Sneha", value:"Sneha"}];
       this.statuses=[{label:'Confirmed', value:"Confirmed"},{label:"Pending", value:"Pending"}];
        this.userAvailabilities=[{
          'shiftDate': new Date("12/29/2018"),  
@@ -86,7 +88,7 @@ export class AssignShiftsComponent implements OnInit {
          'timeIn':new Date("12/29/2018"),
         'timeOut':new Date("12/29/2018"),
         'breakTime':new Date("12/29/2018"),
-        'notfiy':'notified',
+        'notfiy':['Kurian'],
         'specialNotes':'I am not available',
         'action':'save'
         },
@@ -100,7 +102,7 @@ export class AssignShiftsComponent implements OnInit {
         'timeIn':new Date("12/29/2018"),
         'timeOut':new Date("12/29/2018"),
         'breakTime':new Date("12/29/2018"),
-        'notfiy':'notified',
+        'notfiy':['Sneha'],
         'specialNotes':'I am okk to go',
         'action':'remove'
         }];
@@ -135,7 +137,7 @@ export class AssignShiftsComponent implements OnInit {
         addedAssignShift.timeIn = this.assignedShift.timeIn;
         addedAssignShift.timeOut = this.assignedShift.timeOut;
         addedAssignShift.breakTime = this.assignedShift.breakTime;
-        addedAssignShift.notfiy = this.assignedShift.notfiy;
+        addedAssignShift.notfiy = this.assignedShift.notify;
         addedAssignShift.specialNotes = this.assignedShift.specialNotes;
         addedAssignShift.action = this.assignedShift.action;
       
