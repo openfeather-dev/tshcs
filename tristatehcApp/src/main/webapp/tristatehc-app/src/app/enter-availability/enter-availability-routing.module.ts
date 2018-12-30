@@ -26,6 +26,9 @@ import {KeyFilterModule} from 'primeng/keyfilter';
 import { EmployeeProfileComponent } from '../employee-profile/employee-profile.component';
 import { AssignShiftsComponent } from '../assign-shifts/assign-shifts.component';
 import {AccordionModule} from 'primeng/accordion';
+import {DialogModule} from 'primeng/dialog';
+
+
 
 const enterAvailabilityRoutes: Routes = [{path: 'admin', component: EnterAvailabilityComponent, canActivate: [OktaAuthGuard] , 
                                             children: [{path:'employee/:email', component: EmployeeAvailabilityComponent, canActivate: [ OktaAuthGuard]},
@@ -56,6 +59,7 @@ const enterAvailabilityRoutes: Routes = [{path: 'admin', component: EnterAvailab
     ToastModule,
     KeyFilterModule,
     AccordionModule,
+    DialogModule,
     RouterModule.forChild(enterAvailabilityRoutes)
   ],
   exports: [RouterModule ],

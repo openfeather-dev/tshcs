@@ -1,9 +1,13 @@
 import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 import {MessageService} from 'primeng/api';
 import { environment } from '../../environments/environment';
-import { UserAvailability } from '../model/user-availability';
+import { AssignShift } from '../model/assign-shift';
 import {SelectItem} from 'primeng/api';
 import { OktaAuthService } from '@okta/okta-angular';
+import {DialogModule} from 'primeng/dialog';
+
+
+
 
 
 @Component({
@@ -17,7 +21,10 @@ export class AssignShiftsComponent implements OnInit {
 
      availCols : any[] = [];
     names:any[];
-    userAvailabilities : any[] = [];
+    statuses:any[];
+    userAvailabilities : AssignShift[] = [];
+    
+    assignedShift:AssignShift = new AssignShift();
     blocked : boolean;
     showTable : boolean;
     maxRadius : number;
@@ -40,6 +47,7 @@ export class AssignShiftsComponent implements OnInit {
     shiftDateTo : Date;
     msgs: string = ""; //city message
     loggedInUserEmail : string ="";
+    displayDialog :boolean =false;
     
     country: any;
 
@@ -49,6 +57,7 @@ export class AssignShiftsComponent implements OnInit {
   ngOnInit() {
       
       this.availCols=[
+       { field: 'shiftDate', header: 'Shift Date' },
      { field: 'id', header: 'Id' },
             { field: 'title', header: 'Title' },
              { field: 'shift', header: 'Shift' },
@@ -56,7 +65,7 @@ export class AssignShiftsComponent implements OnInit {
                { field: 'status', header: 'Status' },
                { field: 'timeIn', header: 'Time In' },
                 { field: 'timeOut', header: 'Time Out' },
-                 { field: 'break', header: 'Break' },
+                 { field: 'breakTime', header: 'Break' },
                   { field: 'notfiy', header: 'Notfiy' },
                   { field: 'specialNotes', header: 'Special Notes' },
                   { field: 'action', header: 'Action' }
@@ -66,28 +75,31 @@ export class AssignShiftsComponent implements OnInit {
           ];
 
       this.names=[{label:'Kurian', value:"Kurian"},{label:"Sneha", value:"Sneha"}];
+      this.statuses=[{label:'Confirmed', value:"Confirmed"},{label:"Pending", value:"Pending"}];
        this.userAvailabilities=[{
+         'shiftDate': new Date("12/29/2018"),  
         'id':'1212',
         'title':'RN',
         'shift':'7-3',
         'name':"kurian",
         'status':"<span class='label label-success'>confirmed</span>",
-        'timeIn':'asdasd',
-        'timeOut':'asdasd',
-        'break':'asdasd',
+         'timeIn':new Date("12/29/2018"),
+        'timeOut':new Date("12/29/2018"),
+        'breakTime':new Date("12/29/2018"),
         'notfiy':'notified',
         'specialNotes':'I am not available',
         'action':'save'
         },
            {
+        'shiftDate':new Date("12/29/2018"), 
         'id':'12222',
         'title':'LPN',
         'shift':'7-3',
         'name':"sneha",
         'status':"<span class='label label-danger'>pending</span>",
-        'timeIn':'12:23',
-        'timeOut':'asdasd',
-        'break':'asdasd',
+        'timeIn':new Date("12/29/2018"),
+        'timeOut':new Date("12/29/2018"),
+        'breakTime':new Date("12/29/2018"),
         'notfiy':'notified',
         'specialNotes':'I am okk to go',
         'action':'remove'
@@ -107,5 +119,30 @@ export class AssignShiftsComponent implements OnInit {
      clear(){
          
      }
+    
+    showDialogToAdd(){
+        this.displayDialog=true;
+    }
+    save(){
+        let  addedAssignShift:AssignShift = new AssignShift();
+         addedAssignShift.shiftDate= this.assignedShift.shiftDate;
+        addedAssignShift.id = this.assignedShift.id;
+        addedAssignShift.title = this.assignedShift.title;
+        
+        addedAssignShift.shift = this.assignedShift.shift;
+        addedAssignShift.name = this.assignedShift.name;
+        addedAssignShift.status = this.assignedShift.status;
+        addedAssignShift.timeIn = this.assignedShift.timeIn;
+        addedAssignShift.timeOut = this.assignedShift.timeOut;
+        addedAssignShift.breakTime = this.assignedShift.breakTime;
+        addedAssignShift.notfiy = this.assignedShift.notfiy;
+        addedAssignShift.specialNotes = this.assignedShift.specialNotes;
+        addedAssignShift.action = this.assignedShift.action;
+      
+    
+        this.userAvailabilities.push(addedAssignShift);
+        this.displayDialog=false;
+        
+    }
 
 }
