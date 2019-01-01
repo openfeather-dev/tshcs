@@ -55,7 +55,13 @@ public class JobseekerServiceImpl implements JobseekerService {
 		List<Jobseeker> employees = repository.findAllByOrderByFirstNameAsc();
 		List<JobseekerDTO> employeesDto = new ArrayList<>();
 		if(!employees.isEmpty()) {
-			employeesDto = employees.stream().map(emp -> UserMapper.INSTANCE.jobseekersToJobseekersDto(emp)).collect(Collectors.toList());
+			employeesDto = employees.stream().map(emp -> {
+				JobseekerDTO jobseekerdto = new JobseekerDTO();
+				jobseekerdto.setEmail(emp.getEmail());
+				jobseekerdto.setFirstName(emp.getFirstName());
+				jobseekerdto.setLastName(emp.getLastName());
+				return jobseekerdto;
+			}).collect(Collectors.toList());
 		}
 		return employeesDto;
 		
