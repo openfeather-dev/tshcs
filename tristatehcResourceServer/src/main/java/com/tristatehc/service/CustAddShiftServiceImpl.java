@@ -26,6 +26,7 @@ public class CustAddShiftServiceImpl implements CustAddShiftService {
 	
 	@Override
 	public Map<String, String> getShifts(String date,String customerId) {
+		logger.info("Date :"+date+" , Customer Id :"+customerId);
 		List<ShiftCountByCustomer> shifts =  shiftCountByCustomerRepository.getCustomerShifts(customerId,date,0,70);
 		
 		Map<String,String> shiftsMap = new HashMap<>();
