@@ -1,53 +1,24 @@
 <p-progressBar *ngIf="blocked" mode="indeterminate"></p-progressBar>
 <p-blockUI [blocked]="blocked" ></p-blockUI>
+<p-toast class="toast-style" position="top-center" ></p-toast>
 <div class="ui-g-12 dropdown" align="left">
 	<div class="ui-g-1 ui-sm-4" >
 		<label>Select Title  </label>
 	</div>
 	<div class="ui-g-6 ui-sm-6">
-		<p-dropdown [options]="employeeType" [(ngModel)]="selectedEmployee" (onChange)="enableSave()"></p-dropdown>
+		<p-dropdown [options]="employeeType" [(ngModel)]="selectedEmployee" (onChange)="enableSave()" [disabled]="disableTitleDropdown"></p-dropdown>
 	</div>
 </div>
-
-<app-calendar-header
-  [(view)]="view"
-  [(viewDate)]="viewDate">
-</app-calendar-header>
-<ng-template #customCellTemplate let-day="day" let-locale="locale">
-<div class="cal-cell-top">
-	<div class="ui-g-12">
-		<span class="cal-day-number cal-day-style">{{day.date | date : 'E'}}<br>{{ day.date |
-			calendarDate:'monthViewDayNumber':locale }}</span>
-	</div>
-	<!-- <div class="ui-g-12" *ngFor="let shift of configuredShifts">
-		<input type="text" pInputText size="1" maxlength="2" style="margin-right: 5%" /> 
-		<label><small>{{shift.shiftTime}}</small></label>
-		
-	</div> -->
-	
-	
-				<div *ngFor="let confShift of configuredShifts">
-			
-				
-				<label><small>{{confShift.shiftTime}}</small></label>
-				<input type="text" id="{{confShift.shiftTime}}" pInputText size="1" maxlength="2" style="margin-right: 5%" [(ngModel)]="employeeCount"/>
-				
-				
-					<div class="ui-g-12" *ngFor="let shift of shifts">
-						<input *ngIf="shift[(day.date | date: 'dd/MM/yyyy').toString()]; else elseBlock" type="text" size="3" [ngModel]="shift[(day.date | date: 'dd/MM/yyyy').toString()][confShift.shiftTime]"  pInputText>
-					</div>
-				
-				</div>
-	 
-</div>
-
-</ng-template>
 
  <ng-template
       #weekTemplate
       let-days="days"
       let-locale="locale"  let-dayHeaderClicked="dayHeaderClicked"
       let-eventDropped="eventDropped">
+      <app-calendar-header
+  		[(view)]="view"
+  		[(viewDate)]="viewDate">
+		</app-calendar-header>
       
       <div class="cal-day-headers ui-g-12" >
         <div
@@ -92,16 +63,16 @@
 						<label ><small>{{confShift.shiftTime}}</small></label>
 					</div>
 					<div  class="ui-g-3">
-						<input #reqDiv type="text" id="{{day.date | date: 'MM/dd/yyyy'+''+confShift.shiftTime}}" pInputText size="1" maxlength="2" style="margin-right: 5%" [ngModel]="shifts.get(selectedEmployee+''+reqDiv.id+'required')" pKeyFilter="num"/>
-						<input type="text" id="{{day.date | date: 'MM/dd/yyyy'+''+confShift.shiftTime}}" pInputText size="1" maxlength="2" style="margin-right: 5%" [ngModel]="shifts.get(selectedEmployee+''+reqDiv.id+'assigned')" disabled="true"/>
-						<input type="text" id="{{day.date | date: 'MM/dd/yyyy'+''+confShift.shiftTime}}" pInputText size="1" maxlength="2" style="margin-right: 5%" [ngModel]="shifts.get(selectedEmployee+''+reqDiv.id+'unassigned')" disabled="true"/>
+						<input #reqDiv type="text" id="{{day.date | date: 'MM/dd/yyyy'+'_'+confShift.shiftTime}}" pInputText size="1" maxlength="2" style="margin-right: 5%" [ngModel]="shifts.get(selectedEmployee+'_'+reqDiv.id+'_'+'required')" (ngModelChange)="shifts.set(selectedEmployee+'_'+reqDiv.id+'_'+'required',reqDiv.value)" pKeyFilter="num"/>
+						<input type="text" id="{{day.date | date: 'MM/dd/yyyy'+'_'+confShift.shiftTime}}" pInputText size="1" maxlength="2" style="margin-right: 5%" [ngModel]="shifts.get(selectedEmployee+'_'+reqDiv.id+'_'+'assigned')" disabled="true"/>
+						<input type="text" id="{{day.date | date: 'MM/dd/yyyy'+'_'+confShift.shiftTime}}" pInputText size="1" maxlength="2" style="margin-right: 5%" [ngModel]="shifts.get(selectedEmployee+'_'+reqDiv.id+'_'+'unassigned')" disabled="true"/>
 					</div>
 				 </div>
 				</div>
 				<div class="ui-g-3 ui-sm-12" style="margin-top: 7%">
 					<div>
 						<div>
-						<textarea [rows]="6" [cols]="50" maxlength="200" pInputTextarea style="resize: none;"></textarea>
+						<textarea id="{{day.date | date: 'MM/dd/yyyy'}}" [rows]="6" [cols]="50" maxlength="200" pInputTextarea style="resize: none;" [ngModel]="comments.get(selectedEmployee+'_'+comnts.id)" (ngModelChange)="comments.set(selectedEmployee+'_'+comnts.id,comnts.value)" #comnts></textarea>
 						</div>
 					</div>
 				</div> 
@@ -118,12 +89,11 @@
 	</mwl-calendar-month-view>
 	<mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate"
 		[events]="events" [headerTemplate]="weekTemplate"> </mwl-calendar-week-view>
-	<mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate"
-		[events]="events"> </mwl-calendar-day-view>
+	
 </div>
 <br>
 <div class="ui-g-12 ui-sm-12 ui-md-12" align="center">
-	<button pButton type="button" label="Save" [routerLink]="['../']" [disabled]="disabled" (click)="onSave()"></button>
+	<button pButton type="button" label="Save" [disabled]="disabled" (click)="onSave()"></button>
 	<button pButton type="button" label="Cancel" [routerLink]="['../../../']"
 		(click)="cancel()"></button>
 </div>

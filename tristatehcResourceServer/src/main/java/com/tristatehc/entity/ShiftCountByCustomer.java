@@ -20,8 +20,21 @@ import javax.persistence.Table;
                             	 @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_start_dt", type = String.class),
                             	 @StoredProcedureParameter(mode = ParameterMode.IN, name = "start_indx", type = Integer.class),
                             	 @StoredProcedureParameter(mode = ParameterMode.IN, name = "end_indx", type = Integer.class)
-                              })
+                              }),
+   @NamedStoredProcedureQuery(name = "saveCustomerShifts", 
+   							procedureName = "proc_shift_count_by_cust_insert",
+						    parameters = {
+						 	 @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_user_email", type = String.class),
+						 	 @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_cust", type = String.class),
+						 	 @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_total_count", type = Integer.class),
+						 	 @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_assig_count", type = Integer.class),
+						 	 @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_unassg_count", type = Integer.class),
+						 	 @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_shift_title", type = String.class),
+						 	 @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_shift_dt", type = String.class),
+						 	 @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_shift_tm", type = String.class),
+						   })
 })
+
 public class ShiftCountByCustomer {
 
 	@Column(name = "total")

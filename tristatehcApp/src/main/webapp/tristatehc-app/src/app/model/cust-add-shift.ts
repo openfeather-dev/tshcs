@@ -1,9 +1,8 @@
 export class CustAddShift{
-    employeeCount:number;
+    adminEmail:string;
+    customerId:string;
     assignedCount:number;
     unassignedCount:number;
-    comment : string;
-    date: string;
-    shiftTime:string;
-    title:string;
+    comment : any;
+    shifts : any;
 }
