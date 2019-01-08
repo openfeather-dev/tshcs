@@ -23,6 +23,40 @@
 				</div>
 				
 			</div>
+			<div class="ui-g-12 ">
+				<div class="ui-g-12 ui-sm-12">
+					
+					<div class="ui-g-2 ui-sm-4">
+							<p-checkbox name="future1" value="future1" label="future1" [(ngModel)]="selectedShift7To3" ></p-checkbox>
+					</div>
+					
+					<div class="ui-g-2 ui-sm-4">
+							<p-checkbox name="future2" value="future2" label="future2" [(ngModel)]="selectedShift7To3" ></p-checkbox>
+					</div>
+					
+					<div class="ui-g-2 ui-sm-4">
+							<p-checkbox name="future3" value="future3" label="future3" [(ngModel)]="selectedShift7To3" ></p-checkbox>
+					</div>
+					
+					
+					<div class="ui-g-2 ui-sm-4">
+							<p-checkbox name="future4" value="future4" label="future4" [(ngModel)]="selectedShift7To3" ></p-checkbox>
+					</div>
+				</div>
+				
+			</div>
+			<div class="ui-g-12 ">
+				<div class="ui-g-12 ui-sm-12">
+					
+					<div class="ui-g-2 ui-sm-4">
+						<p-radioButton name="future5" value="future5" label="future5" [(ngModel)]="futureRadioButton" ></p-radioButton>
+					</div>
+					<div class="ui-g-2 ui-sm-4">
+						<p-radioButton name="future6" value="future6" label="future6" [(ngModel)]="futureRadioButton" ></p-radioButton>
+					</div>
+				</div>
+				
+			</div>
 			<div class="ui-g-12" align="center">
 				<button pButton type="submit " label="Search" (click)="search()"></button>
 			</div>
@@ -72,7 +106,7 @@
 					
 					<textarea *ngIf="col.field === 'specialNotes'" pInputTextarea id="specialNotes_id" [(ngModel)]="rowData[col.field]"></textarea>
 					<div *ngIf="!(col.field=='title' || col.field=='shift' || col.field=='timeIn' || col.field === 'name' || col.field=='timeOut' || col.field=='breakTime' || col.field === 'action' || col.field === 'specialNotes' || col.field === 'status' || col.field === 'shiftDate' ||col.field === 'notify')"  [innerHTML]="rowData[col.field]"></div>
-					<p-dropdown appendTo="body" *ngIf="col.field === 'name'"  [options]="names" [(ngModel)]="rowData[col.field]" filter="true" [style]="{'width':'15em'}">
+					<p-dropdown appendTo="body" *ngIf="col.field === 'name'" (onChange)="nameChanged($event)" [options]="names" [(ngModel)]="rowData[col.field]" filter="true" [style]="{'width':'15em'}">
 						    <ng-template let-item pTemplate="selectedItem">
 						        <span>{{item.label}}</span>
 						    </ng-template>
@@ -139,7 +173,6 @@
 		      <button pButton type="button" label="Cancel" [routerLink]="['../']" (click)="cancel()"></button>
 			</div>
 		</div>
-		
 		
 		<p-dialog  header="Shift Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'} ">
 		    <div class="ui-g">
@@ -278,6 +311,34 @@
 		    <p-footer>
 		        <div class="ui-dialog-buttonpane ui-helper-clearfix">
 		            <button type="button" pButton icon="pi pi-check" (click)="save()" label="Save"></button>
+		        </div>
+		    </p-footer>
+		</p-dialog>
+		
+		<p-dialog  header="Change Reason" [(visible)]="displayNameChange" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'} ">
+		    <div class="ui-g">
+		    
+		  <div class="ui-g-12">
+		  			 <div class="ui-g-2 left">
+		                <label for="change_reason_id">Reason</label>
+		            </div>
+		            <div class="ui-g-10">
+		            	<p-dropdown appendTo="body"  id="change_reason_id" [options]="changeReasons" [(ngModel)]="changeReason"  [style]="{'width':'15em'}">
+						    <ng-template let-item pTemplate="selectedItem">
+						        <span>{{item.label}}</span>
+						    </ng-template>
+						    <ng-template let-name pTemplate="item">
+						        <div>
+						            <div>{{name.label}}</div>
+						        </div>
+						    </ng-template>
+						</p-dropdown>
+		           </div>
+		        </div>
+		    </div>
+		    <p-footer>
+		        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+		            <button type="button" pButton icon="pi pi-check" (click)="saveReason()" label="Save"></button>
 		        </div>
 		    </p-footer>
 		</p-dialog>
