@@ -70,7 +70,7 @@
 	<p-toast position="top-center"></p-toast>
 	<div class="ui-g-12">
 		<p-table #availDt [columns]="availCols" [value]="userAvailabilities"
-			[paginator]="true" [rows]="10" [autoLayout]="true" dataKey="specialNotes"> 
+			[paginator]="true" [rows]="10" [autoLayout]="true" dataKey="shiftId"> 
 			<ng-template pTemplate="caption">
 			<div class="right">
 				<input type="text" pInputText size="20" placeholder="Search"
@@ -98,15 +98,15 @@
 		               
 		             
 					<p-calendar appendTo="body" *ngIf="col.field=='timeIn' || col.field=='timeOut' || col.field=='breakTime'" [timeOnly]="true" hourFormat="24" [(ngModel)]="rowData[col.field]" ></p-calendar>
-					<p-calendar appendTo="body" *ngIf="col.field=='shiftDate'" [(ngModel)]="rowData[col.field]" ></p-calendar>
+					<p-calendar appendTo="body" *ngIf="col.field=='shiftDate'" [(ngModel)]="rowData[col.field]" dateFormat="yy-mm-dd"></p-calendar>
 					<div class="ui-g-12" *ngIf="col.field === 'action' ">
 						<button class="ui-g-4"  pButton type="button" *ngIf="col.field === 'action' "  class="ui-button-raised ui-button-rounded" label="Save" ></button>
 						<button class="ui-g-8"  pButton type="button" *ngIf="col.field === 'action' "  class="ui-button-raised ui-button-rounded ui-button-danger" label="Remove" ></button>
 					</div>
 					
-					<textarea *ngIf="col.field === 'specialNotes'" pInputTextarea id="specialNotes_id" [(ngModel)]="rowData[col.field]"></textarea>
-					<div *ngIf="!(col.field=='title' || col.field=='shift' || col.field=='timeIn' || col.field === 'name' || col.field=='timeOut' || col.field=='breakTime' || col.field === 'action' || col.field === 'specialNotes' || col.field === 'status' || col.field === 'shiftDate' ||col.field === 'notify')"  [innerHTML]="rowData[col.field]"></div>
-					<p-dropdown appendTo="body" *ngIf="col.field === 'name'" (onChange)="nameChanged($event)" [options]="names" [(ngModel)]="rowData[col.field]" filter="true" [style]="{'width':'15em'}">
+					<textarea *ngIf="col.field === 'comments'" pInputTextarea id="specialNotes_id" [(ngModel)]="rowData[col.field]"></textarea>
+					<div *ngIf="!(col.field=='shiftTitleCode' || col.field=='shiftTime' || col.field=='timeIn' || col.field === 'nameList' || col.field=='timeOut' || col.field=='breakTime' || col.field === 'action' || col.field === 'comments' || col.field === 'status' || col.field === 'shiftDate' ||col.field === 'messageCadidateList')"  [innerHTML]="rowData[col.field]"></div>
+					<p-dropdown appendTo="body" *ngIf="col.field === 'nameList'" (onChange)="nameChanged($event)" [options]="rowData[col.field]"  filter="true" [style]="{'width':'15em'}">
 						    <ng-template let-item pTemplate="selectedItem">
 						        <span>{{item.label}}</span>
 						    </ng-template>
@@ -116,7 +116,7 @@
 						        </div>
 						    </ng-template>
 					</p-dropdown>
-					<p-dropdown appendTo="body" *ngIf="col.field === 'title'"  [options]="titles" [(ngModel)]="rowData[col.field]" filter="true" [style]="{'width':'15em'}">
+					<p-dropdown appendTo="body" *ngIf="col.field === 'shiftTitleCode'"  [options]="rowData[col.field]"  filter="true" [style]="{'width':'15em'}">
 						    <ng-template let-item pTemplate="selectedItem">
 						        <span>{{item.label}}</span>
 						    </ng-template>
@@ -126,7 +126,7 @@
 						        </div>
 						    </ng-template>
 					</p-dropdown>
-					<p-dropdown appendTo="body" *ngIf="col.field === 'shift'"  [options]="shifts" [(ngModel)]="rowData[col.field]" filter="true" [style]="{'width':'15em'}">
+					<p-dropdown appendTo="body" *ngIf="col.field === 'shiftTime'"  [options]="rowData[col.field]"  filter="true" [style]="{'width':'15em'}">
 						    <ng-template let-item pTemplate="selectedItem">
 						        <span>{{item.label}}</span>
 						    </ng-template>
@@ -136,7 +136,7 @@
 						        </div>
 						    </ng-template>
 					</p-dropdown>
-					<p-dropdown appendTo="body" *ngIf="col.field === 'status'"  [options]="statuses" [(ngModel)]="rowData[col.field]" filter="true" [style]="{'width':'15em'}">
+					<p-dropdown appendTo="body" *ngIf="col.field === 'status'"  [options]="rowData[col.field]"  filter="true" [style]="{'width':'15em'}">
 						    <ng-template let-item pTemplate="selectedItem">
 						        <span>{{item.label}}</span>
 						    </ng-template>
@@ -146,7 +146,7 @@
 						        </div>
 						    </ng-template>
 					</p-dropdown>
-					<p-multiSelect appendTo="body" *ngIf="col.field === 'notify'"  [options]="notifyNames" [(ngModel)]="rowData[col.field]" [style]="{'width':'15em'}">
+					<p-multiSelect appendTo="body" *ngIf="col.field === 'messageCadidateList'"  [options]="rowData[col.field]"  [style]="{'width':'15em'}">
 						    
 					</p-multiSelect>
 					</td>
@@ -156,7 +156,7 @@
 			 <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
 		        <tr >
 		             <td [attr.colspan]="columns.length + 1">
-		            	<textarea rows="10" cols="100" pInputTextarea  [(ngModel)]="rowData.specialNotes"></textarea>
+		            	<textarea rows="10" cols="100" pInputTextarea  [(ngModel)]="rowData.comments"></textarea>
 		            </td>	
 		                
 		           
@@ -189,7 +189,7 @@
 		                <label for="id_id" style="text-align: left">Id</label>
 		            </div>
 		            <div class="ui-g-3">
-		            	<input id="id_id" type="text"  [(ngModel)]="assignedShift.id"  pInputText/>
+		            	<input id="id_id" type="text"  [(ngModel)]="assignedShift.shiftId"  pInputText/>
 		            </div>
 		        </div>
 		        <div class="ui-g-12">

@@ -23,7 +23,8 @@ export const environment = {
   cellProviderUrl:'provider/',
   usastatesUrl:'state/',
   titleUrl:'title/',
-  statusUrl:'status/'
+  statusUrl:'status/',
+  assignShiftUrl:'assignshifts/'
 };
 
 /*

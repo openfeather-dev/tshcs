@@ -17,7 +17,9 @@
       let-eventDropped="eventDropped">
       <app-calendar-header
   		[(view)]="view"
-  		[(viewDate)]="viewDate">
+  		[(viewDate)]="viewDate"
+  		(viewDateChange)="dateChanged($event)"
+  		>
 		</app-calendar-header>
       
       <div class="cal-day-headers ui-g-12" >

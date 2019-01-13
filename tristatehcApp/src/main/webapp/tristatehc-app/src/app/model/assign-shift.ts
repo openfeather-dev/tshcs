@@ -1,18 +1,26 @@
 import {SelectItem} from 'primeng/api';
 export class AssignShift{
     shiftDate: Date ;
-    id:string;
-    title:string[];
-    shift:string[];
+    shiftId:string;
+    custid:string;
+    shiftTitleCode:string[];
+    shiftTime:string[];
     
-    name:string[];
+    nameList:string[];
     status:string[];
     timeIn:Date;
     timeOut:Date;
+    
+     fut1:string;
+     fut2:string;
+    
     breakTime:Date;
     
-    notify:string[];
-    specialNotes:string;
+    messageCadidateList:string[];
+    comments:string;
     action:string;
+    
+
+
     
 }

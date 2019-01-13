@@ -6,6 +6,8 @@ import {SelectItem} from 'primeng/api';
 import { OktaAuthService } from '@okta/okta-angular';
 import {DialogModule} from 'primeng/dialog';
 import { CustomerOptionsService } from '../customer-options/customer-options.service';
+import { AssignShiftsService } from './assign-shifts.service';
+import { AssignShiftReq } from '../model/assignshift-req';
 
 
 
@@ -53,22 +55,22 @@ export class AssignShiftsComponent implements OnInit {
     country: any;
 
     filteredCountriesSingle: any[];
-  constructor(private messageService: MessageService,private oktaAuth: OktaAuthService,private parentService : CustomerOptionsService) { }
+  constructor(private messageService: MessageService,private oktaAuth: OktaAuthService,private parentService : CustomerOptionsService,private assignShiftService: AssignShiftsService) { }
 
   ngOnInit() {
       
       this.availCols=[
        { field: 'shiftDate', header: 'Shift Date' },
-     { field: 'id', header: 'Id' },
-            { field: 'title', header: 'Title' },
-             { field: 'shift', header: 'Shift' },
-              { field: 'name', header: 'Name' },
+     { field: 'shiftId', header: 'Id' },
+            { field: 'shiftTitleCode', header: 'Title' },
+             { field: 'shiftTime', header: 'Shift' },
+              { field: 'nameList', header: 'Name' },
                { field: 'status', header: 'Status' },
                { field: 'timeIn', header: 'Time In' },
                 { field: 'timeOut', header: 'Time Out' },
                  { field: 'breakTime', header: 'Break' },
-                  { field: 'notify', header: 'Notify' },
-                  { field: 'specialNotes', header: 'Special Notes' },
+                  { field: 'messageCadidateList', header: 'Notify' },
+                  { field: 'comments', header: 'Special Notes' },
                   { field: 'action', header: 'Action' }
             
                                                            
@@ -81,7 +83,7 @@ export class AssignShiftsComponent implements OnInit {
       this.shifts=[{label:'7-3', value:"7-3"},{label:"5-11", value:"5-11"}];
       this.notifyNames=[{label:'Harinder', value:"Harinder"},{label:"Loyola", value:"Loyola"},{label:'Kurian', value:"Kurian"},{label:"Sneha", value:"Sneha"}];
       this.statuses=[{label:'Confirmed', value:"Confirmed"},{label:"Pending", value:"Pending"}];
-       this.userAvailabilities=[{
+      /* this.userAvailabilities=[{
          'shiftDate': new Date("12/29/2018"),  
         'id':'1212',
         'title':['RN'],
@@ -109,7 +111,11 @@ export class AssignShiftsComponent implements OnInit {
         'specialNotes':'I am okk to go',
         'action':'remove'
         }];
+      */
+      
+       this.getAllAssignedShifts();
   }
+    
     getAllAvailabilities(){
        
     }
@@ -137,8 +143,8 @@ export class AssignShiftsComponent implements OnInit {
     }
     save(){
         let  addedAssignShift:AssignShift = new AssignShift();
-         addedAssignShift.shiftDate= this.assignedShift.shiftDate;
-        addedAssignShift.id = this.assignedShift.id;
+        /* addedAssignShift.shiftDate= this.assignedShift.shiftDate;
+        addedAssignShift.shiftId = this.assignedShift.id;
         addedAssignShift.title = this.assignedShift.title;
         
         addedAssignShift.shift = this.assignedShift.shift;
@@ -150,14 +156,35 @@ export class AssignShiftsComponent implements OnInit {
         addedAssignShift.notify = this.assignedShift.notify;
         addedAssignShift.specialNotes = this.assignedShift.specialNotes;
         addedAssignShift.action = this.assignedShift.action;
+        
+        
+        
+    shiftId:string;
+    custid:string;
+    shiftTitleCode:string[];
+    shiftTime:string[];
     
+    nameList:string[];
+    status:string[];
+    timeIn:Date;
+    timeOut:Date;
+    
+     fut1:string;
+     fut2:string;
+    
+    breakTime:Date;
+    
+    messageCadidateList:string[];
+    comments:string;
+    action:string;
+    */
         this.userAvailabilities.push(addedAssignShift);
         this.displayDialog=false;
         
     }
     
     nameChanged(event:Event){
-    console.log("name changed--->"+event.value); 
+ //  console.log("name changed--->"+event.value); 
         this.displayNameChange=true;
           
     
@@ -168,5 +195,34 @@ export class AssignShiftsComponent implements OnInit {
         this.displayNameChange=false;
         this.changeReason="Select";  
     }
+getAllAssignedShifts(){
+    let  assignShiftRequest : AssignShiftReq = new AssignShiftReq();
+    assignShiftRequest.customer = 'MENJ853';
+    
+    assignShiftRequest.email='';
+    assignShiftRequest.shiftDate='';
+     assignShiftRequest.fromSearchDate='';
+     assignShiftRequest.toSearchDate='';
+     assignShiftRequest.searchFuture1='';
+     assignShiftRequest.searchFuture2='';
+     assignShiftRequest.searchFuture3='';
+     assignShiftRequest.searchFuture4='';
+     assignShiftRequest.searchFuture5='';
+     assignShiftRequest.searchFuture6='';
+     assignShiftRequest.searchFutureList='';
+      
+    
+    this.assignShiftService.getAllAssignedShifts(assignShiftRequest).subscribe(assignedShifts => {
+        //console.log("assignedShifts  -------->"+JSON.stringify(assignedShifts));
+        
+          assignedShifts.forEach(assignshiftObj =>{
+              this.userAvailabilities.push(assignshiftObj);
+              console.log("assignshiftObj  "+JSON.stringify(assignshiftObj));
+          } );
+                  
+        });
+ // this.userAvailabilities = this.assignShiftService.getAllAssignedShifts(assignShiftRequest);
 
+}
+    
 }

@@ -141,6 +141,7 @@ export class CustomerAddShiftsComponent implements OnInit {
         shiftData.unassignedCount = 0;
         shiftData.shifts = this.jsMapToObj(this.shifts);
         shiftData.comment = this.jsMapToObj(this.comments);
+        console.log("shiftData  "+shiftData);
         this.service.saveShifts(shiftData).subscribe(data=>{
             this.messageService.add({severity:'success', summary: 'Saved', detail:'Data was successfully saved'});
         },error =>{
@@ -158,7 +159,20 @@ export class CustomerAddShiftsComponent implements OnInit {
         });
     return map;
 }
-    
+
+    dateChanged(date:Date){
+      /*this.blocked = true; 
+        let today = date;
+        this.service.getShiftsForCustomer(this.clientId,(today.getMonth()+1)+"/"+today.getDate()+"/"+today.getFullYear()).subscribe(shiftmap => {
+           //this.shifts = shiftmap;
+            console.log("dateChanged --->" +shiftmap);
+           this.shifts =  new Map(Object.entries(shiftmap));
+           this.changeDetector.detectChanges();
+        });
+        this.blocked = false;*/
+    this.changeDetector.detectChanges();
+       
+    }
    
 
 }
