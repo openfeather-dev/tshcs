@@ -18,7 +18,7 @@
 	</div>
 	<div class="ui-g-4">
 		<button pButton type="button" label="Assign Shifts"
-			[routerLink]="['assignShifts']"
+			[routerLink]="['assignShifts',clientId]"
 			[disabled]="(buttonSelected !== '' && buttonSelected !== 'assignShift')"
 			(click)="setSelectedButton('assignShift')"></button>
 	</div>

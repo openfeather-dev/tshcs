@@ -36,7 +36,7 @@ const enterAvailabilityRoutes: Routes = [{path: 'admin', component: EnterAvailab
                                                        {path:'customer/:facname/:name/:city/:state', component: CustomerOptionsComponent,canActivate: [ OktaAuthGuard],
                                                             children:[{path:'config/:clientid', component: CustomerShiftConfigurationComponent, canActivate: [ OktaAuthGuard] },
                                                                        {path:'addShifts/:state/:clientid', component:CustomerAddShiftsComponent, canActivate: [ OktaAuthGuard]},
-                                                                       {path:'assignShifts', component:AssignShiftsComponent, canActivate: [ OktaAuthGuard]}]
+                                                                       {path:'assignShifts/:clientId', component:AssignShiftsComponent, canActivate: [ OktaAuthGuard]}]
                                                       },{path:'newemployee/:email', component: EmployeeProfileComponent, canActivate: [ OktaAuthGuard]}]
                                           
                                           }];

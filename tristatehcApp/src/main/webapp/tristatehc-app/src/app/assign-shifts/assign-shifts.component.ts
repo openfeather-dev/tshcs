@@ -8,6 +8,7 @@ import {DialogModule} from 'primeng/dialog';
 import { CustomerOptionsService } from '../customer-options/customer-options.service';
 import { AssignShiftsService } from './assign-shifts.service';
 import { AssignShiftReq } from '../model/assignshift-req';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -27,7 +28,7 @@ export class AssignShiftsComponent implements OnInit {
     notifyNames:SelectItem[];
     changeReasons:SelectItem[];
     userAvailabilities : AssignShift[] = [];
-    
+    custId:string;
     assignedShift:AssignShift = new AssignShift();
     blocked : boolean;
     showTable : boolean;
@@ -55,10 +56,10 @@ export class AssignShiftsComponent implements OnInit {
     country: any;
 
     filteredCountriesSingle: any[];
-  constructor(private messageService: MessageService,private oktaAuth: OktaAuthService,private parentService : CustomerOptionsService,private assignShiftService: AssignShiftsService) { }
+  constructor(private route : ActivatedRoute,private oktaAuth: OktaAuthService,private parentService : CustomerOptionsService,private assignShiftService: AssignShiftsService) { }
 
   ngOnInit() {
-      
+         this.custId = this.route.snapshot.paramMap.get('clientId');
       this.availCols=[
        { field: 'shiftDate', header: 'Shift Date' },
      { field: 'shiftId', header: 'Id' },
@@ -197,8 +198,8 @@ export class AssignShiftsComponent implements OnInit {
     }
 getAllAssignedShifts(){
     let  assignShiftRequest : AssignShiftReq = new AssignShiftReq();
-    assignShiftRequest.customer = 'MENJ853';
-    
+    assignShiftRequest.customer =  this.custId;
+     console.log("assignShiftRequest.customer  -------->"+this.custId);
     assignShiftRequest.email='';
     assignShiftRequest.shiftDate='';
      assignShiftRequest.fromSearchDate='';
