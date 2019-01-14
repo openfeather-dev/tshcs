@@ -26,4 +26,13 @@ public class AssignShiftsController {
 		return assignShifts;
 		
 	}
+	@RequestMapping(path="assign", method=RequestMethod.POST,produces={MediaType.APPLICATION_JSON_VALUE})
+	public AssignShiftsRespDTO getValuesForNewAssignment(@RequestBody AssignShiftsReqDTO assignShiftsReqDTO){
+		System.out.println("assignShiftsReqDTO   "+assignShiftsReqDTO); 
+		AssignShiftsRespDTO newAssignmentValue = assignShiftService.getValuesForNewAssignment(assignShiftsReqDTO);
+		System.out.println("newAssignmentValue   "+newAssignmentValue); 
+		return newAssignmentValue;
+		
+	}
+	
 }

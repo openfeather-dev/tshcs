@@ -23,4 +23,12 @@ export class AssignShiftsService {
          return this.http.post<AssignShift[]>(environment.resourceServerUrl+environment.assignShiftUrl,assignShiftRequest); 
     }
     
+    /**
+     * Get new value for assigned shift
+     */
+    getNewAssignedShiftValue(assignShiftRequest:AssignShiftReq){
+        
+         return this.http.post<AssignShift>(environment.resourceServerUrl+environment.newValueForassignShift,assignShiftRequest); 
+    }
+    
 }

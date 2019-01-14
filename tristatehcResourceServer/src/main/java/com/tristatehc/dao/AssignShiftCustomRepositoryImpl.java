@@ -28,4 +28,12 @@ public class AssignShiftCustomRepositoryImpl implements AssignShiftCustomReposit
 		
 		return getAssignedShiftsProcedure.getResultList();
 	}
+
+	@Override
+	public AssignShifts getValuesForNewAssignment(String customer, String email) {
+		StoredProcedureQuery getValuesForNewAssignmentProcedure =
+	              em.createNamedStoredProcedureQuery("getValuesForNewAssignment").setParameter("p_cust", customer).
+	              setParameter("p_email", email);
+		return (AssignShifts) getValuesForNewAssignmentProcedure.getSingleResult();
+	}
 }

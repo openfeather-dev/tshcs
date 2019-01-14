@@ -13,4 +13,5 @@ public interface AssignShiftCustomRepository {
 			@Param("p_search_fut3") String searchFuture3,@Param("p_search_fut4") String searchFuture4,
 			@Param("p_search_fut5") String searchFuture5,@Param("p_search_fut6") String searchFuture6,@Param("p_search_fut7_list") String searchFutureList);
 
+	AssignShifts getValuesForNewAssignment(@Param("p_cust") String customer,@Param("p_email") String email);
 }

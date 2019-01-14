@@ -28,7 +28,14 @@ import javax.persistence.Table;
                             	 @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_search_fut5", type = String.class),
                             	 @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_search_fut6", type = String.class),
                             	 @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_search_fut7_list", type = String.class)
-                              })
+                              }),
+   @NamedStoredProcedureQuery(name = "getValuesForNewAssignment", 
+   procedureName = "ASSIGN_SHIFT_BY_CUST_READ_WHILE_ADD",
+   resultClasses = { AssignShifts.class },
+   parameters = {
+ 	 @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_cust", type = String.class),
+ 	 @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_email", type = String.class)
+   })
 })
 public class AssignShifts {
 	@Id

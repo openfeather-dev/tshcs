@@ -24,7 +24,8 @@ export const environment = {
   usastatesUrl:'state/',
   titleUrl:'title/',
   statusUrl:'status/',
-  assignShiftUrl:'assignshifts/'
+  assignShiftUrl:'assignshifts/',
+  newValueForassignShift:'assignshifts/assign/'
 };
 
 /*

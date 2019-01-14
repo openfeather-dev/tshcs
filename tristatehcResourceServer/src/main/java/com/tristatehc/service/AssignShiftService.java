@@ -7,5 +7,6 @@ import com.tristatehc.dto.AssignShiftsRespDTO;
 
 public interface AssignShiftService {
 	public List<AssignShiftsRespDTO> getAssignedShifts(AssignShiftsReqDTO assignShiftsReqDTO);
+	public AssignShiftsRespDTO getValuesForNewAssignment(AssignShiftsReqDTO assignShiftsReqDTO);
 
 }

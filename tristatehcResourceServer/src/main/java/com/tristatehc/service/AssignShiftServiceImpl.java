@@ -80,4 +80,49 @@ public class AssignShiftServiceImpl implements AssignShiftService {
 		
 	}
 
+	@Override
+	public AssignShiftsRespDTO getValuesForNewAssignment(AssignShiftsReqDTO assignShiftsReqDTO) {
+		AssignShifts assignShifts = assignShiftsRepository.getValuesForNewAssignment(assignShiftsReqDTO.getCustomer(), assignShiftsReqDTO.getEmail());
+		 
+			AssignShiftsRespDTO assignShiftsRespDTO = new AssignShiftsRespDTO();
+			
+			assignShiftsRespDTO.setShiftId(assignShifts.getShiftId());
+
+			
+			assignShiftsRespDTO.setCustid(assignShifts.getCustid()) ;
+			
+			assignShiftsRespDTO.setShiftDate(assignShifts.getShiftDate());
+			
+			
+			List<String> shiftTitles = Arrays.asList(assignShifts.getShiftTitleCode().split(","));
+			
+			assignShiftsRespDTO.setShiftTitleCode(getDropDownDTO(shiftTitles));
+			List<String> shiftTimes = Arrays.asList(assignShifts.getShiftTime().split(","));
+			assignShiftsRespDTO.setShiftTime(getDropDownDTO(shiftTimes)) ;
+			
+			List<String> nameList = Arrays.asList(assignShifts.getNameList().split(","));
+			assignShiftsRespDTO.setNameList(getDropDownDTO(nameList));	
+			List<String> statusList = Arrays.asList(assignShifts.getStatus().split(","));
+			assignShiftsRespDTO.setStatus(getDropDownDTO(statusList));
+			assignShiftsRespDTO.setTimeIn(assignShifts.getTimeIn());
+			
+			assignShiftsRespDTO.setTimeOut( assignShifts.getTimeOut());
+			
+			assignShiftsRespDTO.setBreakTime(assignShifts.getBreakTime());
+			
+			assignShiftsRespDTO.setFut1(assignShifts.getFut1());
+			
+			assignShiftsRespDTO.setFut2(assignShifts.getFut2());
+			
+		
+			
+			List<String> messageCandiList = Arrays.asList(assignShifts.getMessageCadidateList().split(","));
+			assignShiftsRespDTO.setMessageCadidateList(getDropDownDTO(messageCandiList));
+			
+			assignShiftsRespDTO.setComments(assignShifts.getComments());
+			
+		
+		return assignShiftsRespDTO;
+	}
+
 }

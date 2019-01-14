@@ -141,6 +141,8 @@ export class AssignShiftsComponent implements OnInit {
     
     showDialogToAdd(){
         this.displayDialog=true;
+        this.getNewAssignedShiftDefaults();
+        
     }
     save(){
         let  addedAssignShift:AssignShift = new AssignShift();
@@ -199,7 +201,6 @@ export class AssignShiftsComponent implements OnInit {
 getAllAssignedShifts(){
     let  assignShiftRequest : AssignShiftReq = new AssignShiftReq();
     assignShiftRequest.customer =  this.custId;
-     console.log("assignShiftRequest.customer  -------->"+this.custId);
     assignShiftRequest.email='';
     assignShiftRequest.shiftDate='';
      assignShiftRequest.fromSearchDate='';
@@ -214,15 +215,26 @@ getAllAssignedShifts(){
       
     
     this.assignShiftService.getAllAssignedShifts(assignShiftRequest).subscribe(assignedShifts => {
-        //console.log("assignedShifts  -------->"+JSON.stringify(assignedShifts));
         
           assignedShifts.forEach(assignshiftObj =>{
               this.userAvailabilities.push(assignshiftObj);
-              console.log("assignshiftObj  "+JSON.stringify(assignshiftObj));
           } );
                   
         });
- // this.userAvailabilities = this.assignShiftService.getAllAssignedShifts(assignShiftRequest);
+
+}
+    
+    getNewAssignedShiftDefaults(){
+    let  assignShiftRequest : AssignShiftReq = new AssignShiftReq();
+    assignShiftRequest.customer =  'BELMOIL';
+    assignShiftRequest.email='';
+    
+    
+    this.assignShiftService.getNewAssignedShiftValue(assignShiftRequest).subscribe(newAssignedShiftDefault => {
+        console.log("newAssignedShiftDefault  ----------->"+newAssignedShiftDefault);
+        this.assignedShift= newAssignedShiftDefault;
+                  
+        });
 
 }
     
