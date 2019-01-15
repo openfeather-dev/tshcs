@@ -70,7 +70,7 @@
 	<p-toast position="top-center"></p-toast>
 	<div class="ui-g-12">
 		<p-table #availDt [columns]="availCols" [value]="userAvailabilities"
-			[paginator]="true" [rows]="10" [autoLayout]="true" dataKey="shiftId"> 
+			 [rows]="10" [autoLayout]="true" dataKey="shiftId"> 
 			<ng-template pTemplate="caption">
 			<div class="right">
 				<input type="text" pInputText size="20" placeholder="Search"
@@ -197,7 +197,7 @@
 		                <label for="title_id">Title</label>
 		            </div>
 		            <div class="ui-g-3">
-		            	<p-dropdown appendTo="body"  id="title_id" [options]="assignedShift.shiftTitleCode"  filter="true" [style]="{'width':'15em'}">
+		            	<p-dropdown appendTo="body"  id="title_id" (onChange)="onTitleChange($event.value)" [(ngModel)]="selectedTitle" [options]="assignedShift.shiftTitleCode"  filter="true" [style]="{'width':'15em'}">
 						    <ng-template let-item pTemplate="selectedItem">
 						        <span>{{item.label}}</span>
 						    </ng-template>
@@ -215,7 +215,7 @@
 		                <label for="shift_id">Shift</label>
 		            </div>
 		            <div class="ui-g-3">
-		            	<p-dropdown appendTo="body"  id="shift_id" [options]="assignedShift.shiftTime"  filter="true" [style]="{'width':'15em'}">
+		            	<p-dropdown appendTo="body"  id="shift_id" [options]="assignedShift.shiftTime" [(ngModel)]="selectedShiftTime" filter="true" [style]="{'width':'15em'}">
 						    <ng-template let-item pTemplate="selectedItem">
 						        <span>{{item.label}}</span>
 						    </ng-template>
@@ -233,7 +233,7 @@
 		                <label for="name_id">Name</label>
 		            </div>
 		            <div class="ui-g-3">
-		            	<p-dropdown appendTo="body"  id="name_id" [options]="assignedShift.nameList"  filter="true" [style]="{'width':'15em'}">
+		            	<p-dropdown appendTo="body"  id="name_id" [options]="names" [(ngModel)]="selectedName" filter="true" [style]="{'width':'15em'}">
 						    <ng-template let-item pTemplate="selectedItem">
 						        <span>{{item.label}}</span>
 						    </ng-template>
@@ -251,7 +251,7 @@
 		                <label for="status_id">Status</label>
 		            </div>
 		            <div class="ui-g-3">
-		            	<p-dropdown appendTo="body"  id="status_id" [options]="assignedShift.status" [(ngModel)]="assignedShift.status" filter="true" [style]="{'width':'15em'}">
+		            	<p-dropdown appendTo="body"  id="status_id" [options]="assignedShift.status" [(ngModel)]="selectedStatus" filter="true" [style]="{'width':'15em'}">
 						    <ng-template let-item pTemplate="selectedItem">
 						        <span>{{item.label}}</span>
 						    </ng-template>
@@ -292,7 +292,7 @@
 		                <label for="notify_id">Notify</label>
 		            </div>
 		            <div class="ui-g-3">
-		            	<p-multiSelect appendTo="body" id="notify_id" [options]="assignedShift.messageCadidateList"   [style]="{'width':'15em'}">
+		            	<p-multiSelect appendTo="body" id="notify_id" [options]="notifyNames" [(ngModel)]="selectedNotifiedName"  [style]="{'width':'15em'}">
 						    
 					</p-multiSelect>
 		            </div>

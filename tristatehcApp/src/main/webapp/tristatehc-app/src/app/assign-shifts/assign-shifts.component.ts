@@ -21,11 +21,13 @@ import { ActivatedRoute } from '@angular/router';
 export class AssignShiftsComponent implements OnInit {
 
      availCols : any[] = [];
-    names:any[];
+    names:SelectItem[];
+    unFormattedNames:any[];
     statuses:any[];
     titles:SelectItem[];
     shifts:SelectItem[];
     notifyNames:SelectItem[];
+    unFormattedNotifyNames:any[];
     changeReasons:SelectItem[];
     userAvailabilities : AssignShift[] = [];
     custId:string;
@@ -33,17 +35,12 @@ export class AssignShiftsComponent implements OnInit {
     blocked : boolean;
     showTable : boolean;
    
-    radius : number;
-    filteredZipcode : any[] = [];
-    selectedZipcode : any = "";
-    facilities: any[] = [];
-    selectedFacility: string="";
-    futureRadioButton :string[] = [];
-    selectedFuture: string="All";
-    selectedEliminateBooked : string[] = [];
-    selectedEliminateBanned : string[] = [];
-    selectedEliminatePending : string[] = [];
-    selectedEliminateNotBeen : string[] = [];
+    selectedName : SelectItem;
+    selectedStatus:SelectItem;
+    selectedTitle:SelectItem;
+    selectedShiftTime:SelectItem;
+    selectedNotifiedName:SelectItem;
+   
     defaultDate: Date;
     shiftDateFrom : Date;
     shiftDateTo : Date;
@@ -78,41 +75,8 @@ export class AssignShiftsComponent implements OnInit {
           
           ];
 
-      this.names=[{label:'Kurian', value:"Kurian"},{label:"Sneha", value:"Sneha"}];
       this.changeReasons=[{label:'Select', value:"Select"},{label:'Person is not available', value:"Person is not available"},{label:"Person was wrongly allocated", value:"Person was wrongly allocated"}];
-      this.titles=[{label:'CNA', value:"CNA"},{label:"RN", value:"RN"}];
-      this.shifts=[{label:'7-3', value:"7-3"},{label:"5-11", value:"5-11"}];
-      this.notifyNames=[{label:'Harinder', value:"Harinder"},{label:"Loyola", value:"Loyola"},{label:'Kurian', value:"Kurian"},{label:"Sneha", value:"Sneha"}];
-      this.statuses=[{label:'Confirmed', value:"Confirmed"},{label:"Pending", value:"Pending"}];
-      /* this.userAvailabilities=[{
-         'shiftDate': new Date("12/29/2018"),  
-        'id':'1212',
-        'title':['RN'],
-        'shift':['5-11'],
-        'name':["Kurian"],
-        'status':["Confirmed"],
-         'timeIn':new Date("12/29/2018"),
-        'timeOut':new Date("12/29/2018"),
-        'breakTime':new Date("12/29/2018"),
-        'notify':['Kurian'],
-        'specialNotes':'I am not available',
-        'action':'save'
-        },
-           {
-        'shiftDate':new Date("12/29/2018"), 
-        'id':'12222',
-        'title':['CNA'],
-        'shift':['7-3'],
-        'name':["Sneha"],
-        'status':["Pending"],
-        'timeIn':new Date("12/29/2018"),
-        'timeOut':new Date("12/29/2018"),
-        'breakTime':new Date("12/29/2018"),
-        'notify':['Sneha'],
-        'specialNotes':'I am okk to go',
-        'action':'remove'
-        }];
-      */
+      
       
        this.getAllAssignedShifts();
   }
@@ -146,10 +110,20 @@ export class AssignShiftsComponent implements OnInit {
     }
     save(){
         let  addedAssignShift:AssignShift = new AssignShift();
-        /* addedAssignShift.shiftDate= this.assignedShift.shiftDate;
-        addedAssignShift.shiftId = this.assignedShift.id;
-        addedAssignShift.title = this.assignedShift.title;
+         addedAssignShift.shiftDate= this.assignedShift.shiftDate;
+        addedAssignShift.shiftId = this.assignedShift.shiftId;
+        this.selectedTitle;
+        this.selectedShiftTime;
+        this.selectedName;
+        this.selectedStatus;
+        addedAssignShift.shiftTitleCode = this.assignedShift.shiftTitleCode;
         
+        addedAssignShift.timeIn = this.assignedShift.timeIn;
+        addedAssignShift.timeOut = this.assignedShift.timeOut;
+        addedAssignShift.breakTime = this.assignedShift.breakTime;
+       addedAssignShift.comments =  this.assignedShift.comments;
+        
+        /*
         addedAssignShift.shift = this.assignedShift.shift;
         addedAssignShift.name = this.assignedShift.name;
         addedAssignShift.status = this.assignedShift.status;
@@ -159,29 +133,14 @@ export class AssignShiftsComponent implements OnInit {
         addedAssignShift.notify = this.assignedShift.notify;
         addedAssignShift.specialNotes = this.assignedShift.specialNotes;
         addedAssignShift.action = this.assignedShift.action;
+        */
         
+    
+    
+        //this.userAvailabilities.push(addedAssignShift);
+       // console.log(this.selectedName);
+         //console.log("this.assignedShift "+JSON.stringify(this.assignedShift) );
         
-        
-    shiftId:string;
-    custid:string;
-    shiftTitleCode:string[];
-    shiftTime:string[];
-    
-    nameList:string[];
-    status:string[];
-    timeIn:Date;
-    timeOut:Date;
-    
-     fut1:string;
-     fut2:string;
-    
-    breakTime:Date;
-    
-    messageCadidateList:string[];
-    comments:string;
-    action:string;
-    */
-        this.userAvailabilities.push(addedAssignShift);
         this.displayDialog=false;
         
     }
@@ -194,7 +153,7 @@ export class AssignShiftsComponent implements OnInit {
     }
     
     saveReason(){
-    console.log(this.changeReason);
+   // console.log(this.changeReason);
         this.displayNameChange=false;
         this.changeReason="Select";  
     }
@@ -232,10 +191,48 @@ getAllAssignedShifts(){
     
     this.assignShiftService.getNewAssignedShiftValue(assignShiftRequest).subscribe(newAssignedShiftDefault => {
         console.log("newAssignedShiftDefault  ----------->"+newAssignedShiftDefault);
+        //this.populateFormattedNames(this.selectedName);
+        this.unFormattedNames=newAssignedShiftDefault.nameList;
+        this.unFormattedNotifyNames = newAssignedShiftDefault.messageCadidateList;
         this.assignedShift= newAssignedShiftDefault;
                   
         });
 
 }
+    
+    onTitleChange(event : Event){
+       // console.log("event "+event);
+        this.populateFormattedNames(event);
+    
+    }
+    
+    populateFormattedNames(title:any){
+        let filteredNames : SelectItem[] = [{label:'Select', value:"Select"}];
+        this.unFormattedNames.forEach(function (object) {
+        if(object.value.includes(title)){
+             //console.log(object.value);
+            let filteredString = object.value.split("*");
+            let filteredName = {label:filteredString[1], value:filteredString[1]};
+        filteredNames.push(filteredName);
+            
+        }
+           });
+        
+        let filteredNotifiedNames : SelectItem[] = [{label:'Select', value:"Select"}];
+        this.unFormattedNotifyNames.forEach(function (object) {
+        if(object.value.includes(title)){
+            // console.log(object.value);
+            let filteredString = object.value.split("*");
+            let filteredName = {label:filteredString[1], value:filteredString[1]};
+        filteredNotifiedNames.push(filteredName);
+            
+        }
+           });
+        
+       this.names=filteredNames;
+       this.notifyNames =filteredNotifiedNames ;
+        
+        console.log(this.selectedName);
+    }
     
 }
