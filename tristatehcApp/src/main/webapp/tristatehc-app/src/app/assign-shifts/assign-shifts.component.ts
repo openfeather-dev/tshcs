@@ -9,7 +9,7 @@ import { CustomerOptionsService } from '../customer-options/customer-options.ser
 import { AssignShiftsService } from './assign-shifts.service';
 import { AssignShiftReq } from '../model/assignshift-req';
 import { ActivatedRoute } from '@angular/router';
-
+import { CreateAssignShiftReq } from '../model/create-assign-shift';
 
 
 @Component({
@@ -32,6 +32,7 @@ export class AssignShiftsComponent implements OnInit {
     userAvailabilities : AssignShift[] = [];
     custId:string;
     assignedShift:AssignShift = new AssignShift();
+    createdAssignedShift:CreateAssignShiftReq;
     blocked : boolean;
     showTable : boolean;
    
@@ -112,17 +113,34 @@ export class AssignShiftsComponent implements OnInit {
         let  addedAssignShift:AssignShift = new AssignShift();
          addedAssignShift.shiftDate= this.assignedShift.shiftDate;
         addedAssignShift.shiftId = this.assignedShift.shiftId;
-        this.selectedTitle;
-        this.selectedShiftTime;
-        this.selectedName;
-        this.selectedStatus;
-        addedAssignShift.shiftTitleCode = this.assignedShift.shiftTitleCode;
+        ;
         
-        addedAssignShift.timeIn = this.assignedShift.timeIn;
-        addedAssignShift.timeOut = this.assignedShift.timeOut;
-        addedAssignShift.breakTime = this.assignedShift.breakTime;
-       addedAssignShift.comments =  this.assignedShift.comments;
+       
         
+        console.log("this.assignedShift.shiftTitleCode "+this.assignedShift.shiftTitleCode);
+        
+       
+        
+        this.createdAssignedShift = new CreateAssignShiftReq();
+        this.createdAssignedShift.shiftId = this.assignedShift.shiftId;
+         this.createdAssignedShift.custid=this.custId;
+        this.createdAssignedShift.email = "";
+       this.createdAssignedShift.shiftDate =this.assignedShift.shiftDate;
+      this.createdAssignedShift.shiftTitleCode=this.selectedTitle;
+       this.createdAssignedShift.shiftTime=this.selectedShiftTime;
+           this.createdAssignedShift.nameList= this.selectedName;
+           this.createdAssignedShift.status=this.selectedStatus;
+           this.createdAssignedShift.timeIn=this.assignedShift.timeIn;
+           this.createdAssignedShift.timeOut=this.assignedShift.timeOut;
+           this.createdAssignedShift.breakTime=this.assignedShift.breakTime;
+         this.createdAssignedShift.fut1="reason for changing new name";
+         this.createdAssignedShift.fut2="";
+         this.createdAssignedShift.messageCadidateList=this.selectedNotifiedName;
+        this.createdAssignedShift.comments=this.assignedShift.comments;
+        this.createdAssignedShift.action="create";
+        
+ 
+        console.log();
         /*
         addedAssignShift.shift = this.assignedShift.shift;
         addedAssignShift.name = this.assignedShift.name;
@@ -142,6 +160,16 @@ export class AssignShiftsComponent implements OnInit {
          //console.log("this.assignedShift "+JSON.stringify(this.assignedShift) );
         
         this.displayDialog=false;
+        this.userAvailabilities=[];
+        
+        this.assignShiftService.newAssignment(this.createdAssignedShift).subscribe(assignedShifts => {
+        
+          assignedShifts.forEach(assignshiftObj =>{
+              this.userAvailabilities.push(assignshiftObj);
+          } );
+                  
+        });
+        this.getAllAssignedShifts();
         
     }
     
@@ -185,7 +213,7 @@ getAllAssignedShifts(){
     
     getNewAssignedShiftDefaults(){
     let  assignShiftRequest : AssignShiftReq = new AssignShiftReq();
-    assignShiftRequest.customer =  'BELMOIL';
+    assignShiftRequest.customer =  this.custId;
     assignShiftRequest.email='';
     
     

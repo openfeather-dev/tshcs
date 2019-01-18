@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tristatehc.dto.AssignShiftsReqDTO;
 import com.tristatehc.dto.AssignShiftsRespDTO;
+import com.tristatehc.dto.CreateAssignShiftsDTO;
 import com.tristatehc.service.AssignShiftService;
 
 @RestController()
@@ -32,6 +33,15 @@ public class AssignShiftsController {
 		AssignShiftsRespDTO newAssignmentValue = assignShiftService.getValuesForNewAssignment(assignShiftsReqDTO);
 		System.out.println("newAssignmentValue   "+newAssignmentValue); 
 		return newAssignmentValue;
+		
+	}
+	
+	@RequestMapping(path="newshift", method=RequestMethod.POST,produces={MediaType.APPLICATION_JSON_VALUE})
+	public List<AssignShiftsRespDTO> newAssignment(@RequestBody CreateAssignShiftsDTO  assignShiftsReq){
+		System.out.println("assignShiftsReqDTO   "+assignShiftsReq); 
+		List<AssignShiftsRespDTO> assignedShifts = assignShiftService.createNewAssignShift(assignShiftsReq);
+		System.out.println("newAssignmentValue   "+assignedShifts); 
+		return assignedShifts;
 		
 	}
 	

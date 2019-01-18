@@ -25,7 +25,8 @@ export const environment = {
   titleUrl:'title/',
   statusUrl:'status/',
   assignShiftUrl:'assignshifts/',
-  newValueForassignShift:'assignshifts/assign/'
+  newValueForassignShift:'assignshifts/assign/',
+  createAssignShift:'assignshifts/newshift/'
 };
 
 /*

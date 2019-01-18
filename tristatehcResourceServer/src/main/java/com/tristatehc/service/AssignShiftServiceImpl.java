@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.tristatehc.dao.AssignShiftsRepository;
 import com.tristatehc.dto.AssignShiftsReqDTO;
 import com.tristatehc.dto.AssignShiftsRespDTO;
+import com.tristatehc.dto.CreateAssignShiftsDTO;
 import com.tristatehc.dto.DropDownDTO;
 import com.tristatehc.entity.AssignShifts;
 
@@ -21,6 +22,12 @@ public class AssignShiftServiceImpl implements AssignShiftService {
 	@Override
 	public List<AssignShiftsRespDTO> getAssignedShifts(AssignShiftsReqDTO assignShiftsReqDTO) {
 		List<AssignShifts>assignedShifts = assignShiftsRepository.getAssignedShifts(assignShiftsReqDTO.getCustomer(),assignShiftsReqDTO.getEmail(), assignShiftsReqDTO.getShiftDate(), assignShiftsReqDTO.getFromSearchDate(), assignShiftsReqDTO.getToSearchDate(), assignShiftsReqDTO.getSearchFuture1(), assignShiftsReqDTO.getSearchFuture2(), assignShiftsReqDTO.getSearchFuture3(), assignShiftsReqDTO.getSearchFuture4(), assignShiftsReqDTO.getSearchFuture5(), assignShiftsReqDTO.getSearchFuture6(), assignShiftsReqDTO.getSearchFutureList());
+		List<AssignShiftsRespDTO> assignListRespList = populateAssignedShiftsRespDTO(assignedShifts);
+		
+		return assignListRespList;
+	}
+
+	private List<AssignShiftsRespDTO> populateAssignedShiftsRespDTO(List<AssignShifts> assignedShifts) {
 		List<AssignShiftsRespDTO> assignListRespList = new ArrayList<>();
 		for (AssignShifts assignShifts : assignedShifts) {
 			AssignShiftsRespDTO assignShiftsRespDTO = new AssignShiftsRespDTO();
@@ -32,17 +39,29 @@ public class AssignShiftServiceImpl implements AssignShiftService {
 			
 			assignShiftsRespDTO.setShiftDate(assignShifts.getShiftDate());
 			
+			if(null != assignShifts.getShiftTitleCode()) {
+				List<String> shiftTitles = Arrays.asList(assignShifts.getShiftTitleCode().split(","));
+				
+				assignShiftsRespDTO.setShiftTitleCode(getDropDownDTO(shiftTitles));
+			}
+			if(null != assignShifts.getShiftTime()) {
+				List<String> shiftTimes = Arrays.asList(assignShifts.getShiftTime().split(","));
+				assignShiftsRespDTO.setShiftTime(getDropDownDTO(shiftTimes)) ;
+				
+			}
+			if(null !=assignShifts.getNameList()) {
+				
+				List<String> nameList = Arrays.asList(assignShifts.getNameList().split(","));
+				assignShiftsRespDTO.setNameList(getDropDownDTO(nameList));	
+
+			}
+			if(null!=assignShifts.getStatus()) {
+				
+				List<String> statusList = Arrays.asList(assignShifts.getStatus().split(","));
+				assignShiftsRespDTO.setStatus(getDropDownDTO(statusList));
+			}
 			
-			List<String> shiftTitles = Arrays.asList(assignShifts.getShiftTitleCode().split(","));
-			
-			assignShiftsRespDTO.setShiftTitleCode(getDropDownDTO(shiftTitles));
-			List<String> shiftTimes = Arrays.asList(assignShifts.getShiftTime().split(","));
-			assignShiftsRespDTO.setShiftTime(getDropDownDTO(shiftTimes)) ;
-			
-			List<String> nameList = Arrays.asList(assignShifts.getNameList().split(","));
-			assignShiftsRespDTO.setNameList(getDropDownDTO(nameList));	
-			List<String> statusList = Arrays.asList(assignShifts.getStatus().split(","));
-			assignShiftsRespDTO.setStatus(getDropDownDTO(statusList));
+						
 			assignShiftsRespDTO.setTimeIn(assignShifts.getTimeIn());
 			
 			assignShiftsRespDTO.setTimeOut( assignShifts.getTimeOut());
@@ -54,14 +73,15 @@ public class AssignShiftServiceImpl implements AssignShiftService {
 			assignShiftsRespDTO.setFut2(assignShifts.getFut2());
 			
 		
-			
-			List<String> messageCandiList = Arrays.asList(assignShifts.getMessageCadidateList().split(","));
-			assignShiftsRespDTO.setMessageCadidateList(getDropDownDTO(messageCandiList));
+			if(null !=assignShifts.getMessageCadidateList()) {
+				List<String> messageCandiList = Arrays.asList(assignShifts.getMessageCadidateList().split(","));
+				assignShiftsRespDTO.setMessageCadidateList(getDropDownDTO(messageCandiList));
+				
+			}
 			
 			assignShiftsRespDTO.setComments(assignShifts.getComments());
 			assignListRespList.add(assignShiftsRespDTO);
 		}
-		
 		return assignListRespList;
 	}
 	
@@ -123,6 +143,14 @@ public class AssignShiftServiceImpl implements AssignShiftService {
 			
 		
 		return assignShiftsRespDTO;
+	}
+
+	@Override
+	public List<AssignShiftsRespDTO> createNewAssignShift(CreateAssignShiftsDTO assignShiftsReqDTO) {
+		List<AssignShifts> assignShifts = assignShiftsRepository.newAssignment(assignShiftsReqDTO.getCustid(), assignShiftsReqDTO.getEmail(), assignShiftsReqDTO.getShiftDate(), assignShiftsReqDTO.getShiftId(), assignShiftsReqDTO.getShiftTitleCode(),
+				assignShiftsReqDTO.getShiftTime(), assignShiftsReqDTO.getNameList(), assignShiftsReqDTO.getStatus(), assignShiftsReqDTO.getTimeIn(), assignShiftsReqDTO.getTimeOut(), assignShiftsReqDTO.getBreakTime(), assignShiftsReqDTO.getMessageCadidateList().toString(), assignShiftsReqDTO.getComments(), assignShiftsReqDTO.getAction());
+		return populateAssignedShiftsRespDTO(assignShifts);
+		 
 	}
 
 }
