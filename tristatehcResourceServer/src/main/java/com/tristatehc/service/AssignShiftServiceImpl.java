@@ -43,22 +43,26 @@ public class AssignShiftServiceImpl implements AssignShiftService {
 				List<String> shiftTitles = Arrays.asList(assignShifts.getShiftTitleCode().split(","));
 				
 				assignShiftsRespDTO.setShiftTitleCode(getDropDownDTO(shiftTitles));
+				assignShiftsRespDTO.setSelectedTitle(assignShiftsRespDTO.getShiftTitleCode().get(0));
 			}
 			if(null != assignShifts.getShiftTime()) {
 				List<String> shiftTimes = Arrays.asList(assignShifts.getShiftTime().split(","));
 				assignShiftsRespDTO.setShiftTime(getDropDownDTO(shiftTimes)) ;
+				assignShiftsRespDTO.setSelectedShiftTime(assignShiftsRespDTO.getShiftTime().get(0));
 				
 			}
 			if(null !=assignShifts.getNameList()) {
 				
 				List<String> nameList = Arrays.asList(assignShifts.getNameList().split(","));
-				assignShiftsRespDTO.setNameList(getDropDownDTO(nameList));	
+				assignShiftsRespDTO.setNameList(getDropDownDTO(nameList));
+				assignShiftsRespDTO.setSelectedName(assignShiftsRespDTO.getNameList().get(0));
 
 			}
 			if(null!=assignShifts.getStatus()) {
 				
 				List<String> statusList = Arrays.asList(assignShifts.getStatus().split(","));
 				assignShiftsRespDTO.setStatus(getDropDownDTO(statusList));
+				assignShiftsRespDTO.setSelectedStatus(assignShiftsRespDTO.getStatus().get(0));
 			}
 			
 						

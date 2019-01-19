@@ -4,18 +4,6 @@ import java.util.List;
 
 public class AssignShiftsRespDTO {
 	
-	   /*'shiftDate':new Date("12/29/2018"), 
-       'id':'12222',
-       'title':['CNA'],
-       'shift':['7-3'],
-       'name':["Sneha"],
-       'status':["Pending"],
-       'timeIn':new Date("12/29/2018"),
-       'timeOut':new Date("12/29/2018"),
-       'breakTime':new Date("12/29/2018"),
-       'notify':['Sneha'],
-       'specialNotes':'I am okk to go',
-       'action':'remove'*/
 	
 	private String shiftId;
 	
@@ -33,6 +21,14 @@ public class AssignShiftsRespDTO {
 	
 	private List<DropDownDTO> status;
 	
+	private DropDownDTO selectedTitle;
+	
+	private DropDownDTO selectedShiftTime;
+	
+	private DropDownDTO selectedName;
+	
+	private DropDownDTO selectedStatus;
+	
 	private String timeIn;
 	
 	private String timeOut;
@@ -42,6 +38,8 @@ public class AssignShiftsRespDTO {
 	private String fut1;
 	
 	private String fut2;
+	
+	private String changeReason;
 	
 	private List<DropDownDTO> messageCadidateList;
 	
@@ -153,6 +151,55 @@ public class AssignShiftsRespDTO {
 		this.comments = comments;
 	}
 
+
+	public List<DropDownDTO> getShiftTime() {
+		return shiftTime;
+	}
+
+	public void setShiftTime(List<DropDownDTO> shiftTime) {
+		this.shiftTime = shiftTime;
+	}
+
+	public DropDownDTO getSelectedTitle() {
+		return selectedTitle;
+	}
+
+	public void setSelectedTitle(DropDownDTO selectedTitle) {
+		this.selectedTitle = selectedTitle;
+	}
+
+	public DropDownDTO getSelectedShiftTime() {
+		return selectedShiftTime;
+	}
+
+	public void setSelectedShiftTime(DropDownDTO selectedShiftTime) {
+		this.selectedShiftTime = selectedShiftTime;
+	}
+
+	public DropDownDTO getSelectedName() {
+		return selectedName;
+	}
+
+	public void setSelectedName(DropDownDTO selectedName) {
+		this.selectedName = selectedName;
+	}
+
+	public DropDownDTO getSelectedStatus() {
+		return selectedStatus;
+	}
+
+	public void setSelectedStatus(DropDownDTO selectedStatus) {
+		this.selectedStatus = selectedStatus;
+	}
+
+	public String getChangeReason() {
+		return changeReason;
+	}
+
+	public void setChangeReason(String changeReason) {
+		this.changeReason = changeReason;
+	}
+
 	@Override
 	public String toString() {
 		return "AssignShiftsRespDTO [" + (shiftId != null ? "shiftId=" + shiftId + ", " : "")
@@ -161,20 +208,40 @@ public class AssignShiftsRespDTO {
 				+ (shiftTitleCode != null ? "shiftTitleCode=" + shiftTitleCode + ", " : "")
 				+ (shiftTime != null ? "shiftTime=" + shiftTime + ", " : "")
 				+ (nameList != null ? "nameList=" + nameList + ", " : "")
-				+ (status != null ? "status=" + status + ", " : "") + (timeIn != null ? "timeIn=" + timeIn + ", " : "")
+				+ (status != null ? "status=" + status + ", " : "")
+				+ (selectedTitle != null ? "selectedTitle=" + selectedTitle + ", " : "")
+				+ (selectedShiftTime != null ? "selectedShiftTime=" + selectedShiftTime + ", " : "")
+				+ (selectedName != null ? "selectedName=" + selectedName + ", " : "")
+				+ (selectedStatus != null ? "selectedStatus=" + selectedStatus + ", " : "")
+				+ (timeIn != null ? "timeIn=" + timeIn + ", " : "")
 				+ (timeOut != null ? "timeOut=" + timeOut + ", " : "")
 				+ (breakTime != null ? "breakTime=" + breakTime + ", " : "")
 				+ (fut1 != null ? "fut1=" + fut1 + ", " : "") + (fut2 != null ? "fut2=" + fut2 + ", " : "")
+				+ (changeReason != null ? "changeReason=" + changeReason + ", " : "")
 				+ (messageCadidateList != null ? "messageCadidateList=" + messageCadidateList + ", " : "")
-				+ (comments != null ? "comments=" + comments : "") + "]";
-	}
-
-	public List<DropDownDTO> getShiftTime() {
-		return shiftTime;
-	}
-
-	public void setShiftTime(List<DropDownDTO> shiftTime) {
-		this.shiftTime = shiftTime;
+				+ (comments != null ? "comments=" + comments + ", " : "")
+				+ (getShiftId() != null ? "getShiftId()=" + getShiftId() + ", " : "")
+				+ (getCustid() != null ? "getCustid()=" + getCustid() + ", " : "")
+				+ (getShiftDate() != null ? "getShiftDate()=" + getShiftDate() + ", " : "")
+				+ (getShiftTitleCode() != null ? "getShiftTitleCode()=" + getShiftTitleCode() + ", " : "")
+				+ (getNameList() != null ? "getNameList()=" + getNameList() + ", " : "")
+				+ (getStatus() != null ? "getStatus()=" + getStatus() + ", " : "")
+				+ (getTimeIn() != null ? "getTimeIn()=" + getTimeIn() + ", " : "")
+				+ (getTimeOut() != null ? "getTimeOut()=" + getTimeOut() + ", " : "")
+				+ (getBreakTime() != null ? "getBreakTime()=" + getBreakTime() + ", " : "")
+				+ (getFut1() != null ? "getFut1()=" + getFut1() + ", " : "")
+				+ (getFut2() != null ? "getFut2()=" + getFut2() + ", " : "")
+				+ (getMessageCadidateList() != null ? "getMessageCadidateList()=" + getMessageCadidateList() + ", "
+						: "")
+				+ (getComments() != null ? "getComments()=" + getComments() + ", " : "")
+				+ (getShiftTime() != null ? "getShiftTime()=" + getShiftTime() + ", " : "")
+				+ (getSelectedTitle() != null ? "getSelectedTitle()=" + getSelectedTitle() + ", " : "")
+				+ (getSelectedShiftTime() != null ? "getSelectedShiftTime()=" + getSelectedShiftTime() + ", " : "")
+				+ (getSelectedName() != null ? "getSelectedName()=" + getSelectedName() + ", " : "")
+				+ (getSelectedStatus() != null ? "getSelectedStatus()=" + getSelectedStatus() + ", " : "")
+				+ (getChangeReason() != null ? "getChangeReason()=" + getChangeReason() + ", " : "")
+				+ (getClass() != null ? "getClass()=" + getClass() + ", " : "") + "hashCode()=" + hashCode() + ", "
+				+ (super.toString() != null ? "toString()=" + super.toString() : "") + "]";
 	}
 
 	

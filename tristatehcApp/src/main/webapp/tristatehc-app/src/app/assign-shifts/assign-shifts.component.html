@@ -100,13 +100,13 @@
 					<p-calendar appendTo="body" *ngIf="col.field=='timeIn' || col.field=='timeOut' || col.field=='breakTime'" [timeOnly]="true" hourFormat="24" [(ngModel)]="rowData[col.field]" ></p-calendar>
 					<p-calendar appendTo="body" *ngIf="col.field=='shiftDate'" [(ngModel)]="rowData[col.field]" dateFormat="yy-mm-dd"></p-calendar>
 					<div class="ui-g-12" *ngIf="col.field === 'action' ">
-						<button class="ui-g-4"  pButton type="button" *ngIf="col.field === 'action' "  class="ui-button-raised ui-button-rounded" label="Save" ></button>
-						<button class="ui-g-8"  pButton type="button" *ngIf="col.field === 'action' "  class="ui-button-raised ui-button-rounded ui-button-danger" label="Remove" ></button>
+						<button class="ui-g-4"  pButton type="button" (click)="update(rowData,'save')"  class="ui-button-raised ui-button-rounded" label="Save" ></button>
+						<button class="ui-g-8"  pButton type="button" (click)="update(rowData,'delete')"  class="ui-button-raised ui-button-rounded ui-button-danger" label="Remove" ></button>
 					</div>
 					
 					<textarea *ngIf="col.field === 'comments'" pInputTextarea id="specialNotes_id" [(ngModel)]="rowData[col.field]"></textarea>
 					<div *ngIf="!(col.field=='shiftTitleCode' || col.field=='shiftTime' || col.field=='timeIn' || col.field === 'nameList' || col.field=='timeOut' || col.field=='breakTime' || col.field === 'action' || col.field === 'comments' || col.field === 'status' || col.field === 'shiftDate' ||col.field === 'messageCadidateList')"  [innerHTML]="rowData[col.field]"></div>
-					<p-dropdown appendTo="body" *ngIf="col.field === 'nameList'" (onChange)="nameChanged($event)" [options]="rowData[col.field]"  filter="true" [style]="{'width':'15em'}">
+					<p-dropdown appendTo="body" *ngIf="col.field === 'nameList'" [(ngModel)]="rowData.selectedName" (onChange)="nameChanged($event,rowData)" [options]="rowData[col.field]"  filter="true" [style]="{'width':'15em'}">
 						    <ng-template let-item pTemplate="selectedItem">
 						        <span>{{item.label}}</span>
 						    </ng-template>
@@ -116,7 +116,7 @@
 						        </div>
 						    </ng-template>
 					</p-dropdown>
-					<p-dropdown appendTo="body" *ngIf="col.field === 'shiftTitleCode'"  [options]="rowData[col.field]"  filter="true" [style]="{'width':'15em'}">
+					<p-dropdown appendTo="body" *ngIf="col.field === 'shiftTitleCode'" [(ngModel)]="rowData.selectedTitle" [options]="rowData[col.field]"  filter="true" [style]="{'width':'15em'}">
 						    <ng-template let-item pTemplate="selectedItem">
 						        <span>{{item.label}}</span>
 						    </ng-template>
@@ -126,7 +126,7 @@
 						        </div>
 						    </ng-template>
 					</p-dropdown>
-					<p-dropdown appendTo="body" *ngIf="col.field === 'shiftTime'"  [options]="rowData[col.field]"  filter="true" [style]="{'width':'15em'}">
+					<p-dropdown appendTo="body" *ngIf="col.field === 'shiftTime'" [(ngModel)]="rowData.selectedShiftTime" [options]="rowData[col.field]"  filter="true" [style]="{'width':'15em'}">
 						    <ng-template let-item pTemplate="selectedItem">
 						        <span>{{item.label}}</span>
 						    </ng-template>
@@ -136,7 +136,7 @@
 						        </div>
 						    </ng-template>
 					</p-dropdown>
-					<p-dropdown appendTo="body" *ngIf="col.field === 'status'"  [options]="rowData[col.field]"  filter="true" [style]="{'width':'15em'}">
+					<p-dropdown appendTo="body" *ngIf="col.field === 'status'" [(ngModel)]="rowData.selectedStatus" [options]="rowData[col.field]"  filter="true" [style]="{'width':'15em'}">
 						    <ng-template let-item pTemplate="selectedItem">
 						        <span>{{item.label}}</span>
 						    </ng-template>
@@ -146,7 +146,7 @@
 						        </div>
 						    </ng-template>
 					</p-dropdown>
-					<p-multiSelect appendTo="body" *ngIf="col.field === 'messageCadidateList'"  [options]="rowData[col.field]"  [style]="{'width':'15em'}">
+					<p-multiSelect appendTo="body" *ngIf="col.field === 'messageCadidateList'" [(ngModel)]="rowData.selectedMessageCadidates" [options]="rowData[col.field]"  [style]="{'width':'15em'}">
 						    
 					</p-multiSelect>
 					</td>

@@ -41,7 +41,7 @@ export class AssignShiftsComponent implements OnInit {
     selectedTitle:SelectItem;
     selectedShiftTime:SelectItem;
     selectedNotifiedName:SelectItem;
-   
+    selectedAssignShiftForNameChange:AssignShift;
     defaultDate: Date;
     shiftDateFrom : Date;
     shiftDateTo : Date;
@@ -81,21 +81,80 @@ export class AssignShiftsComponent implements OnInit {
       
        this.getAllAssignedShifts();
   }
-    
-    getAllAvailabilities(){
-       
-    }
-    
-    search(){
-        }
-    
-    filteredZipcodes(event){
+    update(assignedShift:AssignShift,action:string){
+    //'delete' 
+        console.log(action); 
         
-    }
+        this.blocked = true;
+        /*
+         shiftDate: Date ;
+    shiftId:string;
+    custid:string;
+    shiftTitleCode:string[];
+    selectedTitle:string;
+    shiftTime:string[];
+     selectedShiftTime:string;
+    nameList:string[];
+    selectedName:string;
+    status:string[];
+    selectedStatus:string;
+    timeIn:Date;
+    timeOut:Date;
     
-     clear(){
-         
-     }
+     fut1:string;
+     fut2:string;
+    
+    breakTime:Date;
+    
+    messageCadidateList:string[];
+    selectedMessageCadidates:string;
+    comments:string;
+    action:string;
+        */
+        let createdAssignedShift:CreateAssignShiftReq = new CreateAssignShiftReq();
+        createdAssignedShift.shiftId = assignedShift.shiftId;
+         createdAssignedShift.custid=assignedShift.custid;
+        createdAssignedShift.email = "";
+       createdAssignedShift.shiftDate =assignedShift.shiftDate;
+      createdAssignedShift.shiftTitleCode=assignedShift.selectedTitle.value;
+       createdAssignedShift.shiftTime=assignedShift.selectedShiftTime.value;
+        if(action=='update'){
+             createdAssignedShift.nameList= assignedShift.selectedName;
+        }else{
+            createdAssignedShift.nameList= assignedShift.selectedName;
+        }
+          
+           createdAssignedShift.status=assignedShift.selectedStatus.value;
+           createdAssignedShift.timeIn=assignedShift.timeIn;
+           createdAssignedShift.timeOut=assignedShift.timeOut;
+           createdAssignedShift.breakTime=assignedShift.breakTime;
+         createdAssignedShift.fut1=assignedShift.changeReason;
+         createdAssignedShift.fut2="";
+         createdAssignedShift.messageCadidateList=assignedShift.selectedMessageCadidates;
+        createdAssignedShift.comments=assignedShift.comments;
+        createdAssignedShift.action=action;
+     // console.log(JSON.stringify(createdAssignedShift));
+        this.userAvailabilities=[];
+        
+        console.log(assignedShift);
+        console.log(createdAssignedShift);
+        
+        this.assignShiftService.newAssignment(createdAssignedShift).subscribe(assignedShifts => {
+        
+          assignedShifts.forEach(assignshiftObj =>{
+              this.userAvailabilities.push(assignshiftObj);
+          } );
+             this.messageService.add({severity:'success', summary: 'Success', detail:'The data was successfully updated'});
+             this.blocked = false;     
+        }, error =>{
+          this.messageService.add({severity:'error', summary: 'Error', detail:'The data could not be updated please try again!!'});  
+        this.blocked = false;
+         this.getAllAssignedShifts();
+        });
+        
+          
+    
+    }
     
     /**
      * Method to inform parent component to enable its buttons
@@ -109,19 +168,14 @@ export class AssignShiftsComponent implements OnInit {
         this.getNewAssignedShiftDefaults();
         
     }
+    saveReason(){
+         this.displayNameChange =false;
+        this.selectedAssignShiftForNameChange.changeReason=this.changeReason;
+    
+    
+    }
     save(){
         this.blocked = true;
-        let  addedAssignShift:AssignShift = new AssignShift();
-         addedAssignShift.shiftDate= this.assignedShift.shiftDate;
-        addedAssignShift.shiftId = this.assignedShift.shiftId;
-        ;
-        
-       
-        
-        console.log("this.assignedShift.shiftTitleCode "+this.assignedShift.shiftTitleCode);
-        
-       
-        
         this.createdAssignedShift = new CreateAssignShiftReq();
         this.createdAssignedShift.shiftId = this.assignedShift.shiftId;
          this.createdAssignedShift.custid=this.custId;
@@ -134,15 +188,11 @@ export class AssignShiftsComponent implements OnInit {
            this.createdAssignedShift.timeIn=this.assignedShift.timeIn;
            this.createdAssignedShift.timeOut=this.assignedShift.timeOut;
            this.createdAssignedShift.breakTime=this.assignedShift.breakTime;
-         this.createdAssignedShift.fut1="reason for changing new name";
+         this.createdAssignedShift.fut1="";
          this.createdAssignedShift.fut2="";
          this.createdAssignedShift.messageCadidateList=this.selectedNotifiedName;
         this.createdAssignedShift.comments=this.assignedShift.comments;
         this.createdAssignedShift.action="create";
-        
- 
-        console.log();
-       
         
         this.displayDialog=false;
         this.userAvailabilities=[];
@@ -163,8 +213,11 @@ export class AssignShiftsComponent implements OnInit {
         
     }
     
-    nameChanged(event:Event){
+    nameChanged(event:Event,assignedShift:AssignShift){
         this.displayNameChange=true;
+       this.selectedAssignShiftForNameChange=assignedShift;
+        //.selectedName=event.value;
+        console.log(this.selectedAssignShiftForNameChange);
           
     
     }
@@ -189,6 +242,7 @@ getAllAssignedShifts(){
     this.assignShiftService.getAllAssignedShifts(assignShiftRequest).subscribe(assignedShifts => {
         
           assignedShifts.forEach(assignshiftObj =>{
+              
               this.userAvailabilities.push(assignshiftObj);
           } );
                 this.blocked = false;
@@ -208,7 +262,6 @@ getAllAssignedShifts(){
     
     this.assignShiftService.getNewAssignedShiftValue(assignShiftRequest).subscribe(newAssignedShiftDefault => {
         console.log("newAssignedShiftDefault  ----------->"+newAssignedShiftDefault);
-        //this.populateFormattedNames(this.selectedName);
         this.unFormattedNames=newAssignedShiftDefault.nameList;
         this.unFormattedNotifyNames = newAssignedShiftDefault.messageCadidateList;
         this.assignedShift= newAssignedShiftDefault;
@@ -224,7 +277,7 @@ getAllAssignedShifts(){
     }
     
     populateFormattedNames(title:any){
-        let filteredNames : SelectItem[] = [{label:'Select', value:"Select"}];
+        let filteredNames : SelectItem[] = [{label:'Select', value:""}];
         this.unFormattedNames.forEach(function (object) {
         if(object.value.includes(title)){
              //console.log(object.value);
@@ -235,7 +288,7 @@ getAllAssignedShifts(){
         }
            });
         
-        let filteredNotifiedNames : SelectItem[] = [{label:'Select', value:"Select"}];
+        let filteredNotifiedNames : SelectItem[] = [{label:'Select', value:""}];
         this.unFormattedNotifyNames.forEach(function (object) {
         if(object.value.includes(title)){
             // console.log(object.value);
