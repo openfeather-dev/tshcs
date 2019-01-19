@@ -54,7 +54,7 @@ export class AssignShiftsComponent implements OnInit {
     country: any;
 
     filteredCountriesSingle: any[];
-  constructor(private route : ActivatedRoute,private oktaAuth: OktaAuthService,private parentService : CustomerOptionsService,private assignShiftService: AssignShiftsService) { }
+  constructor(private route : ActivatedRoute,private oktaAuth: OktaAuthService,private parentService : CustomerOptionsService,private assignShiftService: AssignShiftsService,private messageService: MessageService) { }
 
   ngOnInit() {
          this.custId = this.route.snapshot.paramMap.get('clientId');
@@ -110,6 +110,7 @@ export class AssignShiftsComponent implements OnInit {
         
     }
     save(){
+        this.blocked = true;
         let  addedAssignShift:AssignShift = new AssignShift();
          addedAssignShift.shiftDate= this.assignedShift.shiftDate;
         addedAssignShift.shiftId = this.assignedShift.shiftId;
@@ -141,23 +142,7 @@ export class AssignShiftsComponent implements OnInit {
         
  
         console.log();
-        /*
-        addedAssignShift.shift = this.assignedShift.shift;
-        addedAssignShift.name = this.assignedShift.name;
-        addedAssignShift.status = this.assignedShift.status;
-        addedAssignShift.timeIn = this.assignedShift.timeIn;
-        addedAssignShift.timeOut = this.assignedShift.timeOut;
-        addedAssignShift.breakTime = this.assignedShift.breakTime;
-        addedAssignShift.notify = this.assignedShift.notify;
-        addedAssignShift.specialNotes = this.assignedShift.specialNotes;
-        addedAssignShift.action = this.assignedShift.action;
-        */
-        
-    
-    
-        //this.userAvailabilities.push(addedAssignShift);
-       // console.log(this.selectedName);
-         //console.log("this.assignedShift "+JSON.stringify(this.assignedShift) );
+       
         
         this.displayDialog=false;
         this.userAvailabilities=[];
@@ -167,25 +152,25 @@ export class AssignShiftsComponent implements OnInit {
           assignedShifts.forEach(assignshiftObj =>{
               this.userAvailabilities.push(assignshiftObj);
           } );
-                  
+             this.messageService.add({severity:'success', summary: 'Success', detail:'The data was successfully saved'});
+             this.blocked = false;     
+        }, error =>{
+          this.messageService.add({severity:'error', summary: 'Error', detail:'The data could not be save please try again!!'});  
+        this.blocked = false;
+         this.getAllAssignedShifts();
         });
-        this.getAllAssignedShifts();
+        
         
     }
     
     nameChanged(event:Event){
- //  console.log("name changed--->"+event.value); 
         this.displayNameChange=true;
           
     
     }
     
-    saveReason(){
-   // console.log(this.changeReason);
-        this.displayNameChange=false;
-        this.changeReason="Select";  
-    }
 getAllAssignedShifts(){
+    this.blocked = true;
     let  assignShiftRequest : AssignShiftReq = new AssignShiftReq();
     assignShiftRequest.customer =  this.custId;
     assignShiftRequest.email='';
@@ -206,7 +191,11 @@ getAllAssignedShifts(){
           assignedShifts.forEach(assignshiftObj =>{
               this.userAvailabilities.push(assignshiftObj);
           } );
-                  
+                this.blocked = false;
+    
+        }, error =>{
+          this.messageService.add({severity:'error', summary: 'Error', detail:'The data for Assigned shifts could not be retrieved!!'});  
+        this.blocked = false;
         });
 
 }
@@ -262,5 +251,13 @@ getAllAssignedShifts(){
         
         console.log(this.selectedName);
     }
+    
+    onSelect(property) {
+        let hour = new Date(property).getHours();
+        let min = new Date(property).getMinutes();
+         console.log("on date select "+property);
+        return property = `${hour}:${min}`;
+       
+        }
     
 }
